@@ -14,6 +14,7 @@ menapak lantai). Gambar benda boleh lebih tinggi dari telapaknya.
 | 3 | Terminal | **4 terminal**, semuanya membuka terminal praktik yang sama; latihan dipilih di dalam panel |
 | 4 | Tabrakan pemain | **Pemain saling menembus** (tanpa tabrakan antarpemain) |
 | 5 | Perpindahan | **Hibrida (diubah, disetujui):** satu peta **`kampus`** yang terhubung untuk halaman luar, lobi, dan perpustakaan (satu ruangan Colyseus, server hanya mengirim pemain di sekitar); **kelas tetap terpisah** lewat pintu (satu ruangan Colyseus per kelas) agar kuis, kursi terkunci, dan chat terisolasi |
+| 9 | Kegiatan kelas tampak dari luar | **Disetujui pemilik proyek (23 Okt 2026):** pemain di dalam kelas hanya melihat peta kelasnya sendiri (fokus belajar). Pemain di kampus melihat **isi ketiga kelas** di denah "tampak": avatar orang yang sedang di kelas digambar di posisi yang sama (duduk di kursinya, dosen di depan). Hanya posisi/arah/pose yang dicerminkan; chat kelas, layar, dan isi kuis **tidak** terlihat dari luar. Peta kelas dan ruangnya di `kampus` berukuran sama, jadi posisi = posisi di kelas + pojok zona `kelas-x (tampak)`. Butuh multipemain (tahap 3) |
 | 6 | Kursi kelas | Bebas memilih kursi kosong; **terkunci saat kuis dimulai**; yang terlambat masuk sebagai **penonton** (tidak ikut dinilai kecuali diizinkan dosen) |
 | 7 | Pembuatan peta | Berkas **Tiled (`.tmj`)** dihasilkan skrip dari spesifikasi ini, lalu bisa disunting di Tiled |
 | 8 | Nama ruangan | Perpustakaan Al-Khawarizmi, Lab Lovelace, Ruang Kolaborasi, Auditorium Turing |
