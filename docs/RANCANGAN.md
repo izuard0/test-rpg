@@ -385,3 +385,4 @@ sekitar 1 menit). Set baru otomatis mendapat versi badan ramping.
 | 6 | Perangkat utama | Laptop, HP, atau keduanya | belum diputuskan |
 | 7 | Perawat kode | Dosen, mahasiswa, atau tim IT kampus (memengaruhi bahasa server) | belum diputuskan |
 | 8 | Nama platform & nama ruangan | Usulan pemilik proyek untuk nama platform: **MITA** (Mayantara Interaktif Tatap-maya Akademik). Ide lain: Kampus Piksel, Gedung Algoritma, InfoVerse, Ruang Kode. Nama ruangan belum ditentukan | MITA diusulkan; belum final |
+| 9 | Skala petak dan benda | Petak game 32 dengan lembar dibesarkan **atau** petak 28 + buat ulang `lobby_floor_wall` dan `lobby_doors` (saran) — lihat `docs/TILES.md` | belum diputuskan; menentukan ukuran semua peta |

@@ -1,0 +1,82 @@
+{
+ "sumber": "assets/tiles/library/library_category_signs.png",
+ "pitchPiksel": [
+  5.12,
+  5.12
+ ],
+ "warnaLatar": [
+  252,
+  4,
+  252
+ ],
+ "ukuranLembar": [
+  199,
+  199
+ ],
+ "sprite": [
+  {
+   "id": 1,
+   "x": 84,
+   "y": 0,
+   "w": 83,
+   "h": 61,
+   "dariLembar": {
+    "x": 10,
+    "y": 9
+   },
+   "petak": [
+    2.59,
+    1.91
+   ],
+   "nama": null
+  },
+  {
+   "id": 2,
+   "x": 168,
+   "y": 0,
+   "w": 83,
+   "h": 61,
+   "dariLembar": {
+    "x": 105,
+    "y": 9
+   },
+   "petak": [
+    2.59,
+    1.91
+   ],
+   "nama": null
+  },
+  {
+   "id": 3,
+   "x": 0,
+   "y": 0,
+   "w": 83,
+   "h": 62,
+   "dariLembar": {
+    "x": 10,
+    "y": 77
+   },
+   "petak": [
+    2.59,
+    1.94
+   ],
+   "nama": null
+  },
+  {
+   "id": 4,
+   "x": 252,
+   "y": 0,
+   "w": 83,
+   "h": 60,
+   "dariLembar": {
+    "x": 105,
+    "y": 94
+   },
+   "petak": [
+    2.59,
+    1.88
+   ],
+   "nama": null
+  }
+ ]
+}

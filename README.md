@@ -14,7 +14,7 @@ Rancangan lengkap dan keputusan yang sudah disepakati ada di
 |---|---|
 | Rancangan, tech stack, aturan chat, login | Selesai (lihat `docs/RANCANGAN.md`) |
 | Prototipe karakter (gerak, kamera, kustomisasi) | Selesai: `prototype/karakter/index.html` |
-| Aset tile (lobi, perpustakaan, kelas) | Gambar sudah ada; belum diolah menjadi tileset |
+| Aset tile (lobi, perpustakaan, kelas) | Sudah diolah jadi 339 sprite transparan (`export/tiles/`); **skala petak belum diputuskan** (`docs/TILES.md`) |
 | Aset NPC, ikon, dua latar layar | Belum dibuat (lihat `belum-dibuat/`) |
 | Klien (Phaser), server (Colyseus), terminal, kuis | Belum dimulai |
 
@@ -32,6 +32,8 @@ Menjalankan ulang pemrosesan aset karakter (butuh Python 3.12):
 pip install -r requirements.txt
 python tools/process_character.py   # gambar mentah -> atlas (± 1 menit)
 python tools/build_sim.py           # bangun ulang halaman prototipe
+python tools/export_character.py    # paket karakter ke export/character/
+python tools/process_tiles.py       # lembar tile -> sprite transparan (± 12 detik)
 ```
 
 Rencana alat klien: Node 24 + npm, TypeScript, Phaser 3 (belum ada di repositori).
@@ -48,6 +50,7 @@ asset-prompts/      prompt pembuatan aset; karakter-hemat/ = kotak masuk gambar 
 belum-dibuat/       daftar aset yang belum dibuat + gambar acuan
 docs/               RANCANGAN.md dan dokumen teknis
 export/character/   paket karakter siap pakai untuk klien (dihasilkan; docs/KARAKTER.md)
+export/tiles/       sprite tile transparan hasil olahan (dihasilkan; docs/TILES.md)
 prototype/karakter/ prototipe karakter (dibangun otomatis, jangan diedit tangan)
 tools/              skrip pemroses aset dan pembuat prototipe
 ```

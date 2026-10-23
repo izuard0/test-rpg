@@ -1,0 +1,146 @@
+{
+ "sumber": "assets/tiles/library/library_effects.png",
+ "pitchPiksel": [
+  5.12,
+  5.12
+ ],
+ "warnaLatar": [
+  252,
+  4,
+  252
+ ],
+ "ukuranLembar": [
+  199,
+  199
+ ],
+ "sprite": [
+  {
+   "id": 1,
+   "x": 155,
+   "y": 0,
+   "w": 19,
+   "h": 23,
+   "dariLembar": {
+    "x": 113,
+    "y": 57
+   },
+   "petak": [
+    0.59,
+    0.72
+   ],
+   "nama": null
+  },
+  {
+   "id": 2,
+   "x": 175,
+   "y": 0,
+   "w": 20,
+   "h": 23,
+   "dariLembar": {
+    "x": 66,
+    "y": 62
+   },
+   "petak": [
+    0.62,
+    0.72
+   ],
+   "nama": null
+  },
+  {
+   "id": 3,
+   "x": 196,
+   "y": 0,
+   "w": 18,
+   "h": 20,
+   "dariLembar": {
+    "x": 21,
+    "y": 67
+   },
+   "petak": [
+    0.56,
+    0.62
+   ],
+   "nama": null
+  },
+  {
+   "id": 4,
+   "x": 215,
+   "y": 0,
+   "w": 18,
+   "h": 20,
+   "dariLembar": {
+    "x": 160,
+    "y": 66
+   },
+   "petak": [
+    0.56,
+    0.62
+   ],
+   "nama": null
+  },
+  {
+   "id": 5,
+   "x": 0,
+   "y": 0,
+   "w": 38,
+   "h": 38,
+   "dariLembar": {
+    "x": 9,
+    "y": 151
+   },
+   "petak": [
+    1.19,
+    1.19
+   ],
+   "nama": null
+  },
+  {
+   "id": 6,
+   "x": 39,
+   "y": 0,
+   "w": 38,
+   "h": 38,
+   "dariLembar": {
+    "x": 56,
+    "y": 151
+   },
+   "petak": [
+    1.19,
+    1.19
+   ],
+   "nama": null
+  },
+  {
+   "id": 7,
+   "x": 78,
+   "y": 0,
+   "w": 38,
+   "h": 38,
+   "dariLembar": {
+    "x": 103,
+    "y": 151
+   },
+   "petak": [
+    1.19,
+    1.19
+   ],
+   "nama": null
+  },
+  {
+   "id": 8,
+   "x": 117,
+   "y": 0,
+   "w": 37,
+   "h": 38,
+   "dariLembar": {
+    "x": 151,
+    "y": 151
+   },
+   "petak": [
+    1.16,
+    1.19
+   ],
+   "nama": null
+  }
+ ]
+}

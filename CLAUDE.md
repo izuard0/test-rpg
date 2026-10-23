@@ -58,6 +58,20 @@ Daftar pilihan, palet, dan aturan karakter ada di **`tools/character_config.json
 - Rambut, hijab, topi, dan atasan digambar **abu-abu muda** lalu diwarnai oleh kode.
   Badan perempuan dibuat dari badan laki-laki lewat kode (`tools/slim.py`).
 
+## Alur aset tile
+
+```
+assets/tiles/<folder>/<lembar>.png  (JPEG; latar polos atau magenta)
+  -> python tools/process_tiles.py   (kisi piksel-seni -> latar dihapus -> sprite -> atlas)
+  -> export/tiles/<lembar>/{atlas.png, atlas.json, sheet.png, preview.png}
+```
+
+**Baca `docs/TILES.md` sebelum membuat peta.** Skala belum dinormalisasi: petak
+sebenarnya sekitar 26–28 px (lobi sekitar 20 px), bukan 32; pintu lebih pendek dari
+karakter; efek semi-transparan menjadi balok buram. Ukuran petak game adalah
+keputusan terbuka no. 9 di `docs/RANCANGAN.md`; jangan menetapkannya diam-diam.
+`nama` sprite di `atlas.json` masih kosong; isi dengan melihat `preview.png`.
+
 ## Jebakan yang sudah ditemui (hemat waktu)
 
 - Gambar Gemini selalu **JPEG** walau dinamai `.png`; latarnya magenta `#FF00FF`

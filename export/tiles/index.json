@@ -1,0 +1,138 @@
+{
+ "auditorium_seats": {
+  "sumber": "assets/tiles/classroom/auditorium_seats.png",
+  "pitchPiksel": [
+   5.12,
+   5.12
+  ],
+  "jumlahSprite": 16
+ },
+ "classroom_floor_wall": {
+  "sumber": "assets/tiles/classroom/classroom_floor_wall.png",
+  "pitchPiksel": [
+   5.12,
+   5.12
+  ],
+  "jumlahSprite": 39
+ },
+ "classroom_front": {
+  "sumber": "assets/tiles/classroom/classroom_front.png",
+  "pitchPiksel": [
+   5.12,
+   5.12
+  ],
+  "jumlahSprite": 14
+ },
+ "lab_computer_desks": {
+  "sumber": "assets/tiles/classroom/lab_computer_desks.png",
+  "pitchPiksel": [
+   5.12,
+   5.12
+  ],
+  "jumlahSprite": 16
+ },
+ "room_signs": {
+  "sumber": "assets/tiles/classroom/room_signs.png",
+  "pitchPiksel": [
+   5.12,
+   5.12
+  ],
+  "jumlahSprite": 14
+ },
+ "smart_class_pods": {
+  "sumber": "assets/tiles/classroom/smart_class_pods.png",
+  "pitchPiksel": [
+   5.12,
+   5.12
+  ],
+  "jumlahSprite": 14
+ },
+ "library_bookshelves": {
+  "sumber": "assets/tiles/library/library_bookshelves.png",
+  "pitchPiksel": [
+   4.45,
+   4.45
+  ],
+  "jumlahSprite": 12
+ },
+ "library_category_signs": {
+  "sumber": "assets/tiles/library/library_category_signs.png",
+  "pitchPiksel": [
+   5.12,
+   5.12
+  ],
+  "jumlahSprite": 4
+ },
+ "library_effects": {
+  "sumber": "assets/tiles/library/library_effects.png",
+  "pitchPiksel": [
+   5.12,
+   5.12
+  ],
+  "jumlahSprite": 8
+ },
+ "library_floor_wall": {
+  "sumber": "assets/tiles/library/library_floor_wall.png",
+  "pitchPiksel": [
+   5.12,
+   5.12
+  ],
+  "jumlahSprite": 29
+ },
+ "library_furniture": {
+  "sumber": "assets/tiles/library/library_furniture.png",
+  "pitchPiksel": [
+   5.12,
+   5.12
+  ],
+  "jumlahSprite": 11
+ },
+ "library_terminals": {
+  "sumber": "assets/tiles/library/library_terminals.png",
+  "pitchPiksel": [
+   5.12,
+   5.12
+  ],
+  "jumlahSprite": 20
+ },
+ "lobby_decor": {
+  "sumber": "assets/tiles/lobby/lobby_decor.png",
+  "pitchPiksel": [
+   4.92,
+   4.92
+  ],
+  "jumlahSprite": 23
+ },
+ "lobby_doors": {
+  "sumber": "assets/tiles/lobby/lobby_doors.png",
+  "pitchPiksel": [
+   5.12,
+   5.12
+  ],
+  "jumlahSprite": 20
+ },
+ "lobby_floor_wall": {
+  "sumber": "assets/tiles/lobby/lobby_floor_wall.png",
+  "pitchPiksel": [
+   6.4,
+   6.4
+  ],
+  "jumlahSprite": 62
+ },
+ "lobby_furniture": {
+  "sumber": "assets/tiles/lobby/lobby_furniture.png",
+  "pitchPiksel": [
+   4.92,
+   4.92
+  ],
+  "jumlahSprite": 26
+ },
+ "lobby_tech": {
+  "sumber": "assets/tiles/lobby/lobby_tech.png",
+  "pitchPiksel": [
+   4.92,
+   4.92
+  ],
+  "jumlahSprite": 11
+ }
+}
