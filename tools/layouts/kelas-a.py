@@ -48,5 +48,5 @@ LAYOUT = {
     "objects": objects,
     "doors": [{"rect": [0, 17, 1, 2], "target": "kampus", "spawn": "dari_lab_lovelace", "label": "Ke Lobi"}],
     "spawns": [{"name": "dari_lobi", "tile": [2, 18]}],
-    "zones": [{"name": "kelas-a", "rect": [0, 0, 20, 21], "chatRadius": 3, "chatPublic": False}],
+    "zones": [{"name": "kelas-a", "rect": [0, 0, 20, 21], "chatRadius": 3, "chatPublic": True}],
 }

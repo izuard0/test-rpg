@@ -50,5 +50,5 @@ LAYOUT = {
     "objects": objects,
     "doors": [{"rect": [0, 17, 1, 2], "target": "kampus", "spawn": "dari_kelas_c", "label": "Ke Lobi"}],
     "spawns": [{"name": "dari_lobi", "tile": [1.5, 18.5]}],  # [2, 18] berada di dalam meja baris terakhir
-    "zones": [{"name": "kelas-c", "rect": [0, 0, 28, 21], "chatRadius": 3, "chatPublic": False}],
+    "zones": [{"name": "kelas-c", "rect": [0, 0, 28, 21], "chatRadius": 3, "chatPublic": True}],
 }

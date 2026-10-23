@@ -33,6 +33,9 @@ RUN npm ci --omit=dev --workspace server --include-workspace-root=false --no-aud
  && npm cache clean --force
 COPY --from=build /app/server/dist server/dist
 COPY --from=build /app/client/dist client/dist
+# Data peta dan konfigurasi karakter untuk server game (tabrakan, zona chat, kursi).
+COPY maps/*.tmj maps/
+COPY export/character/config.json export/character/
 ARG APP_VERSION=dev
 ENV APP_VERSION=$APP_VERSION
 USER node

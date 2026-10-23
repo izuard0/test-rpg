@@ -234,17 +234,36 @@ Pesan tampil sebagai **gelembung di atas kepala** karakter dan di kotak chat.
 Kelompok terbentuk dengan tiga cara: otomatis per meja di Ruang Kolaborasi,
 dibagi oleh dosen, atau ajakan antarmahasiswa.
 
+### Keputusan versi pertama (disetujui pemilik proyek, 23 Okt 2026)
+
+- Tiga mode di versi pertama: **Sekitar** (bawaan), **Global** (nama di layar untuk mode Publik),
+  dan **Pribadi** (mode Berdua, dimajukan dari "menyusul"). Kelompok tetap menyusul.
+- **Radius Sekitar 3 petak di semua ruangan** (menggantikan 5 petak di lobi).
+- **Global = satu gedung kampus** (lobi, koridor, perpustakaan, ruang kecil). Pemain di dalam
+  kelas punya Global kelasnya sendiri, jadi obrolan kampus tidak masuk ke kelas.
+- Global di kampus dibatasi **1 pesan per 10 detik per orang**; di kelas tanpa batas tambahan
+  (kecuali saat kuis).
+- Chatbox di **kiri bawah**; `Enter` mulai/kirim; bisa dikecilkan; di HP lewat tombol 💬.
+- **Izin chat pribadi:**
+
+  | Pengirim → Penerima | Aturan |
+  |---|---|
+  | Mahasiswa → Mahasiswa | langsung |
+  | Dosen → Mahasiswa | langsung; mahasiswa bisa membalas |
+  | Dosen → Dosen | langsung |
+  | Mahasiswa → Dosen | **minta izin**: permintaan + pesan pembuka (≤ 100 karakter); dosen menekan Terima/Tolak; izin berlaku selama sesi (berakhir bila salah satu keluar atau dosen menutup percakapan); permintaan kedaluwarsa 10 menit; satu permintaan aktif per dosen, jeda setelah ditolak; dosen bisa membisukan permintaan sementara |
+
+  Semua aturan dicek di server. Selama akun masih mode uji, peran dipilih sendiri saat
+  daftar; aturan ini baru aman setelah NIP diverifikasi (tahap 5).
+
 ### Aturan per ruangan
 
-| Ruangan | Sekitar | Publik | Berdua | Kelompok |
+| Ruangan | Sekitar | Global | Pribadi | Kelompok |
 |---|---|---|---|---|
-| Lobi | ✔ bawaan, radius 5 petak | dibatasi | ✔ | ✔ |
-| Perpustakaan | ✔ radius 3 petak | ✘ (ruang tenang) | ✔ | ✔ |
-| Kelas (bukan kuis) | ✔ | ✔ | ✔ | ✔ bawaan di Kelas B |
+| Kampus: lobi, koridor, ruang kecil | ✔ bawaan, radius 3 petak | ✔, 1 pesan / 10 detik | ✔ | menyusul |
+| Perpustakaan | ✔ radius 3 petak | ✘ kirim (ruang tenang), tetap menerima | ✔ | menyusul |
+| Kelas (bukan kuis) | ✔ | ✔ (khusus kelas itu) | ✔ | menyusul |
 | Kelas (saat kuis) | ✘ | dosen saja | ✘ | ✘ |
-
-"Dibatasi" di lobi: misalnya 1 pesan per 10 detik, atau hanya dosen/asisten
-(untuk pengumuman). Angka final ditentukan saat uji coba.
 
 ### Detail perilaku
 

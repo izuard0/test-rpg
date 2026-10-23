@@ -5,16 +5,20 @@
 import { existsSync } from "node:fs";
 import fastifyStatic from "@fastify/static";
 import Fastify, { type FastifyInstance } from "fastify";
+import { attachGame, type GameOptions } from "./game/index.js";
 
 export interface AppOptions {
   /** Folder hasil `vite build` (client/dist). */
   clientDir: string;
   version?: string;
   logger?: boolean;
+  /** Server multipemain (Colyseus); tanpa opsi ini hanya HTTP. */
+  game?: GameOptions;
 }
 
 export async function buildApp(opts: AppOptions): Promise<FastifyInstance> {
-  const app = Fastify({ logger: opts.logger ?? false, trustProxy: true });
+  // forceCloseConnections: koneksi keep-alive dan WebSocket ikut ditutup saat server berhenti.
+  const app = Fastify({ logger: opts.logger ?? false, trustProxy: true, forceCloseConnections: true });
   const startedAt = Date.now();
 
   // Dipakai health check Coolify / Docker.
@@ -23,6 +27,8 @@ export async function buildApp(opts: AppOptions): Promise<FastifyInstance> {
     version: opts.version ?? "dev",
     uptime: Math.round((Date.now() - startedAt) / 1000),
   }));
+
+  if (opts.game) await attachGame(app, opts.game);
 
   if (existsSync(opts.clientDir)) {
     await app.register(fastifyStatic, {

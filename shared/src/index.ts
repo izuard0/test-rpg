@@ -6,3 +6,4 @@ export * from "./pseudocode/index.js";
 export * from "./sql.js";
 export * from "./latihan.js";
 export * from "./sql-alter.js";
+export * from "./net.js";
