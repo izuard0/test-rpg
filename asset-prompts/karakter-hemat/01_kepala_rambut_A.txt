@@ -1,0 +1,53 @@
+=====================================================================
+ GAMBAR 01 / 14 · RAMBUT A (5 gaya)
+=====================================================================
+
+LAMPIRKAN GAMBAR ACUAN
+  assets\characters\base\base_body.png
+
+SIMPAN HASIL SEBAGAI
+  assets\characters\raw\kepala_rambut_A.png
+  Isi baris (untuk catatan):
+    baris 1 -> hair_short_01
+    baris 2 -> hair_short_02
+    baris 3 -> hair_buzz
+    baris 4 -> hair_curly
+    baris 5 -> hair_undercut
+  (ukuran berapa pun boleh, makin besar makin baik; Claude yang memperkecil)
+
+MENGAPA HANYA KEPALA, 4 ARAH?
+  Item kepala ikut gerak kepala. Frame jalan (12 pose) dibuat otomatis
+  oleh Claude dengan mengikuti gerakan kepala di base_body.png.
+
+---------------------------------------------------------------------
+PROMPT (salin semua teks di antara garis)
+---------------------------------------------------------------------
+Use the attached reference image as the strict style guide. Match its exact pixel art style: same outline thickness and color, same shading and highlight style, same level of detail, same top-down 3/4 perspective and the same color palette. The new asset must look like it belongs to the same game as the reference.
+
+Pixel art, 16-bit style, top-down 3/4 view like Stardew Valley and classic SNES RPGs, crisp hard pixel edges, no anti-aliasing, no blur, no gradients, limited palette. Theme: a modern, clean and cozy computer science faculty. Base colors deep navy #1B2A41, slate grey #4F5D6E, cream #F7F5F0 and warm wood #9C6B43; soft orange #E8833A highlights; cyan #3FC1C9 only for screens and LEDs. No text, no readable letters.
+
+Draw a grid of character HEADS only (head and neck, no body), 5 rows x 4 columns. Columns from left to right: head facing down (toward viewer), facing left, facing right, facing up (back of head). Every head is exactly the same bald head shape, size and face as the reference mannequin, evenly spaced with clear gaps between cells. Each row shows a different item worn on the head:
+Row 1: light grey short neat side-part hair
+Row 2: light grey short messy hair, slightly sleepy look
+Row 3: light grey very short buzz cut
+Row 4: light grey short curly hair
+Row 5: light grey modern undercut with longer top
+
+Classic hand-pixeled 16-bit JRPG sprite art, NOT vector, NOT flat design, NOT geometric shapes, NOT an icon. Each material has 3 to 4 shades (highlight, base color, shadow, dark outline), consistent light from the top-left, organic rounded silhouettes, visible hair strands and cloth folds, selective dark outlines.
+
+Solid flat magenta #FF00FF background.
+---------------------------------------------------------------------
+
+PERIKSA SEBELUM MENYIMPAN
+[ ] Gaya terlihat satu keluarga dengan base_body.png (garis tepi, bayangan, palet).
+[ ] Bukan "pixel datar": ada 3-4 tingkat warna, helai rambut / lipatan kain.
+[ ] Latar magenta polos (atau transparan).
+[ ] Tidak ada tulisan atau huruf.
+[ ] Disimpan sebagai PNG (bukan JPEG yang diberi nama .png).
+[ ] 5 baris x 4 kolom, urutan kolom: bawah, kiri, kanan, atas.
+[ ] Bentuk dan ukuran kepala SAMA di semua sel dan sama dengan acuan.
+[ ] Setiap baris berisi item yang benar, sesuai urutan di prompt.
+
+Jika tidak lolos: ulangi sekali dengan menambahkan di akhir prompt
+"more detailed shading, same style as the reference". Jika masih gagal,
+lanjutkan ke gambar berikutnya dan catat nomornya untuk Claude.

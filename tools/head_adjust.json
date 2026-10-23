@@ -1,0 +1,10 @@
+{
+  "_keterangan": "Penyetelan posisi kepala per jenis kelamin, gaya & arah (piksel). dy negatif = naik, dx negatif = ke kiri. Aksesori kepala ikut bergeser. 'locked' = jenis kelamin yang sudah final (alat setel dimatikan).",
+  "locked": ["L"],
+  "L": {
+    "hair_short_01": {"up": {"dy": -4}, "down": {"dy": -1}}
+  },
+  "P": {
+    "hair_short_01": {"up": {"dy": -4}, "down": {"dy": -1}}
+  }
+}

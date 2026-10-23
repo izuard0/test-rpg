@@ -1,0 +1,94 @@
+=====================================================================
+ DAFTAR LENGKAP ASET YANG BELUM DIBUAT + PROMPT SIAP TEMPEL
+ Folder ini merangkum semua aset yang belum dibuat (12 gambar) beserta
+ gambar acuan di subfolder `acuan\` dan prompt utuh (sudah digabung
+ dengan Kalimat Acuan + Blok Gaya + Aturan Anti-Datar).
+=====================================================================
+
+RINGKASAN STATUS ASET
+---------------------
+* SUDAH SELESAI & DIKELUARKAN DARI DAFTAR INI:
+  - 10 File Utama Awal di `assets\` (base_body, base_body_sit, lab_computer_desks,
+    4 file library, 3 file lobby).
+  - Pose (`assets\characters\base\base_body_typing.png`) & seluruh paket
+    Karakter Kustom (`asset-prompts\karakter-hemat\` 01–14) — SUDAH SELESAI.
+  - 5 File Ruang Kelas (`classroom_floor_wall.png`, `classroom_front.png`,
+    `smart_class_pods.png`, `auditorium_seats.png`, `room_signs.png`) — SUDAH SELESAI.
+  - 4 File Sisa Lobi & Perpustakaan (`lobby_tech.png`, `lobby_decor.png`,
+    `library_category_signs.png`, `library_effects.png`) — SUDAH SELESAI.
+  - 1 File Latar Layar (`backgrounds\bg_title.png`) — SUDAH SELESAI.
+
+* BELUM DIBUAT (Total 12 Gambar):
+  - Ikon, Lencana & Emote Gabungan (`assets\items\`) : 1 gambar utuh (No. 01)
+  - NPC (`assets\npc\`)                              : 8 gambar (No. 02 - 09)
+  - Sisa Latar Layar (`assets\backgrounds\`)          : 3 gambar (No. 10 - 12)
+
+
+=====================================================================
+ 1. IKON, LENCANA, EMOTE & INDIKATOR — 1 GAMBAR UTUH (HEMAT KUOTA)
+ Simpan di: assets\items\items_all_in_one.png (nanti dipotong-potong)
+ Gambar Acuan (lampirkan): belum-dibuat\acuan\library_terminals.png
+=====================================================================
+
+[ ] 01. items_all_in_one.png (Gabungan icons_learning, icons_quiz, badges, emotes, interact_indicator)
+Prompt Siap Tempel:
+Use the attached reference image as the strict style guide. Match its exact pixel art style: same outline thickness and color, same shading and highlight style, same level of detail, and the same color palette. The new asset must look like it belongs to the same game as the reference. Pixel art, 16-bit style, crisp hard pixel edges, no anti-aliasing, no blur, no gradients, limited palette of 32 colors. Base colors deep navy #1B2A41, slate grey #4F5D6E, cream #F7F5F0 and warm wood #9C6B43; soft orange #E8833A for highlights; cyan #3FC1C9 for glowing screens; terminal-green #6CC3A2 details.
+
+A complete all-in-one game UI icon, badge, and emote master sprite sheet arranged in a clean 8 columns x 8 rows grid (64 distinct small sprites, evenly spaced, no text, no readable letters):
+- ROWS 1 to 2 (16 Learning & CS Icons): 1) blue textbook, 2) orange textbook, 3) open book, 4) web page with angle brackets, 5) slide presentation screen, 6) code editor window with colored lines, 7) terminal window with cursor block, 8) flowchart diagram, 9) circular loop arrow, 10) row of array boxes, 11) magnifying glass over boxes, 12) glowing lightbulb, 13) brain with circuit lines, 14) cute robot head, 15) laptop, 16) file folder.
+- ROWS 3 to 4 (12 Quiz Icons + 4 Interaction Indicators): 1) question mark bubble, 2) green check mark, 3) red cross, 4) hourglass timer, 5) stopwatch, 6) gold trophy, 7) silver trophy, 8) bronze trophy, 9) gold star, 10) raised hand, 11) keyboard key with check mark, 12) three-step podium, 13) soft orange #E8833A down arrow indicator, 14) soft orange #E8833A exclamation mark indicator, 15) glowing cyan #3FC1C9 cursor block indicator, 16) finger tap icon.
+- ROWS 5 to 6 (16 Round Achievement Badges with Ribbons): round medals with ribbons, each having a distinct symbol inside: 1) waving hand in terminal, 2) open door, 3) book with glasses, 4) circular loop arrow, 5) highlighted array boxes, 6) magnifying glass on a bug, 7) yellow rubber duck, 8) trophy badge, 9) star badge, 10) steaming coffee cup, 11) speech bubbles, 12) git branching lines, 13) lightning bolt, 14) shield with checkmark, 15) circuit chip, 16) graduation cap.
+- ROWS 7 to 8 (16 Emote Speech Bubbles): white pixel speech bubbles with a small tail, each containing a distinct emote inside: 1) smile face, 2) laugh face, 3) red heart, 4) thumbs up, 5) question mark, 6) exclamation mark, 7) sweat drop, 8) sleeping Zzz, 9) idea lightbulb, 10) clapping hands, 11) waving hand, 12) coffee cup, 13) small bug, 14) loading spinner, 15) green check, 16) fire flame.
+
+Classic hand-pixeled 16-bit JRPG icon art, NOT vector, NOT flat design, 3 to 4 shades per material, consistent top-left light, selective dark outlines. Solid flat magenta #FF00FF background.
+
+
+=====================================================================
+ 2. NPC (8 GAMBAR)
+ Simpan di: assets\npc\
+ Gambar Acuan: belum-dibuat\acuan\base_body.png
+=====================================================================
+
+--- TEMPLATE UNTUK 6 NPC MANUSIA ---
+Lampirkan `acuan\base_body.png`, lalu tempel prompt berikut dan ganti
+<DESKRIPSI> sesuai daftar:
+
+Prompt Siap Tempel:
+Use the attached reference image as the strict style guide. Match its exact pixel art style: same outline thickness and color, same shading and highlight style, same level of detail, same top-down 3/4 perspective and the same color palette. The new asset must look like it belongs to the same game as the reference. Pixel art, 16-bit style, top-down 3/4 view like Stardew Valley and classic SNES RPGs, crisp hard pixel edges, no anti-aliasing, no blur, no gradients, limited palette of 32 colors. A complete fully dressed character sprite sheet with exactly the same layout (3 columns x 4 rows), proportions and 12 poses as the reference mannequin: <DESKRIPSI>. Solid flat magenta #FF00FF background. Classic hand-pixeled 16-bit JRPG sprite art, NOT vector, NOT flat design, NOT geometric shapes, NOT an icon. Each material has 3 to 4 shades (highlight, base color, shadow, dark outline), consistent light from the top-left, organic rounded silhouettes, visible hair strands and cloth folds, expressive face, selective dark outlines.
+
+[ ] 02. npc_lecturer.png       -> a friendly computer science lecturer in a neat batik shirt and black trousers, glasses, holding a laptop
+[ ] 03. npc_lecturer_hijab.png -> a friendly female computer science lecturer wearing a navy hijab, batik blouse and long skirt, holding a laptop
+[ ] 04. npc_librarian.png      -> a calm librarian in a brown cardigan with a tablet and a lanyard, short neat hair, round glasses
+[ ] 05. npc_lab_assistant.png  -> a student lab assistant wearing the navy almamater jacket over an orange hoodie, headset around the neck, holding a network cable
+[ ] 06. npc_it_support.png     -> an IT support staff in a blue polo shirt carrying a small toolbox
+[ ] 07. npc_security.png       -> a campus security guard in navy/white uniform and security cap
+
+--- 2 NPC MASKOT & ROBOT ---
+
+[ ] 08. npc_rubber_duck.png
+Prompt Siap Tempel:
+Use the attached reference image as the strict style guide. Match its exact pixel art style: same outline thickness and color, same shading and highlight style, same level of detail, same top-down 3/4 perspective and the same color palette. Pixel art, 16-bit style, top-down 3/4 view, crisp hard pixel edges, no anti-aliasing, no gradients. Sprite sheet of a cute yellow rubber duck mascot with tiny round glasses, 4 rows (facing down, left, right, up) x 3 waddle frames, same shading style as the reference. Solid flat magenta #FF00FF background. Classic hand-pixeled 16-bit JRPG sprite art, NOT vector, NOT flat design, organic rounded silhouettes, 3 to 4 shades, selective dark outlines.
+
+[ ] 09. npc_robot.png
+Prompt Siap Tempel:
+Use the attached reference image as the strict style guide. Match its exact pixel art style: same outline thickness and color, same shading and highlight style, same level of detail, same top-down 3/4 perspective and the same color palette. Pixel art, 16-bit style, top-down 3/4 view, crisp hard pixel edges, no anti-aliasing, no gradients. Sprite sheet of a small friendly wheeled helper robot with a dark navy screen face showing simple cyan pixel eyes, 4 rows (facing down, left, right, up) x 3 frames, same shading style as the reference. Solid flat magenta #FF00FF background. Classic hand-pixeled 16-bit JRPG sprite art, NOT vector, NOT flat design, 3 to 4 shades, selective dark outlines.
+
+
+=====================================================================
+ 3. LATAR LAYAR / BACKGROUNDS (3 GAMBAR SISA)
+ Simpan di: assets\backgrounds\
+ Gambar Acuan: belum-dibuat\acuan\lobby_floor_wall.png
+               + belum-dibuat\acuan\library_furniture.png
+=====================================================================
+
+[ ] 10. bg_register.png
+Prompt Siap Tempel:
+Use the attached reference image as the strict style guide. Match its exact pixel art style: same outline thickness and color, same shading and highlight style, same level of detail, and the same color palette. Pixel art, 16-bit style, 16:9 wide cozy student desk setup at night: laptop and a second monitor glowing cyan #3FC1C9, mechanical keyboard, coffee mug, small yellow rubber duck, blank sticky notes, bookshelf with programming books, warm desk lamp, window with city lights at night, clear empty area in the center for a form panel, no text, no readable letters.
+
+[ ] 11. bg_loading.png
+Prompt Siap Tempel:
+Use the attached reference image as the strict style guide. Match its exact pixel art style: same outline thickness and color, same shading and highlight style, and the same color palette. Pixel art, 16-bit style, 16:9 dark navy (#1B2A41) background with a faint circuit-board grid pattern, empty terminal-style progress bar outline in the center, a small yellow rubber duck with tiny glasses in the bottom right corner, no text, no readable letters.
+
+[ ] 12. tiles_outdoor.png (Opsional)
+Prompt Siap Tempel:
+Use the attached reference image as the strict style guide. Match its exact pixel art style: same outline thickness and color, same shading and highlight style, same level of detail, same top-down 3/4 perspective and the same color palette. Pixel art, 16-bit style, top-down 3/4 view, crisp hard pixel edges, no anti-aliasing. Outdoor campus tileset: grass (4 variations), paved campus path, flower beds, trees, benches with charging ports, lampposts, bicycle rack, front facade of a modern two-story computer science building with glass entrance and blank sign board, no text, no readable letters. Solid flat magenta #FF00FF background.

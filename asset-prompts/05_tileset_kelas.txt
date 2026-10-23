@@ -1,0 +1,82 @@
+=====================================================================
+ 05 · TILESET KELAS — TIGA JENIS RUANG KHAS INFORMATIKA
+=====================================================================
+Agar tiap kelas punya karakter sendiri (bukan hanya beda jumlah kursi):
+
+  Kelas A · 30 kursi : LAB KOMPUTER
+      meja panjang berisi komputer, 6 baris x 5 kursi, ± 20 x 16 petak
+      cocok untuk kuis praktik / latihan menulis pseudocode
+  Kelas B · 45 kursi : KELAS PINTAR (SMART CLASSROOM)
+      meja berkelompok (pod) berisi 5 kursi, 9 pod, ± 24 x 18 petak
+      cocok untuk kuis kelompok / diskusi
+  Kelas C · 60 kursi : AUDITORIUM
+      kursi lipat bertingkat, 6 baris x 10 kursi, layar raksasa, ± 28 x 20 petak
+      cocok untuk kuis besar / kuliah umum
+
+Cara kerja di game:
+  - Pemain mendekati kursi kosong -> kursi menyala oranye -> duduk.
+  - Saat duduk di Lab Komputer, monitor di depannya menyala (cyan).
+  - Dosen (NPC atau dosen sungguhan) memulai kuis -> panel kuis muncul.
+  - Layar proyektor/layar besar di depan menampilkan slide HTML atau soal.
+
+PENTING: semua kursi menghadap ke ATAS (ke arah depan kelas), sehingga pemain
+yang duduk terlihat dari belakang.
+
+---------------------------------------------------------------------
+PROMPT 5.1 — LAB KOMPUTER (KELAS A)
+---------------------------------------------------------------------
+[blok gaya] Computer lab furniture sprites, top-down 3/4 view, aligned to a
+32x32 grid: long lab desk segment (1 tile per seat) with a desktop monitor,
+keyboard and mouse, seen from behind (seat side facing down toward the
+viewer, monitor facing up), monitor off and monitor on (cyan glow), an
+office chair behind each desk, the same seat highlighted with soft orange
+outline (#E8833A), the same seat occupied (chair partly hidden so a sitting
+character can be drawn on top), desk end pieces, cable tray under desks,
+network switch box on the wall with blinking LEDs (2 frames).
+
+---------------------------------------------------------------------
+PROMPT 5.2 — KELAS PINTAR (KELAS B)
+---------------------------------------------------------------------
+[blok gaya] Smart classroom furniture sprites aligned to a 32x32 grid:
+hexagonal group table for 5 students (3x3 tiles) with a small shared screen
+in the center (off and on), colorful modern chairs around it (each chair as
+a separate 1x1 sprite in 4 facing directions), chair highlighted version,
+mobile whiteboard (2x2) with diagram scribbles (no letters), wall-mounted
+TV screen (3x2) off and on.
+
+---------------------------------------------------------------------
+PROMPT 5.3 — AUDITORIUM (KELAS C)
+---------------------------------------------------------------------
+[blok gaya] Lecture auditorium sprites aligned to a 32x32 grid: folding
+auditorium seat facing up (1x1) in navy fabric, seat with fold-out writing
+tablet, seat highlighted with soft orange outline, seat occupied version;
+tiered floor step tiles with edge lighting strips (stairs going up toward
+the back), aisle carpet tiles, giant projection screen at the front
+(8x4 tiles) with plain white surface, stage floor with edge pieces,
+lectern podium with a laptop and microphone (1x2), stage speakers.
+
+---------------------------------------------------------------------
+PROMPT 5.4 — BAGIAN DEPAN KELAS (DIPAKAI SEMUA KELAS)
+---------------------------------------------------------------------
+[blok gaya] Front of classroom sprites aligned to a 32x32 grid: large
+whiteboard on wall (4x2) with faint leftover marker scribbles of flowchart
+boxes and arrows (no letters), interactive smart board (4x2) off and on,
+pull-down projector screen (4x3) with plain white surface, ceiling projector
+shadow, lecturer desk with laptop and document camera (3x1), wall clock,
+air conditioner, small speaker, CCTV dome camera.
+
+---------------------------------------------------------------------
+PROMPT 5.5 — LANTAI & DINDING KELAS
+---------------------------------------------------------------------
+[blok gaya] Classroom interior tileset, 32x32 tiles in a grid 8 columns wide:
+light grey anti-static vinyl floor (4 variations), raised floor tiles with
+small vent grilles (typical computer lab), navy carpet for the auditorium,
+light blue-grey walls with navy baseboard (straight, inner and outer corners),
+acoustic wall panels for the auditorium, windows with blinds, door frame.
+
+---------------------------------------------------------------------
+PROMPT 5.6 — PENANDA RUANGAN (OPSIONAL)
+---------------------------------------------------------------------
+[blok gaya] Small digital door sign screens 32x16 pixels, dark navy frame,
+blank glowing surface, three accent colors (blue, orange, green) for
+Class A, B and C. No text.

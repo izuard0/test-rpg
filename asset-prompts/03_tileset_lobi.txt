@@ -1,0 +1,74 @@
+=====================================================================
+ 03 · TILESET LOBI — "HANGOUT" ALA RUANG KOMUNITAS TEKNOLOGI (MAKS 100 ORANG)
+=====================================================================
+Perkiraan ukuran peta lobi: 40 x 28 petak (1280 x 896 px).
+Suasana: gabungan lobi kampus + ruang komunitas teknologi (hackerspace):
+santai, banyak tempat duduk, ada layar besar dan pojok-pojok menarik.
+
+Usulan tata letak (disusun oleh game):
+  - pintu masuk utama di bawah tengah, meja informasi di dekatnya
+  - 3 pintu kelas di sisi kiri, pintu perpustakaan besar di sisi kanan
+  - LAYAR BESAR (video wall) di dinding atas: menampilkan papan peringkat
+    kuis, pengumuman, atau jadwal kuliah (isi dibuat oleh game)
+  - pojok bean bag + meja rendah (nongkrong)
+  - pojok kopi (coffee bar kecil)
+  - meja panjang dengan colokan listrik (ngerjain tugas bareng)
+  - pojok pameran: robot lengan, printer 3D, lemari kaca berisi komponen
+  - pojok arcade: 1-2 mesin arcade retro (bisa jadi mini-game nanti)
+  - titik muncul (spawn) pemain di dekat pintu masuk
+
+---------------------------------------------------------------------
+PROMPT 3.1 — LANTAI & DINDING
+---------------------------------------------------------------------
+[blok gaya] Interior tileset of a modern computer science faculty lobby,
+32x32 tiles in a grid sheet 8 columns wide: polished light grey concrete
+floor (4 variations), navy carpet with a subtle thin circuit-trace pattern
+in slightly lighter navy (with edges and corners), warm wood floor area,
+cream walls with navy lower panels (straight, inner corner, outer corner),
+wall top edges seen from above, large glass windows, exposed cable tray
+along the ceiling edge, pillars with small LED strips.
+
+---------------------------------------------------------------------
+PROMPT 3.2 — PERABOT NONGKRONG
+---------------------------------------------------------------------
+[blok gaya] Furniture sprites for a tech community lounge, top-down 3/4 view,
+aligned to a 32x32 grid (objects 1x1, 2x1, 2x2 or 3x2 tiles): bean bags in
+navy, orange and grey; low round coffee table; modular sofa pieces; long
+shared work table with power sockets (4x1); high stools; standing desk;
+large potted monstera plants; small succulents; trash and recycling bins;
+water dispenser; small coffee bar counter with an espresso machine (3x2).
+
+---------------------------------------------------------------------
+PROMPT 3.3 — BENDA KHAS INFORMATIKA
+---------------------------------------------------------------------
+[blok gaya] Tech decoration sprites aligned to a 32x32 grid, each with an
+"off" and "on" (glowing cyan #3FC1C9 screen) version when it has a screen:
+- large video wall made of 6 monitors (6x3 tiles), plain glowing surface
+- information kiosk touchscreen stand (1x2)
+- retro arcade cabinet (1x2), screen off and on
+- glass display case with circuit boards and small robots (2x2)
+- small industrial robot arm on a pedestal (2x2)
+- 3D printer on a table (1x1)
+- small server rack with blinking green LEDs (1x2), 2-frame blink animation
+- whiteboard on wheels covered in colorful diagram scribbles, no letters (2x2)
+- wall-mounted network router with blinking lights (1x1)
+
+---------------------------------------------------------------------
+PROMPT 3.4 — PINTU (DENGAN VERSI TERBUKA & DISOROT)
+---------------------------------------------------------------------
+[blok gaya] Door sprites: automatic glass sliding door 64x64 closed and open;
+modern classroom door 32x64 with a small digital room-number screen above it
+(screen blank, no text), closed, open, and highlighted with soft orange
+outline (#E8833A); library double door 64x64 in dark wood with a glowing
+cyan access-card reader, closed, open, and highlighted.
+
+Catatan: tulisan "Lab Komputer · 30", "Perpustakaan Digital", dll.
+ditampilkan oleh game di layar kecil di atas pintu.
+
+---------------------------------------------------------------------
+PROMPT 3.5 — DEKORASI SUASANA (OPSIONAL)
+---------------------------------------------------------------------
+[blok gaya] Small decoration sprites, 32x32 each: framed abstract tech posters
+(no text), a hanging pendant lamp shadow, sunlight patch from a window
+(semi-transparent overlay), cable floor cover strip, charging station with
+phones, a small trophy cabinet, floor arrow sticker.

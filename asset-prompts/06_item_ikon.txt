@@ -1,0 +1,57 @@
+=====================================================================
+ 06 · ITEM, IKON, LENCANA, EMOTE — TEMA INFORMATIKA
+=====================================================================
+
+---------------------------------------------------------------------
+PROMPT 6.1 — IKON MATERI & BELAJAR (32x32)
+---------------------------------------------------------------------
+[blok gaya] Icon set, 16 icons in a 4x4 grid, each 32x32 pixels, transparent:
+closed textbook blue, closed textbook orange, open book, web page document
+with angle-bracket shape, slide presentation screen, code editor window with
+colored lines (no letters), terminal window with a blinking cursor block,
+flowchart diagram, loop arrow (circular), array of boxes in a row, magnifying
+glass over boxes (search), lightbulb, brain with circuit lines (AI),
+robot head, laptop, folder.
+
+---------------------------------------------------------------------
+PROMPT 6.2 — IKON KUIS (32x32)
+---------------------------------------------------------------------
+[blok gaya] Quiz icon set, 12 icons in a 4x3 grid, each 32x32, transparent:
+question mark in a speech bubble, green check mark, red cross mark,
+hourglass timer, stopwatch, trophy gold, trophy silver, trophy bronze,
+star, raised hand, keyboard key with a check mark, podium with three steps.
+
+---------------------------------------------------------------------
+PROMPT 6.3 — LENCANA PENCAPAIAN (48x48)
+---------------------------------------------------------------------
+[blok gaya] Achievement badge set, 12 round badges in a 4x3 grid, each 48x48
+pixels, with ribbon, transparent background, no text. Symbols:
+ 1. waving hand coming out of a terminal window   (Hello World: login pertama)
+ 2. open door                                    (penjelajah: masuk semua ruangan)
+ 3. book with glasses                            (kutu buku: baca 5 materi)
+ 4. circular loop arrow                          (master pengulangan)
+ 5. row of boxes with one highlighted            (master larik)
+ 6. magnifying glass on a bug                    (debugger)
+ 7. yellow rubber duck                           (bertanya ke bebek karet)
+ 8. trophy                                       (juara kuis)
+ 9. star                                         (nilai sempurna)
+10. coffee cup with steam                        (begadang / early bird)
+11. speech bubbles                               (aktif di lobi)
+12. git-like branching lines                     (kolaborasi kelompok)
+
+---------------------------------------------------------------------
+PROMPT 6.4 — EMOTE DI ATAS KEPALA (24x24)
+---------------------------------------------------------------------
+Dipakai di lobi untuk komunikasi cepat antarpemain.
+[blok gaya] Emote speech bubble icons, 16 icons in a 4x4 grid, each 24x24
+pixels, small white bubble with a tail: smile, laugh, heart, thumbs up,
+question mark, exclamation, sweat drop, sleeping Zzz, idea bulb, clapping,
+wave hello, coffee cup, little bug (meaning "I found a bug"), loading
+spinner, green check, fire (on fire / semangat).
+
+---------------------------------------------------------------------
+PROMPT 6.5 — PENANDA INTERAKSI (16x16, BERANIMASI)
+---------------------------------------------------------------------
+[blok gaya] Interaction indicator sprites, 16x16 pixels, 4-frame bobbing
+animation each, in a row: down arrow (orange), exclamation mark (orange),
+blinking text-cursor block (cyan), finger tap icon for mobile.

@@ -1,0 +1,68 @@
+=====================================================================
+ 10 · SARAN DESAIN & HAL YANG PERLU DIPUTUSKAN
+=====================================================================
+
+A. IDENTITAS: JANGAN SEKADAR "GEDUNG BERISI KOMPUTER"
+------------------------------------------------------
+1. Satu benang merah yang konsisten: "kampus teknologi yang hangat".
+   Unsur IT di perabot & detail, palet tetap tenang (navy-krem-kayu-oranye).
+   Neon dan latar gelap penuh dihindari karena pemain akan membaca materi
+   lama di dalam game.
+
+2. Maskot bebek karet (rubber duck debugging).
+   Lelucon klasik dunia pemrograman, langsung dikenali mahasiswa IT,
+   dan berguna sebagai pemandu: tutorial di lobi, tips di perpustakaan,
+   petunjuk (hint) saat kuis. Bisa juga jadi lencana "Bertanya ke Bebek".
+
+3. UI meniru alat kerja programmer.
+   Dialog = jendela terminal, daftar materi = penjelajah file,
+   kuis = editor kode. Mahasiswa sekaligus terbiasa dengan antarmuka
+   alat yang nanti mereka pakai.
+
+4. Batik motif sirkuit untuk dosen/almamater.
+   Memberi rasa lokal Indonesia sekaligus tema informatika.
+
+
+B. TIGA KELAS DENGAN KARAKTER BERBEDA
+-------------------------------------
+Usulan nama (bisa diganti):
+  Kelas A · 30 kursi -> "Lab Algoritma"      (lab komputer, kuis individu)
+  Kelas B · 45 kursi -> "Ruang Kolaborasi"   (meja kelompok, kuis tim)
+  Kelas C · 60 kursi -> "Auditorium Turing"  (kursi bertingkat, kuis besar)
+Nama tokoh informatika (Turing, Lovelace, Al-Khawarizmi) cocok untuk nama
+ruangan. Al-Khawarizmi menarik karena kata "algoritma" berasal dari namanya.
+Contoh: "Perpustakaan Al-Khawarizmi", "Auditorium Turing", "Lab Lovelace".
+
+
+C. PERPUSTAKAAN DIGITAL
+-----------------------
+- Rak buku per mata kuliah (warna berbeda) + terminal untuk mencari materi.
+- Materi HTML dibuka di dalam game (panel besar) atau tab baru; slide yang
+  sudah ada (Minggu 10, Supervised Learning) bisa langsung dimasukkan.
+- Ide lanjutan: rak "baru ditambahkan" yang menyala saat ada materi baru.
+
+
+D. LOBI 100 ORANG
+-----------------
+- Video wall menampilkan papan peringkat kuis dan pengumuman -> alasan
+  mahasiswa mampir ke lobi.
+- Pojok arcade bisa diisi mini-game logika (misalnya menyusun urutan
+  langkah algoritma) di versi berikutnya.
+- Emote & chat singkat cukup; voice chat tidak perlu di tahap awal.
+
+
+E. KEPUTUSAN YANG PERLU ANDA AMBIL SEBELUM PEMBUATAN GAME
+---------------------------------------------------------
+1. Karakter: buat sendiri dengan AI (gaya sesuai panduan, tapi sulit
+   disejajarkan) ATAU pakai LPC Character Generator (siap pakai, gaya
+   berbeda, wajib cantumkan kredit)?
+2. Multipemain: lobi 100 orang berarti perlu server (agar pemain saling
+   melihat secara langsung). Apakah kampus punya server/hosting, atau
+   memakai layanan gratis untuk tahap uji coba?
+3. Login: memakai akun kampus/NIM, atau registrasi bebas dengan email?
+4. Nilai kuis: cukup ditampilkan di game, atau perlu bisa diunduh dosen
+   (misalnya ke Excel) untuk nilai kuliah?
+5. Perangkat: utamanya laptop, HP, atau keduanya?
+6. Nama game/platform. Beberapa ide:
+   "Kampus Piksel", "Gedung Algoritma", "InfoVerse", "Ruang Kode",
+   "Virtual Class Informatika".

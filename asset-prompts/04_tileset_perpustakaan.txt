@@ -1,0 +1,75 @@
+=====================================================================
+ 04 · TILESET PERPUSTAKAAN DIGITAL (BELAJAR MANDIRI)
+=====================================================================
+Konsep: perpustakaan klasik yang "diperbarui" — rak buku kayu tetap ada
+(suasana tenang untuk belajar), tetapi tiap rak punya PANEL LAYAR kecil,
+dan ada TERMINAL komputer untuk membuka materi HTML.
+
+Cara kerja di game:
+  Pemain mendekati rak buku / terminal -> benda menyala oranye ->
+  tekan tombol / ketuk -> muncul panel berisi daftar materi HTML
+  (misalnya "Minggu 10 · Pseudocode Lanjut", "Supervised Learning").
+
+Setiap mata kuliah punya rak dengan warna punggung buku berbeda:
+  - Logika Komputasional -> buku biru
+  - Kecerdasan Buatan    -> buku oranye
+  - (cadangan)           -> buku hijau, buku ungu-abu
+
+Perkiraan ukuran peta: 30 x 22 petak.
+
+---------------------------------------------------------------------
+PROMPT 4.1 — RAK BUKU (PALING PENTING)
+---------------------------------------------------------------------
+[blok gaya] Library bookshelf sprites for a computer science faculty, top-down
+3/4 view, tall wooden bookshelves full of thick programming textbooks, with a
+small glowing cyan display strip on the top of each shelf (blank, no text),
+each shelf 64x64 pixels (2 tiles wide, 2 tiles tall). Make 4 color variants
+where the book spines are mostly: blue, orange, green, slate purple-grey.
+For EACH variant also make a highlighted version with a soft glowing orange
+outline (#E8833A) and small sparkles, used when the player is near.
+Also: a short bookshelf (64x32), an end-of-row shelf seen from the side
+(32x64), and a shelf with a few books missing.
+
+---------------------------------------------------------------------
+PROMPT 4.2 — TERMINAL MATERI
+---------------------------------------------------------------------
+[blok gaya] Library computer terminal sprites aligned to a 32x32 grid:
+a standing catalog terminal kiosk (1x2) with a monitor and keyboard,
+screen off, screen on (cyan glow with abstract lines, no letters), and
+highlighted with orange outline; a desk with two monitors and a chair (2x1);
+a row of three study pods with monitors and partitions (3x2).
+
+---------------------------------------------------------------------
+PROMPT 4.3 — LANTAI, DINDING, KARPET
+---------------------------------------------------------------------
+[blok gaya] Interior tileset of a quiet modern library, 32x32 tiles in a grid
+8 columns wide: warm wooden parquet floor (4 variations), deep navy carpet
+with a very subtle circuit-trace pattern (edges and corners), cream walls with
+wooden panels (straight, inner corner, outer corner), tall windows, wall
+shelves, pillar with a small cyan LED strip.
+
+---------------------------------------------------------------------
+PROMPT 4.4 — PERABOT BACA
+---------------------------------------------------------------------
+[blok gaya] Library furniture sprites aligned to a 32x32 grid: long reading
+table (3x1) with small desk lamps and laptops (laptop screens off and on),
+wooden chairs facing up and down (1x1), comfy armchair, librarian front desk
+(3x2) with a monitor and a stack of books, rolling book cart, potted fern,
+whiteboard wall for group study (2x2) with diagram scribbles (no letters),
+quiet-zone floor marker.
+
+---------------------------------------------------------------------
+PROMPT 4.5 — PENANDA KATEGORI
+---------------------------------------------------------------------
+[blok gaya] Hanging digital category signs for a library, 64x32 pixels each,
+thin dark navy frame with a glowing blank screen surface, no text, 4 color
+accents: blue, orange, green, slate purple-grey.
+(Nama mata kuliah ditulis oleh game di atas papan ini.)
+
+---------------------------------------------------------------------
+PROMPT 4.6 — EFEK (OPSIONAL)
+---------------------------------------------------------------------
+[blok gaya] Small effect sprites: floating sparkle 4 frames (16x16),
+a glowing book icon floating above a shelf with 4-frame bobbing animation
+(16x16), tiny floating binary-like pixel particles (just dots and dashes,
+no letters) 4 frames, dust particles in a light beam overlay.

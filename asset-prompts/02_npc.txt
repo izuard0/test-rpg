@@ -1,0 +1,61 @@
+=====================================================================
+ 02 · NPC (KARAKTER YANG DIKENDALIKAN GAME) — TEMA INFORMATIKA
+=====================================================================
+NPC tidak perlu lapisan; cukup satu sprite sheet utuh berwarna.
+Ukuran sama dengan pemain: 96 x 192 px (4 arah x 3 frame, frame 32 x 48).
+
+Template:
+[blok gaya] Complete character sprite sheet of <DESKRIPSI NPC>, chibi
+proportions matching the reference player mannequin, 4 rows (facing down,
+left, right, up) x 3 walking frames, each frame 32x48 pixels, total 96x192,
+transparent background.
+
+---------------------------------------------------------------------
+NPC WAJIB
+---------------------------------------------------------------------
+npc_lecturer.png
+  a friendly computer science lecturer in a neat batik shirt and black
+  trousers, holding a laptop, glasses
+  -> di depan kelas, memulai kuis
+  (Opsional: versi yang mirip dosen sungguhan, misalnya Anda sendiri.
+   Kirim foto, lalu minta "pixel art version of this person in this style".)
+
+npc_librarian.png
+  a calm digital librarian in a cardigan with a tablet in hand and a
+  lanyard, short neat hair
+  -> di meja perpustakaan, menjelaskan rak buku dan terminal materi
+
+npc_lab_assistant.png
+  a senior student lab assistant wearing the almamater jacket over a
+  hoodie, headset around the neck, holding a network cable
+  -> di lobi, menyambut pemain baru dan memberi tur singkat
+
+---------------------------------------------------------------------
+MASKOT: BEBEK KARET (SANGAT DISARANKAN)
+---------------------------------------------------------------------
+npc_rubber_duck.png
+  a cute yellow rubber duck mascot, slightly bigger than normal, wearing
+  tiny round glasses, waddling animation
+  [blok gaya] Sprite sheet of a cute yellow rubber duck mascot with tiny round
+  glasses, 4 directions x 3 waddle frames, each frame 32x32, total 96x128,
+  transparent background.
+
+  Alasan: "rubber duck debugging" adalah teknik terkenal di dunia
+  pemrograman (menjelaskan kode ke bebek karet sampai menemukan kesalahan
+  sendiri). Bebek ini bisa jadi pemandu: memberi tips belajar dan petunjuk
+  kuis. Lucu, akrab bagi mahasiswa IT, dan mudah dikenali.
+
+---------------------------------------------------------------------
+NPC TAMBAHAN (PRIORITAS RENDAH, UNTUK SUASANA)
+---------------------------------------------------------------------
+npc_it_support.png  an IT support staff in a polo shirt carrying a small
+                    toolbox and a spare monitor
+npc_robot.png       a small friendly wheeled helper robot with a screen face
+                    showing simple pixel eyes (32x32 per frame)
+npc_security.png    a campus security guard in uniform and cap
+
+---------------------------------------------------------------------
+POSE IDLE (OPSIONAL)
+---------------------------------------------------------------------
+[blok gaya] <DESKRIPSI NPC>, idle animation facing down, 4 frames in one row,
+subtle breathing movement, each frame 32x48, total 128x48, transparent.

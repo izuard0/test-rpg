@@ -1,0 +1,103 @@
+=====================================================================
+ 09 · DAFTAR PERIKSA ASET + PRIORITAS
+=====================================================================
+P1 = wajib untuk prototipe pertama
+P2 = untuk versi lengkap
+P3 = pemanis, boleh menyusul
+
+Centang [x] jika sudah ada.
+
+KARAKTER PEMAIN (01_karakter_kustom.txt)  -> assets\characters\
+[x] P1  base_body.png              badan dasar abu-abu, jalan 4 arah (96x192)
+[x] P1  base_body_sit.png          pose duduk 4 arah (128x48)
+[ ] P2  base_body_typing.png       pose mengetik dari belakang (64x48)
+[ ] P2  base_skin_01..05.png       5 warna kulit (jika tidak diwarnai oleh game)
+[ ] P1  hair_short_01, hair_short_02, hair_long (front + back)
+[ ] P1  hijab_simple.png
+[ ] P2  sisa gaya rambut + hijab_long, hijab_sport, peci, topi, beanie
+[ ] P1  top_hoodie.png, top_shirt.png, top_jacket.png (almamater)
+[ ] P2  top_hoodie_circuit, top_tshirt_icon, top_flannel, top_batik,
+        top_tunic, top_polo, top_labcoat
+[ ] P1  bottom_jeans.png, bottom_skirt_long.png
+[ ] P2  bottom_cargo, bottom_chinos, bottom_jogger
+[ ] P1  shoes_sneakers.png
+[ ] P2  shoes_formal, shoes_sandals
+[ ] P1  acc_glasses_square.png
+[ ] P2  acc_headset, acc_laptop_bag, acc_lanyard, acc_glasses_round
+[ ] P3  acc_vr_headset, acc_smartwatch, acc_headphones_neck, pose tambahan
+
+NPC (02_npc.txt)  -> assets\npc\
+[ ] P1  npc_lecturer.png
+[ ] P1  npc_librarian.png
+[ ] P1  npc_rubber_duck.png        maskot pemandu
+[ ] P2  npc_lab_assistant.png
+[ ] P3  npc_it_support, npc_robot, npc_security
+
+LOBI (03_tileset_lobi.txt)  -> assets\tiles\lobby\
+[x] P1  lobby_floor_wall.png
+[x] P1  lobby_furniture.png (bean bag, sofa, meja panjang, coffee bar)
+[x] P1  lobby_doors.png (pintu kaca, pintu kelas, pintu perpustakaan + menyala)
+[ ] P2  lobby_tech.png (video wall, kiosk, server rack, robot arm, arcade)
+[ ] P3  lobby_decor.png
+
+PERPUSTAKAAN (04_tileset_perpustakaan.txt)  -> assets\tiles\library\
+[x] P1  library_bookshelves.png (4 warna + versi menyala)
+[x] P1  library_terminals.png (kiosk materi mati / nyala / disorot)
+[x] P1  library_floor_wall.png
+[x] P1  library_furniture.png
+[ ] P2  library_category_signs.png
+[ ] P3  library_effects.png
+
+KELAS (05_tileset_kelas.txt)  -> assets\tiles\classroom\
+[x] P1  lab_computer_desks.png (Kelas A: monitor mati/nyala, kursi normal/menyala/terisi)
+[ ] P2  smart_class_pods.png   (Kelas B)
+[ ] P2  auditorium_seats.png   (Kelas C, termasuk lantai bertingkat)
+[ ] P1  classroom_front.png    (papan tulis, layar proyektor, meja dosen)
+[ ] P1  classroom_floor_wall.png
+[ ] P3  room_signs.png
+
+   Catatan: untuk prototipe, Kelas B dan C boleh SEMENTARA memakai meja
+   Lab Komputer dulu; aset khususnya menyusul.
+
+ITEM & IKON (06_item_ikon.txt)  -> assets\items\
+[ ] P1  icons_learning.png
+[ ] P1  icons_quiz.png
+[ ] P1  interact_indicator.png
+[ ] P2  badges.png
+[ ] P2  emotes.png
+
+UI (07_ui.txt)  -> assets\ui\
+[ ] P1  ui_dialog_terminal.png
+[ ] P1  ui_material_explorer.png
+[ ] P1  ui_quiz_editor.png
+[ ] P1  ui_character_creator.png
+[ ] P2  ui_social.png (name tag, chat, emote wheel, minimap)
+[ ] P2  ui_mobile_controls.png
+[ ] P2  ui_hud.png
+
+LATAR (08_latar_layar.txt)  -> assets\backgrounds\
+[ ] P2  bg_title.png
+[ ] P2  bg_register.png
+[ ] P3  bg_loading.png
+[ ] P3  tiles_outdoor.png
+
+---------------------------------------------------------------------
+RINGKASAN JUMLAH
+---------------------------------------------------------------------
+P1 (prototipe) : ± 30 file
+P1 + P2        : ± 50 file
+Semua          : ± 65 file
+
+Saran urutan kerja:
+ 1. base_body.png  -> jadikan acuan gaya untuk SEMUA aset lain
+ 2. lab_computer_desks.png -> acuan gaya untuk semua perabot & benda teknologi
+ 3. library_bookshelves.png + library_terminals.png + library_floor_wall.png
+ 4. classroom_front.png + classroom_floor_wall.png
+ 5. lobby_floor_wall.png + lobby_furniture.png + lobby_doors.png
+ 6. ui_dialog_terminal.png + ui_material_explorer.png
+ 7. npc_rubber_duck.png + npc_lecturer.png + npc_librarian.png
+ 8. lapisan karakter (rambut, baju, hijab), lalu sisanya.
+
+Selama aset belum lengkap, game tetap bisa dibangun dengan grafik
+sementara buatan kode, lalu diganti satu per satu begitu file aset masuk
+ke folder assets\.

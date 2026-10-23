@@ -1,0 +1,130 @@
+=====================================================================
+ PROJECT VIRTUAL CLASS — PANDUAN MEMBUAT ASET
+ Gedung Prodi Informatika: 1 Lobi (maks 100 orang) · 1 Perpustakaan Digital
+                           · 3 Kelas (30 / 45 / 60 kursi)
+=====================================================================
+
+ISI FOLDER INI
+--------------
+00_PANDUAN.txt              <- baca dulu (tema, spesifikasi teknis, blok gaya)
+01_karakter_kustom.txt      <- karakter pemain yang bisa dikustomisasi saat registrasi
+02_npc.txt                  <- dosen, pustakawan, asisten lab, maskot bebek karet
+03_tileset_lobi.txt         <- lobi "hangout" ala ruang komunitas teknologi
+04_tileset_perpustakaan.txt <- perpustakaan digital: rak buku + terminal materi
+05_tileset_kelas.txt        <- Lab Komputer (30), Kelas Pintar (45), Auditorium (60)
+06_item_ikon.txt            <- ikon materi, kuis, lencana, emote bertema informatika
+07_ui.txt                   <- UI bergaya terminal / editor kode
+08_latar_layar.txt          <- layar judul, registrasi, loading
+09_DAFTAR_PERIKSA.txt       <- daftar semua file yang dibutuhkan + prioritas
+10_SARAN.txt                <- saran desain, nama ruangan, dan hal yang perlu diputuskan
+
+
+1. TEMA VISUAL: "KAMPUS TEKNOLOGI YANG HANGAT"
+-----------------------------------------------
+Gedung Prodi Informatika yang modern, bersih, dan nyaman untuk belajar.
+Unsur teknologi muncul di perabot dan dekorasi, BUKAN di warna yang menyilaukan.
+
+  YA   : monitor menyala, rak server kecil, pola sirkuit halus di karpet/dinding,
+         papan tulis berisi coretan diagram, kabel rapi, meja lab komputer,
+         poster abstrak (tanpa tulisan), kopi, tanaman hijau, kayu hangat.
+  TIDAK: cyberpunk penuh neon ungu-pink, hujan kode "Matrix" di semua dinding,
+         latar terlalu gelap. (Melelahkan mata dan menyulitkan membaca materi.)
+
+Palet utama (sama dengan slide HTML, ditambah 2 warna "layar"):
+  navy gelap   #1B2A41   dinding aksen, bingkai UI, rak server
+  abu batu     #4F5D6E   lantai, perabot logam
+  krem         #F7F5F0   dinding terang, kertas, panel UI
+  kayu hangat  #9C6B43   meja, rak buku
+  oranye       #E8833A   sorotan, tombol utama, objek yang bisa diinteraksi
+  biru         #2F6FB0   aksen sekunder
+  cyan layar   #3FC1C9   cahaya monitor, lampu LED (secukupnya)
+  hijau term.  #6CC3A2   lampu indikator, detail kecil
+
+Aturan warna interaksi (dipakai di semua ruangan):
+  - Benda yang bisa dipakai (rak, kursi, pintu, terminal) menyala OREN saat didekati.
+  - Cyan hanya untuk layar/monitor, bukan untuk sorotan, supaya tidak tertukar.
+
+
+2. SPESIFIKASI TEKNIS (WAJIB SAMA UNTUK SEMUA ASET)
+---------------------------------------------------
+Ukuran petak (tile)      : 32 x 32 piksel
+Ukuran frame karakter    : 32 x 48 piksel (lebar x tinggi)
+Sudut pandang            : top-down 3/4 (seperti Stardew Valley / Pokemon)
+Arah karakter            : 4 arah, urutan baris: BAWAH, KIRI, KANAN, ATAS
+Frame jalan per arah     : 3 (langkah kiri, diam, langkah kanan)
+Format                   : PNG, latar TRANSPARAN
+Skala                    : piksel asli (1x). Kalau AI menghasilkan gambar besar,
+                           kirim saja; nanti dikecilkan lewat kode.
+Palet                    : maks 32 warna, lihat bagian 1 dan blok gaya.
+
+Contoh susunan sprite sheet jalan (3 kolom x 4 baris = 96 x 192 px):
+
+        kolom1   kolom2   kolom3
+ baris1 [bawah1] [bawah2] [bawah3]
+ baris2 [kiri1 ] [kiri2 ] [kiri3 ]
+ baris3 [kanan1] [kanan2] [kanan3]
+ baris4 [atas1 ] [atas2 ] [atas3 ]
+
+
+3. BLOK GAYA — TEMPEL DI AWAL SETIAP PROMPT
+--------------------------------------------
+Pixel art, 16-bit style, top-down 3/4 view like Stardew Valley and classic
+SNES RPGs, crisp hard pixel edges, no anti-aliasing, no blur, no gradients,
+limited palette of 32 colors. Theme: a modern, clean and cozy computer science
+faculty building. Base colors deep navy #1B2A41, slate grey #4F5D6E, cream
+#F7F5F0 and warm wood #9C6B43; soft orange #E8833A for highlights; cyan
+#3FC1C9 only for glowing screens and LEDs; small terminal-green #6CC3A2
+details; subtle circuit-board patterns. Not cyberpunk, not dark, no neon pink
+or purple. Consistent 32x32 pixel tile grid, transparent background,
+game asset, no text, no readable letters.
+
+
+4. TIPS PENTING
+---------------
+a) Selalu sertakan "no text, no readable letters". Layar monitor cukup berisi
+   garis-garis warna yang MENYERUPAI kode, bukan huruf sungguhan.
+   Semua tulisan (nama ruangan, judul materi) dibuat lewat kode.
+b) Buat SATU gambar acuan dulu (base_body.png atau satu meja lab komputer),
+   lalu pakai sebagai "reference image" untuk prompt berikutnya agar
+   gayanya konsisten (ChatGPT, Midjourney --sref, Leonardo, PixelLab).
+c) Sprite sheet dari AI sering tidak lurus grid-nya. Rapikan di Aseprite
+   atau Piskel (gratis, piskelapp.com), atau kirim saja apa adanya.
+d) Alat khusus pixel art biasanya lebih rapi: PixelLab, Retro Diffusion.
+e) Benda yang bisa diinteraksi (rak, terminal, kursi, pintu) dibuat DUA versi:
+   normal dan menyala oranye (highlight).
+f) Monitor/layar dibuat DUA versi: mati (gelap) dan menyala (cyan).
+   Game bisa menyalakan layar saat pemain duduk atau mendekat.
+
+
+5. ALTERNATIF UNTUK KARAKTER KUSTOM: LPC
+----------------------------------------
+Membuat karakter berlapis (rambut, baju, warna kulit) dengan AI adalah bagian
+PALING SULIT, karena setiap lapisan harus pas piksel demi piksel di 12 frame.
+
+Alternatif siap pakai: "Universal LPC Spritesheet Character Generator".
+Ribuan bagian karakter yang sudah sejajar (termasuk hijab, kacamata, hoodie).
+- Kelebihan : langsung bisa dipakai untuk kreator karakter.
+- Kekurangan: frame 64x64, gayanya berbeda dari blok gaya ini, dan lisensinya
+              CC-BY-SA / GPL -> WAJIB mencantumkan pembuat di halaman kredit.
+Kalau memilih LPC, beri tahu saya; tileset lalu disesuaikan dengan gaya LPC.
+
+
+6. CARA MENGIRIM ASET
+---------------------
+Simpan di D:\project-virtualclass\assets\ dengan struktur:
+
+assets\
+  characters\base\      badan dasar
+  characters\hair\      rambut
+  characters\outfit\    baju & celana
+  characters\accessory\ hijab, kacamata, headset
+  npc\
+  tiles\lobby\
+  tiles\library\
+  tiles\classroom\
+  items\
+  ui\
+  backgrounds\
+
+Nama file: huruf kecil, pakai garis bawah, tanpa spasi.
+Contoh: hair_short_01.png, library_bookshelves.png, ui_dialog_box.png

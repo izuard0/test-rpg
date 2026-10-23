@@ -1,0 +1,448 @@
+=====================================================================
+ REVISI ASET — HASIL PEMERIKSAAN KONSISTENSI (23 Oktober 2026)
+=====================================================================
+Acuan gaya: aset di assets\tiles\library\ (detail, berbayang, palet sesuai).
+Yang perlu dikerjakan ulang: aset yang masih berupa kotak/balok polos.
+
+Daftar isi
+  1. Aset yang SUDAH BAIK (jangan dibuat ulang)
+  2. Cara membuat agar konsisten (WAJIB dibaca)
+  3. Perbaikan file duplikat
+  4. Revisi KARAKTER  (prioritas 1)
+  5. Revisi KELAS     (prioritas 2)
+  6. Revisi NPC       (prioritas 3)
+  7. Revisi LOBI      (prioritas 4)
+  8. Revisi PERPUSTAKAAN (sisa kecil)
+  9. Revisi IKON, LENCANA, EMOTE (prioritas 5)
+ 10. Revisi LATAR    (prioritas 6)
+ 11. UI — tidak perlu dibuat ulang
+ 12. Daftar periksa revisi
+
+
+---------------------------------------------------------------------
+1. ASET YANG SUDAH BAIK — JANGAN DIBUAT ULANG
+---------------------------------------------------------------------
+[OK] tiles\library\library_bookshelves.png
+[OK] tiles\library\library_floor_wall.png
+[OK] tiles\library\library_furniture.png
+[OK] tiles\library\library_terminals.png
+[OK] tiles\lobby\lobby_doors.png
+[OK] tiles\lobby\lobby_floor_wall.png
+[OK] tiles\lobby\lobby_furniture.png
+[OK] tiles\classroom\lab_computer_desks.png
+[OK] characters\base\base_body.png        (versi detail)
+[OK] characters\base\base_body_sit.png    (versi detail)
+
+Kesembilan file ini masih berlatar tidak transparan, berukuran besar,
+dan tidak sejajar grid. Itu TIDAK perlu Anda perbaiki: Claude akan
+merapikannya lewat skrip (hapus latar, perkecil ke 32 px, potong ke grid).
+
+
+---------------------------------------------------------------------
+2. CARA MEMBUAT AGAR KONSISTEN (WAJIB)
+---------------------------------------------------------------------
+a) SELALU lampirkan gambar acuan (reference image) di setiap prompt.
+   Acuan yang dipakai disebutkan di tiap bagian di bawah.
+
+b) Tempel KALIMAT ACUAN ini di AWAL setiap prompt:
+
+   Use the attached reference image as the strict style guide. Match its
+   exact pixel art style: same outline thickness and color, same shading
+   and highlight style, same level of detail, same top-down 3/4 perspective
+   and the same color palette. The new asset must look like it belongs to
+   the same game as the reference.
+
+c) Lalu tempel BLOK GAYA dari 00_PANDUAN.txt (bagian 3).
+
+d) Latar belakang: jika alat AI tidak bisa membuat latar transparan, minta
+   latar polos satu warna MAGENTA: "solid flat magenta #FF00FF background".
+   Magenta mudah dihapus otomatis; abu-abu/putih sering ikut terhapus
+   bersama bagian gambar.
+
+e) Ukuran gambar besar (mis. 1024 px) TIDAK masalah. Yang penting gayanya.
+   Claude akan memperkecil ke ukuran piksel asli.
+
+f) Satu file = satu jenis aset. Jangan menyalin file yang sama dengan nama
+   berbeda (lihat bagian 3).
+
+g) Jika hasil pertama tidak mirip acuan, ulangi dengan menambahkan:
+   "more detailed shading, thinner dark outlines, same style as reference".
+
+h) HINDARI GAYA "PIXEL DATAR" (seperti ikon SVG / vektor yang dikecilkan).
+   Tempel kalimat ini di AKHIR setiap prompt karakter, NPC, dan aksesori:
+
+   Classic hand-pixeled 16-bit JRPG sprite art, NOT vector, NOT flat design,
+   NOT geometric shapes, NOT an icon. Each material has 3 to 4 shades
+   (highlight, base color, shadow, dark outline), consistent light from the
+   top-left, organic rounded silhouettes, visible hair strands and cloth
+   folds, expressive face, selective dark outlines.
+
+i) PERIKSA SENDIRI SEBELUM MENYIMPAN. Hasil yang BENAR:
+   [ ] Rambut punya helai dan kilau, bukan blok warna rata.
+   [ ] Baju punya lipatan dan bayangan di bawah lengan.
+   [ ] Wajah punya mata, alis, dan sedikit warna pipi.
+   [ ] Bentuk bahu, kepala, dan tangan membulat, bukan persegi.
+   [ ] Terlihat "satu keluarga" dengan base_body.png dan library_furniture.png.
+   Jika ada yang tidak terpenuhi, jangan disimpan; ulangi prompt-nya.
+
+j) PASTIKAN BENAR-BENAR GAMBAR DARI AI PEMBUAT GAMBAR.
+   Jika memakai asisten AI dan ia MENULIS KODE (Python, SVG, canvas) untuk
+   menggambar aset, hasilnya pasti datar. Minta ia MEMBUAT GAMBAR langsung,
+   atau pakai alat pembuat gambar (ChatGPT image, Midjourney, Leonardo,
+   PixelLab, Retro Diffusion).
+
+k) Simpan sebagai PNG asli. Aset lama yang bagus ternyata JPEG yang diberi
+   nama .png (latar tidak bisa transparan dan ada noda kompresi).
+
+
+---------------------------------------------------------------------
+3. PERBAIKAN FILE DUPLIKAT
+---------------------------------------------------------------------
+Pasangan file berikut isinya IDENTIK (byte per byte). Kemungkinan tersalin.
+Keduanya dibuat ulang sesuai isi yang semestinya:
+
+  tiles\lobby\lobby_decor.png            = tiles\lobby\lobby_tech.png
+  tiles\classroom\auditorium_seats.png   = tiles\classroom\room_signs.png
+  tiles\library\library_category_signs.png = tiles\library\library_effects.png
+  backgrounds\bg_loading.png             = backgrounds\tiles_outdoor.png
+
+
+---------------------------------------------------------------------
+4. REVISI KARAKTER  (PRIORITAS 1)
+---------------------------------------------------------------------
+>>> DIGANTIKAN oleh folder asset-prompts\karakter-hemat\ (14 gambar).
+>>> Bagian ini hanya disimpan sebagai rujukan; JANGAN dikerjakan.
+
+MASALAH
+Semua lapisan (rambut, baju, hijab, aksesori) dan 5 warna kulit dibuat di
+atas badan BALOK (base_body_sheet.png), bukan badan DETAIL (base_body.png).
+Lapisan tersebut tidak akan pas di badan detail, jadi perlu dibuat ulang.
+
+ACUAN: characters\base\base_body.png (versi detail)
+
+METODE: "PAKAIKAN KE MANEKIN"
+AI sulit membuat lapisan yang melayang sendiri dengan posisi tepat.
+Lebih mudah: minta AI MEMAKAIKAN pakaian/rambut pada manekin acuan, dengan
+pose dan ukuran kanvas yang PERSIS SAMA. Claude lalu memisahkan lapisannya
+secara otomatis (membandingkan dengan manekin polos).
+
+Syarat agar metode ini berhasil:
+- Kanvas hasil = ukuran base_body.png (896 x 1200 px).
+- Pose, posisi, dan ukuran tubuh TIDAK boleh berubah sedikit pun.
+- Satu file hanya menambahkan SATU jenis lapisan (mis. hanya rambut).
+Jika AI terus mengubah pose, hentikan dan beri tahu Claude; opsi cadangan
+adalah LPC Character Generator (lihat 00_PANDUAN.txt bagian 5).
+
+Template prompt:
+  [KALIMAT ACUAN] [BLOK GAYA]
+  Keep the reference mannequin sprite sheet EXACTLY the same: same canvas
+  size, same 12 poses, same body position and proportions, same grey
+  bodysuit. Only ADD <ITEM> on the mannequin in all 12 frames, following
+  each walking pose and direction. Do not change anything else.
+  Solid flat magenta #FF00FF background.
+
+Ganti <ITEM> sesuai daftar. Rambut dan pakaian dibuat ABU-ABU MUDA
+(light grey) agar bisa diwarnai oleh game.
+
+  RAMBUT (simpan di characters\hair\)
+  [ ] hair_short_01     light grey short neat side-part hair
+  [ ] hair_short_02     light grey short messy hair
+  [ ] hair_buzz         light grey very short buzz cut
+  [ ] hair_curly        light grey short curly hair
+  [ ] hair_medium       light grey medium straight hair to the chin
+  [ ] hair_long         light grey long straight hair down to the back
+                        (cukup satu file; Claude memisahkan depan & belakang)
+  [ ] hair_ponytail     light grey long hair in a high ponytail
+  [ ] hair_bun          light grey hair in a bun on top of the head
+  [ ] hair_wavy         light grey shoulder-length wavy hair
+  [ ] hair_undercut     light grey undercut with longer top
+
+  PENUTUP KEPALA (simpan di characters\accessory\)
+  [ ] hijab_simple      light grey simple hijab covering hair, ears and neck
+  [ ] hijab_long        light grey long hijab over shoulders and chest
+  [ ] hijab_sport       light grey sporty instant hijab
+  [ ] peci              black songkok / peci cap
+  [ ] cap_baseball      light grey baseball cap worn backwards
+  [ ] beanie            light grey knitted beanie
+
+  ATASAN (simpan di characters\outfit\)
+  [ ] top_hoodie          light grey zip-up hoodie, hood down
+  [ ] top_hoodie_circuit  light grey hoodie with subtle circuit lines on sleeves
+  [ ] top_tshirt_icon     light grey t-shirt with a curly-brace icon print, no letters
+  [ ] top_flannel         light grey open flannel shirt over a plain t-shirt
+  [ ] top_shirt           light grey button-up collared shirt
+  [ ] top_polo            light grey polo shirt
+  [ ] top_tunic           light grey long modest tunic to the knees
+  [ ] top_batik           light grey batik shirt with circuit-like geometric pattern
+  [ ] top_jacket          light grey university almamater jacket, no logo
+  [ ] top_labcoat         white lab coat
+
+  BAWAHAN & SEPATU (simpan di characters\outfit\)
+  [ ] bottom_jeans        light grey long jeans
+  [ ] bottom_cargo        light grey cargo trousers with side pockets
+  [ ] bottom_chinos       light grey chino trousers
+  [ ] bottom_skirt_long   light grey long skirt to the ankles
+  [ ] bottom_jogger       light grey jogger pants
+  [ ] shoes_sneakers      light grey sneakers
+  [ ] shoes_formal        black formal shoes
+  [ ] shoes_sandals       light grey sandals
+
+  AKSESORI (simpan di characters\accessory\)
+  [ ] acc_glasses_round   round glasses
+  [ ] acc_glasses_square  square black glasses
+  [ ] acc_glasses_blue    glasses with faint blue lens reflection
+  [ ] acc_headset         gaming headset with small microphone
+  [ ] acc_headphones_neck headphones around the neck
+  [ ] acc_laptop_bag      laptop messenger bag across the body
+  [ ] acc_backpack        backpack with small sticker shapes, no letters
+  [ ] acc_lanyard         student ID card on a lanyard
+  [ ] acc_smartwatch      smartwatch on the wrist
+  [ ] acc_vr_headset      VR headset pushed up on the forehead
+
+  WARNA KULIT (simpan di characters\base\)
+  TIDAK perlu dibuat. Claude akan mewarnai ulang base_body.png menjadi
+  5 warna kulit secara otomatis, sehingga bentuknya dijamin identik.
+  -> base_skin_01..05.png lama boleh dihapus.
+
+  POSE MENGETIK (simpan di characters\base\)
+  [ ] base_body_typing    Prompt:
+      [KALIMAT ACUAN] [BLOK GAYA] The same mannequin as the reference, seen
+      from behind, sitting and typing on an invisible keyboard, 2 frames
+      side by side, same body size and style as the reference.
+      Solid flat magenta #FF00FF background.
+
+  FILE LAMA YANG DIGANTI
+  base_body_gray.png, base_body_sheet.png, base_body_sit_sheet.png
+  (versi balok) tidak dipakai lagi.
+
+
+---------------------------------------------------------------------
+5. REVISI KELAS  (PRIORITAS 2)
+---------------------------------------------------------------------
+ACUAN: tiles\classroom\lab_computer_desks.png
+       (+ tiles\library\library_floor_wall.png untuk lantai & dinding)
+
+[ ] tiles\classroom\classroom_floor_wall.png
+    [KALIMAT ACUAN] [BLOK GAYA] Classroom interior tileset sheet: light grey
+    anti-static vinyl floor (4 variations), raised floor tiles with small vent
+    grilles, navy carpet for an auditorium, light blue-grey walls with navy
+    baseboard (straight, inner corner, outer corner), acoustic wall panels,
+    windows with blinds, door frame. Square tiles laid out in a neat grid.
+    Solid flat magenta #FF00FF background.
+
+[ ] tiles\classroom\classroom_front.png
+    [KALIMAT ACUAN] [BLOK GAYA] Front-of-classroom sprites: large whiteboard
+    with faint flowchart scribbles (boxes and arrows, no letters), interactive
+    smart board screen off and on (cyan glow), pull-down projector screen with
+    plain white surface, lecturer desk with laptop and document camera,
+    podium, wall clock, air conditioner, small speaker, CCTV dome camera.
+    Solid flat magenta #FF00FF background.
+
+[ ] tiles\classroom\smart_class_pods.png
+    [KALIMAT ACUAN] [BLOK GAYA] Smart classroom furniture: hexagonal wooden
+    group table for 5 students with a small shared screen in the center
+    (off and on), modern colorful office chairs around it, one chair in
+    4 facing directions, chair highlighted with soft orange glowing outline
+    (#E8833A), mobile whiteboard with diagram scribbles (no letters),
+    wall-mounted TV screen off and on. Solid flat magenta #FF00FF background.
+
+[ ] tiles\classroom\auditorium_seats.png
+    [KALIMAT ACUAN] [BLOK GAYA] Lecture auditorium sprites: navy fabric
+    folding auditorium seats facing up (away from viewer), seat with a
+    fold-out writing tablet, seat highlighted with soft orange glowing outline
+    (#E8833A), seat occupied version (back of seat partly hidden), tiered
+    floor step tiles with small edge light strips, aisle carpet, giant
+    projection screen with plain white surface, stage floor edge, lectern
+    with laptop and microphone, stage speakers.
+    Solid flat magenta #FF00FF background.
+
+[ ] tiles\classroom\room_signs.png
+    [KALIMAT ACUAN] [BLOK GAYA] Three small digital door sign screens with a
+    dark navy frame and blank glowing surface, accents in blue, orange and
+    green, no text. Solid flat magenta #FF00FF background.
+
+
+---------------------------------------------------------------------
+6. REVISI NPC  (PRIORITAS 3)
+---------------------------------------------------------------------
+ACUAN: characters\base\base_body.png (proporsi & gaya)
+Sprite sheet utuh berwarna (bukan lapisan), 4 baris x 3 kolom seperti acuan.
+
+Template:
+  [KALIMAT ACUAN] [BLOK GAYA] A complete fully dressed character sprite
+  sheet with exactly the same layout, proportions and 12 poses as the
+  reference mannequin: <DESKRIPSI>. Solid flat magenta #FF00FF background.
+
+[ ] npc_lecturer        a friendly computer science lecturer in a neat
+                        batik shirt and black trousers, glasses, holding a laptop
+[ ] npc_lecturer_hijab  a friendly female computer science lecturer wearing
+                        a navy hijab, batik blouse and long skirt, holding a laptop
+[ ] npc_librarian       a calm librarian in a brown cardigan with a tablet
+                        and a lanyard, short neat hair, round glasses
+[ ] npc_lab_assistant   a student lab assistant wearing the almamater jacket
+                        over a hoodie, headset around the neck, holding a cable
+[ ] npc_it_support      an IT support staff in a polo shirt carrying a
+                        small toolbox
+[ ] npc_security        a campus security guard in uniform and cap
+
+Khusus maskot & robot (bukan bentuk manusia, frame lebih kecil):
+[ ] npc_rubber_duck
+    [KALIMAT ACUAN] [BLOK GAYA] Sprite sheet of a cute yellow rubber duck
+    mascot with tiny round glasses, 4 rows (facing down, left, right, up)
+    x 3 waddle frames, same shading style as the reference.
+    Solid flat magenta #FF00FF background.
+[ ] npc_robot
+    [KALIMAT ACUAN] [BLOK GAYA] Sprite sheet of a small friendly wheeled
+    helper robot with a screen face showing simple pixel eyes, 4 rows
+    (facing down, left, right, up) x 3 frames, same shading style as the
+    reference. Solid flat magenta #FF00FF background.
+
+(Opsional: dosen yang mirip dosen sungguhan — lampirkan foto sebagai
+acuan kedua dan tambahkan "pixel art version of the person in photo 2".)
+
+
+---------------------------------------------------------------------
+7. REVISI LOBI  (PRIORITAS 4)
+---------------------------------------------------------------------
+ACUAN: tiles\lobby\lobby_furniture.png
+
+[ ] tiles\lobby\lobby_tech.png
+    [KALIMAT ACUAN] [BLOK GAYA] Tech decoration sprites for a computer science
+    lobby, each with a screen-off and screen-on (cyan #3FC1C9 glow) version
+    where it has a screen: large video wall made of 6 monitors, information
+    kiosk touchscreen stand, retro arcade cabinet, glass display case with
+    circuit boards and small robots, industrial robot arm on a pedestal,
+    3D printer on a table, small server rack with blinking green LEDs,
+    whiteboard on wheels with colorful diagram scribbles (no letters),
+    wall-mounted network router. Solid flat magenta #FF00FF background.
+
+[ ] tiles\lobby\lobby_decor.png
+    [KALIMAT ACUAN] [BLOK GAYA] Small decoration sprites: framed abstract tech
+    posters (no text), hanging pendant lamp, sunlight patch from a window,
+    cable floor cover strip, phone charging station, small trophy cabinet,
+    floor arrow sticker, coat rack. Solid flat magenta #FF00FF background.
+
+
+---------------------------------------------------------------------
+8. REVISI PERPUSTAKAAN (SISA KECIL)
+---------------------------------------------------------------------
+ACUAN: tiles\library\library_bookshelves.png
+
+[ ] tiles\library\library_category_signs.png
+    [KALIMAT ACUAN] [BLOK GAYA] Four hanging digital category signs for a
+    library, wide rectangular boards with a thin dark navy frame hanging on
+    small chains, blank glowing screen surface, no text, accent colors blue,
+    orange, green and slate purple-grey. Solid flat magenta #FF00FF background.
+
+[ ] tiles\library\library_effects.png
+    [KALIMAT ACUAN] [BLOK GAYA] Small effect sprite strips: floating sparkle
+    animation 4 frames, a glowing book icon bobbing up and down 4 frames,
+    tiny floating dot-and-dash particles 4 frames (no letters or numbers),
+    dust particles in a light beam. Solid flat magenta #FF00FF background.
+
+
+---------------------------------------------------------------------
+9. REVISI IKON, LENCANA, EMOTE  (PRIORITAS 5)
+---------------------------------------------------------------------
+ACUAN: tiles\library\library_terminals.png (gaya garis & bayangan)
+Masalah lama: semua ikon isinya sama (kotak/lingkaran bergaris).
+Setiap ikon HARUS bergambar benda yang berbeda.
+
+[ ] items\icons_learning.png
+    [KALIMAT ACUAN] [BLOK GAYA] 16 distinct item icons in a 4x4 grid:
+    blue textbook, orange textbook, open book, web page with angle brackets,
+    slide presentation screen, code editor window with colored lines,
+    terminal window with blinking cursor block, flowchart diagram, circular
+    loop arrow, row of boxes (array), magnifying glass over boxes, lightbulb,
+    brain with circuit lines, robot head, laptop, folder. No letters.
+    Solid flat magenta #FF00FF background.
+
+[ ] items\icons_quiz.png
+    [KALIMAT ACUAN] [BLOK GAYA] 12 distinct quiz icons in a 4x3 grid:
+    question mark speech bubble, green check mark, red cross, hourglass,
+    stopwatch, gold trophy, silver trophy, bronze trophy, star, raised hand,
+    keyboard key with check mark, three-step podium.
+    Solid flat magenta #FF00FF background.
+
+[ ] items\badges.png
+    [KALIMAT ACUAN] [BLOK GAYA] 12 distinct round achievement badges with
+    ribbons in a 4x3 grid, each with a different symbol: waving hand from a
+    terminal window, open door, book with glasses, circular loop arrow, row
+    of boxes with one highlighted, magnifying glass on a bug, yellow rubber
+    duck, trophy, star, coffee cup with steam, speech bubbles, branching
+    lines. No text. Solid flat magenta #FF00FF background.
+
+[ ] items\emotes.png
+    [KALIMAT ACUAN] [BLOK GAYA] 16 distinct emote speech bubbles in a 4x4
+    grid, white bubble with tail, each with a different symbol: smile, laugh,
+    heart, thumbs up, question mark, exclamation mark, sweat drop, Zzz,
+    lightbulb, clapping hands, waving hand, coffee cup, small bug, loading
+    spinner, green check, fire. Solid flat magenta #FF00FF background.
+
+[ ] items\interact_indicator.png
+    [KALIMAT ACUAN] [BLOK GAYA] Interaction indicator animation strips,
+    4 frames each, bobbing: orange down arrow, orange exclamation mark,
+    blinking cyan text-cursor block, finger tap icon.
+    Solid flat magenta #FF00FF background.
+
+
+---------------------------------------------------------------------
+10. REVISI LATAR  (PRIORITAS 6)
+---------------------------------------------------------------------
+ACUAN: tiles\lobby\lobby_floor_wall.png + tiles\library\library_furniture.png
+Latar berbentuk pemandangan utuh (bukan tileset), rasio 16:9.
+
+[ ] backgrounds\bg_title.png
+    [KALIMAT ACUAN] Pixel art, 16:9 wide scene of a modern computer science
+    faculty building at dusk: glass facade with warm lights, one floor glowing
+    with rows of cyan computer monitors, a big library window with bookshelf
+    silhouettes, rooftop antenna and solar panels, students walking on the
+    path, trees and lampposts, orange-to-navy sky with first stars, empty
+    space at top center for a title, no text.
+
+[ ] backgrounds\bg_register.png
+    [KALIMAT ACUAN] Pixel art, 16:9 cozy student desk at night: laptop and a
+    second monitor glowing cyan, mechanical keyboard, coffee mug, small
+    yellow rubber duck, blank sticky notes, bookshelf with programming books,
+    warm desk lamp, window with city lights, clear empty area in the center
+    for a form, no text.
+
+[ ] backgrounds\bg_loading.png
+    [KALIMAT ACUAN] Pixel art, 16:9 dark navy (#1B2A41) background with a
+    faint circuit-board grid pattern, empty terminal-style progress bar
+    outline in the center, a small yellow rubber duck in the bottom right
+    corner, no text.
+
+[ ] backgrounds\tiles_outdoor.png   (opsional, hanya jika ada peta luar)
+    [KALIMAT ACUAN] [BLOK GAYA] Outdoor tileset: grass (4 variations), paved
+    campus path, flower beds, trees, benches, lampposts, bicycle rack, front
+    facade of a modern two-story computer science building with glass
+    entrance and blank sign board, no text.
+    Solid flat magenta #FF00FF background.
+
+
+---------------------------------------------------------------------
+11. UI — TIDAK PERLU DIBUAT ULANG
+---------------------------------------------------------------------
+Sesuai docs\RANCANGAN.md, panel dialog, daftar materi, kuis, kreator
+karakter, HUD, dan kontrol HP dibuat dengan HTML/CSS. Claude akan membuat
+tampilannya serasi dengan gaya perpustakaan langsung lewat CSS.
+File di folder ui\ cukup dijadikan acuan tata letak; tidak perlu direvisi.
+
+
+---------------------------------------------------------------------
+12. DAFTAR PERIKSA REVISI (RINGKAS)
+---------------------------------------------------------------------
+Prioritas 1  Karakter      : 10 rambut, 6 penutup kepala, 10 atasan,
+                             8 bawahan/sepatu, 10 aksesori, 1 pose mengetik
+Prioritas 2  Kelas         : 5 file
+Prioritas 3  NPC           : 8 file
+Prioritas 4  Lobi          : 2 file
+Prioritas 4  Perpustakaan  : 2 file
+Prioritas 5  Ikon & lencana: 5 file
+Prioritas 6  Latar         : 3 file (+1 opsional)
+
+Saran: kerjakan dulu 1 rambut + 1 atasan dengan metode "pakaikan ke
+manekin" (bagian 4), lalu serahkan ke Claude untuk diuji pemisahan
+lapisannya. Jika berhasil, lanjutkan sisanya dengan cara yang sama.
+Jika gagal, putuskan apakah beralih ke LPC sebelum membuat 40+ file.

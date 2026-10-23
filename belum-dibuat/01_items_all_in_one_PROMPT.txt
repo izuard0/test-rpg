@@ -1,0 +1,27 @@
+=====================================================================
+ PROMPT 1 GAMBAR UTUH · IKON, LENCANA, EMOTE & INDIKATOR INTERAKSI
+ (Menggabungkan 5 file: icons_learning, icons_quiz, badges, emotes,
+  interact_indicator menjadi 1 lembar grid 8x8 hemat kuota)
+=====================================================================
+
+LAMPIRKAN GAMBAR ACUAN:
+  belum-dibuat\acuan\library_terminals.png
+
+SIMPAN HASIL SEBAGAI:
+  assets\items\items_all_in_one.png (atau .jpg di folder ini, nanti dipotong)
+
+---------------------------------------------------------------------
+PROMPT SIAP TEMPEL (salin semua teks di antara garis)
+---------------------------------------------------------------------
+Use the attached reference image as the strict style guide. Match its exact pixel art style: same outline thickness and color, same shading and highlight style, same level of detail, and the same color palette. The new asset must look like it belongs to the same game as the reference.
+
+Pixel art, 16-bit style, crisp hard pixel edges, no anti-aliasing, no blur, no gradients, limited palette of 32 colors. Base colors deep navy #1B2A41, slate grey #4F5D6E, cream #F7F5F0 and warm wood #9C6B43; soft orange #E8833A for highlights; cyan #3FC1C9 for glowing screens; terminal-green #6CC3A2 details.
+
+A complete all-in-one game UI icon, badge, and emote master sprite sheet arranged in a clean 8 columns x 8 rows grid (64 distinct small sprites, evenly spaced, no text, no readable letters):
+- ROWS 1 to 2 (16 Learning & CS Icons): 1) blue textbook, 2) orange textbook, 3) open book, 4) web page with angle brackets, 5) slide presentation screen, 6) code editor window with colored lines, 7) terminal window with cursor block, 8) flowchart diagram, 9) circular loop arrow, 10) row of array boxes, 11) magnifying glass over boxes, 12) glowing lightbulb, 13) brain with circuit lines, 14) cute robot head, 15) laptop, 16) file folder.
+- ROWS 3 to 4 (12 Quiz Icons + 4 Interaction Indicators): 1) question mark bubble, 2) green check mark, 3) red cross, 4) hourglass timer, 5) stopwatch, 6) gold trophy, 7) silver trophy, 8) bronze trophy, 9) gold star, 10) raised hand, 11) keyboard key with check mark, 12) three-step podium, 13) soft orange #E8833A down arrow indicator, 14) soft orange #E8833A exclamation mark indicator, 15) glowing cyan #3FC1C9 cursor block indicator, 16) finger tap icon.
+- ROWS 5 to 6 (16 Round Achievement Badges with Ribbons): round medals with ribbons, each having a distinct symbol inside: 1) waving hand in terminal, 2) open door, 3) book with glasses, 4) circular loop arrow, 5) highlighted array boxes, 6) magnifying glass on a bug, 7) yellow rubber duck, 8) trophy badge, 9) star badge, 10) steaming coffee cup, 11) speech bubbles, 12) git branching lines, 13) lightning bolt, 14) shield with checkmark, 15) circuit chip, 16) graduation cap.
+- ROWS 7 to 8 (16 Emote Speech Bubbles): white pixel speech bubbles with a small tail, each containing a distinct emote inside: 1) smile face, 2) laugh face, 3) red heart, 4) thumbs up, 5) question mark, 6) exclamation mark, 7) sweat drop, 8) sleeping Zzz, 9) idea lightbulb, 10) clapping hands, 11) waving hand, 12) coffee cup, 13) small bug, 14) loading spinner, 15) green check, 16) fire flame.
+
+Classic hand-pixeled 16-bit JRPG icon art, NOT vector, NOT flat design, 3 to 4 shades per material, consistent top-left light, selective dark outlines. Solid flat magenta #FF00FF background.
+---------------------------------------------------------------------

@@ -1,0 +1,69 @@
+=====================================================================
+ KARAKTER VERSI HEMAT · 14 GAMBAR
+ (menggantikan REVISI.txt bagian 4 yang membutuhkan +/- 45 gambar)
+=====================================================================
+
+CARA KERJA
+  1. Buka file 01 sampai 14. Satu file = satu gambar.
+  2. Lampirkan gambar acuan yang disebutkan di file.
+  3. Salin seluruh PROMPT, kirim ke alat AI pembuat gambar.
+  4. Periksa hasil dengan daftar periksa di file tersebut.
+  5. Simpan ke assets\characters\raw\ dengan nama yang disebutkan.
+  6. Centang di daftar bawah ini.
+
+URUTAN YANG DISARANKAN
+  Kerjakan 01 dan 06 DULU, lalu serahkan ke Claude untuk diuji.
+  - 01 menguji metode "kepala 4 arah".
+  - 06 menguji metode "pakaikan ke manekin" (paling berisiko).
+  Jika keduanya berhasil diproses, lanjutkan sisanya.
+
+STATUS & TEMUAN (23 Okt 2026)
+  - 01-06 selesai, gaya sudah pixel RPG dan konsisten. Disalin ke
+    assets\characters\raw\ dengan nama yang benar.
+  - Kepala dari Gemini dipasang UTUH (wajah + rambut), menggantikan kepala
+    manekin. Badan diambil dari gambar set busana (tanpa kepala).
+    -> base_body.png tidak lagi dipakai sebagai badan, hanya acuan awal.
+  - Prompt 07-13 sudah DIPERBARUI: minta badan TANPA kepala, 2 baris x 6
+    kolom, dengan set_hoodie.jpg sebagai gambar acuan.
+  - Simpan hasil Gemini apa adanya (.jpg tidak masalah).
+
+PENYESUAIAN SETELAH UJI SIMULASI
+  - 07 flanel selesai dan sudah masuk simulasi.
+  - Prompt 08-13 diperbarui: lampirkan DUA acuan (set_flannel.jpg dan
+    set_hoodie.jpg); tampak samping diminta menghadap konsisten (kolom 1-3
+    kiri, 4-6 kanan) karena Gemini sering mencampur arah.
+  - 11 almamater: kemeja dalam diganti biru muda. Kemeja putih/abu ikut
+    berubah warna saat pemain memilih warna atasan.
+  - 14 pose mengetik DIBATALKAN (hemat 1 kuota). Duduk di kelas dilihat
+    dari belakang, sandaran kursi menutupi bagian bawah badan, jadi cukup
+    memakai badan berdiri tampak belakang yang dipotong di pinggang.
+  - Cukup 1 gambar per set. Jangan buat ulang hanya karena susunan grid
+    tidak rapi; Claude merakit dari figur mana pun selama badan tanpa
+    kepala dan ukurannya mirip acuan.
+
+DAFTAR GAMBAR
+  [x] 01 kepala_rambut_A     5 gaya rambut
+  [x] 02 kepala_rambut_B     5 gaya rambut
+  [x] 03 kepala_penutup      3 hijab, peci, topi
+  [x] 04 kepala_aksesori     beanie, 2 kacamata, headset, VR (headphone leher tidak ada)
+  [x] 05 tas                 ransel, tas laptop
+  [x] 06 set_hoodie          hoodie + jeans + sneakers
+  [x] 07 set_flannel         flanel + kargo + sneakers
+  [x] 08 set_kaos            kaos ikon + jogger + sneakers
+  [x] 09 set_kemeja          kemeja + chino + sepatu formal
+  [x] 10 set_batik           batik sirkuit + celana bahan + sepatu formal
+  [x] 11 set_almamater       almamater + chino + sneakers
+  [x] 12 set_tunik           tunik + rok panjang + flat shoes
+  [x] 13 set_labcoat         jas lab + kaos + celana
+  [-] 14 pose_mengetik       DIBATALKAN (lihat penyesuaian di atas)
+
+YANG DIKERJAKAN CLAUDE (TIDAK PERLU DIBUAT)
+  - 5 warna kulit (diwarnai ulang dari base_body.png)
+  - frame jalan untuk semua item kepala
+  - smartwatch, lanyard, kacamata biru (varian warna kacamata kotak)
+  - hapus latar magenta, perkecil ke 32x48, potong ke grid, pisahkan lapisan
+
+PERUBAHAN DESAIN
+  Pakaian berupa 8 SET BUSANA (atasan + bawahan + sepatu), bukan dipilih
+  terpisah. Warna ATASAN tetap bisa dipilih pemain (dibuat abu-abu muda),
+  sedangkan bawahan dan sepatu memakai warna bawaan set.

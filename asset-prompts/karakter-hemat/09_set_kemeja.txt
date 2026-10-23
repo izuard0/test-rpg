@@ -1,0 +1,53 @@
+=====================================================================
+ GAMBAR 09 / 14 · SET KEMEJA
+=====================================================================
+
+LAMPIRKAN GAMBAR ACUAN
+  assets\characters\raw\set_flannel.jpg
+  assets\characters\raw\set_hoodie.jpg
+  (lampirkan keduanya: acuan ukuran, gaya, dan proporsi badan)
+
+SIMPAN HASIL SEBAGAI
+  assets\characters\raw\set_kemeja.jpg
+  (ukuran berapa pun boleh, makin besar makin baik; Claude yang memperkecil)
+
+CATATAN
+  Kepala TIDAK digambar: kepala diambil dari gambar rambut/hijab (01-04)
+  dan dipasang oleh Claude. Gemini kadang tetap membuat susunan lain;
+  selama badan tanpa kepala dan ukurannya konsisten, Claude masih bisa
+  merakitnya. Kirim saja hasilnya.
+
+---------------------------------------------------------------------
+PROMPT (salin semua teks di antara garis)
+---------------------------------------------------------------------
+Use the attached reference image as the strict style guide. Match its exact pixel art style: same outline thickness and color, same shading and highlight style, same level of detail, same top-down 3/4 perspective and the same color palette. The new asset must look like it belongs to the same game as the reference.
+
+Pixel art, 16-bit style, top-down 3/4 view like Stardew Valley and classic SNES RPGs, crisp hard pixel edges, no anti-aliasing, no blur, no gradients, limited palette. Theme: a modern, clean and cozy computer science faculty. Base colors deep navy #1B2A41, slate grey #4F5D6E, cream #F7F5F0 and warm wood #9C6B43; soft orange #E8833A highlights; cyan #3FC1C9 only for screens and LEDs. No text, no readable letters.
+
+Draw a sprite sheet of a HEADLESS chibi body (neck stump visible, NO head) wearing this outfit:
+light grey long-sleeve button-up collared shirt tucked in, beige chino trousers with a brown belt, brown formal shoes.
+Use exactly the same body size, proportions, chibi shape and pixel scale as the headless bodies in the reference images. Layout: exactly 2 rows x 6 columns, evenly spaced, every body the same height.
+Row 1: facing down (toward viewer) - left foot step, standing, right foot step; then facing up (back view) - left foot step, standing, right foot step.
+Row 2: facing left in pure side profile - back foot step, standing, front foot step; then facing right in pure side profile - back foot step, standing, front foot step.
+ALL side-view bodies in row 2 columns 1-3 must face LEFT, and columns 4-6 must face RIGHT; every side body has the same slim side silhouette (never a wider 3/4 front view). Arms and legs swing naturally in the step frames. The main top garment must be LIGHT GREY so the game can recolor it; bottoms and shoes keep their real colors. Do not draw any heads.
+
+Classic hand-pixeled 16-bit JRPG sprite art, NOT vector, NOT flat design, NOT geometric shapes, NOT an icon. Each material has 3 to 4 shades (highlight, base color, shadow, dark outline), consistent light from the top-left, organic rounded silhouettes, visible hair strands and cloth folds, selective dark outlines.
+
+Solid flat magenta #FF00FF background.
+---------------------------------------------------------------------
+
+PERIKSA SEBELUM MENYIMPAN
+[ ] Gaya terlihat satu keluarga dengan base_body.png (garis tepi, bayangan, palet).
+[ ] Bukan "pixel datar": ada 3-4 tingkat warna, helai rambut / lipatan kain.
+[ ] Latar magenta polos (atau transparan).
+[ ] Tidak ada tulisan atau huruf.
+[ ] Disimpan sebagai PNG (bukan JPEG yang diberi nama .png).
+[ ] Badan TANPA kepala, 2 baris x 6 kolom, urutan sesuai prompt.
+[ ] Ukuran & proporsi badan sama dengan hoodie di gambar acuan.
+[ ] Baris 2 benar-benar tampak samping (profil), bukan 3/4.
+[ ] Atasan abu-abu muda; bawahan & sepatu berwarna aslinya.
+[ ] Kaki berbeda antara frame langkah dan frame berdiri.
+
+Jika tidak lolos: ulangi sekali dengan menambahkan di akhir prompt
+"more detailed shading, same style as the reference". Jika masih gagal,
+lanjutkan ke gambar berikutnya dan catat nomornya untuk Claude.

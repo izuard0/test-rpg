@@ -1,0 +1,85 @@
+=====================================================================
+ 07 · ANTARMUKA (UI) — GAYA TERMINAL / EDITOR KODE
+=====================================================================
+Konsep: UI meniru jendela aplikasi yang akrab bagi mahasiswa informatika:
+  - kotak dialog       -> jendela terminal (bilah judul + titik tiga warna)
+  - daftar materi      -> panel penjelajah file (folder & file) ala editor kode
+  - panel kuis         -> jendela editor kode dengan nomor baris
+Tetap memakai palet utama: bingkai navy, isi krem (mudah dibaca), aksen oranye.
+Versi gelap (isi navy, teks terang) boleh dibuat sebagai opsi "mode gelap".
+
+Prinsip: AI cukup membuat BINGKAI dan TOMBOL. Semua teks, daftar materi,
+soal kuis, dan nama pemain diisi oleh game. Bingkai dibuat "9-slice":
+sudut tetap, sisi bisa diperpanjang.
+
+---------------------------------------------------------------------
+PROMPT 7.1 — KOTAK DIALOG (GAYA JENDELA TERMINAL)
+---------------------------------------------------------------------
+[blok gaya] Retro RPG dialogue box UI styled like a terminal window,
+9-slice friendly: dark navy (#1B2A41) title bar with three small round
+window buttons (orange, cream, green) on the left, cream (#F7F5F0) content
+area with a thin navy border, rounded pixel corners. Sizes: wide box 320x80,
+small name tag 96x20 styled like a window tab. Also a blinking block cursor
+(6x10, 2 frames, orange) and a "next" arrow (8x8, 2 frames). No text.
+
+Versi mode gelap: same box with navy content area and a faint scanline texture.
+
+---------------------------------------------------------------------
+PROMPT 7.2 — PANEL DAFTAR MATERI (GAYA PENJELAJAH FILE)
+---------------------------------------------------------------------
+[blok gaya] Material list panel styled like the file explorer sidebar of a
+code editor, 9-slice friendly, 256x192 pixels: navy title bar, cream list
+area, small folder icons (closed and open, 12x12), small web page file icon
+(12x12), small slide file icon (12x12), indentation guide lines, selection
+highlight bar (orange, 224x16), scroll up/down arrows (8x8), close button
+(12x12, normal and pressed). No text.
+
+---------------------------------------------------------------------
+PROMPT 7.3 — PANEL KUIS (GAYA EDITOR KODE)
+---------------------------------------------------------------------
+[blok gaya] Quiz UI kit styled like a code editor: question panel frame
+320x96 with a narrow left gutter for line numbers and a navy title bar;
+four answer buttons 150x24 each in four colors (blue, orange, green,
+slate) with normal, hovered and pressed states, each with a small square
+key-cap on the left for A/B/C/D (empty, no letters); a timer bar styled like
+a progress bar (navy frame, orange fill) 200x8; a score panel 64x24;
+a "compile success" green banner frame and a "compile error" red banner
+frame (both 160x20, no text); correct and wrong answer glow overlays.
+
+---------------------------------------------------------------------
+PROMPT 7.4 — LOBI & SOSIAL
+---------------------------------------------------------------------
+[blok gaya] Multiplayer social UI kit: player name tag plate above head
+(64x12, semi-transparent navy with a tiny green online dot), chat bubble
+9-slice (white with tail), chat input bar styled like a command line with a
+">" prompt shape (320x20), online player count badge (48x16) with a small
+person icon, emote wheel menu with 8 empty slots (96x96), minimap frame
+(96x96) styled like a small monitor. No text.
+
+---------------------------------------------------------------------
+PROMPT 7.5 — KREATOR KARAKTER (HALAMAN REGISTRASI)
+---------------------------------------------------------------------
+[blok gaya] Character creator UI kit with a tech theme: large preview stage
+frame 128x160 shaped like a holographic scanning platform (cyan light ring
+on the floor), left and right arrow buttons (16x16, normal and pressed),
+category tabs (48x20) with icons for body, hair, top, bottom, shoes,
+accessory; round color swatch button (16x16) with a selected ring;
+"rotate character" circular arrow button; randomize dice button (24x24);
+big confirm button 96x24 in orange. No text.
+
+---------------------------------------------------------------------
+PROMPT 7.6 — TOMBOL KENDALI HP (MOBILE)
+---------------------------------------------------------------------
+[blok gaya] Mobile touch controls, semi-transparent navy: virtual joystick
+base styled like a gamepad d-pad circle (64x64) and knob (32x32), round
+action button (40x40, empty, no letter), menu button with three lines
+(32x32). No text.
+
+---------------------------------------------------------------------
+PROMPT 7.7 — HUD UMUM
+---------------------------------------------------------------------
+[blok gaya] Small HUD elements: top bar frame 320x16 styled like an
+operating system taskbar for room name and clock, XP bar styled like a
+download progress bar (120x8, blue fill), point icon shaped like a small
+chip (12x12), wifi/ping indicator with 4 states (16x16 each),
+settings gear (16x16), sound on/off (16x16), fullscreen (16x16).

@@ -1,0 +1,44 @@
+=====================================================================
+ 08 · GAMBAR LATAR & LAYAR KHUSUS
+=====================================================================
+Ukuran dasar layar: 640 x 360 piksel (rasio 16:9), diperbesar oleh game.
+Judul dan tulisan TIDAK dibuat AI; ditambahkan lewat kode.
+
+---------------------------------------------------------------------
+PROMPT 8.1 — LAYAR JUDUL
+---------------------------------------------------------------------
+Pixel art, 16-bit style, wide 640x360 scene of a modern computer science
+faculty building at dusk: glass facade with warm lights, one floor glowing
+with rows of cyan computer monitors (the computer lab), a big library window
+with bookshelf silhouettes, a small rooftop antenna and solar panels,
+students walking on the path in front, trees and lampposts, orange-to-navy
+sky with first stars, cozy and inviting, empty space at the top center for
+a game title, no text, no readable letters.
+
+---------------------------------------------------------------------
+PROMPT 8.2 — LATAR LOGIN / REGISTRASI
+---------------------------------------------------------------------
+Pixel art, 16-bit style, 640x360 cozy student desk setup at night: a desk
+with a laptop and a second monitor glowing cyan, a mechanical keyboard,
+a coffee mug, a small yellow rubber duck, sticky notes (blank), a bookshelf
+with programming books, a desk lamp with warm light, a window showing a
+city at night, leaves a clear empty area in the center for a form panel,
+no text, no readable letters.
+
+---------------------------------------------------------------------
+PROMPT 8.3 — LAYAR MEMUAT (LOADING)
+---------------------------------------------------------------------
+Pixel art, 16-bit style, 640x360 dark navy background (#1B2A41) with a faint
+grid like a circuit board, a small yellow rubber duck waddling in the bottom
+right corner (4 frames, 32x32), and an empty progress bar outline in the
+center styled like a terminal loading bar, no text.
+
+---------------------------------------------------------------------
+PROMPT 8.4 — EKSTERIOR GEDUNG (OPSIONAL, JIKA ADA PETA LUAR)
+---------------------------------------------------------------------
+[blok gaya] Outdoor tileset 32x32 tiles: grass (4 variations), paved campus
+path, flower beds, trees (2x2 and 3x3), benches with charging ports,
+lampposts, bicycle rack, electric scooter parking, a small outdoor data
+center box with fans, front facade of a modern two-story computer science
+building (10x6 tiles) with glass entrance and a blank digital sign board,
+no text.

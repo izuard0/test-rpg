@@ -1,0 +1,46 @@
+=====================================================================
+ GAMBAR 06 / 14 · SET HOODIE
+=====================================================================
+
+LAMPIRKAN GAMBAR ACUAN
+  assets\characters\base\base_body.png
+
+SIMPAN HASIL SEBAGAI
+  assets\characters\raw\set_hoodie.png
+  (ukuran berapa pun boleh, makin besar makin baik; Claude yang memperkecil)
+
+CATATAN
+  Ukuran kanvas hasil sebaiknya SAMA dengan base_body.png. Claude akan
+  memisahkan pakaian dari manekin secara otomatis. Jika AI terus mengubah
+  pose, hentikan dan beri tahu Claude sebelum lanjut ke set lain.
+
+---------------------------------------------------------------------
+PROMPT (salin semua teks di antara garis)
+---------------------------------------------------------------------
+Use the attached reference image as the strict style guide. Match its exact pixel art style: same outline thickness and color, same shading and highlight style, same level of detail, same top-down 3/4 perspective and the same color palette. The new asset must look like it belongs to the same game as the reference.
+
+Pixel art, 16-bit style, top-down 3/4 view like Stardew Valley and classic SNES RPGs, crisp hard pixel edges, no anti-aliasing, no blur, no gradients, limited palette. Theme: a modern, clean and cozy computer science faculty. Base colors deep navy #1B2A41, slate grey #4F5D6E, cream #F7F5F0 and warm wood #9C6B43; soft orange #E8833A highlights; cyan #3FC1C9 only for screens and LEDs. No text, no readable letters.
+
+Keep the reference mannequin sprite sheet EXACTLY the same: same canvas size, same 12 poses (4 rows: facing down, left, right, up; 3 columns: step, stand, step), same body position and proportions, same bald head. Only DRESS the mannequin in this outfit in all 12 frames, following each walking pose:
+light grey zip-up hoodie with the hood down, dark blue jeans, white and grey sneakers.
+The main top garment must be LIGHT GREY so the game can recolor it. Do not change the pose, the head or anything else.
+
+Classic hand-pixeled 16-bit JRPG sprite art, NOT vector, NOT flat design, NOT geometric shapes, NOT an icon. Each material has 3 to 4 shades (highlight, base color, shadow, dark outline), consistent light from the top-left, organic rounded silhouettes, visible hair strands and cloth folds, selective dark outlines.
+
+Solid flat magenta #FF00FF background.
+---------------------------------------------------------------------
+
+PERIKSA SEBELUM MENYIMPAN
+[ ] Gaya terlihat satu keluarga dengan base_body.png (garis tepi, bayangan, palet).
+[ ] Bukan "pixel datar": ada 3-4 tingkat warna, helai rambut / lipatan kain.
+[ ] Latar magenta polos (atau transparan).
+[ ] Tidak ada tulisan atau huruf.
+[ ] Disimpan sebagai PNG (bukan JPEG yang diberi nama .png).
+[ ] 12 pose, susunan 4 baris x 3 kolom PERSIS seperti base_body.png.
+[ ] Pose, ukuran badan, dan kepala TIDAK berubah (bandingkan berdampingan).
+[ ] Atasan berwarna abu-abu muda; bawahan & sepatu berwarna aslinya.
+[ ] Lengan dan kaki pakaian ikut melangkah di frame jalan.
+
+Jika tidak lolos: ulangi sekali dengan menambahkan di akhir prompt
+"more detailed shading, same style as the reference". Jika masih gagal,
+lanjutkan ke gambar berikutnya dan catat nomornya untuk Claude.
