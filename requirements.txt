@@ -1,0 +1,4 @@
+# Alat pemroses aset (tools/). Diuji dengan Python 3.12.
+Pillow>=10.4
+numpy>=2.0
+scipy>=1.13
