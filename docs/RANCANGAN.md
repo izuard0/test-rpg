@@ -42,7 +42,8 @@ warna neon. Latar tetap terang dan tenang karena pemain akan membaca materi lama
 - UI meniru alat kerja programmer: dialog = jendela terminal,
   daftar materi = penjelajah file, kuis = editor kode.
 - Maskot: **bebek karet** (rujukan *rubber duck debugging*) sebagai pemandu.
-- Spesifikasi aset: petak 32×32 px, karakter 32×48 px, 4 arah × 3 frame.
+- Spesifikasi aset: petak **28 × 28 px**, karakter ± 29 × 54 px (± 2 petak), 4 arah × 3 frame.
+  Aset tile asli Gemini tidak sejajar grid; lihat `docs/TILES.md`.
   Detail lengkap ada di `asset-prompts/`.
 
 ---
@@ -64,7 +65,7 @@ warna neon. Latar tetap terang dan tenang karena pemain akan membaca materi lama
 | Multipemain | Colyseus (Node.js) | Berbasis *room* yang sesuai dengan ruangan; batas kapasitas & sinkronisasi bawaan |
 | API | Fastify | Login, materi, bank soal, nilai, ekspor CSV/Excel |
 | Database | PostgreSQL + Prisma | Akun, karakter, soal, nilai, laporan chat |
-| Server | 1 VPS (± 2 CPU, 4 GB RAM), Docker, HTTPS/WSS | Beban 100 pemain (posisi + chat) ringan |
+| Server | **Coolify** (Docker), HTTPS/WSS lewat proxy Coolify; ± 2 CPU dan 4 GB RAM sudah cukup untuk uji coba | Beban 100 pemain (posisi + chat) ringan |
 
 ### Arsitektur
 
@@ -81,6 +82,25 @@ warna neon. Latar tetap terang dan tenang karena pemain akan membaca materi lama
           Tiled -> peta (JSON)           └──────────────────────────────┘
 ```
 
+### Deploy (Coolify)
+
+**Diputuskan:** aplikasi dideploy di server **Coolify** milik pemilik proyek. Konsekuensi
+untuk rancangan (usulan; belum diverifikasi pada instalasi Coolify yang ada):
+
+- Coolify membangun dari repositori GitHub ini, jadi repo perlu `Dockerfile` (atau
+  `docker-compose`).
+- **Satu image aplikasi** (Fastify + Colyseus, sekaligus menyajikan hasil build klien):
+  satu alamat, tanpa CORS dan tanpa WebSocket lintas-origin. PostgreSQL sebagai sumber
+  daya terpisah di Coolify.
+- Konfigurasi lewat **environment variable** (alamat database, rahasia sesi); tidak ada
+  rahasia di repo.
+- WebSocket (Colyseus) melewati proxy Coolify: uji di server nyata, termasuk batas waktu
+  koneksi dan 100 koneksi bersamaan.
+- Sediakan endpoint cek kesehatan; cadangan database lewat fitur backup Coolify.
+- Deploy otomatis saat push ke `main` baru diaktifkan setelah ada lingkungan uji, supaya
+  push tidak langsung mengubah aplikasi yang sedang dipakai kelas.
+- Perlu dipastikan: domain/subdomain, sumber daya server, dan siapa yang punya akses Coolify.
+
 ### Struktur folder (rencana)
 
 Proyek saat ini berada di `D:\project-virtualclass\test-rpg\`. Folder bertanda
@@ -92,6 +112,7 @@ test-rpg/
   assets/          (ada) aset gambar; characters/raw/ = hasil mentah dari Gemini
   belum-dibuat/    (ada) daftar aset yang belum dibuat + gambar acuan
   prototype/       (ada) prototipe yang sudah jadi: karakter/index.html
+  export/          (ada) paket siap pakai untuk klien: character/, tiles/
   tools/           (ada) skrip pemroses aset & pembuat simulasi
   docs/            (ada) dokumen rancangan (file ini)
   client/          Phaser + UI HTML
@@ -191,6 +212,12 @@ Hal yang masih perlu diputuskan:
   kosong atau server dimulai ulang.
 - Di browser, riwayat disimpan **di memori selama tab terbuka**, tidak di
   `localStorage`, karena komputer lab dipakai bergantian.
+- Hanya pesan yang **dilaporkan** (beserta beberapa pesan sebelumnya) yang ditulis ke
+  database, disimpan **1 hari**, lalu dihapus otomatis oleh pekerjaan terjadwal harian.
+  Chat biasa tidak pernah ditulis ke database.
+- Konsekuensi: dosen harus meninjau laporan dalam 1 hari; laporan yang masuk Jumat
+  malam sudah terhapus pada hari Senin. Alternatif bila itu terlalu singkat: hitung 1
+  hari sejak laporan **ditinjau atau ditutup**, bukan sejak dikirim.
 - Sejalan dengan prinsip minimisasi data (UU Pelindungan Data Pribadi).
 
 ### Empat mode chat
@@ -317,7 +344,7 @@ dibuka dengan klik dua kali, tanpa server.
 | Area | Hasil |
 |---|---|
 | Gerak | Berjalan 4 arah (panah / WASD / tombol layar untuk HP), animasi 3 frame per arah. Bawaan **lari**; tahan Shift untuk jalan pelan |
-| Kamera | Mengikuti karakter dengan halus dan berhenti di tepi dunia. Zoom 1×–4× (bawaan 1×, kelipatan bulat agar piksel tajam), grid petak 32×32 bisa dinyalakan. Dunia uji seluas lobi (40 × 28 petak) dengan perabot sementara |
+| Kamera | Mengikuti karakter dengan halus dan berhenti di tepi dunia. Zoom 1×–4× (bawaan 1×, kelipatan bulat agar piksel tajam), grid petak 28×28 bisa dinyalakan. Dunia uji seluas lobi (40 × 28 petak) dengan perabot sementara |
 | Perakitan | Kepala utuh + badan tanpa kepala, tanpa leher; aksesori mengikuti posisi dagu/kerah |
 | Jenis kelamin | Laki-laki / Perempuan. Daftar kepala, daftar baju, dan palet warna menyesuaikan. Badan perempuan dirampingkan lewat kode (membuang 4 jalur piksel kain polos); tinggi dan posisi kerah tetap sama sehingga semua kepala dan aksesori cocok |
 | Pilihan | 16 sprite kepala, 8 set baju (Hoodie, Flanel, Kaos, Kemeja, Batik, Almamater, Jas lab, dan Tunik khusus perempuan), aksesori (kacamata bulat/kotak, headset, VR, ransel, tas laptop), warna rambut/hijab/topi, warna atasan, 5 warna kulit |
@@ -371,18 +398,36 @@ sekitar 1 menit). Set baru otomatis mendapat versi badan ramping.
 5. **Login & penyimpanan**: akun, karakter tersimpan, kemajuan latihan, lencana.
 6. **Peluncuran**: HTTPS di server, uji coba dengan satu kelas.
 
+### Cakupan versi pertama (uji coba satu kelas)
+
+Disusun atas saran, karena jam kerja per minggu dan tanggal target belum diketahui;
+sesuaikan bila keduanya sudah ada.
+
+| Masuk versi pertama | Menyusul |
+|---|---|
+| Lobi, perpustakaan, **satu kelas** (Lab Algoritma, 30 kursi) | Kelas B (45) dan Kelas C (60) |
+| Chat mode **Sekitar** dan **Publik** | Mode Berdua dan Kelompok |
+| Terminal **SQL** dan **pseudocode** | Python (Pyodide ± 10 MB) |
+| Kuis **pilihan ganda** | Kuis praktik di terminal |
+| Karakter kustom, login NIM/NIP, unduh nilai CSV | Lencana, emote, mesin arcade, DM |
+| Laptop | Dukungan HP penuh, mode gelap |
+
+Sebelum uji coba dengan banyak pemain, uji **100 pemain tiruan (bot)** di Colyseus untuk
+memastikan lobi sanggup menampung 100 orang. Ini bagian paling berisiko dan sebaiknya
+dibuktikan lebih awal.
+
 ---
 
 ## 8. Keputusan terbuka
 
 | No | Hal | Pilihan | Status |
 |---|---|---|---|
-| 1 | Penyimpanan laporan chat | Simpan pesan yang dilaporkan + beberapa pesan sebelumnya, hapus otomatis setelah 7 hari **atau** tanpa penyimpanan sama sekali | belum diputuskan |
+| 1 | Penyimpanan laporan chat | Simpan pesan yang dilaporkan + beberapa pesan sebelumnya, hapus otomatis setelah 1 hari **atau** tanpa penyimpanan sama sekali | diputuskan (permintaan pemilik proyek, hemat storage): simpan pesan yang dilaporkan **1 hari**, lalu hapus otomatis |
 | 2 | Karakter kustom | Aset buatan AI (Gemini) dirakit lewat kode **atau** LPC Character Generator (wajib kredit) | berjalan dengan aset AI; terbukti di prototipe (bagian 6) |
-| 3 | Server | Server kampus **atau** sewa VPS | belum diputuskan |
+| 3 | Server | Server kampus **atau** sewa VPS | diputuskan: **server Coolify milik pemilik proyek** (menggantikan saran VPS); domain/subdomain untuk HTTPS masih perlu dipastikan |
 | 4 | Login | **NIM (mahasiswa) / NIP (dosen) + kata sandi**, tanpa username, nama pemain = nama lengkap (diputuskan). Masih terbuka: verifikasi pendaftaran dan reset kata sandi (lihat Login dengan NIM) | pengenal diputuskan; detail belum |
-| 5 | Nilai kuis | Hanya di game **atau** bisa diunduh dosen (CSV/Excel) | belum diputuskan |
-| 6 | Perangkat utama | Laptop, HP, atau keduanya | belum diputuskan |
+| 5 | Nilai kuis | Hanya di game **atau** bisa diunduh dosen (CSV/Excel) | diputuskan (atas saran): dosen mengunduh CSV |
+| 6 | Perangkat utama | Laptop, HP, atau keduanya | diputuskan (atas saran): laptop lebih dulu; HP bisa dibuka (kontrol sentuh sudah ada) tetapi terminal praktik tidak dioptimalkan |
 | 7 | Perawat kode | Dosen, mahasiswa, atau tim IT kampus (memengaruhi bahasa server) | belum diputuskan |
-| 8 | Nama platform & nama ruangan | Usulan pemilik proyek untuk nama platform: **MITA** (Mayantara Interaktif Tatap-maya Akademik). Ide lain: Kampus Piksel, Gedung Algoritma, InfoVerse, Ruang Kode. Nama ruangan belum ditentukan | MITA diusulkan; belum final |
-| 9 | Skala petak dan benda | Petak game 32 dengan lembar dibesarkan **atau** petak 28 + buat ulang `lobby_floor_wall` dan `lobby_doors` (saran) — lihat `docs/TILES.md` | belum diputuskan; menentukan ukuran semua peta |
+| 8 | Nama platform & nama ruangan | Usulan pemilik proyek untuk nama platform: **MITA** (Mayantara Interaktif Tatap-maya Akademik). Ide lain: Kampus Piksel, Gedung Algoritma, InfoVerse, Ruang Kode. Nama ruangan belum ditentukan | nama kerja: MITA; cek domain dan merek sebelum dipakai publik |
+| 9 | Skala petak dan benda | Petak game 32 dengan lembar dibesarkan **atau** petak 28 + buat ulang `lobby_floor_wall` dan `lobby_doors` (saran) — lihat `docs/TILES.md` | diputuskan (atas saran): petak 28 + buat ulang `lobby_floor_wall` dan `lobby_doors`; lantai lobi sementara memakai petak lantai kelas |

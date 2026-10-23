@@ -5,7 +5,8 @@
    5.12,
    5.12
   ],
-  "jumlahSprite": 16
+  "jumlahSprite": 16,
+  "bernama": 0
  },
  "classroom_floor_wall": {
   "sumber": "assets/tiles/classroom/classroom_floor_wall.png",
@@ -13,7 +14,8 @@
    5.12,
    5.12
   ],
-  "jumlahSprite": 39
+  "jumlahSprite": 39,
+  "bernama": 0
  },
  "classroom_front": {
   "sumber": "assets/tiles/classroom/classroom_front.png",
@@ -21,7 +23,8 @@
    5.12,
    5.12
   ],
-  "jumlahSprite": 14
+  "jumlahSprite": 14,
+  "bernama": 0
  },
  "lab_computer_desks": {
   "sumber": "assets/tiles/classroom/lab_computer_desks.png",
@@ -29,7 +32,8 @@
    5.12,
    5.12
   ],
-  "jumlahSprite": 16
+  "jumlahSprite": 16,
+  "bernama": 0
  },
  "room_signs": {
   "sumber": "assets/tiles/classroom/room_signs.png",
@@ -37,7 +41,8 @@
    5.12,
    5.12
   ],
-  "jumlahSprite": 14
+  "jumlahSprite": 14,
+  "bernama": 0
  },
  "smart_class_pods": {
   "sumber": "assets/tiles/classroom/smart_class_pods.png",
@@ -45,7 +50,8 @@
    5.12,
    5.12
   ],
-  "jumlahSprite": 14
+  "jumlahSprite": 14,
+  "bernama": 0
  },
  "library_bookshelves": {
   "sumber": "assets/tiles/library/library_bookshelves.png",
@@ -53,7 +59,8 @@
    4.45,
    4.45
   ],
-  "jumlahSprite": 12
+  "jumlahSprite": 12,
+  "bernama": 12
  },
  "library_category_signs": {
   "sumber": "assets/tiles/library/library_category_signs.png",
@@ -61,7 +68,8 @@
    5.12,
    5.12
   ],
-  "jumlahSprite": 4
+  "jumlahSprite": 4,
+  "bernama": 4
  },
  "library_effects": {
   "sumber": "assets/tiles/library/library_effects.png",
@@ -69,7 +77,8 @@
    5.12,
    5.12
   ],
-  "jumlahSprite": 8
+  "jumlahSprite": 8,
+  "bernama": 0
  },
  "library_floor_wall": {
   "sumber": "assets/tiles/library/library_floor_wall.png",
@@ -77,7 +86,8 @@
    5.12,
    5.12
   ],
-  "jumlahSprite": 29
+  "jumlahSprite": 29,
+  "bernama": 29
  },
  "library_furniture": {
   "sumber": "assets/tiles/library/library_furniture.png",
@@ -85,7 +95,8 @@
    5.12,
    5.12
   ],
-  "jumlahSprite": 11
+  "jumlahSprite": 11,
+  "bernama": 11
  },
  "library_terminals": {
   "sumber": "assets/tiles/library/library_terminals.png",
@@ -93,7 +104,8 @@
    5.12,
    5.12
   ],
-  "jumlahSprite": 20
+  "jumlahSprite": 20,
+  "bernama": 20
  },
  "lobby_decor": {
   "sumber": "assets/tiles/lobby/lobby_decor.png",
@@ -101,7 +113,8 @@
    4.92,
    4.92
   ],
-  "jumlahSprite": 23
+  "jumlahSprite": 23,
+  "bernama": 0
  },
  "lobby_doors": {
   "sumber": "assets/tiles/lobby/lobby_doors.png",
@@ -109,7 +122,8 @@
    5.12,
    5.12
   ],
-  "jumlahSprite": 20
+  "jumlahSprite": 20,
+  "bernama": 0
  },
  "lobby_floor_wall": {
   "sumber": "assets/tiles/lobby/lobby_floor_wall.png",
@@ -117,7 +131,8 @@
    6.4,
    6.4
   ],
-  "jumlahSprite": 62
+  "jumlahSprite": 62,
+  "bernama": 0
  },
  "lobby_furniture": {
   "sumber": "assets/tiles/lobby/lobby_furniture.png",
@@ -125,7 +140,8 @@
    4.92,
    4.92
   ],
-  "jumlahSprite": 26
+  "jumlahSprite": 26,
+  "bernama": 0
  },
  "lobby_tech": {
   "sumber": "assets/tiles/lobby/lobby_tech.png",
@@ -133,6 +149,7 @@
    4.92,
    4.92
   ],
-  "jumlahSprite": 11
+  "jumlahSprite": 11,
+  "bernama": 0
  }
 }

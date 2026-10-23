@@ -24,8 +24,9 @@ from scipy import ndimage
 ROOT = Path(__file__).resolve().parents[1]
 SRC = ROOT / "assets" / "tiles"
 OUT = ROOT / "export" / "tiles"
-TILE = 32
+TILE = json.loads((ROOT / "tools" / "character_config.json").read_text(encoding="utf-8"))["tile"]
 MIN_AREA = 30          # sprite lebih kecil dari ini (piksel-seni persegi) dibuang
+NAMES_FILE = ROOT / "tools" / "tile_names.json"
 BG_TOL = 60            # selisih warna (jumlah |dR|+|dG|+|dB|) yang masih dianggap latar
 
 
@@ -152,6 +153,9 @@ def preview(sheet_rgba, boxes, scale=3):
     return im
 
 
+NAMES = json.loads(NAMES_FILE.read_text(encoding="utf-8")) if NAMES_FILE.exists() else {}
+
+
 def process(path):
     name = path.stem
     a = np.array(Image.open(path).convert("RGB"))
@@ -218,13 +222,19 @@ def process(path):
         "sprite": [
             {"id": i + 1, "x": pos[i][0], "y": pos[i][1], "w": b[2], "h": b[3],
              "dariLembar": {"x": b[0], "y": b[1]},
-             "petak": [round(b[2] / TILE, 2), round(b[3] / TILE, 2)], "nama": None,
+             "petak": [round(b[2] / TILE, 2), round(b[3] / TILE, 2)], "nama": NAMES.get(name, {}).get(str(i + 1)),
              **({"sel": cellpos[i]} if cellpos else {})}
             for i, b in enumerate(boxes)
         ],
     }
     if grid:
         info["mosaik"] = grid
+    note = NAMES.get(name, {}).get("_catatan")
+    if note:
+        info["catatan"] = note
+    stale = [k for k in NAMES.get(name, {}) if k.isdigit() and int(k) > len(boxes)]
+    if stale:
+        print(f"PERINGATAN {name}: nama untuk id {stale} melebihi jumlah sprite ({len(boxes)})")
     (d / "atlas.json").write_text(json.dumps(info, indent=1, ensure_ascii=False), encoding="utf-8")
     return name, info
 
@@ -242,7 +252,8 @@ def main():
               f"lebar {min(w for w, _ in sizes) if sizes else 0}-{max(w for w, _ in sizes) if sizes else 0}  "
               f"tinggi {min(h for _, h in sizes) if sizes else 0}-{max(h for _, h in sizes) if sizes else 0}")
         summary[name] = {"sumber": info["sumber"], "pitchPiksel": info["pitchPiksel"],
-                         "jumlahSprite": len(sizes)}
+                         "jumlahSprite": len(sizes),
+                         "bernama": sum(1 for s in info["sprite"] if s["nama"])}
     if not names:
         OUT.mkdir(parents=True, exist_ok=True)
         (OUT / "index.json").write_text(json.dumps(summary, indent=1, ensure_ascii=False), encoding="utf-8")

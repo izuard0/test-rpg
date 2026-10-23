@@ -1,0 +1,37 @@
+{
+  "_keterangan": "Nama sprite per lembar (kunci = nomor id di export/tiles/<lembar>/atlas.json). Dibaca oleh tools/process_tiles.py. Nomor id bergantung pada urutan deteksi, jadi jalankan ulang tools/name_sheet.py dan periksa bila gambar sumber diganti. Akhiran 'gabung' = beberapa petak yang bersentuhan menyatu jadi satu sprite dan perlu dipisah. Hanya lembar perpustakaan yang sudah diberi nama.",
+  "library_bookshelves": {
+    "_catatan": "Versi 'menyala' (garis tepi oranye) hanya ada untuk rak oranye dan abu; rak biru dan hijau tidak punya. Efek menyala lebih baik dibuat lewat kode (garis tepi #E8833A).",
+    "1": "rak_biru", "2": "rak_oranye", "3": "rak_hijau", "4": "rak_abu_menyala",
+    "5": "rak_biru_2", "6": "rak_oranye_menyala", "7": "rak_hijau_2", "8": "rak_abu_menyala_2",
+    "9": "rak_samping_tinggi", "10": "rak_buku_hilang", "11": "rak_samping_pendek", "12": "rak_pendek"
+  },
+  "library_furniture": {
+    "1": "meja_baca_panjang", "2": "kursi_kayu_1", "3": "sofa_tunggal_biru_1", "4": "kursi_kayu_2",
+    "5": "sofa_tunggal_biru_2", "6": "meja_pustakawan", "7": "troli_buku", "8": "papan_tulis_beroda",
+    "9": "meja_komputer", "10": "tanaman_pakis", "11": "ikon_seru"
+  },
+  "library_terminals": {
+    "_catatan": "Gemini membuat beberapa varian kios dengan arah hadap berbeda (a-e); periksa preview.png sebelum memilih. 'mati' = layar gelap, 'nyala' = layar cyan, 'sorot' = garis tepi oranye.",
+    "1": "meja_dua_monitor", "2": "kios_mati_a", "3": "kios_nyala_a", "4": "kios_sorot_a",
+    "5": "kios_mati_b", "6": "kios_nyala_b", "7": "kios_sorot_b", "8": "bilik_belajar_tiga",
+    "9": "kios_belakang_a", "10": "kios_belakang_b", "11": "kios_belakang_c",
+    "12": "unit_kecil_a", "13": "unit_kecil_b", "14": "unit_kecil_c",
+    "15": "kios_sorot_c", "16": "kios_mati_c", "17": "kios_nyala_c", "18": "kios_mati_d",
+    "19": "kios_nyala_d", "20": "kios_nyala_e"
+  },
+  "library_floor_wall": {
+    "_catatan": "Ukuran tidak seragam (lebar 23-28, tinggi 22-28); normalisasi ke petak 28 x 28 dilakukan saat tileset peta dibuat (docs/TILES.md).",
+    "1": "lantai_parket_a", "2": "lantai_parket_b", "3": "dinding_krem_a", "4": "dinding_krem_b",
+    "5": "dinding_krem_bingkai", "6": "dinding_sudut_gabung", "7": "lantai_parket_c", "8": "lantai_parket_d",
+    "9": "karpet_navy_a", "10": "karpet_navy_b", "11": "karpet_navy_sudut_a", "12": "jendela_tinggi_gabung",
+    "13": "karpet_navy_tepi_gabung", "14": "karpet_navy_gabung_a", "15": "karpet_navy_gabung_b",
+    "16": "karpet_navy_gabung_c", "17": "dinding_panel_gabung", "18": "lantai_parket_e",
+    "19": "karpet_navy_sudut_b", "20": "karpet_navy_c", "21": "karpet_navy_d", "22": "karpet_navy_sudut_c",
+    "23": "dinding_krem_pendek", "24": "panel_navy_gelap", "25": "rak_dinding_oranye",
+    "26": "rak_dinding_kecil", "27": "jendela_kayu", "28": "pembaca_kartu_pilar", "29": "rak_rendah"
+  },
+  "library_category_signs": {
+    "1": "papan_kategori_biru", "2": "papan_kategori_oranye", "3": "papan_kategori_hijau", "4": "papan_kategori_abu"
+  }
+}

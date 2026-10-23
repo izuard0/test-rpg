@@ -25,10 +25,10 @@
     "y": 9
    },
    "petak": [
-    2.59,
-    1.91
+    2.96,
+    2.18
    ],
-   "nama": null
+   "nama": "papan_kategori_biru"
   },
   {
    "id": 2,
@@ -41,10 +41,10 @@
     "y": 9
    },
    "petak": [
-    2.59,
-    1.91
+    2.96,
+    2.18
    ],
-   "nama": null
+   "nama": "papan_kategori_oranye"
   },
   {
    "id": 3,
@@ -57,10 +57,10 @@
     "y": 77
    },
    "petak": [
-    2.59,
-    1.94
+    2.96,
+    2.21
    ],
-   "nama": null
+   "nama": "papan_kategori_hijau"
   },
   {
    "id": 4,
@@ -73,10 +73,10 @@
     "y": 94
    },
    "petak": [
-    2.59,
-    1.88
+    2.96,
+    2.14
    ],
-   "nama": null
+   "nama": "papan_kategori_abu"
   }
  ]
 }

@@ -17,7 +17,7 @@ Keluaran per lembar di `export/tiles/<lembar>/`:
 | Berkas | Isi |
 |---|---|
 | `atlas.png` | semua sprite yang sudah transparan, tersusun rapat |
-| `atlas.json` | daftar sprite: `id`, posisi di atlas (`x,y,w,h`), ukuran dalam petak 32, `nama` (kosong) |
+| `atlas.json` | daftar sprite: `id`, posisi di atlas (`x,y,w,h`), ukuran dalam petak (`tile` di konfigurasi, kini 28), `nama` (lihat `tools/tile_names.json`) |
 | `sheet.png` | seluruh lembar pada resolusi piksel-seni, latar dihapus |
 | `preview.png` | `sheet.png` diperbesar 3× dengan kotak dan nomor `id` tiap sprite |
 
@@ -86,7 +86,7 @@ Dua hal yang harus diselesaikan:
 2. **Beberapa benda menyimpang jauh dari karakter:** pintu terlalu kecil, papan kategori
    perpustakaan terlalu besar, dan sel lantai lobi satu skala lebih kecil dari lantai lain.
 
-Pilihan penanganan (belum diputuskan; lihat keputusan terbuka no. 9 di `RANCANGAN.md`):
+Pilihan penanganan (**diputuskan: B + C**, keputusan no. 9 di `RANCANGAN.md`):
 
 | Pilihan | Isi | Catatan |
 |---|---|---|
@@ -94,9 +94,11 @@ Pilihan penanganan (belum diputuskan; lihat keputusan terbuka no. 9 di `RANCANGA
 | B | **Petak game 28**; lantai perpustakaan dan kelas dipakai apa adanya, karakter setinggi ± 2 petak | Hanya lobi dan pintu yang perlu ditangani |
 | C | Buat ulang hanya `lobby_floor_wall` dan `lobby_doors` dengan acuan karakter dan ukuran petak | Pelengkap B; papan kategori dan papan ruangan juga perlu dibuat ulang atau diganti elemen HTML |
 
-Saran: **B + C.** Sebagian besar benda sudah sejalan dengan karakter; hanya dua lembar yang
-menyimpang. Ukuran petak 28 mengubah angka di rancangan (lobi 40 × 28 petak, dst.) dan
-`CLAUDE.md`/`config.json` (`tile`), jadi putuskan sebelum membuat peta.
+**Keputusan: B + C (petak 28).** Sebagian besar benda sudah sejalan dengan karakter; hanya
+beberapa lembar yang menyimpang. `tile` di konfigurasi sudah menjadi 28. Selama
+`lobby_floor_wall` belum dibuat ulang, **lantai lobi memakai petak lantai kelas** (`classroom_floor_wall`).
+Petak lantai yang lebarnya 26–27 px dinormalisasi ke 28 × 28 (selisih ≤ 8%, lewat pembesaran
+*nearest*) saat tileset peta dibuat; periksa hasilnya secara visual.
 
 ## Keterbatasan
 

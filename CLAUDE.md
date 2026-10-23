@@ -16,11 +16,14 @@ disepakati dengan pemilik proyek, jangan diubah diam-diam.
   bukan di server.
 - Kepala berhijab sementara hanya boleh memakai baju Hoodie dan Flanel; Hijab
   panjang dan Hijab sport disembunyikan dulu.
+- Deploy di **Coolify** (Docker, dari repo GitHub ini): satu image aplikasi + PostgreSQL
+  terpisah; konfigurasi lewat environment variable; WebSocket lewat proxy Coolify.
 
 ## Konvensi
 
 - Dokumen, teks antarmuka, dan komentar kode: **bahasa Indonesia**.
-- Petak (tile) **32 × 32 piksel**. Zoom kamera hanya kelipatan bulat agar piksel tajam.
+- Petak (tile) **28 × 28 piksel** (keputusan skala, lihat `docs/TILES.md`; nilainya di
+  `tools/character_config.json`). Zoom kamera hanya kelipatan bulat agar piksel tajam.
 - Nama berkas aset: huruf kecil, garis bawah, tanpa spasi (`set_hoodie.jpg`).
 - Gambar buatan AI **tidak boleh berisi tulisan**; semua teks dibuat lewat kode.
 - Jarak dalam game diukur dalam **petak**, bukan piksel layar.

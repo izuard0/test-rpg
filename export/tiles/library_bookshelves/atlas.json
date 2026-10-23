@@ -25,10 +25,10 @@
     "y": 11
    },
    "petak": [
-    1.38,
-    2.12
+    1.57,
+    2.43
    ],
-   "nama": null
+   "nama": "rak_biru"
   },
   {
    "id": 2,
@@ -41,10 +41,10 @@
     "y": 11
    },
    "petak": [
-    1.41,
-    2.12
+    1.61,
+    2.43
    ],
-   "nama": null
+   "nama": "rak_oranye"
   },
   {
    "id": 3,
@@ -57,10 +57,10 @@
     "y": 11
    },
    "petak": [
-    1.38,
-    2.12
+    1.57,
+    2.43
    ],
-   "nama": null
+   "nama": "rak_hijau"
   },
   {
    "id": 4,
@@ -73,10 +73,10 @@
     "y": 10
    },
    "petak": [
-    1.41,
-    2.16
+    1.61,
+    2.46
    ],
-   "nama": null
+   "nama": "rak_abu_menyala"
   },
   {
    "id": 5,
@@ -89,10 +89,10 @@
     "y": 87
    },
    "petak": [
-    1.38,
-    2.16
+    1.57,
+    2.46
    ],
-   "nama": null
+   "nama": "rak_biru_2"
   },
   {
    "id": 6,
@@ -105,10 +105,10 @@
     "y": 86
    },
    "petak": [
-    1.5,
-    2.22
+    1.71,
+    2.54
    ],
-   "nama": null
+   "nama": "rak_oranye_menyala"
   },
   {
    "id": 7,
@@ -121,10 +121,10 @@
     "y": 87
    },
    "petak": [
-    1.38,
-    2.16
+    1.57,
+    2.46
    ],
-   "nama": null
+   "nama": "rak_hijau_2"
   },
   {
    "id": 8,
@@ -137,10 +137,10 @@
     "y": 86
    },
    "petak": [
-    1.53,
-    2.22
+    1.75,
+    2.54
    ],
-   "nama": null
+   "nama": "rak_abu_menyala_2"
   },
   {
    "id": 9,
@@ -153,10 +153,10 @@
     "y": 164
    },
    "petak": [
-    0.56,
-    1.69
+    0.64,
+    1.93
    ],
-   "nama": null
+   "nama": "rak_samping_tinggi"
   },
   {
    "id": 10,
@@ -169,10 +169,10 @@
     "y": 164
    },
    "petak": [
-    1.28,
-    1.72
+    1.46,
+    1.96
    ],
-   "nama": null
+   "nama": "rak_buku_hilang"
   },
   {
    "id": 11,
@@ -185,10 +185,10 @@
     "y": 184
    },
    "petak": [
-    0.53,
-    1.03
+    0.61,
+    1.18
    ],
-   "nama": null
+   "nama": "rak_samping_pendek"
   },
   {
    "id": 12,
@@ -201,10 +201,11 @@
     "y": 192
    },
    "petak": [
-    1.31,
-    0.78
+    1.5,
+    0.89
    ],
-   "nama": null
+   "nama": "rak_pendek"
   }
- ]
+ ],
+ "catatan": "Versi 'menyala' (garis tepi oranye) hanya ada untuk rak oranye dan abu; rak biru dan hijau tidak punya. Efek menyala lebih baik dibuat lewat kode (garis tepi #E8833A)."
 }

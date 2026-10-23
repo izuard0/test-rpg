@@ -14,6 +14,7 @@ ROOT = Path(__file__).resolve().parents[1]
 CH = ROOT / "export" / "character"
 TL = ROOT / "export" / "tiles"
 Z = 4
+TILE = json.loads((ROOT / "tools" / "character_config.json").read_text(encoding="utf-8"))["tile"]
 
 
 def sprite(sheet, pick):
@@ -69,10 +70,10 @@ H = max(i.height for _, i, _ in items) * Z + 80
 canvas = Image.new("RGB", (W, H), (236, 232, 222))
 d = ImageDraw.Draw(canvas)
 base = H - 52
-# acuan petak 32 x 32 di sisi kiri
-d.rectangle([pad, base - 32 * Z, pad + 32 * Z, base], outline=(232, 131, 58), width=2)
-d.text((pad + 4, base - 32 * Z - 14), "petak 32x32", fill=(180, 80, 20))
-x = pad + 32 * Z + pad
+# acuan petak (ukuran dari konfigurasi) di sisi kiri
+d.rectangle([pad, base - TILE * Z, pad + TILE * Z, base], outline=(232, 131, 58), width=2)
+d.text((pad + 4, base - TILE * Z - 14), f"petak {TILE}x{TILE}", fill=(180, 80, 20))
+x = pad + TILE * Z + pad
 for label, im, s in items:
     big = im.resize((im.width * Z, im.height * Z), Image.NEAREST)
     canvas.paste(big, (x, base - big.height), big)

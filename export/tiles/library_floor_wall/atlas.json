@@ -25,10 +25,10 @@
     "y": 13
    },
    "petak": [
-    0.81,
-    0.88
+    0.93,
+    1.0
    ],
-   "nama": null
+   "nama": "lantai_parket_a"
   },
   {
    "id": 2,
@@ -41,10 +41,10 @@
     "y": 13
    },
    "petak": [
-    0.88,
-    0.88
+    1.0,
+    1.0
    ],
-   "nama": null
+   "nama": "lantai_parket_b"
   },
   {
    "id": 3,
@@ -57,10 +57,10 @@
     "y": 13
    },
    "petak": [
-    0.75,
-    0.84
+    0.86,
+    0.96
    ],
-   "nama": null
+   "nama": "dinding_krem_a"
   },
   {
    "id": 4,
@@ -73,10 +73,10 @@
     "y": 13
    },
    "petak": [
-    0.72,
-    0.84
+    0.82,
+    0.96
    ],
-   "nama": null
+   "nama": "dinding_krem_b"
   },
   {
    "id": 5,
@@ -89,10 +89,10 @@
     "y": 13
    },
    "petak": [
-    0.88,
-    0.84
+    1.0,
+    0.96
    ],
-   "nama": null
+   "nama": "dinding_krem_bingkai"
   },
   {
    "id": 6,
@@ -105,10 +105,10 @@
     "y": 13
    },
    "petak": [
-    0.81,
-    1.81
+    0.93,
+    2.07
    ],
-   "nama": null
+   "nama": "dinding_sudut_gabung"
   },
   {
    "id": 7,
@@ -121,10 +121,10 @@
     "y": 44
    },
    "petak": [
-    0.81,
-    0.84
+    0.93,
+    0.96
    ],
-   "nama": null
+   "nama": "lantai_parket_c"
   },
   {
    "id": 8,
@@ -137,10 +137,10 @@
     "y": 44
    },
    "petak": [
-    0.88,
-    0.84
+    1.0,
+    0.96
    ],
-   "nama": null
+   "nama": "lantai_parket_d"
   },
   {
    "id": 9,
@@ -153,10 +153,10 @@
     "y": 44
    },
    "petak": [
-    0.75,
-    0.84
+    0.86,
+    0.96
    ],
-   "nama": null
+   "nama": "karpet_navy_a"
   },
   {
    "id": 10,
@@ -169,10 +169,10 @@
     "y": 44
    },
    "petak": [
-    0.72,
-    0.84
+    0.82,
+    0.96
    ],
-   "nama": null
+   "nama": "karpet_navy_b"
   },
   {
    "id": 11,
@@ -185,10 +185,10 @@
     "y": 44
    },
    "petak": [
-    0.88,
-    0.84
+    1.0,
+    0.96
    ],
-   "nama": null
+   "nama": "karpet_navy_sudut_a"
   },
   {
    "id": 12,
@@ -201,10 +201,10 @@
     "y": 74
    },
    "petak": [
-    0.81,
-    1.56
+    0.93,
+    1.79
    ],
-   "nama": null
+   "nama": "jendela_tinggi_gabung"
   },
   {
    "id": 13,
@@ -217,10 +217,10 @@
     "y": 74
    },
    "petak": [
-    0.88,
-    1.56
+    1.0,
+    1.79
    ],
-   "nama": null
+   "nama": "karpet_navy_tepi_gabung"
   },
   {
    "id": 14,
@@ -233,10 +233,10 @@
     "y": 74
    },
    "petak": [
-    0.75,
-    1.56
+    0.86,
+    1.79
    ],
-   "nama": null
+   "nama": "karpet_navy_gabung_a"
   },
   {
    "id": 15,
@@ -249,10 +249,10 @@
     "y": 74
    },
    "petak": [
-    0.72,
-    1.56
+    0.82,
+    1.79
    ],
-   "nama": null
+   "nama": "karpet_navy_gabung_b"
   },
   {
    "id": 16,
@@ -265,10 +265,10 @@
     "y": 74
    },
    "petak": [
-    0.88,
-    1.56
+    1.0,
+    1.79
    ],
-   "nama": null
+   "nama": "karpet_navy_gabung_c"
   },
   {
    "id": 17,
@@ -281,10 +281,10 @@
     "y": 74
    },
    "petak": [
-    0.81,
-    1.56
+    0.93,
+    1.79
    ],
-   "nama": null
+   "nama": "dinding_panel_gabung"
   },
   {
    "id": 18,
@@ -297,10 +297,10 @@
     "y": 127
    },
    "petak": [
-    0.81,
-    0.69
+    0.93,
+    0.79
    ],
-   "nama": null
+   "nama": "lantai_parket_e"
   },
   {
    "id": 19,
@@ -313,10 +313,10 @@
     "y": 127
    },
    "petak": [
-    0.88,
-    0.69
+    1.0,
+    0.79
    ],
-   "nama": null
+   "nama": "karpet_navy_sudut_b"
   },
   {
    "id": 20,
@@ -329,10 +329,10 @@
     "y": 127
    },
    "petak": [
-    0.75,
-    0.69
+    0.86,
+    0.79
    ],
-   "nama": null
+   "nama": "karpet_navy_c"
   },
   {
    "id": 21,
@@ -345,10 +345,10 @@
     "y": 127
    },
    "petak": [
-    0.72,
-    0.69
+    0.82,
+    0.79
    ],
-   "nama": null
+   "nama": "karpet_navy_d"
   },
   {
    "id": 22,
@@ -361,10 +361,10 @@
     "y": 127
    },
    "petak": [
-    0.88,
-    0.69
+    1.0,
+    0.79
    ],
-   "nama": null
+   "nama": "karpet_navy_sudut_c"
   },
   {
    "id": 23,
@@ -377,10 +377,10 @@
     "y": 127
    },
    "petak": [
-    0.81,
-    0.69
+    0.93,
+    0.79
    ],
-   "nama": null
+   "nama": "dinding_krem_pendek"
   },
   {
    "id": 24,
@@ -393,10 +393,10 @@
     "y": 153
    },
    "petak": [
-    0.81,
-    1.0
+    0.93,
+    1.14
    ],
-   "nama": null
+   "nama": "panel_navy_gelap"
   },
   {
    "id": 25,
@@ -409,10 +409,10 @@
     "y": 153
    },
    "petak": [
-    0.88,
-    1.0
+    1.0,
+    1.14
    ],
-   "nama": null
+   "nama": "rak_dinding_oranye"
   },
   {
    "id": 26,
@@ -425,10 +425,10 @@
     "y": 153
    },
    "petak": [
-    0.72,
-    1.0
+    0.82,
+    1.14
    ],
-   "nama": null
+   "nama": "rak_dinding_kecil"
   },
   {
    "id": 27,
@@ -441,10 +441,10 @@
     "y": 153
    },
    "petak": [
-    0.72,
-    1.0
+    0.82,
+    1.14
    ],
-   "nama": null
+   "nama": "jendela_kayu"
   },
   {
    "id": 28,
@@ -457,10 +457,10 @@
     "y": 153
    },
    "petak": [
-    0.38,
-    1.0
+    0.43,
+    1.14
    ],
-   "nama": null
+   "nama": "pembaca_kartu_pilar"
   },
   {
    "id": 29,
@@ -473,10 +473,11 @@
     "y": 157
    },
    "petak": [
-    0.88,
-    0.44
+    1.0,
+    0.5
    ],
-   "nama": null
+   "nama": "rak_rendah"
   }
- ]
+ ],
+ "catatan": "Ukuran tidak seragam (lebar 23-28, tinggi 22-28); normalisasi ke petak 28 x 28 dilakukan saat tileset peta dibuat (docs/TILES.md)."
 }

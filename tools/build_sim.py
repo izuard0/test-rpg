@@ -98,7 +98,7 @@ h2{font-size:13px;letter-spacing:1.5px;text-transform:uppercase;color:#B4501A;ma
   <div class="sw" id="skinSw"></div>
   <h2>Tampilan</h2>
   <div class="row">Zoom kamera: <button class="zbtn" data-z="-1">−</button><b id="zoomVal">1×</b><button class="zbtn" data-z="1">+</button></div>
-  <div class="row" style="margin-top:8px"><label><input type="checkbox" id="grid"> Tampilkan grid petak 32×32</label></div>
+  <div class="row" style="margin-top:8px"><label><input type="checkbox" id="grid"> Tampilkan grid petak (28×28)</label></div>
   <p class="note">Badan perempuan dibuat lebih ramping dari badan laki-laki lewat kode. Pilihan kepala, baju, dan palet warna menyesuaikan jenis kelamin.</p>
 </aside>
 <script>
@@ -192,7 +192,7 @@ function drawChar(ctx, cx, footY, dir, frame, headKey){
 }
 
 /* ---------- world & camera ---------- */
-const T = 32, COLS = 40, ROWS = 28, WW = COLS*T, WH = ROWS*T;   // seluas lobi
+const T = CFG.tile, COLS = 40, ROWS = 28, WW = COLS*T, WH = ROWS*T;   // seluas lobi
 const game = document.getElementById("game"), g = game.getContext("2d");
 let VW = 480, VH = 270, ZOOM = 1;
 const cam = {x: 0, y: 0};
