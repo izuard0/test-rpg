@@ -23,8 +23,7 @@ export interface ChatTarget {
   role: Role;
 }
 
-const MODES: ChatMode[] = ["sekitar", "global", "pribadi"];
-const MODE_LABEL: Record<ChatMode, string> = { sekitar: "Sekitar", global: "Global", pribadi: "Pribadi" };
+const MODE_LABEL: Record<ChatMode, string> = { sekitar: "Sekitar", global: "Global", pribadi: "Pribadi", kelas: "Kelas" };
 const LOG_MAX = 120;
 
 const STATE_TEXT: Record<PmState, string> = {
@@ -53,6 +52,9 @@ class ChatBox {
   /** Pesan yang sudah tampil (riwayat Global dikirim ulang setiap masuk ruang). */
   private readonly seen = new Set<string>();
   private typing = false;
+  /** Di ruang kelas "Global" diganti "Kelas", yang hanya ada selama sesi kelas berjalan. */
+  private inClassRoom = false;
+  private classActive = false;
 
   mount(): void {
     if (this.root) return;
@@ -143,8 +145,26 @@ class ChatBox {
     this.root.querySelector(".status")!.textContent = text;
   }
 
+  private modes(): ChatMode[] {
+    if (this.inClassRoom) return this.classActive ? ["kelas", "sekitar", "pribadi"] : ["sekitar", "pribadi"];
+    return ["sekitar", "global", "pribadi"];
+  }
+
+  /** Dipanggil saat masuk ruang dan saat sesi kelas mulai/selesai. */
+  setClassContext(inClassRoom: boolean, classActive: boolean): void {
+    this.mount();
+    const opened = inClassRoom && classActive && !(this.inClassRoom && this.classActive);
+    this.inClassRoom = inClassRoom;
+    this.classActive = classActive;
+    // Sesi dimulai: langsung ke mode Kelas. Sesi selesai / keluar kelas: kembali ke Sekitar.
+    if (opened) this.setMode("kelas");
+    else if (!this.modes().includes(this.mode)) this.setMode("sekitar");
+    else this.renderMode();
+  }
+
   private cycleMode(): void {
-    this.setMode(MODES[(MODES.indexOf(this.mode) + 1) % MODES.length]);
+    const modes = this.modes();
+    this.setMode(modes[(modes.indexOf(this.mode) + 1) % modes.length]);
     if (this.mode === "pribadi" && !this.target) void this.pickTarget();
   }
 
@@ -280,6 +300,7 @@ class ChatBox {
     const time = new Date(m.at).toLocaleTimeString("id-ID", { hour: "2-digit", minute: "2-digit" });
     let head = who;
     if (m.mode === "global") head = `<span class="tag">Global</span> ${who}`;
+    if (m.mode === "kelas") head = `<span class="tag">Kelas</span> ${who}`;
     if (m.mode === "pribadi") {
       const mine = m.fromUid === this.me.uid;
       head = `<span class="tag">🔒</span> ${mine ? `kamu → <b>${esc(m.toName ?? "")}</b>` : `${who} → kamu`}`;

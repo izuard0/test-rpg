@@ -13,7 +13,10 @@ let app: FastifyInstance;
 let url: string;
 
 beforeAll(async () => {
-  app = await buildApp({ clientDir: mkdtempSync(join(tmpdir(), "mita-")), game: defaultGameOptions(ROOT) });
+  app = await buildApp({
+    clientDir: mkdtempSync(join(tmpdir(), "mita-")),
+    game: { ...defaultGameOptions(ROOT), kodeDosen: "rahasia-dosen", filesDir: mkdtempSync(join(tmpdir(), "mita-files-")) },
+  });
   await app.listen({ port: 0, host: "127.0.0.1" });
   const addr = app.server.address();
   url = `http://127.0.0.1:${typeof addr === "object" && addr ? addr.port : 0}`;
@@ -27,7 +30,7 @@ async function player(id: string, name: string, role: JoinOptions["role"] = "mah
   const c = new Client(url);
   const inbox: { type: string; msg: unknown }[] = [];
   const r: Room = await c.joinOrCreate(room, { id, name, role, choice: undefined, ...extra });
-  for (const t of ["welcome", "add", "remove", "snap", "chat", "dots", "seat", "pmRequest", "pmStatus", "notice", "directory", "correct"]) {
+  for (const t of ["welcome", "add", "remove", "snap", "chat", "dots", "seat", "pmRequest", "pmStatus", "notice", "directory", "correct", "classState"]) {
     r.onMessage(t, (msg) => inbox.push({ type: t, msg }));
   }
   const wait = async <K extends keyof S2C>(type: K, pred: (m: S2C[K]) => boolean = () => true, ms = 3000): Promise<S2C[K]> => {
@@ -51,6 +54,36 @@ async function player(id: string, name: string, role: JoinOptions["role"] = "mah
 }
 
 const move = (p: Awaited<ReturnType<typeof player>>, x: number, y: number, flags = 0) => p.room.send("move", [x, y, 0, flags]);
+/** Berjalan mengikuti jalur bebas rintangan (BFS per setengah petak) ke (x, y). */
+async function walkPath(p: Awaited<ReturnType<typeof player>>, mapCode: string, x: number, y: number) {
+  const { loadWorld } = await import("../src/game/world.js");
+  const { footBox } = await import("@mita/shared");
+  const w = loadWorld(join(ROOT, "maps")).rooms.get(mapCode)!;
+  const step = 14;
+  const key = (a: number, b: number) => `${a},${b}`;
+  const snap = (v: number) => Math.round(v / step) * step;
+  const start = [p.welcome.x, p.welcome.y];
+  const goal = key(snap(x), snap(y));
+  const prev = new Map<string, string | null>([[key(snap(start[0]), snap(start[1])), null]]);
+  const q = [[snap(start[0]), snap(start[1])]];
+  while (q.length && !prev.has(goal)) {
+    const [cx, cy] = q.shift()!;
+    for (const [dx, dy] of [[step, 0], [-step, 0], [0, step], [0, -step]]) {
+      const nx = cx + dx, ny = cy + dy, k = key(nx, ny);
+      if (prev.has(k) || w.collision.blocked(footBox(nx, ny))) continue;
+      prev.set(k, key(cx, cy));
+      q.push([nx, ny]);
+    }
+  }
+  if (!prev.has(goal)) throw new Error(`tidak ada jalur ke ${goal}`);
+  const path: number[][] = [];
+  for (let k: string | null = goal; k; k = prev.get(k) ?? null) path.unshift(k.split(",").map(Number));
+  for (const [px, py] of path) {
+    move(p, px, py);
+    await new Promise((r) => setTimeout(r, 90));
+  }
+}
+
 /** Berjalan bertahap ke (x, y): server menolak lompatan yang terlalu jauh. */
 async function walk(p: Awaited<ReturnType<typeof player>>, x: number, y: number) {
   let cx = p.welcome.x, cy = p.welcome.y;
@@ -201,7 +234,75 @@ describe("multipemain", () => {
     const masuk = await player("2301999", "Terlambat", "mahasiswa", ROOM_KELAS, { kelas: "kelas-a" });
     expect(masuk.welcome.players).toHaveLength(32);
     for (const p of [...ps.slice(1), masuk]) await p.room.leave();
-  });
+  }, 20_000);
+
+  it("sesi kelas: dosen di meja dosen memulai, mahasiswa dapat materi, obrolan Kelas, file bersama", async () => {
+    const opt = { kelas: "kelas-b", spawn: "dari_lobi" };
+    const dosen = await player("198001012005011002", "Dr. Sari Uji", "dosen", ROOM_KELAS, opt);
+    const mhs = await player("2201201", "Nina Uji", "mahasiswa", ROOM_KELAS, opt);
+    expect(mhs.welcome.kelas).toMatchObject({ active: false });
+    const materi = { title: "SQL DDL", file: "bahan_ajar/Perancangan Basis Data/P09_SQL_DDL_slides.html", course: "Perancangan Basis Data" };
+
+    // Belum di meja dosen: ditolak. Mahasiswa juga tidak bisa memulai.
+    dosen.room.send("classStart", { materi });
+    expect((await dosen.wait("notice")).text).toMatch(/meja dosen/);
+    mhs.room.send("classStart", { materi });
+    expect((await mhs.wait("notice")).text).toMatch(/Hanya dosen/);
+    // Obrolan Kelas belum ada sebelum sesi dimulai.
+    mhs.room.send("chat", { mode: "kelas", text: "halo" });
+    expect((await mhs.wait("notice")).text).toMatch(/selama sesi/);
+
+    // Dosen berjalan ke meja dosen lalu memulai kelas.
+    const map = (await import("../src/game/world.js")).loadWorld(join(ROOT, "maps"));
+    const desk = map.rooms.get("kelas-b")!.data.interactables.find((i) => i.kind === "teacher_desk")!;
+    await walkPath(dosen, "kelas-b", desk.rect.x + desk.rect.w / 2, desk.rect.y + desk.rect.h + 10);
+    dosen.room.send("classStart", { materi });
+    const st = await mhs.wait("classState", (x) => x.event === "start");
+    expect(st).toMatchObject({ active: true, dosenName: "Dr. Sari Uji", materi });
+
+    // Obrolan Kelas sampai ke semua orang di ruang; yang datang terlambat menerima riwayatnya dan materinya.
+    await new Promise((r) => setTimeout(r, 1100));
+    dosen.room.send("chat", { mode: "kelas", text: "Silakan buka slide P09" });
+    expect(((await mhs.wait("chat")) as ChatMessage).mode).toBe("kelas");
+    const telat = await player("2201202", "Oki Uji", "mahasiswa", ROOM_KELAS, opt);
+    expect(telat.welcome.kelas).toMatchObject({ active: true, materi });
+    expect(telat.welcome.history.map((h) => h.text)).toContain("Silakan buka slide P09");
+
+    // Unggah file: kode salah ditolak, jenis terlarang ditolak, mahasiswa tidak bisa mengunggah.
+    const up = (sessionId: string, name: string, body: Buffer, kode = "rahasia-dosen", ttl = 15) =>
+      fetch(`${url}/api/kelas/files?session=${sessionId}&ttl=${ttl}`, {
+        method: "POST",
+        headers: { "content-type": "application/octet-stream", "x-kode-dosen": kode, "x-file-name": encodeURIComponent(name) },
+        body: new Uint8Array(body),
+      });
+    expect((await up(dosen.room.sessionId, "data.csv", Buffer.from("a,b\n1,2"), "salah")).status).toBe(403);
+    expect((await up(dosen.room.sessionId, "virus.exe", Buffer.from("MZ...."))).status).toBe(400);
+    expect((await up(dosen.room.sessionId, "ganti-nama.pdf", Buffer.from([0x4d, 0x5a, 1, 2]))).status).toBe(400);
+    expect((await up(mhs.room.sessionId, "data.csv", Buffer.from("a,b"))).status).toBe(403);
+    const ok = await up(dosen.room.sessionId, "data nilai.csv", Buffer.from("nim,nilai\n2201201,90\n"));
+    expect(ok.status).toBe(200);
+    const { token } = (await ok.json()) as { token: string };
+    const withFile = await mhs.wait("classState", (x) => x.event === "file");
+    expect(withFile.files.map((f) => f.name)).toEqual(["data nilai.csv"]);
+
+    // Unduh: peserta kelas bisa (sebagai lampiran), pemain di luar kelas tidak.
+    const dl = await fetch(`${url}/api/files/${token}?session=${mhs.room.sessionId}`);
+    expect(dl.status).toBe(200);
+    expect(dl.headers.get("content-disposition")).toMatch(/^attachment;/);
+    expect(dl.headers.get("x-content-type-options")).toBe("nosniff");
+    expect(await dl.text()).toBe("nim,nilai\n2201201,90\n");
+    const luar = await player("2201203", "Putu Uji");
+    expect((await fetch(`${url}/api/files/${token}?session=${luar.room.sessionId}`)).status).toBe(403);
+    expect((await fetch(`${url}/api/files/${token}`)).status).toBe(403);
+
+    // Dosen mengakhiri kelas: obrolan Kelas tertutup lagi.
+    dosen.room.send("classEnd", {});
+    expect(await mhs.wait("classState", (x) => x.event === "end")).toMatchObject({ active: false });
+    await new Promise((r) => setTimeout(r, 1100));
+    mhs.room.send("chat", { mode: "kelas", text: "masih?" });
+    expect((await mhs.wait("notice")).text).toMatch(/selama sesi/);
+    for (const p of [dosen, mhs, telat, luar]) await p.room.leave();
+  }, 30_000);
 
   it("menolak identitas yang tidak sah", async () => {
     await expect(player("ab", "X")).rejects.toThrow();

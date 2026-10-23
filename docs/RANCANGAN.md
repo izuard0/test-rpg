@@ -240,7 +240,12 @@ dibagi oleh dosen, atau ajakan antarmahasiswa.
   dan **Pribadi** (mode Berdua, dimajukan dari "menyusul"). Kelompok tetap menyusul.
 - **Radius Sekitar 3 petak di semua ruangan** (menggantikan 5 petak di lobi).
 - **Global = satu gedung kampus** (lobi, koridor, perpustakaan, ruang kecil). Pemain di dalam
-  kelas punya Global kelasnya sendiri, jadi obrolan kampus tidak masuk ke kelas.
+  kelas tidak memakai Global; obrolan kampus tidak masuk ke kelas. *(Diubah 23 Okt 2026:
+  Global kelas diganti mode **Kelas**, lihat di bawah.)*
+- **Mode Kelas** (tahap 4): muncul di pengganti mode hanya **saat dosen memulai sesi kelas**,
+  khusus orang di ruang kelas itu. Saat sesi dimulai chat otomatis pindah ke mode Kelas;
+  saat sesi diakhiri mode ini hilang dan riwayatnya dibuang. Pemain yang masuk di tengah
+  sesi menerima riwayat obrolan Kelas sesi itu.
 - Global di kampus dibatasi **1 pesan per 10 detik per orang**; di kelas tanpa batas tambahan
   (kecuali saat kuis).
 - Chatbox di **kiri bawah**; `Enter` mulai/kirim; bisa dikecilkan; di HP lewat tombol 💬.
@@ -262,7 +267,8 @@ dibagi oleh dosen, atau ajakan antarmahasiswa.
 |---|---|---|---|---|
 | Kampus: lobi, koridor, ruang kecil | ✔ bawaan, radius 3 petak | ✔, 1 pesan / 10 detik | ✔ | menyusul |
 | Perpustakaan | ✔ radius 3 petak | ✘ kirim (ruang tenang), tetap menerima | ✔ | menyusul |
-| Kelas (bukan kuis) | ✔ | ✔ (khusus kelas itu) | ✔ | menyusul |
+| Kelas tanpa sesi | ✔ | ✘ | ✔ | menyusul |
+| Kelas, sesi berjalan | ✔ | **Kelas** (khusus kelas itu, selama sesi) | ✔ | menyusul |
 | Kelas (saat kuis) | ✘ | dosen saja | ✘ | ✘ |
 
 ### Detail perilaku
@@ -416,9 +422,19 @@ sekitar 1 menit). Set baru otomatis mendapat versi badan ramping.
    dikirim), pindah ruangan, chat Sekitar/Global/Pribadi dengan izin dosen, kursi kelas, isi kelas
    tampak dari kampus. Uji beban lokal: 150 bot di satu ruang, tick rata-rata ± 6 ms dari 100 ms.
    Belum: mode Kelompok, emote, bisukan pemain, laporkan pesan, uji beban di server Coolify.
-4. **Kuis di kelas**: kursi, panel kuis, halaman dosen untuk memulai kuis
+4. **Sesi kelas dan kuis** *(sebagian, 23 Okt 2026)*: sudah: dosen memulai kelas di meja dosen
+   dengan materi dari `bahan_ajar/`, semua orang di ruangan mendapat notifikasi untuk membuka
+   slide, mode chat Kelas, dan dosen membagikan file (txt, md, csv, json, pdf, ppt/pptx,
+   doc/docx, xls/xlsx, ipynb, sql, py, zip; maks. 20 MB, total 200 MB) yang kedaluwarsa
+   15/30/60 menit lalu dihapus dari server. Hanya peserta kelas itu yang bisa mengunduh;
+   unggahan dijaga kode dosen (`KODE_DOSEN`) sampai login NIP di tahap 5. Belum: kuis.
+   Rencana kuis: kursi, panel kuis, halaman dosen untuk memulai kuis
    dan mengunduh nilai; kuis praktik memakai terminal di Lab Komputer.
 5. **Login & penyimpanan**: akun, karakter tersimpan, kemajuan latihan, lencana.
+   Akun dosen **disetujui admin** (keputusan 23 Okt 2026): daftar dengan NIP, lalu admin
+   menyetujui di halaman admin sebelum peran dosen aktif. Setelah itu `KODE_DOSEN` dihapus
+   dan bagi file cukup memeriksa peran dosen yang sudah disetujui. Sampai saat itu
+   `KODE_DOSEN` boleh dibiarkan kosong (bagi file nonaktif, fitur kelas lain tetap jalan).
 6. **Peluncuran**: HTTPS di server, uji coba dengan satu kelas.
 
 ### Cakupan versi pertama (uji coba satu kelas)

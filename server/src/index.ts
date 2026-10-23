@@ -10,7 +10,7 @@ const clientDir = resolve(process.env.CLIENT_DIR ?? resolve(here, "../../client/
 // Folder berisi maps/*.tmj dan export/character/config.json (repo saat dev, /app di Docker).
 const dataRoot = resolve(process.env.DATA_DIR ?? resolve(here, "../.."));
 
-const app = await buildApp({ clientDir, version: process.env.APP_VERSION, logger: true, game: defaultGameOptions(dataRoot) });
+const app = await buildApp({ clientDir, version: process.env.APP_VERSION, logger: true, game: defaultGameOptions(dataRoot, clientDir) });
 
 for (const sig of ["SIGTERM", "SIGINT"] as const) {
   process.once(sig, () => {

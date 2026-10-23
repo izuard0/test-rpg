@@ -59,7 +59,11 @@ export interface Profile {
   mirror?: string;
 }
 
-export type ChatMode = "sekitar" | "global" | "pribadi";
+/**
+ * "kelas": obrolan semua orang di ruang kelas, hanya selama sesi kelas berjalan.
+ * Di dalam ruang kelas, mode ini menggantikan "global".
+ */
+export type ChatMode = "sekitar" | "global" | "pribadi" | "kelas";
 
 export interface ChatMessage {
   mode: ChatMode;
@@ -75,6 +79,45 @@ export interface ChatMessage {
   at: number;
 }
 
+// ----- sesi kelas (tahap 4) -----
+
+/** Pilihan masa berlaku file bersama (menit). */
+export const FILE_TTL_MINUTES = [15, 30, 60] as const;
+export const FILE_MAX_BYTES = 20 * 1024 * 1024;
+export const FILE_TOTAL_MAX_BYTES = 200 * 1024 * 1024;
+/** Jenis file yang boleh dibagikan dosen (file program dan HTML ditolak). */
+export const FILE_EXTENSIONS = ["txt", "md", "csv", "json", "pdf", "ppt", "pptx", "doc", "docx", "xls", "xlsx", "ipynb", "sql", "py", "zip"];
+
+export interface Materi {
+  title: string;
+  /** Jalur di bawah bahan_ajar/, mis. "bahan_ajar/Logika Komputasional/x.html". */
+  file: string;
+  course: string;
+}
+
+export interface SharedFile {
+  token: string;
+  name: string;
+  size: number;
+  expiresAt: number;
+  fromName: string;
+}
+
+export interface ClassState {
+  active: boolean;
+  dosenUid?: string;
+  dosenName?: string;
+  materi?: Materi;
+  startedAt?: number;
+  files: SharedFile[];
+}
+
+/** Ekstensi file yang diizinkan (huruf kecil), atau null. */
+export function allowedFileExt(name: string): string | null {
+  const ext = name.toLowerCase().match(/\.([a-z0-9]+)$/)?.[1];
+  return ext && FILE_EXTENSIONS.includes(ext) ? ext : null;
+}
+
 export type PmState = "pending" | "accepted" | "declined" | "expired" | "closed" | "muted" | "offline";
 
 // ----- pesan klien -> server -----
@@ -88,12 +131,16 @@ export interface C2S {
   pmClose: { peer: string };
   pmMute: { muted: boolean };
   directory: Record<string, never>;
+  /** Dosen di dekat meja dosen memulai kelas dengan materi pilihan. */
+  classStart: { materi: Materi };
+  classMateri: { materi: Materi };
+  classEnd: Record<string, never>;
 }
 
 // ----- pesan server -> klien -----
 export interface S2C {
   /** `x`/`y`: titik muncul yang dipilih server (diacak sedikit agar pemain tidak bertumpuk). */
-  welcome: { you: number; uid: string; room: string; x: number; y: number; players: Profile[]; seats: Record<number, number>; history: ChatMessage[] };
+  welcome: { you: number; uid: string; room: string; x: number; y: number; kelas?: ClassState; players: Profile[]; seats: Record<number, number>; history: ChatMessage[] };
   add: Profile;
   remove: { sid: number };
   /** Rata: [sid, x, y, arah, flag, sid, x, y, ...] untuk pemain dalam pandangan. */
@@ -107,6 +154,8 @@ export interface S2C {
   /** Daftar pemain daring (untuk memilih penerima pesan pribadi, /w). */
   directory: { players: { uid: string; name: string; role: Role; place: string }[] };
   notice: { text: string };
+  /** Keadaan sesi kelas berubah (mulai, ganti materi, file baru, selesai). */
+  classState: ClassState & { event?: "start" | "materi" | "file" | "end" };
   /** Gerak ditolak server (terlalu jauh / menembus rintangan): klien kembali ke posisi ini. */
   correct: { x: number; y: number };
 }

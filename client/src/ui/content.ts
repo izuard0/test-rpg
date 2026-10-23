@@ -103,7 +103,7 @@ export function openCatalog(catalog: MateriCatalog | undefined): void {
   list.querySelector<HTMLButtonElement>(".file")?.focus();
 }
 
-function openMaterial(courseTitle: string, item: MateriItem): void {
+export function openMaterial(courseTitle: string, item: MateriItem): void {
   const url = GAME_BASE + item.file.split("/").map(encodeURIComponent).join("/");
   const wrap = document.createElement("div");
   wrap.className = "materi";

@@ -65,7 +65,15 @@ Akun di tahap ini **mode uji**: tersimpan di browser saja, belum diverifikasi ke
 ### Deploy (Coolify)
 
 Buat aplikasi dari repo ini dengan build pack **Dockerfile**, port **3000**, health check
-`/health`. Tidak ada environment variable wajib untuk tahap ini (opsional: `APP_VERSION`).
+`/health`. Environment variable:
+
+| Nama | Wajib | Keterangan |
+|---|---|---|
+| `KODE_DOSEN` | tidak | Kode rahasia yang dimasukkan dosen saat membagikan file di kelas (sementara sampai login NIP di tahap 5). Bila kosong, fitur bagi file mati. Bagikan hanya ke dosen. |
+| `APP_VERSION` | tidak | Ditampilkan di `/health`. |
+
+File yang dibagikan dosen disimpan sementara di folder temp kontainer (maks. 20 MB per file,
+200 MB total) dan dihapus saat kedaluwarsa atau saat kontainer dimulai ulang; tidak perlu volume.
 
 ## Struktur folder
 
