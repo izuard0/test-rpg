@@ -1,10 +1,11 @@
 // Uji beban: N pemain tiruan masuk ke ruang kampus, berjalan acak di lobi, dan
 // sesekali chat. Jalankan server dengan MITA_TICK_LOG=1 untuk melihat durasi tick.
 //
-//   npx tsx server/scripts/bots.ts [url] [jumlah] [detik]
-//   npx tsx server/scripts/bots.ts https://mita.example.ac.id 100 60
+//   ADMIN_USERNAME=... ADMIN_PASSWORD=... npx tsx server/scripts/bots.ts [url] [jumlah] [detik]
 //
-// Akun bot memakai NIM 2299000xxx dan nama "Bot Uji xxx" (mode uji, tidak tersimpan).
+// Akun bot (NIM 2299000xxx, nama "Bot Uji Aa", "Bot Uji Ab", ...) didaftarkan dan disetujui lewat API admin,
+// jadi butuh login admin. Di server dengan database, akun bot tetap tersimpan: hapus
+// lewat /panel (Nonaktifkan, lalu Hapus) setelah uji.
 
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
@@ -36,10 +37,33 @@ const t0 = Date.now();
 let failed = 0;
 const lines = ["halo", "ada yang ke perpustakaan?", "tugas P09 sudah?", "semangat!", "kuis jam berapa?"];
 
+const JSON_H = { "content-type": "application/json", "x-mita-panel": "1" };
+const adminLogin = await fetch(`${url}/api/admin/login`, {
+  method: "POST",
+  headers: JSON_H,
+  body: JSON.stringify({ username: process.env.ADMIN_USERNAME, password: process.env.ADMIN_PASSWORD }),
+});
+if (!adminLogin.ok) throw new Error(`Login admin gagal (${adminLogin.status}). Atur ADMIN_USERNAME dan ADMIN_PASSWORD.`);
+const admin = { ...JSON_H, cookie: adminLogin.headers.get("set-cookie")!.split(";")[0] };
+const BOT_PW = "bot-uji-mita";
+const botId = (i: number) => `2299${String(i).padStart(6, "0")}`;
+// Nama hanya boleh huruf: nomor bot ditulis sebagai huruf (0 -> "Aa", 1 -> "Ab", ...).
+const botName = (i: number) => `Bot Uji ${String.fromCharCode(65 + Math.floor(i / 26) % 26)}${String.fromCharCode(97 + (i % 26))}`;
+for (let i = 0; i < count; i++) {
+  // 409 = sudah terdaftar dari uji sebelumnya.
+  await fetch(`${url}/api/auth/register`, { method: "POST", headers: admin, body: JSON.stringify({ role: "mahasiswa", id: botId(i), fullName: botName(i), password: BOT_PW }) });
+}
+const all = (await (await fetch(`${url}/api/admin/accounts`, { headers: admin })).json()) as { accounts: { uid: string; id: string }[] };
+const ids = new Set(Array.from({ length: count }, (_, i) => botId(i)));
+await fetch(`${url}/api/admin/accounts/action`, { method: "POST", headers: admin, body: JSON.stringify({ ids: all.accounts.filter((a) => ids.has(a.id)).map((a) => a.uid), action: "setujui" }) });
+
 for (let i = 0; i < count; i++) {
   const c = new Client(url);
   try {
-    const r = await c.joinOrCreate(ROOM_KAMPUS, { id: `2299${String(i).padStart(6, "0")}`, name: `Bot Uji ${i + 1}`, role: "mahasiswa" });
+    const login = await fetch(`${url}/api/auth/login`, { method: "POST", headers: JSON_H, body: JSON.stringify({ id: botId(i), password: BOT_PW }) });
+    const { token, error } = (await login.json()) as { token?: string; error?: string };
+    if (!token) throw new Error(error ?? `login ${login.status}`);
+    const r = await c.joinOrCreate(ROOM_KAMPUS, { token });
     const bot: Bot = { room: r, x: 0, y: 0, dx: 0, dy: 0, snaps: 0, seen: 0, chats: 0 };
     r.onMessage("welcome", (w: { x: number; y: number }) => {
       bot.x = w.x;

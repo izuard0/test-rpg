@@ -1,38 +1,36 @@
 // Sesi kelas (tahap 4): panel dosen di meja dosen (pilih materi, mulai/akhiri kelas,
 // bagikan file) dan panel "Bahan kelas" untuk semua orang di ruang kelas.
 //
-// File bersama hanya bisa diunggah dosen yang memasukkan kode dosen (env KODE_DOSEN di
-// server), disimpan sementara di server, dan hanya bisa diunduh peserta kelas itu.
+// File bersama hanya bisa diunggah dosen (akun yang disetujui admin), disimpan sementara
+// di server, dan hanya bisa diunduh peserta kelas itu.
 
 import { FILE_EXTENSIONS, FILE_MAX_BYTES, FILE_TTL_MINUTES, allowedFileExt, type ClassState, type Materi, type SharedFile } from "@mita/shared";
 import { net, serverUrl } from "../net/net";
 import { openMaterial, type MateriCatalog } from "./content";
 import { esc, isPanelOpen, openPanel } from "./panel";
 
-const KODE_KEY = "mita:kode-dosen";
-
-function savedKode(): string {
-  try {
-    return sessionStorage.getItem(KODE_KEY) ?? "";
-  } catch {
-    return "";
-  }
-}
-
 export function openSlide(m: Materi): void {
   openMaterial(m.course, { title: m.title, file: m.file });
 }
 
-export function downloadFile(f: SharedFile): void {
+/** Unduh lewat fetch (agar token login ikut di header), lalu simpan sebagai berkas. */
+export async function downloadFile(f: SharedFile): Promise<void> {
   const sid = net.sessionId;
   if (!sid) return;
+  const res = await fetch(`${serverUrl()}/api/files/${encodeURIComponent(f.token)}?session=${encodeURIComponent(sid)}`, { headers: net.authHeaders() }).catch(() => null);
+  if (!res?.ok) {
+    const msg = ((await res?.json().catch(() => null)) as { error?: string } | null)?.error;
+    alert(msg ?? "Gagal mengunduh file.");
+    return;
+  }
+  const url = URL.createObjectURL(await res.blob());
   const a = document.createElement("a");
-  a.href = `${serverUrl()}/api/files/${encodeURIComponent(f.token)}?session=${encodeURIComponent(sid)}`;
+  a.href = url;
   a.download = f.name;
-  a.rel = "noopener";
   document.body.append(a);
   a.click();
   a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 60_000);
 }
 
 const fmtSize = (n: number) => (n >= 1024 * 1024 ? `${(n / 1024 / 1024).toFixed(1)} MB` : `${Math.max(1, Math.round(n / 1024))} KB`);
@@ -54,7 +52,7 @@ function filesHtml(files: SharedFile[]): string {
 function bindDownloads(root: HTMLElement, files: SharedFile[]): void {
   root.querySelectorAll<HTMLButtonElement>("[data-dl]").forEach((b) => {
     const f = files.find((x) => x.token === b.dataset.dl);
-    if (f) b.onclick = () => downloadFile(f);
+    if (f) b.onclick = () => void downloadFile(f);
   });
 }
 
@@ -99,7 +97,6 @@ export function openDosenPanel(state: ClassState, myUid: string, catalog: Materi
     <div class="share">
       <input type="file" class="file" accept="${FILE_EXTENSIONS.map((e) => "." + e).join(",")}">
       <label>Berlaku <select class="ttl">${FILE_TTL_MINUTES.map((m) => `<option value="${m}">${m} menit</option>`).join("")}</select></label>
-      <label class="kode">Kode dosen <input type="password" class="kodein" autocomplete="off" placeholder="dari admin" value="${esc(savedKode())}"></label>
       <button type="button" class="primary upload">Bagikan</button>
     </div>
     <p class="muted small">Maks. ${FILE_MAX_BYTES / 1024 / 1024} MB: ${FILE_EXTENSIONS.join(", ")}. File dihapus dari server setelah kedaluwarsa.</p>
@@ -130,7 +127,6 @@ async function upload(root: HTMLElement): Promise<void> {
   const status = root.querySelector<HTMLElement>(".up-status")!;
   const file = root.querySelector<HTMLInputElement>(".file")!.files?.[0];
   const ttl = root.querySelector<HTMLSelectElement>(".ttl")!.value;
-  const kode = root.querySelector<HTMLInputElement>(".kodein")!.value.trim();
   const say = (t: string, bad = false) => {
     status.textContent = t;
     status.classList.toggle("bad", bad);
@@ -138,23 +134,17 @@ async function upload(root: HTMLElement): Promise<void> {
   if (!file) return say("Pilih file dulu.", true);
   if (!allowedFileExt(file.name)) return say("Jenis file ini tidak boleh dibagikan.", true);
   if (file.size > FILE_MAX_BYTES) return say(`File terlalu besar (maks. ${FILE_MAX_BYTES / 1024 / 1024} MB).`, true);
-  if (!kode) return say("Masukkan kode dosen.", true);
   const sid = net.sessionId;
   if (!sid) return say("Tidak tersambung ke server.", true);
   say(`Mengunggah ${file.name}…`);
   try {
     const res = await fetch(`${serverUrl()}/api/kelas/files?session=${encodeURIComponent(sid)}&ttl=${ttl}`, {
       method: "POST",
-      headers: { "content-type": "application/octet-stream", "x-kode-dosen": kode, "x-file-name": encodeURIComponent(file.name) },
+      headers: { ...net.authHeaders(), "content-type": "application/octet-stream", "x-file-name": encodeURIComponent(file.name) },
       body: file,
     });
     const body = (await res.json().catch(() => ({}))) as { error?: string };
     if (!res.ok) return say(body.error ?? `Gagal (${res.status}).`, true);
-    try {
-      sessionStorage.setItem(KODE_KEY, kode);
-    } catch {
-      // abaikan
-    }
     say(`${file.name} dibagikan ke kelas (berlaku ${ttl} menit).`);
   } catch {
     say("Gagal mengunggah: koneksi terputus.", true);

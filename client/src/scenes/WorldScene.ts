@@ -3,6 +3,7 @@
 
 import Phaser from "phaser";
 import {
+  CLOSE_ACCOUNT_REVOKED,
   CollisionWorld,
   DIRS,
   FLAG_MOVING,
@@ -160,7 +161,7 @@ export class WorldScene extends Phaser.Scene {
     try {
       await net.join(
         this.roomCode,
-        { id: acc.id, name: acc.fullName, role: acc.role, choice: acc.character!, spawn: this.spawnName },
+        { token: this.auth.token ?? "", spawn: this.spawnName },
         {
           welcome: (w) => {
             this.mySid = w.you;
@@ -199,7 +200,12 @@ export class WorldScene extends Phaser.Scene {
             this.player.y = c.y;
           },
           directory: (d) => chat.directory(d.players),
-          leave: () => {
+          leave: (code) => {
+            if (code === CLOSE_ACCOUNT_REVOKED) {
+              // Akun dinonaktifkan / sandi di-reset admin: kembali ke halaman masuk.
+              void this.auth.logout().then(() => showError("Sesimu dicabut admin. Muat ulang halaman untuk masuk lagi."));
+              return;
+            }
             if (this.transitioning || !this.sys.isActive()) return;
             this.remotes.clear();
             chat.offline("Terputus dari server. Muat ulang halaman untuk menyambung lagi.");

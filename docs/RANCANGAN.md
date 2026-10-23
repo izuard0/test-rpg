@@ -258,8 +258,8 @@ dibagi oleh dosen, atau ajakan antarmahasiswa.
   | Dosen → Dosen | langsung |
   | Mahasiswa → Dosen | **minta izin**: permintaan + pesan pembuka (≤ 100 karakter); dosen menekan Terima/Tolak; izin berlaku selama sesi (berakhir bila salah satu keluar atau dosen menutup percakapan); permintaan kedaluwarsa 10 menit; satu permintaan aktif per dosen, jeda setelah ditolak; dosen bisa membisukan permintaan sementara |
 
-  Semua aturan dicek di server. Selama akun masih mode uji, peran dipilih sendiri saat
-  daftar; aturan ini baru aman setelah NIP diverifikasi (tahap 5).
+  Semua aturan dicek di server. Peran diambil dari akun di database yang sudah disetujui
+  admin (tahap 5), bukan dari pilihan di browser.
 
 ### Aturan per ruangan
 
@@ -426,15 +426,29 @@ sekitar 1 menit). Set baru otomatis mendapat versi badan ramping.
    dengan materi dari `bahan_ajar/`, semua orang di ruangan mendapat notifikasi untuk membuka
    slide, mode chat Kelas, dan dosen membagikan file (txt, md, csv, json, pdf, ppt/pptx,
    doc/docx, xls/xlsx, ipynb, sql, py, zip; maks. 20 MB, total 200 MB) yang kedaluwarsa
-   15/30/60 menit lalu dihapus dari server. Hanya peserta kelas itu yang bisa mengunduh;
-   unggahan dijaga kode dosen (`KODE_DOSEN`) sampai login NIP di tahap 5. Belum: kuis.
+   15/30/60 menit lalu dihapus dari server. Hanya peserta kelas itu yang bisa mengunduh
+   (token login + sesi di kelas itu); hanya dosen yang disetujui admin yang bisa mengunggah.
+   Belum: kuis.
    Rencana kuis: kursi, panel kuis, halaman dosen untuk memulai kuis
    dan mengunduh nilai; kuis praktik memakai terminal di Lab Komputer.
-5. **Login & penyimpanan**: akun, karakter tersimpan, kemajuan latihan, lencana.
-   Akun dosen **disetujui admin** (keputusan 23 Okt 2026): daftar dengan NIP, lalu admin
-   menyetujui di halaman admin sebelum peran dosen aktif. Setelah itu `KODE_DOSEN` dihapus
-   dan bagi file cukup memeriksa peran dosen yang sudah disetujui. Sampai saat itu
-   `KODE_DOSEN` boleh dibiarkan kosong (bagi file nonaktif, fitur kelas lain tetap jalan).
+5. **Login & penyimpanan** *(sebagian, 23 Okt 2026)*: sudah: akun di PostgreSQL (Prisma),
+   avatar tersimpan di server, halaman admin `/panel`. Belum: kemajuan latihan, lencana.
+   Keputusan (disetujui pemilik proyek, 23 Okt 2026):
+   - **Semua akun disetujui manual** oleh admin, baik mahasiswa maupun dosen (belum ada
+     impor daftar kelas). Daftar → status *menunggu* → admin Setujui/Tolak. Sebelum
+     disetujui, pengguna tidak bisa masuk game (hanya pesan "menunggu persetujuan").
+   - Admin tunggal dari env `ADMIN_USERNAME` + `ADMIN_PASSWORD` (min. 12 karakter), hanya
+     pemilik server yang tahu. Login admin dikunci 15 menit setelah 5 kali gagal per IP
+     (30 total); sesi admin berupa cookie httpOnly + SameSite=Strict, berakhir 8 jam.
+   - Panel: tab Menunggu/Disetujui/Ditolak/Nonaktif, cari, centang banyak, Setujui, Tolak,
+     Nonaktifkan (langsung dikeluarkan dari game), Aktifkan, Hapus (hanya akun yang tidak
+     aktif; NIM bisa dipakai daftar ulang), **Reset sandi** (sandi sementara ditampilkan
+     sekali; pengguna wajib menggantinya saat masuk). Tanda "nama sama" untuk akun kembar.
+   - Sesi login: token acak per tab (sessionStorage), berlaku 12 jam; server menyimpan hash
+     token saja. Kata sandi di-hash scrypt.
+   - Batas percobaan: gagal masuk 10 per NIM / 15 menit. Batas per IP sengaja longgar (200
+     gagal masuk, 150 pendaftaran per jam) karena satu lab keluar lewat satu IP.
+   - `KODE_DOSEN` (tahap 4) dihapus: dosen yang disetujui langsung bisa membagikan file.
 6. **Peluncuran**: HTTPS di server, uji coba dengan satu kelas.
 
 ### Cakupan versi pertama (uji coba satu kelas)

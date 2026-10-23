@@ -17,3 +17,4 @@ tools
 !latihan/**
 .env
 .env.*
+server/src/generated

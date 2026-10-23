@@ -4,18 +4,23 @@ import { join, resolve } from "node:path";
 import { Client, type Room } from "@colyseus/sdk";
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
 import type { FastifyInstance } from "fastify";
-import { FLAG_SITTING, ROOM_KAMPUS, ROOM_KELAS, type ChatMessage, type JoinOptions, type S2C } from "@mita/shared";
+import { CLOSE_ACCOUNT_REVOKED, FLAG_SITTING, ROOM_KAMPUS, ROOM_KELAS, type ChatMessage, type JoinOptions, type Role, type S2C } from "@mita/shared";
 import { buildApp } from "../src/app.js";
+import { DuplicateError, MemoryStore } from "../src/auth/store.js";
+import { hashPassword } from "../src/auth/password.js";
 import { defaultGameOptions } from "../src/game/index.js";
 
 const ROOT = resolve(import.meta.dirname, "../..");
 let app: FastifyInstance;
 let url: string;
+const store = new MemoryStore();
 
 beforeAll(async () => {
   app = await buildApp({
     clientDir: mkdtempSync(join(tmpdir(), "mita-")),
-    game: { ...defaultGameOptions(ROOT), kodeDosen: "rahasia-dosen", filesDir: mkdtempSync(join(tmpdir(), "mita-files-")) },
+    game: { ...defaultGameOptions(ROOT), filesDir: mkdtempSync(join(tmpdir(), "mita-files-")) },
+    store,
+    admin: { username: "admin", password: "admin-uji-rahasia" },
   });
   await app.listen({ port: 0, host: "127.0.0.1" });
   const addr = app.server.address();
@@ -25,11 +30,26 @@ afterAll(async () => {
   await app.close();
 });
 
+const PW = "kata-sandi-uji";
+let pwHash: Promise<string> | undefined;
+/** Akun yang sudah disetujui admin, lalu masuk lewat API: mengembalikan token sesi. */
+async function loginAs(id: string, name: string, role: Role) {
+  try {
+    const a = await store.create({ role, loginId: id, fullName: name, passwordHash: await (pwHash ??= hashPassword(PW)) });
+    await store.update(a.id, { status: "disetujui" });
+  } catch (e) {
+    if (!(e instanceof DuplicateError)) throw e;
+  }
+  const res = await fetch(`${url}/api/auth/login`, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ id, password: PW }) });
+  return ((await res.json()) as { token: string }).token;
+}
+
 /** Klien uji yang mengumpulkan semua pesan server. */
-async function player(id: string, name: string, role: JoinOptions["role"] = "mahasiswa", room = ROOM_KAMPUS, extra: Partial<JoinOptions> = {}) {
+async function player(id: string, name: string, role: Role = "mahasiswa", room = ROOM_KAMPUS, extra: Partial<JoinOptions> = {}) {
   const c = new Client(url);
   const inbox: { type: string; msg: unknown }[] = [];
-  const r: Room = await c.joinOrCreate(room, { id, name, role, choice: undefined, ...extra });
+  const token = await loginAs(id, name, role);
+  const r: Room = await c.joinOrCreate(room, { token, ...extra });
   for (const t of ["welcome", "add", "remove", "snap", "chat", "dots", "seat", "pmRequest", "pmStatus", "notice", "directory", "correct", "classState"]) {
     r.onMessage(t, (msg) => inbox.push({ type: t, msg }));
   }
@@ -50,7 +70,7 @@ async function player(id: string, name: string, role: JoinOptions["role"] = "mah
     await new Promise((res) => setTimeout(res, ms));
     return !inbox.some((x) => x.type === type && pred(x.msg as never));
   };
-  return { room: r, welcome, wait, none, inbox, sid: welcome.you, uid: welcome.uid };
+  return { room: r, welcome, wait, none, inbox, sid: welcome.you, uid: welcome.uid, token };
 }
 
 const move = (p: Awaited<ReturnType<typeof player>>, x: number, y: number, flags = 0) => p.room.send("move", [x, y, 0, flags]);
@@ -197,8 +217,8 @@ describe("multipemain", () => {
     for (const [seatId, p] of map.rooms.get("kelas-a")!.seats) seats.push({ seatId, ...p });
     const seat = seats.sort((p, q) => Math.hypot(p.x - 56, p.y - 504) - Math.hypot(q.x - 56, q.y - 504))[0];
     const walk = async (p: typeof a) => {
-      // Berjalan bertahap (server membatasi kecepatan).
-      let { x, y } = { x: 56, y: 504 };
+      // Berjalan bertahap (server membatasi kecepatan) dari titik muncul yang diacak server.
+      let { x, y } = p.welcome;
       for (let i = 0; i < 40 && Math.hypot(seat.x - x, seat.y - y) > 20; i++) {
         x += Math.sign(seat.x - x) * Math.min(12, Math.abs(seat.x - x));
         y += Math.sign(seat.y - y) * Math.min(12, Math.abs(seat.y - y));
@@ -268,32 +288,36 @@ describe("multipemain", () => {
     expect(telat.welcome.kelas).toMatchObject({ active: true, materi });
     expect(telat.welcome.history.map((h) => h.text)).toContain("Silakan buka slide P09");
 
-    // Unggah file: kode salah ditolak, jenis terlarang ditolak, mahasiswa tidak bisa mengunggah.
-    const up = (sessionId: string, name: string, body: Buffer, kode = "rahasia-dosen", ttl = 15) =>
-      fetch(`${url}/api/kelas/files?session=${sessionId}&ttl=${ttl}`, {
+    // Unggah file: token milik orang lain ditolak, jenis terlarang ditolak, mahasiswa tidak bisa mengunggah.
+    const up = (p: { room: Room; token: string }, name: string, body: Buffer, token = p.token, ttl = 15) =>
+      fetch(`${url}/api/kelas/files?session=${p.room.sessionId}&ttl=${ttl}`, {
         method: "POST",
-        headers: { "content-type": "application/octet-stream", "x-kode-dosen": kode, "x-file-name": encodeURIComponent(name) },
+        headers: { "content-type": "application/octet-stream", authorization: `Bearer ${token}`, "x-file-name": encodeURIComponent(name) },
         body: new Uint8Array(body),
       });
-    expect((await up(dosen.room.sessionId, "data.csv", Buffer.from("a,b\n1,2"), "salah")).status).toBe(403);
-    expect((await up(dosen.room.sessionId, "virus.exe", Buffer.from("MZ...."))).status).toBe(400);
-    expect((await up(dosen.room.sessionId, "ganti-nama.pdf", Buffer.from([0x4d, 0x5a, 1, 2]))).status).toBe(400);
-    expect((await up(mhs.room.sessionId, "data.csv", Buffer.from("a,b"))).status).toBe(403);
-    const ok = await up(dosen.room.sessionId, "data nilai.csv", Buffer.from("nim,nilai\n2201201,90\n"));
+    expect((await up(dosen, "data.csv", Buffer.from("a,b\n1,2"), mhs.token)).status).toBe(403);
+    expect((await up(dosen, "virus.exe", Buffer.from("MZ...."))).status).toBe(400);
+    expect((await up(dosen, "ganti-nama.pdf", Buffer.from([0x4d, 0x5a, 1, 2]))).status).toBe(400);
+    expect((await up(mhs, "data.csv", Buffer.from("a,b"))).status).toBe(403);
+    const ok = await up(dosen, "data nilai.csv", Buffer.from("nim,nilai\n2201201,90\n"));
     expect(ok.status).toBe(200);
     const { token } = (await ok.json()) as { token: string };
     const withFile = await mhs.wait("classState", (x) => x.event === "file");
     expect(withFile.files.map((f) => f.name)).toEqual(["data nilai.csv"]);
 
     // Unduh: peserta kelas bisa (sebagai lampiran), pemain di luar kelas tidak.
-    const dl = await fetch(`${url}/api/files/${token}?session=${mhs.room.sessionId}`);
+    const get = (p: { room: Room; token: string }, bearer = p.token) =>
+      fetch(`${url}/api/files/${token}?session=${p.room.sessionId}`, { headers: { authorization: `Bearer ${bearer}` } });
+    const dl = await get(mhs);
     expect(dl.status).toBe(200);
     expect(dl.headers.get("content-disposition")).toMatch(/^attachment;/);
     expect(dl.headers.get("x-content-type-options")).toBe("nosniff");
     expect(await dl.text()).toBe("nim,nilai\n2201201,90\n");
     const luar = await player("2201203", "Putu Uji");
-    expect((await fetch(`${url}/api/files/${token}?session=${luar.room.sessionId}`)).status).toBe(403);
-    expect((await fetch(`${url}/api/files/${token}`)).status).toBe(403);
+    expect((await get(luar)).status).toBe(403);
+    // sessionId peserta kelas tanpa token pemiliknya tidak cukup.
+    expect((await get(mhs, luar.token)).status).toBe(403);
+    expect((await fetch(`${url}/api/files/${token}?session=${mhs.room.sessionId}`)).status).toBe(403);
 
     // Dosen mengakhiri kelas: obrolan Kelas tertutup lagi.
     dosen.room.send("classEnd", {});
@@ -304,7 +328,27 @@ describe("multipemain", () => {
     for (const p of [dosen, mhs, telat, luar]) await p.room.leave();
   }, 30_000);
 
-  it("menolak identitas yang tidak sah", async () => {
-    await expect(player("ab", "X")).rejects.toThrow();
+  it("menolak token yang tidak sah dan mengeluarkan akun yang dicabut", async () => {
+    await expect(new Client(url).joinOrCreate(ROOM_KAMPUS, { token: "token-palsu-yang-cukup-panjang-123" })).rejects.toThrow(/Sesi berakhir/);
+    await expect(new Client(url).joinOrCreate(ROOM_KAMPUS, { id: "2201101", name: "Palsu", role: "dosen" })).rejects.toThrow();
+    const p = await player("2201301", "Qori Uji");
+    const left = new Promise<number>((res) => p.room.onLeave((code) => res(code)));
+    const acc = (await store.byLoginId("2201301"))!;
+    // Admin menonaktifkan akun lewat /panel: pemain langsung dikeluarkan dari game.
+    const login = await fetch(`${url}/api/admin/login`, {
+      method: "POST",
+      headers: { "content-type": "application/json", "x-mita-panel": "1" },
+      body: JSON.stringify({ username: "admin", password: "admin-uji-rahasia" }),
+    });
+    const cookie = login.headers.get("set-cookie")!.split(";")[0];
+    const act = await fetch(`${url}/api/admin/accounts/action`, {
+      method: "POST",
+      headers: { "content-type": "application/json", "x-mita-panel": "1", cookie },
+      body: JSON.stringify({ ids: [acc.id], action: "nonaktifkan" }),
+    });
+    expect(await act.json()).toMatchObject({ done: 1 });
+    expect((await p.wait("notice")).text).toMatch(/dicabut/);
+    expect(await left).toBe(CLOSE_ACCOUNT_REVOKED);
+    await expect(new Client(url).joinOrCreate(ROOM_KAMPUS, { token: p.token })).rejects.toThrow(/Sesi berakhir/);
   });
 });

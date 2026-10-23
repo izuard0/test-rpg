@@ -5,6 +5,7 @@
 import { randomBytes } from "node:crypto";
 import type { Client } from "@colyseus/core";
 import {
+  CLOSE_ACCOUNT_REVOKED,
   PM_REQUEST_TTL_MS,
   PM_RETRY_AFTER_DECLINE_MS,
   type CharacterChoice,
@@ -63,6 +64,15 @@ export class Hub {
   private readonly muted = new Set<string>();
   /** Penghapusan izin ditunda sebentar: pindah ruang = keluar lalu masuk lagi. */
   private readonly goneTimers = new Map<string, NodeJS.Timeout>();
+
+  /** Mengeluarkan semua sesi game milik akun (dinonaktifkan / sesi dicabut admin). */
+  kickAccount(accountId: string, text: string): void {
+    for (const s of [...this.sessions.values()]) {
+      if (s.accountId !== accountId) continue;
+      send(s.client, "notice", { text });
+      s.client.leave(CLOSE_ACCOUNT_REVOKED);
+    }
+  }
 
   allocSid(): number {
     return this.nextSid++;

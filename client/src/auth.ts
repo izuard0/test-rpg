@@ -1,160 +1,124 @@
-// Akun pemain. Antarmuka `AuthService` sengaja dibuat seperti API server
-// (tahap 5): saat server siap, `LocalAuth` diganti klien HTTP tanpa mengubah layar.
+// Akun pemain di server (tahap 5). Daftar -> menunggu persetujuan admin di /panel -> masuk.
 //
-// MODE UJI: `LocalAuth` menyimpan akun di browser ini saja (localStorage).
-// Tidak ada verifikasi NIM ke daftar kelas, dan akun tidak berpindah perangkat.
-// Kata sandi tidak disimpan apa adanya: hanya hash PBKDF2 + garam.
+// Token sesi disimpan per tab (sessionStorage): komputer lab dipakai bergantian, jadi
+// menutup tab = keluar. Peran dan nama selalu dari server, bukan dari browser.
 
 import {
-  normalizeId,
-  normalizeName,
   validateRegistration,
+  type AccountStatus,
+  type AccountView,
   type CharacterChoice,
   type FieldErrors,
   type Registration,
-  type Role,
 } from "@mita/shared";
+import { serverUrl } from "./net/net";
 
-export interface Account {
-  role: Role;
-  id: string;
-  fullName: string;
-  /** `null` = belum membuat avatar (langkah setelah daftar). */
-  character: CharacterChoice | null;
-}
+export type Account = AccountView;
 
 export class AuthError extends Error {
-  constructor(message: string, readonly fields: FieldErrors = {}) {
+  constructor(
+    message: string,
+    readonly fields: FieldErrors & { current?: string } = {},
+    /** Status akun bila sandi benar tetapi akun belum bisa dipakai. */
+    readonly status?: AccountStatus,
+  ) {
     super(message);
   }
 }
 
-export interface AuthService {
-  readonly testMode: boolean;
-  register(r: Registration & { password2: string }): Promise<Account>;
-  login(id: string, password: string): Promise<Account>;
-  saveCharacter(choice: CharacterChoice): Promise<Account>;
-  /** Akun yang sedang masuk di tab ini, atau `null`. */
-  current(): Account | null;
-  logout(): void;
-}
+const TOKEN_KEY = "mita:sesi";
 
-interface StoredAccount extends Account {
-  salt: string;
-  hash: string;
-  createdAt: string;
-}
-
-const ACCOUNTS_KEY = "mita:uji:akun";
-// Sesi per tab: komputer lab dipakai bergantian, jadi menutup tab = keluar.
-const SESSION_KEY = "mita:sesi";
-
-const toHex = (buf: ArrayBuffer | Uint8Array) =>
-  Array.from(buf instanceof Uint8Array ? buf : new Uint8Array(buf), (b) => b.toString(16).padStart(2, "0")).join("");
-
-async function hashPassword(password: string, saltHex: string): Promise<string> {
-  const subtle = globalThis.crypto?.subtle;
-  if (!subtle) {
-    // crypto.subtle hanya ada di HTTPS/localhost. Di server Coolify selalu HTTPS.
-    throw new AuthError("Halaman harus dibuka lewat HTTPS (atau localhost) agar kata sandi bisa diamankan.");
-  }
-  const salt = new Uint8Array(saltHex.match(/../g)!.map((h) => parseInt(h, 16)));
-  const key = await subtle.importKey("raw", new TextEncoder().encode(password), "PBKDF2", false, ["deriveBits"]);
-  const bits = await subtle.deriveBits({ name: "PBKDF2", hash: "SHA-256", salt, iterations: 120_000 }, key, 256);
-  return toHex(bits);
-}
-
-function readAccounts(): Record<string, StoredAccount> {
+function readToken(): string | null {
   try {
-    return JSON.parse(localStorage.getItem(ACCOUNTS_KEY) ?? "{}") as Record<string, StoredAccount>;
+    return sessionStorage.getItem(TOKEN_KEY);
   } catch {
-    return {};
+    return null;
   }
 }
 
-function writeAccounts(all: Record<string, StoredAccount>): void {
+function writeToken(t: string | null): void {
   try {
-    localStorage.setItem(ACCOUNTS_KEY, JSON.stringify(all));
+    if (t) sessionStorage.setItem(TOKEN_KEY, t);
+    else sessionStorage.removeItem(TOKEN_KEY);
   } catch {
-    throw new AuthError("Browser menolak menyimpan data (mode privat?). Coba jendela biasa.");
+    // Tanpa sessionStorage, sesi hanya berlaku sampai halaman dimuat ulang.
   }
 }
 
-const publicPart = ({ role, id, fullName, character }: StoredAccount): Account => ({ role, id, fullName, character });
+export class AuthService {
+  /** false = server belum memakai database (akun hilang saat server mulai ulang). */
+  persistent = true;
+  private tokenValue: string | null = readToken();
 
-export class LocalAuth implements AuthService {
-  readonly testMode = true;
-
-  async register(r: Registration & { password2: string }): Promise<Account> {
-    const errors = validateRegistration(r);
-    if (Object.keys(errors).length) throw new AuthError("Periksa kembali isian yang ditandai.", errors);
-    const id = normalizeId(r.id);
-    const all = readAccounts();
-    if (all[id]) throw new AuthError("Akun sudah terdaftar. Silakan masuk.", { id: "Sudah terdaftar." });
-    const salt = toHex(crypto.getRandomValues(new Uint8Array(16)));
-    const acc: StoredAccount = {
-      role: r.role,
-      id,
-      fullName: normalizeName(r.fullName),
-      character: null,
-      salt,
-      hash: await hashPassword(r.password, salt),
-      createdAt: new Date().toISOString(),
-    };
-    all[id] = acc;
-    writeAccounts(all);
-    this.setSession(id);
-    return publicPart(acc);
+  get token(): string | null {
+    return this.tokenValue;
   }
 
-  async login(rawId: string, password: string): Promise<Account> {
-    const id = normalizeId(rawId);
-    const acc = readAccounts()[id];
-    // Pesan sama untuk akun tidak ada dan sandi salah: tidak membocorkan NIM terdaftar.
-    const fail = new AuthError("NIM/NIP atau kata sandi salah.");
-    if (!acc) throw fail;
-    if ((await hashPassword(password, acc.salt)) !== acc.hash) throw fail;
-    this.setSession(id);
-    return publicPart(acc);
-  }
-
-  async saveCharacter(choice: CharacterChoice): Promise<Account> {
-    const id = this.sessionId();
-    const all = readAccounts();
-    const acc = id ? all[id] : undefined;
-    if (!acc) throw new AuthError("Sesi berakhir. Silakan masuk lagi.");
-    acc.character = choice;
-    writeAccounts(all);
-    return publicPart(acc);
-  }
-
-  current(): Account | null {
-    const id = this.sessionId();
-    const acc = id ? readAccounts()[id] : undefined;
-    return acc ? publicPart(acc) : null;
-  }
-
-  logout(): void {
+  async init(): Promise<void> {
     try {
-      sessionStorage.removeItem(SESSION_KEY);
+      const r = await this.call<{ persistent: boolean }>("GET", "/api/auth/info");
+      this.persistent = r.persistent;
     } catch {
-      // abaikan
+      // Server tidak terjangkau: formulir tetap tampil, galat muncul saat dikirim.
     }
   }
 
-  private sessionId(): string | null {
+  /** Mendaftar; akun menunggu persetujuan admin (tidak langsung masuk). */
+  async register(r: Registration & { password2: string }): Promise<void> {
+    const errors = validateRegistration(r);
+    if (Object.keys(errors).length) throw new AuthError("Periksa kembali isian yang ditandai.", errors);
+    await this.call("POST", "/api/auth/register", { role: r.role, id: r.id, fullName: r.fullName, password: r.password });
+  }
+
+  async login(id: string, password: string): Promise<Account> {
+    const r = await this.call<{ token: string; account: Account }>("POST", "/api/auth/login", { id, password });
+    this.setToken(r.token);
+    return r.account;
+  }
+
+  /** Akun dari sesi tab ini (setelah muat ulang), atau null bila sesi sudah berakhir. */
+  async restore(): Promise<Account | null> {
+    if (!this.tokenValue) return null;
     try {
-      return sessionStorage.getItem(SESSION_KEY);
+      return (await this.call<{ account: Account }>("GET", "/api/auth/me")).account;
     } catch {
+      this.setToken(null);
       return null;
     }
   }
 
-  private setSession(id: string): void {
+  async saveCharacter(choice: CharacterChoice): Promise<Account> {
+    return (await this.call<{ account: Account }>("PUT", "/api/auth/character", { choice })).account;
+  }
+
+  async changePassword(current: string, password: string, password2: string): Promise<Account> {
+    if (password !== password2) throw new AuthError("Kata sandi baru tidak sama.", { password2: "Kata sandi tidak sama." });
+    return (await this.call<{ account: Account }>("POST", "/api/auth/password", { current, password })).account;
+  }
+
+  async logout(): Promise<void> {
+    const had = this.tokenValue;
+    this.setToken(null);
+    if (had) await fetch(`${serverUrl()}/api/auth/logout`, { method: "POST", headers: { authorization: `Bearer ${had}` } }).catch(() => undefined);
+  }
+
+  private setToken(t: string | null): void {
+    this.tokenValue = t;
+    writeToken(t);
+  }
+
+  private async call<T>(method: string, path: string, body?: unknown): Promise<T> {
+    const headers: Record<string, string> = {};
+    if (body !== undefined) headers["content-type"] = "application/json";
+    if (this.tokenValue) headers.authorization = `Bearer ${this.tokenValue}`;
+    let res: Response;
     try {
-      sessionStorage.setItem(SESSION_KEY, id);
+      res = await fetch(`${serverUrl()}${path}`, { method, headers, body: body === undefined ? undefined : JSON.stringify(body) });
     } catch {
-      // Tanpa sessionStorage, sesi hanya berlaku sampai halaman dimuat ulang.
+      throw new AuthError("Tidak bisa menghubungi server. Periksa koneksi internet lalu coba lagi.");
     }
+    const data = (await res.json().catch(() => ({}))) as { error?: string; fields?: FieldErrors; status?: AccountStatus };
+    if (!res.ok) throw new AuthError(data.error ?? `Gagal (${res.status}).`, data.fields ?? {}, data.status);
+    return data as T;
   }
 }
