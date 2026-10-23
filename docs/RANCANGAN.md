@@ -128,7 +128,7 @@ banyak pilihan warna. Warna kulit juga diganti oleh game (5 pilihan).
 
 | Tabel | Isi |
 |---|---|
-| `users` | akun, nama tampilan, peran (mahasiswa / dosen / asisten) |
+| `users` | id internal, **NIM / NIP** (unik, untuk login), **nama lengkap** (tanpa username), peran (mahasiswa / dosen / asisten), hash kata sandi |
 | `characters` | pilihan karakter (JSON di atas) |
 | `courses`, `materials` | mata kuliah dan daftar materi (atau cukup `materi.json`) |
 | `quizzes`, `questions` | bank soal |
@@ -138,6 +138,45 @@ banyak pilihan warna. Warna kulit juga diganti oleh game (5 pilihan).
 | `code_saves` | kode terakhir mahasiswa per latihan / per mode sandbox (teks kecil) |
 
 Isi chat biasa **tidak** disimpan.
+
+### Identitas pemain
+
+**Diputuskan:** tidak ada username. Nama pemain adalah **nama lengkap**, dan itu
+satu-satunya nama yang dipakai di name tag di atas kepala, daftar pemain, chat,
+dan nilai.
+
+Akibat yang perlu ditangani (usulan, belum diputuskan):
+
+- Nama lengkap tidak unik (bisa ada dua orang bernama sama), jadi sistem tetap
+  memakai **id internal** yang tidak ditampilkan.
+- Login memakai **NIM (mahasiswa) atau NIP (dosen) + kata sandi** (diputuskan);
+  nama lengkap tidak dipakai sebagai kunci login.
+- Perintah `/w` memilih penerima dari daftar atau lewat klik pada karakter,
+  bukan dengan mengetik nama (nama lengkap berspasi dan bisa kembar).
+- Nama yang panjang dipotong di name tag; nama lengkap ditampilkan utuh di
+  daftar pemain dan saat karakter diklik.
+- Setiap pemain di ruangan yang sama bisa melihat nama lengkap pemain lain.
+  Perlu dipastikan hal ini sesuai dengan kebijakan prodi dan prinsip
+  minimisasi data.
+
+### Login dengan NIM
+
+**Diputuskan:** mahasiswa masuk dengan **NIM + kata sandi**, dosen dengan
+**NIP + kata sandi**. (Asumsi: asisten adalah mahasiswa, jadi memakai NIM.)
+
+Hal yang masih perlu diputuskan:
+
+- **Pengenal untuk tamu / peran lain** yang tidak punya NIM maupun NIP, bila ada.
+- **NIM bukan rahasia** (tertera di daftar kelas dan kartu mahasiswa), jadi
+  siapa pun yang tahu NIM teman bisa mendaftar atas namanya. Usulan: dosen atau
+  prodi mengunggah **daftar NIM + nama lengkap** per kelas; pendaftaran hanya
+  diterima bila NIM ada di daftar, dan nama lengkap diambil dari daftar itu
+  (sekaligus menjamin nama asli dan seragam).
+- **Kata sandi** dibuat sendiri saat registrasi dan disimpan sebagai hash
+  (argon2 / bcrypt); HTTPS wajib. Usulan: lupa kata sandi direset oleh dosen
+  atau admin.
+- Karakter dibuat saat registrasi (kreator karakter, bagian 6) dan boleh diubah
+  kemudian.
 
 ---
 
@@ -184,7 +223,8 @@ dibagi oleh dosen, atau ajakan antarmahasiswa.
 
 - Lingkaran radius tipis tampil di lantai saat mode Sekitar aktif.
 - Ganti mode dengan satu tombol di samping kotak ketik; pintasan: `Tab`
-  (ganti mode), `/w nama` (Berdua), `/g` (Kelompok).
+  (ganti mode), `/w` lalu pilih penerima dari daftar atau klik karakternya
+  (Berdua; nama lengkap bisa kembar, jadi tidak diketik), `/g` (Kelompok).
 - **Penyaringan penerima dilakukan di server.** Pesan Berdua/Kelompok tidak
   pernah dikirim ke pemain lain, sehingga tidak bisa dibaca lewat *developer tools*.
 
@@ -280,9 +320,9 @@ dibuka dengan klik dua kali, tanpa server.
 | Kamera | Mengikuti karakter dengan halus dan berhenti di tepi dunia. Zoom 1×–4× (bawaan 1×, kelipatan bulat agar piksel tajam), grid petak 32×32 bisa dinyalakan. Dunia uji seluas lobi (40 × 28 petak) dengan perabot sementara |
 | Perakitan | Kepala utuh + badan tanpa kepala, tanpa leher; aksesori mengikuti posisi dagu/kerah |
 | Jenis kelamin | Laki-laki / Perempuan. Daftar kepala, daftar baju, dan palet warna menyesuaikan. Badan perempuan dirampingkan lewat kode (membuang 4 jalur piksel kain polos); tinggi dan posisi kerah tetap sama sehingga semua kepala dan aksesori cocok |
-| Pilihan | 16 sprite kepala, 4 set baju (Hoodie, Flanel, Kaos, Kemeja), aksesori (kacamata bulat/kotak, headset, VR, ransel, tas laptop), warna rambut/hijab/topi, warna atasan, 5 warna kulit |
+| Pilihan | 16 sprite kepala, 8 set baju (Hoodie, Flanel, Kaos, Kemeja, Batik, Almamater, Jas lab, dan Tunik khusus perempuan), aksesori (kacamata bulat/kotak, headset, VR, ransel, tas laptop), warna rambut/hijab/topi, warna atasan, 5 warna kulit |
 | Aturan | Kepala berhijab hanya bisa memakai Hoodie dan Flanel (sementara). Hijab panjang dan Hijab sport disembunyikan sementara (sprite tetap ada). Peci tidak punya pilihan warna |
-| Alat setel | Posisi kepala per jenis kelamin / gaya / arah (±piksel) dan ukuran kepala 100%–80% (diambil ulang dari gambar asli, jadi tetap tajam). Disimpan di `tools/head_adjust.json`. Hijab tampak belakang sudah tanpa leher |
+| Alat setel | Posisi kepala per jenis kelamin / gaya / arah (±piksel) dan ukuran kepala 100%–80% (diambil ulang dari gambar asli, jadi tetap tajam). Disimpan di `tools/head_adjust.json`. Setelan laki-laki dan perempuan **sudah dikunci**. Hijab tampak belakang sudah tanpa leher |
 
 Daftar kepala saat ini: **laki-laki 10** (pendek rapi, pendek acak, cepak,
 keriting, undercut, sebahu, bergelombang, peci, topi, beanie) dan **perempuan 9**
@@ -305,15 +345,14 @@ sekitar 1 menit). Set baru otomatis mendapat versi badan ramping.
 
 - **Tampak samping**: gambar Gemini tidak punya pose berdiri samping murni.
   Hoodie hanya punya 2 frame samping yang konsisten.
-- **Set busana**: batik, almamater, tunik, dan jas lab belum dibuat. Pose duduk
-  di kelas (badan tampak belakang dipotong di pinggang) belum diuji.
+- **Pose duduk** di kelas (badan tampak belakang dipotong di pinggang) belum diuji.
 - **Aksesori**: tas tidak berayun mengikuti langkah; headphone di leher belum ada.
 - **Urutan gambar** (karakter berada di balik benda) belum diatur; perabot
   masih sementara.
 - **Ujung rambut panjang** dan hijab panjang terpotong datar (bawaan gambar).
-- **Setelan kepala perempuan belum dikunci.** Setelan laki-laki sudah dikunci dan
-  tersimpan di berkas; setelan perempuan yang sudah dibuat masih ada di browser
-  (localStorage), belum tersimpan ke `head_adjust.json`.
+- **Setelan posisi kepala sudah dikunci** untuk laki-laki dan perempuan (tersimpan
+  di `head_adjust.json`, alat setel nonaktif). Untuk membuka kunci, hapus huruf
+  jenis kelamin dari daftar `locked`. Ukuran kepala belum ada yang diubah (semua 100%).
 - **Belum ada penyimpanan pilihan karakter**: pilihan hilang saat halaman dimuat
   ulang.
 
@@ -341,7 +380,7 @@ sekitar 1 menit). Set baru otomatis mendapat versi badan ramping.
 | 1 | Penyimpanan laporan chat | Simpan pesan yang dilaporkan + beberapa pesan sebelumnya, hapus otomatis setelah 7 hari **atau** tanpa penyimpanan sama sekali | belum diputuskan |
 | 2 | Karakter kustom | Aset buatan AI (Gemini) dirakit lewat kode **atau** LPC Character Generator (wajib kredit) | berjalan dengan aset AI; terbukti di prototipe (bagian 6) |
 | 3 | Server | Server kampus **atau** sewa VPS | belum diputuskan |
-| 4 | Login | SSO/akun kampus **atau** NIM/email + kata sandi | belum diputuskan |
+| 4 | Login | **NIM (mahasiswa) / NIP (dosen) + kata sandi**, tanpa username, nama pemain = nama lengkap (diputuskan). Masih terbuka: verifikasi pendaftaran dan reset kata sandi (lihat Login dengan NIM) | pengenal diputuskan; detail belum |
 | 5 | Nilai kuis | Hanya di game **atau** bisa diunduh dosen (CSV/Excel) | belum diputuskan |
 | 6 | Perangkat utama | Laptop, HP, atau keduanya | belum diputuskan |
 | 7 | Perawat kode | Dosen, mahasiswa, atau tim IT kampus (memengaruhi bahasa server) | belum diputuskan |

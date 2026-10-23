@@ -172,6 +172,22 @@ SETS = {
         "file": "set_kemeja.jpg", "label": "Kemeja", "mode": "blob",
         "down": [7, 9, 19], "up": [11, 10, 12], "left": [21, 22, "20m"],
     },
+    "batik": {
+        "file": "set_batik.jpg", "label": "Batik", "mode": "blob",
+        "down": [7, 9, 19], "up": [11, 10, 12], "left": [21, 22, "20m"],
+    },
+    "almamater": {
+        "file": "set_almamater.jpg", "label": "Almamater", "mode": "blob",
+        "down": [7, 9, 19], "up": [11, 10, 12], "left": [21, 22, "20m"],
+    },
+    "tunik": {
+        "file": "set_tunik.jpg", "label": "Tunik", "mode": "blob",
+        "down": [7, 9, 19], "up": [11, 10, 12], "left": [21, 22, "20m"],
+    },
+    "labcoat": {
+        "file": "set_labcoat.jpg", "label": "Jas lab", "mode": "blob",
+        "down": [7, 9, 19], "up": [11, 10, 12], "left": [21, 22, "20m"],
+    },
 }
 
 bodies = {}

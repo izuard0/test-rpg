@@ -332,6 +332,338 @@
     }
    ]
   },
+  "batik": {
+   "label": "Batik",
+   "down": [
+    {
+     "key": "body_batik_down_0",
+     "neckX": 13.0,
+     "attachY": 4,
+     "tintBelow": 20
+    },
+    {
+     "key": "body_batik_down_1",
+     "neckX": 14.0,
+     "attachY": 4,
+     "tintBelow": 20
+    },
+    {
+     "key": "body_batik_down_2",
+     "neckX": 13.0,
+     "attachY": 4,
+     "tintBelow": 20
+    }
+   ],
+   "up": [
+    {
+     "key": "body_batik_up_0",
+     "neckX": 10.9,
+     "attachY": 3,
+     "tintBelow": 20
+    },
+    {
+     "key": "body_batik_up_1",
+     "neckX": 14.0,
+     "attachY": 3,
+     "tintBelow": 20
+    },
+    {
+     "key": "body_batik_up_2",
+     "neckX": 12.0,
+     "attachY": 3,
+     "tintBelow": 20
+    }
+   ],
+   "left": [
+    {
+     "key": "body_batik_left_0",
+     "neckX": 10.4,
+     "attachY": 3,
+     "tintBelow": 20
+    },
+    {
+     "key": "body_batik_left_1",
+     "neckX": 10.4,
+     "attachY": 3,
+     "tintBelow": 20
+    },
+    {
+     "key": "body_batik_left_2",
+     "neckX": 10.4,
+     "attachY": 3,
+     "tintBelow": 20
+    }
+   ],
+   "right": [
+    {
+     "key": "body_batik_right_0",
+     "neckX": 10.6,
+     "attachY": 3,
+     "tintBelow": 20
+    },
+    {
+     "key": "body_batik_right_1",
+     "neckX": 10.6,
+     "attachY": 3,
+     "tintBelow": 20
+    },
+    {
+     "key": "body_batik_right_2",
+     "neckX": 10.6,
+     "attachY": 3,
+     "tintBelow": 20
+    }
+   ]
+  },
+  "almamater": {
+   "label": "Almamater",
+   "down": [
+    {
+     "key": "body_almamater_down_0",
+     "neckX": 13.0,
+     "attachY": 4,
+     "tintBelow": 21
+    },
+    {
+     "key": "body_almamater_down_1",
+     "neckX": 14.0,
+     "attachY": 4,
+     "tintBelow": 21
+    },
+    {
+     "key": "body_almamater_down_2",
+     "neckX": 13.0,
+     "attachY": 4,
+     "tintBelow": 21
+    }
+   ],
+   "up": [
+    {
+     "key": "body_almamater_up_0",
+     "neckX": 11.0,
+     "attachY": 3,
+     "tintBelow": 20
+    },
+    {
+     "key": "body_almamater_up_1",
+     "neckX": 14.0,
+     "attachY": 3,
+     "tintBelow": 21
+    },
+    {
+     "key": "body_almamater_up_2",
+     "neckX": 12.0,
+     "attachY": 3,
+     "tintBelow": 20
+    }
+   ],
+   "left": [
+    {
+     "key": "body_almamater_left_0",
+     "neckX": 10.4,
+     "attachY": 3,
+     "tintBelow": 21
+    },
+    {
+     "key": "body_almamater_left_1",
+     "neckX": 10.4,
+     "attachY": 3,
+     "tintBelow": 21
+    },
+    {
+     "key": "body_almamater_left_2",
+     "neckX": 10.4,
+     "attachY": 3,
+     "tintBelow": 21
+    }
+   ],
+   "right": [
+    {
+     "key": "body_almamater_right_0",
+     "neckX": 10.6,
+     "attachY": 3,
+     "tintBelow": 21
+    },
+    {
+     "key": "body_almamater_right_1",
+     "neckX": 10.6,
+     "attachY": 3,
+     "tintBelow": 21
+    },
+    {
+     "key": "body_almamater_right_2",
+     "neckX": 10.6,
+     "attachY": 3,
+     "tintBelow": 21
+    }
+   ]
+  },
+  "tunik": {
+   "label": "Tunik",
+   "down": [
+    {
+     "key": "body_tunik_down_0",
+     "neckX": 13.0,
+     "attachY": 4,
+     "tintBelow": 25
+    },
+    {
+     "key": "body_tunik_down_1",
+     "neckX": 14.0,
+     "attachY": 4,
+     "tintBelow": 25
+    },
+    {
+     "key": "body_tunik_down_2",
+     "neckX": 13.0,
+     "attachY": 4,
+     "tintBelow": 24
+    }
+   ],
+   "up": [
+    {
+     "key": "body_tunik_up_0",
+     "neckX": 11.0,
+     "attachY": 3,
+     "tintBelow": 24
+    },
+    {
+     "key": "body_tunik_up_1",
+     "neckX": 14.0,
+     "attachY": 3,
+     "tintBelow": 25
+    },
+    {
+     "key": "body_tunik_up_2",
+     "neckX": 12.0,
+     "attachY": 3,
+     "tintBelow": 24
+    }
+   ],
+   "left": [
+    {
+     "key": "body_tunik_left_0",
+     "neckX": 10.1,
+     "attachY": 3,
+     "tintBelow": 23
+    },
+    {
+     "key": "body_tunik_left_1",
+     "neckX": 9.9,
+     "attachY": 3,
+     "tintBelow": 23
+    },
+    {
+     "key": "body_tunik_left_2",
+     "neckX": 10.0,
+     "attachY": 3,
+     "tintBelow": 23
+    }
+   ],
+   "right": [
+    {
+     "key": "body_tunik_right_0",
+     "neckX": 10.9,
+     "attachY": 3,
+     "tintBelow": 23
+    },
+    {
+     "key": "body_tunik_right_1",
+     "neckX": 11.1,
+     "attachY": 3,
+     "tintBelow": 23
+    },
+    {
+     "key": "body_tunik_right_2",
+     "neckX": 11.0,
+     "attachY": 3,
+     "tintBelow": 23
+    }
+   ]
+  },
+  "labcoat": {
+   "label": "Jas lab",
+   "down": [
+    {
+     "key": "body_labcoat_down_0",
+     "neckX": 13.0,
+     "attachY": 4,
+     "tintBelow": 28
+    },
+    {
+     "key": "body_labcoat_down_1",
+     "neckX": 14.0,
+     "attachY": 4,
+     "tintBelow": 28
+    },
+    {
+     "key": "body_labcoat_down_2",
+     "neckX": 13.0,
+     "attachY": 4,
+     "tintBelow": 28
+    }
+   ],
+   "up": [
+    {
+     "key": "body_labcoat_up_0",
+     "neckX": 11.0,
+     "attachY": 3,
+     "tintBelow": 29
+    },
+    {
+     "key": "body_labcoat_up_1",
+     "neckX": 14.0,
+     "attachY": 3,
+     "tintBelow": 29
+    },
+    {
+     "key": "body_labcoat_up_2",
+     "neckX": 12.0,
+     "attachY": 2,
+     "tintBelow": 28
+    }
+   ],
+   "left": [
+    {
+     "key": "body_labcoat_left_0",
+     "neckX": 10.4,
+     "attachY": 3,
+     "tintBelow": 28
+    },
+    {
+     "key": "body_labcoat_left_1",
+     "neckX": 10.4,
+     "attachY": 3,
+     "tintBelow": 27
+    },
+    {
+     "key": "body_labcoat_left_2",
+     "neckX": 10.4,
+     "attachY": 3,
+     "tintBelow": 28
+    }
+   ],
+   "right": [
+    {
+     "key": "body_labcoat_right_0",
+     "neckX": 10.6,
+     "attachY": 3,
+     "tintBelow": 28
+    },
+    {
+     "key": "body_labcoat_right_1",
+     "neckX": 10.6,
+     "attachY": 3,
+     "tintBelow": 27
+    },
+    {
+     "key": "body_labcoat_right_2",
+     "neckX": 10.6,
+     "attachY": 3,
+     "tintBelow": 28
+    }
+   ]
+  },
   "hoodie_b": {
    "label": "Hoodie",
    "down": [
@@ -661,6 +993,338 @@
      "neckX": 8.4,
      "attachY": 3,
      "tintBelow": 21
+    }
+   ]
+  },
+  "batik_b": {
+   "label": "Batik",
+   "down": [
+    {
+     "key": "body_batik_b_down_0",
+     "neckX": 10.5,
+     "attachY": 4,
+     "tintBelow": 20
+    },
+    {
+     "key": "body_batik_b_down_1",
+     "neckX": 12.0,
+     "attachY": 4,
+     "tintBelow": 20
+    },
+    {
+     "key": "body_batik_b_down_2",
+     "neckX": 11.0,
+     "attachY": 4,
+     "tintBelow": 20
+    }
+   ],
+   "up": [
+    {
+     "key": "body_batik_b_up_0",
+     "neckX": 9.5,
+     "attachY": 3,
+     "tintBelow": 20
+    },
+    {
+     "key": "body_batik_b_up_1",
+     "neckX": 12.0,
+     "attachY": 3,
+     "tintBelow": 20
+    },
+    {
+     "key": "body_batik_b_up_2",
+     "neckX": 10.0,
+     "attachY": 3,
+     "tintBelow": 20
+    }
+   ],
+   "left": [
+    {
+     "key": "body_batik_b_left_0",
+     "neckX": 8.4,
+     "attachY": 3,
+     "tintBelow": 20
+    },
+    {
+     "key": "body_batik_b_left_1",
+     "neckX": 8.4,
+     "attachY": 3,
+     "tintBelow": 20
+    },
+    {
+     "key": "body_batik_b_left_2",
+     "neckX": 8.4,
+     "attachY": 3,
+     "tintBelow": 20
+    }
+   ],
+   "right": [
+    {
+     "key": "body_batik_b_right_0",
+     "neckX": 8.6,
+     "attachY": 3,
+     "tintBelow": 20
+    },
+    {
+     "key": "body_batik_b_right_1",
+     "neckX": 8.6,
+     "attachY": 3,
+     "tintBelow": 20
+    },
+    {
+     "key": "body_batik_b_right_2",
+     "neckX": 8.6,
+     "attachY": 3,
+     "tintBelow": 20
+    }
+   ]
+  },
+  "almamater_b": {
+   "label": "Almamater",
+   "down": [
+    {
+     "key": "body_almamater_b_down_0",
+     "neckX": 10.5,
+     "attachY": 4,
+     "tintBelow": 21
+    },
+    {
+     "key": "body_almamater_b_down_1",
+     "neckX": 12.0,
+     "attachY": 4,
+     "tintBelow": 21
+    },
+    {
+     "key": "body_almamater_b_down_2",
+     "neckX": 11.0,
+     "attachY": 4,
+     "tintBelow": 21
+    }
+   ],
+   "up": [
+    {
+     "key": "body_almamater_b_up_0",
+     "neckX": 9.5,
+     "attachY": 3,
+     "tintBelow": 20
+    },
+    {
+     "key": "body_almamater_b_up_1",
+     "neckX": 12.0,
+     "attachY": 3,
+     "tintBelow": 21
+    },
+    {
+     "key": "body_almamater_b_up_2",
+     "neckX": 10.0,
+     "attachY": 3,
+     "tintBelow": 20
+    }
+   ],
+   "left": [
+    {
+     "key": "body_almamater_b_left_0",
+     "neckX": 8.4,
+     "attachY": 3,
+     "tintBelow": 21
+    },
+    {
+     "key": "body_almamater_b_left_1",
+     "neckX": 8.4,
+     "attachY": 3,
+     "tintBelow": 21
+    },
+    {
+     "key": "body_almamater_b_left_2",
+     "neckX": 8.4,
+     "attachY": 3,
+     "tintBelow": 22
+    }
+   ],
+   "right": [
+    {
+     "key": "body_almamater_b_right_0",
+     "neckX": 8.6,
+     "attachY": 3,
+     "tintBelow": 21
+    },
+    {
+     "key": "body_almamater_b_right_1",
+     "neckX": 8.6,
+     "attachY": 3,
+     "tintBelow": 21
+    },
+    {
+     "key": "body_almamater_b_right_2",
+     "neckX": 8.6,
+     "attachY": 3,
+     "tintBelow": 22
+    }
+   ]
+  },
+  "tunik_b": {
+   "label": "Tunik",
+   "down": [
+    {
+     "key": "body_tunik_b_down_0",
+     "neckX": 11.0,
+     "attachY": 4,
+     "tintBelow": 25
+    },
+    {
+     "key": "body_tunik_b_down_1",
+     "neckX": 12.0,
+     "attachY": 5,
+     "tintBelow": 25
+    },
+    {
+     "key": "body_tunik_b_down_2",
+     "neckX": 11.0,
+     "attachY": 4,
+     "tintBelow": 24
+    }
+   ],
+   "up": [
+    {
+     "key": "body_tunik_b_up_0",
+     "neckX": 9.5,
+     "attachY": 3,
+     "tintBelow": 24
+    },
+    {
+     "key": "body_tunik_b_up_1",
+     "neckX": 12.0,
+     "attachY": 3,
+     "tintBelow": 25
+    },
+    {
+     "key": "body_tunik_b_up_2",
+     "neckX": 10.0,
+     "attachY": 3,
+     "tintBelow": 24
+    }
+   ],
+   "left": [
+    {
+     "key": "body_tunik_b_left_0",
+     "neckX": 8.1,
+     "attachY": 3,
+     "tintBelow": 23
+    },
+    {
+     "key": "body_tunik_b_left_1",
+     "neckX": 7.9,
+     "attachY": 3,
+     "tintBelow": 23
+    },
+    {
+     "key": "body_tunik_b_left_2",
+     "neckX": 8.2,
+     "attachY": 2,
+     "tintBelow": 23
+    }
+   ],
+   "right": [
+    {
+     "key": "body_tunik_b_right_0",
+     "neckX": 8.9,
+     "attachY": 3,
+     "tintBelow": 23
+    },
+    {
+     "key": "body_tunik_b_right_1",
+     "neckX": 9.1,
+     "attachY": 3,
+     "tintBelow": 23
+    },
+    {
+     "key": "body_tunik_b_right_2",
+     "neckX": 8.8,
+     "attachY": 2,
+     "tintBelow": 23
+    }
+   ]
+  },
+  "labcoat_b": {
+   "label": "Jas lab",
+   "down": [
+    {
+     "key": "body_labcoat_b_down_0",
+     "neckX": 10.6,
+     "attachY": 4,
+     "tintBelow": 28
+    },
+    {
+     "key": "body_labcoat_b_down_1",
+     "neckX": 12.0,
+     "attachY": 4,
+     "tintBelow": 28
+    },
+    {
+     "key": "body_labcoat_b_down_2",
+     "neckX": 11.4,
+     "attachY": 4,
+     "tintBelow": 28
+    }
+   ],
+   "up": [
+    {
+     "key": "body_labcoat_b_up_0",
+     "neckX": 9.0,
+     "attachY": 2,
+     "tintBelow": 29
+    },
+    {
+     "key": "body_labcoat_b_up_1",
+     "neckX": 12.0,
+     "attachY": 2,
+     "tintBelow": 29
+    },
+    {
+     "key": "body_labcoat_b_up_2",
+     "neckX": 10.0,
+     "attachY": 2,
+     "tintBelow": 28
+    }
+   ],
+   "left": [
+    {
+     "key": "body_labcoat_b_left_0",
+     "neckX": 8.4,
+     "attachY": 3,
+     "tintBelow": 28
+    },
+    {
+     "key": "body_labcoat_b_left_1",
+     "neckX": 8.4,
+     "attachY": 3,
+     "tintBelow": 27
+    },
+    {
+     "key": "body_labcoat_b_left_2",
+     "neckX": 8.4,
+     "attachY": 3,
+     "tintBelow": 28
+    }
+   ],
+   "right": [
+    {
+     "key": "body_labcoat_b_right_0",
+     "neckX": 8.6,
+     "attachY": 3,
+     "tintBelow": 28
+    },
+    {
+     "key": "body_labcoat_b_right_1",
+     "neckX": 8.6,
+     "attachY": 3,
+     "tintBelow": 27
+    },
+    {
+     "key": "body_labcoat_b_right_2",
+     "neckX": 8.6,
+     "attachY": 3,
+     "tintBelow": 28
     }
    ]
   }
@@ -3215,2679 +3879,3255 @@
    "w": 22,
    "h": 35
   },
-  "body_hoodie_b_down_0": {
+  "body_batik_down_0": {
    "x": 252,
    "y": 36,
+   "w": 26,
+   "h": 34
+  },
+  "body_batik_down_1": {
+   "x": 279,
+   "y": 36,
+   "w": 29,
+   "h": 34
+  },
+  "body_batik_down_2": {
+   "x": 309,
+   "y": 36,
+   "w": 28,
+   "h": 35
+  },
+  "body_batik_up_0": {
+   "x": 338,
+   "y": 36,
+   "w": 26,
+   "h": 34
+  },
+  "body_batik_up_1": {
+   "x": 365,
+   "y": 36,
+   "w": 29,
+   "h": 34
+  },
+  "body_batik_up_2": {
+   "x": 395,
+   "y": 36,
+   "w": 26,
+   "h": 34
+  },
+  "body_batik_left_0": {
+   "x": 422,
+   "y": 36,
+   "w": 22,
+   "h": 35
+  },
+  "body_batik_left_1": {
+   "x": 445,
+   "y": 36,
+   "w": 22,
+   "h": 35
+  },
+  "body_batik_left_2": {
+   "x": 468,
+   "y": 36,
+   "w": 22,
+   "h": 35
+  },
+  "body_batik_right_0": {
+   "x": 491,
+   "y": 36,
+   "w": 22,
+   "h": 35
+  },
+  "body_batik_right_1": {
+   "x": 514,
+   "y": 36,
+   "w": 22,
+   "h": 35
+  },
+  "body_batik_right_2": {
+   "x": 537,
+   "y": 36,
+   "w": 22,
+   "h": 35
+  },
+  "body_almamater_down_0": {
+   "x": 560,
+   "y": 36,
+   "w": 26,
+   "h": 34
+  },
+  "body_almamater_down_1": {
+   "x": 587,
+   "y": 36,
+   "w": 29,
+   "h": 34
+  },
+  "body_almamater_down_2": {
+   "x": 617,
+   "y": 36,
+   "w": 28,
+   "h": 35
+  },
+  "body_almamater_up_0": {
+   "x": 646,
+   "y": 36,
+   "w": 26,
+   "h": 34
+  },
+  "body_almamater_up_1": {
+   "x": 673,
+   "y": 36,
+   "w": 29,
+   "h": 34
+  },
+  "body_almamater_up_2": {
+   "x": 703,
+   "y": 36,
+   "w": 26,
+   "h": 34
+  },
+  "body_almamater_left_0": {
+   "x": 730,
+   "y": 36,
+   "w": 22,
+   "h": 35
+  },
+  "body_almamater_left_1": {
+   "x": 753,
+   "y": 36,
+   "w": 22,
+   "h": 35
+  },
+  "body_almamater_left_2": {
+   "x": 776,
+   "y": 36,
+   "w": 22,
+   "h": 35
+  },
+  "body_almamater_right_0": {
+   "x": 799,
+   "y": 36,
+   "w": 22,
+   "h": 35
+  },
+  "body_almamater_right_1": {
+   "x": 822,
+   "y": 36,
+   "w": 22,
+   "h": 35
+  },
+  "body_almamater_right_2": {
+   "x": 845,
+   "y": 36,
+   "w": 22,
+   "h": 35
+  },
+  "body_tunik_down_0": {
+   "x": 868,
+   "y": 36,
+   "w": 26,
+   "h": 34
+  },
+  "body_tunik_down_1": {
+   "x": 895,
+   "y": 36,
+   "w": 29,
+   "h": 34
+  },
+  "body_tunik_down_2": {
+   "x": 925,
+   "y": 36,
+   "w": 28,
+   "h": 35
+  },
+  "body_tunik_up_0": {
+   "x": 954,
+   "y": 36,
+   "w": 26,
+   "h": 34
+  },
+  "body_tunik_up_1": {
+   "x": 981,
+   "y": 36,
+   "w": 29,
+   "h": 34
+  },
+  "body_tunik_up_2": {
+   "x": 0,
+   "y": 72,
+   "w": 26,
+   "h": 34
+  },
+  "body_tunik_left_0": {
+   "x": 27,
+   "y": 72,
+   "w": 22,
+   "h": 35
+  },
+  "body_tunik_left_1": {
+   "x": 50,
+   "y": 72,
+   "w": 22,
+   "h": 35
+  },
+  "body_tunik_left_2": {
+   "x": 73,
+   "y": 72,
+   "w": 22,
+   "h": 35
+  },
+  "body_tunik_right_0": {
+   "x": 96,
+   "y": 72,
+   "w": 22,
+   "h": 35
+  },
+  "body_tunik_right_1": {
+   "x": 119,
+   "y": 72,
+   "w": 22,
+   "h": 35
+  },
+  "body_tunik_right_2": {
+   "x": 142,
+   "y": 72,
+   "w": 22,
+   "h": 35
+  },
+  "body_labcoat_down_0": {
+   "x": 165,
+   "y": 72,
+   "w": 26,
+   "h": 34
+  },
+  "body_labcoat_down_1": {
+   "x": 192,
+   "y": 72,
+   "w": 29,
+   "h": 34
+  },
+  "body_labcoat_down_2": {
+   "x": 222,
+   "y": 72,
+   "w": 28,
+   "h": 35
+  },
+  "body_labcoat_up_0": {
+   "x": 251,
+   "y": 72,
+   "w": 26,
+   "h": 34
+  },
+  "body_labcoat_up_1": {
+   "x": 278,
+   "y": 72,
+   "w": 29,
+   "h": 34
+  },
+  "body_labcoat_up_2": {
+   "x": 308,
+   "y": 72,
+   "w": 26,
+   "h": 34
+  },
+  "body_labcoat_left_0": {
+   "x": 335,
+   "y": 72,
+   "w": 22,
+   "h": 35
+  },
+  "body_labcoat_left_1": {
+   "x": 358,
+   "y": 72,
+   "w": 22,
+   "h": 35
+  },
+  "body_labcoat_left_2": {
+   "x": 381,
+   "y": 72,
+   "w": 22,
+   "h": 35
+  },
+  "body_labcoat_right_0": {
+   "x": 404,
+   "y": 72,
+   "w": 22,
+   "h": 35
+  },
+  "body_labcoat_right_1": {
+   "x": 427,
+   "y": 72,
+   "w": 22,
+   "h": 35
+  },
+  "body_labcoat_right_2": {
+   "x": 450,
+   "y": 72,
+   "w": 22,
+   "h": 35
+  },
+  "body_hoodie_b_down_0": {
+   "x": 473,
+   "y": 72,
    "w": 23,
    "h": 33
   },
   "body_hoodie_b_down_1": {
-   "x": 276,
-   "y": 36,
+   "x": 497,
+   "y": 72,
    "w": 25,
    "h": 33
   },
   "body_hoodie_b_down_2": {
-   "x": 302,
-   "y": 36,
+   "x": 523,
+   "y": 72,
    "w": 24,
    "h": 34
   },
   "body_hoodie_b_up_0": {
-   "x": 327,
-   "y": 36,
+   "x": 548,
+   "y": 72,
    "w": 23,
    "h": 33
   },
   "body_hoodie_b_up_1": {
-   "x": 351,
-   "y": 36,
+   "x": 572,
+   "y": 72,
    "w": 25,
    "h": 34
   },
   "body_hoodie_b_up_2": {
-   "x": 377,
-   "y": 36,
+   "x": 598,
+   "y": 72,
    "w": 25,
    "h": 34
   },
   "body_hoodie_b_left_0": {
-   "x": 403,
-   "y": 36,
+   "x": 624,
+   "y": 72,
    "w": 20,
    "h": 34
   },
   "body_hoodie_b_left_1": {
-   "x": 424,
-   "y": 36,
+   "x": 645,
+   "y": 72,
    "w": 20,
    "h": 34
   },
   "body_hoodie_b_left_2": {
-   "x": 445,
-   "y": 36,
+   "x": 666,
+   "y": 72,
    "w": 20,
    "h": 34
   },
   "body_hoodie_b_right_0": {
-   "x": 466,
-   "y": 36,
+   "x": 687,
+   "y": 72,
    "w": 20,
    "h": 34
   },
   "body_hoodie_b_right_1": {
-   "x": 487,
-   "y": 36,
+   "x": 708,
+   "y": 72,
    "w": 20,
    "h": 34
   },
   "body_hoodie_b_right_2": {
-   "x": 508,
-   "y": 36,
+   "x": 729,
+   "y": 72,
    "w": 20,
    "h": 34
   },
   "body_flannel_b_down_0": {
-   "x": 529,
-   "y": 36,
+   "x": 750,
+   "y": 72,
    "w": 23,
    "h": 34
   },
   "body_flannel_b_down_1": {
-   "x": 553,
-   "y": 36,
+   "x": 774,
+   "y": 72,
    "w": 25,
    "h": 34
   },
   "body_flannel_b_down_2": {
-   "x": 579,
-   "y": 36,
+   "x": 800,
+   "y": 72,
    "w": 24,
    "h": 35
   },
   "body_flannel_b_up_0": {
-   "x": 604,
-   "y": 36,
+   "x": 825,
+   "y": 72,
    "w": 23,
    "h": 34
   },
   "body_flannel_b_up_1": {
-   "x": 628,
-   "y": 36,
+   "x": 849,
+   "y": 72,
    "w": 25,
    "h": 34
   },
   "body_flannel_b_up_2": {
-   "x": 654,
-   "y": 36,
+   "x": 875,
+   "y": 72,
    "w": 23,
    "h": 34
   },
   "body_flannel_b_left_0": {
-   "x": 678,
-   "y": 36,
+   "x": 899,
+   "y": 72,
    "w": 19,
    "h": 35
   },
   "body_flannel_b_left_1": {
-   "x": 698,
-   "y": 36,
+   "x": 919,
+   "y": 72,
    "w": 19,
    "h": 35
   },
   "body_flannel_b_left_2": {
-   "x": 718,
-   "y": 36,
+   "x": 939,
+   "y": 72,
    "w": 19,
    "h": 35
   },
   "body_flannel_b_right_0": {
-   "x": 738,
-   "y": 36,
+   "x": 959,
+   "y": 72,
    "w": 19,
    "h": 35
   },
   "body_flannel_b_right_1": {
-   "x": 758,
-   "y": 36,
+   "x": 979,
+   "y": 72,
    "w": 19,
    "h": 35
   },
   "body_flannel_b_right_2": {
-   "x": 778,
-   "y": 36,
+   "x": 999,
+   "y": 72,
    "w": 19,
    "h": 35
   },
   "body_kaos_b_down_0": {
-   "x": 798,
-   "y": 36,
+   "x": 0,
+   "y": 108,
    "w": 22,
    "h": 34
   },
   "body_kaos_b_down_1": {
-   "x": 821,
-   "y": 36,
+   "x": 23,
+   "y": 108,
    "w": 25,
    "h": 34
   },
   "body_kaos_b_down_2": {
-   "x": 847,
-   "y": 36,
+   "x": 49,
+   "y": 108,
    "w": 24,
    "h": 35
   },
   "body_kaos_b_up_0": {
-   "x": 872,
-   "y": 36,
+   "x": 74,
+   "y": 108,
    "w": 23,
    "h": 34
   },
   "body_kaos_b_up_1": {
-   "x": 896,
-   "y": 36,
+   "x": 98,
+   "y": 108,
    "w": 25,
    "h": 34
   },
   "body_kaos_b_up_2": {
-   "x": 922,
-   "y": 36,
+   "x": 124,
+   "y": 108,
    "w": 22,
    "h": 34
   },
   "body_kaos_b_left_0": {
-   "x": 945,
-   "y": 36,
+   "x": 147,
+   "y": 108,
    "w": 19,
    "h": 35
   },
   "body_kaos_b_left_1": {
-   "x": 965,
-   "y": 36,
+   "x": 167,
+   "y": 108,
    "w": 19,
    "h": 35
   },
   "body_kaos_b_left_2": {
-   "x": 985,
-   "y": 36,
+   "x": 187,
+   "y": 108,
    "w": 19,
    "h": 35
   },
   "body_kaos_b_right_0": {
-   "x": 1005,
-   "y": 36,
+   "x": 207,
+   "y": 108,
    "w": 19,
    "h": 35
   },
   "body_kaos_b_right_1": {
-   "x": 0,
-   "y": 72,
+   "x": 227,
+   "y": 108,
    "w": 19,
    "h": 35
   },
   "body_kaos_b_right_2": {
-   "x": 20,
-   "y": 72,
+   "x": 247,
+   "y": 108,
    "w": 19,
    "h": 35
   },
   "body_kemeja_b_down_0": {
-   "x": 40,
-   "y": 72,
+   "x": 267,
+   "y": 108,
    "w": 22,
    "h": 34
   },
   "body_kemeja_b_down_1": {
-   "x": 63,
-   "y": 72,
+   "x": 290,
+   "y": 108,
    "w": 25,
    "h": 34
   },
   "body_kemeja_b_down_2": {
-   "x": 89,
-   "y": 72,
+   "x": 316,
+   "y": 108,
    "w": 24,
    "h": 35
   },
   "body_kemeja_b_up_0": {
-   "x": 114,
-   "y": 72,
+   "x": 341,
+   "y": 108,
    "w": 23,
    "h": 34
   },
   "body_kemeja_b_up_1": {
-   "x": 138,
-   "y": 72,
+   "x": 365,
+   "y": 108,
    "w": 25,
    "h": 34
   },
   "body_kemeja_b_up_2": {
-   "x": 164,
-   "y": 72,
+   "x": 391,
+   "y": 108,
    "w": 22,
    "h": 34
   },
   "body_kemeja_b_left_0": {
-   "x": 187,
-   "y": 72,
+   "x": 414,
+   "y": 108,
    "w": 18,
    "h": 35
   },
   "body_kemeja_b_left_1": {
-   "x": 206,
-   "y": 72,
+   "x": 433,
+   "y": 108,
    "w": 18,
    "h": 35
   },
   "body_kemeja_b_left_2": {
-   "x": 225,
-   "y": 72,
+   "x": 452,
+   "y": 108,
    "w": 18,
    "h": 35
   },
   "body_kemeja_b_right_0": {
-   "x": 244,
-   "y": 72,
+   "x": 471,
+   "y": 108,
    "w": 18,
    "h": 35
   },
   "body_kemeja_b_right_1": {
-   "x": 263,
-   "y": 72,
+   "x": 490,
+   "y": 108,
    "w": 18,
    "h": 35
   },
   "body_kemeja_b_right_2": {
-   "x": 282,
-   "y": 72,
+   "x": 509,
+   "y": 108,
+   "w": 18,
+   "h": 35
+  },
+  "body_batik_b_down_0": {
+   "x": 528,
+   "y": 108,
+   "w": 22,
+   "h": 34
+  },
+  "body_batik_b_down_1": {
+   "x": 551,
+   "y": 108,
+   "w": 25,
+   "h": 34
+  },
+  "body_batik_b_down_2": {
+   "x": 577,
+   "y": 108,
+   "w": 24,
+   "h": 35
+  },
+  "body_batik_b_up_0": {
+   "x": 602,
+   "y": 108,
+   "w": 22,
+   "h": 34
+  },
+  "body_batik_b_up_1": {
+   "x": 625,
+   "y": 108,
+   "w": 25,
+   "h": 34
+  },
+  "body_batik_b_up_2": {
+   "x": 651,
+   "y": 108,
+   "w": 22,
+   "h": 34
+  },
+  "body_batik_b_left_0": {
+   "x": 674,
+   "y": 108,
+   "w": 18,
+   "h": 35
+  },
+  "body_batik_b_left_1": {
+   "x": 693,
+   "y": 108,
+   "w": 18,
+   "h": 35
+  },
+  "body_batik_b_left_2": {
+   "x": 712,
+   "y": 108,
+   "w": 18,
+   "h": 35
+  },
+  "body_batik_b_right_0": {
+   "x": 731,
+   "y": 108,
+   "w": 18,
+   "h": 35
+  },
+  "body_batik_b_right_1": {
+   "x": 750,
+   "y": 108,
+   "w": 18,
+   "h": 35
+  },
+  "body_batik_b_right_2": {
+   "x": 769,
+   "y": 108,
+   "w": 18,
+   "h": 35
+  },
+  "body_almamater_b_down_0": {
+   "x": 788,
+   "y": 108,
+   "w": 22,
+   "h": 34
+  },
+  "body_almamater_b_down_1": {
+   "x": 811,
+   "y": 108,
+   "w": 25,
+   "h": 34
+  },
+  "body_almamater_b_down_2": {
+   "x": 837,
+   "y": 108,
+   "w": 24,
+   "h": 35
+  },
+  "body_almamater_b_up_0": {
+   "x": 862,
+   "y": 108,
+   "w": 22,
+   "h": 34
+  },
+  "body_almamater_b_up_1": {
+   "x": 885,
+   "y": 108,
+   "w": 25,
+   "h": 34
+  },
+  "body_almamater_b_up_2": {
+   "x": 911,
+   "y": 108,
+   "w": 22,
+   "h": 34
+  },
+  "body_almamater_b_left_0": {
+   "x": 934,
+   "y": 108,
+   "w": 18,
+   "h": 35
+  },
+  "body_almamater_b_left_1": {
+   "x": 953,
+   "y": 108,
+   "w": 18,
+   "h": 35
+  },
+  "body_almamater_b_left_2": {
+   "x": 972,
+   "y": 108,
+   "w": 18,
+   "h": 35
+  },
+  "body_almamater_b_right_0": {
+   "x": 991,
+   "y": 108,
+   "w": 18,
+   "h": 35
+  },
+  "body_almamater_b_right_1": {
+   "x": 0,
+   "y": 144,
+   "w": 18,
+   "h": 35
+  },
+  "body_almamater_b_right_2": {
+   "x": 19,
+   "y": 144,
+   "w": 18,
+   "h": 35
+  },
+  "body_tunik_b_down_0": {
+   "x": 38,
+   "y": 144,
+   "w": 22,
+   "h": 34
+  },
+  "body_tunik_b_down_1": {
+   "x": 61,
+   "y": 144,
+   "w": 25,
+   "h": 34
+  },
+  "body_tunik_b_down_2": {
+   "x": 87,
+   "y": 144,
+   "w": 24,
+   "h": 35
+  },
+  "body_tunik_b_up_0": {
+   "x": 112,
+   "y": 144,
+   "w": 22,
+   "h": 34
+  },
+  "body_tunik_b_up_1": {
+   "x": 135,
+   "y": 144,
+   "w": 25,
+   "h": 34
+  },
+  "body_tunik_b_up_2": {
+   "x": 161,
+   "y": 144,
+   "w": 22,
+   "h": 34
+  },
+  "body_tunik_b_left_0": {
+   "x": 184,
+   "y": 144,
+   "w": 18,
+   "h": 35
+  },
+  "body_tunik_b_left_1": {
+   "x": 203,
+   "y": 144,
+   "w": 18,
+   "h": 35
+  },
+  "body_tunik_b_left_2": {
+   "x": 222,
+   "y": 144,
+   "w": 18,
+   "h": 35
+  },
+  "body_tunik_b_right_0": {
+   "x": 241,
+   "y": 144,
+   "w": 18,
+   "h": 35
+  },
+  "body_tunik_b_right_1": {
+   "x": 260,
+   "y": 144,
+   "w": 18,
+   "h": 35
+  },
+  "body_tunik_b_right_2": {
+   "x": 279,
+   "y": 144,
+   "w": 18,
+   "h": 35
+  },
+  "body_labcoat_b_down_0": {
+   "x": 298,
+   "y": 144,
+   "w": 22,
+   "h": 34
+  },
+  "body_labcoat_b_down_1": {
+   "x": 321,
+   "y": 144,
+   "w": 25,
+   "h": 34
+  },
+  "body_labcoat_b_down_2": {
+   "x": 347,
+   "y": 144,
+   "w": 24,
+   "h": 35
+  },
+  "body_labcoat_b_up_0": {
+   "x": 372,
+   "y": 144,
+   "w": 22,
+   "h": 34
+  },
+  "body_labcoat_b_up_1": {
+   "x": 395,
+   "y": 144,
+   "w": 25,
+   "h": 34
+  },
+  "body_labcoat_b_up_2": {
+   "x": 421,
+   "y": 144,
+   "w": 22,
+   "h": 34
+  },
+  "body_labcoat_b_left_0": {
+   "x": 444,
+   "y": 144,
+   "w": 18,
+   "h": 35
+  },
+  "body_labcoat_b_left_1": {
+   "x": 463,
+   "y": 144,
+   "w": 18,
+   "h": 35
+  },
+  "body_labcoat_b_left_2": {
+   "x": 482,
+   "y": 144,
+   "w": 18,
+   "h": 35
+  },
+  "body_labcoat_b_right_0": {
+   "x": 501,
+   "y": 144,
+   "w": 18,
+   "h": 35
+  },
+  "body_labcoat_b_right_1": {
+   "x": 520,
+   "y": 144,
+   "w": 18,
+   "h": 35
+  },
+  "body_labcoat_b_right_2": {
+   "x": 539,
+   "y": 144,
    "w": 18,
    "h": 35
   },
   "head_hair_short_01_down": {
-   "x": 301,
-   "y": 72,
+   "x": 558,
+   "y": 144,
    "w": 26,
    "h": 31
   },
   "head_hair_short_01_right": {
-   "x": 328,
-   "y": 72,
+   "x": 585,
+   "y": 144,
    "w": 26,
    "h": 29
   },
   "head_hair_short_01_left": {
-   "x": 355,
-   "y": 72,
+   "x": 612,
+   "y": 144,
    "w": 27,
    "h": 30
   },
   "head_hair_short_01_up": {
-   "x": 383,
-   "y": 72,
+   "x": 640,
+   "y": 144,
    "w": 27,
    "h": 27
   },
   "head_hair_short_02_down": {
-   "x": 411,
-   "y": 72,
+   "x": 668,
+   "y": 144,
    "w": 30,
    "h": 33
   },
   "head_hair_short_02_right": {
-   "x": 442,
-   "y": 72,
+   "x": 699,
+   "y": 144,
    "w": 33,
    "h": 32
   },
   "head_hair_short_02_left": {
-   "x": 476,
-   "y": 72,
+   "x": 733,
+   "y": 144,
    "w": 32,
    "h": 29
   },
   "head_hair_short_02_up": {
-   "x": 509,
-   "y": 72,
+   "x": 766,
+   "y": 144,
    "w": 32,
    "h": 28
   },
   "head_hair_buzz_down": {
-   "x": 542,
-   "y": 72,
+   "x": 799,
+   "y": 144,
    "w": 25,
    "h": 29
   },
   "head_hair_buzz_right": {
-   "x": 568,
-   "y": 72,
+   "x": 825,
+   "y": 144,
    "w": 24,
    "h": 28
   },
   "head_hair_buzz_left": {
-   "x": 593,
-   "y": 72,
+   "x": 850,
+   "y": 144,
    "w": 24,
    "h": 28
   },
   "head_hair_buzz_up": {
-   "x": 618,
-   "y": 72,
+   "x": 875,
+   "y": 144,
    "w": 25,
    "h": 26
   },
   "head_hair_curly_down": {
-   "x": 644,
-   "y": 72,
+   "x": 901,
+   "y": 144,
    "w": 29,
    "h": 32
   },
   "head_hair_curly_right": {
-   "x": 674,
-   "y": 72,
+   "x": 931,
+   "y": 144,
    "w": 30,
    "h": 31
   },
   "head_hair_curly_left": {
-   "x": 705,
-   "y": 72,
+   "x": 962,
+   "y": 144,
    "w": 31,
    "h": 31
   },
   "head_hair_curly_up": {
-   "x": 737,
-   "y": 72,
+   "x": 994,
+   "y": 144,
    "w": 29,
    "h": 28
   },
   "head_hair_undercut_down": {
-   "x": 767,
-   "y": 72,
+   "x": 0,
+   "y": 180,
    "w": 25,
    "h": 32
   },
   "head_hair_undercut_right": {
-   "x": 793,
-   "y": 72,
+   "x": 26,
+   "y": 180,
    "w": 27,
    "h": 31
   },
   "head_hair_undercut_left": {
-   "x": 821,
-   "y": 72,
+   "x": 54,
+   "y": 180,
    "w": 28,
    "h": 31
   },
   "head_hair_undercut_up": {
-   "x": 850,
-   "y": 72,
+   "x": 83,
+   "y": 180,
    "w": 24,
    "h": 29
   },
   "head_hair_medium_down": {
-   "x": 875,
-   "y": 72,
+   "x": 108,
+   "y": 180,
    "w": 26,
    "h": 31
   },
   "head_hair_medium_right": {
-   "x": 902,
-   "y": 72,
+   "x": 135,
+   "y": 180,
    "w": 27,
    "h": 31
   },
   "head_hair_medium_left": {
-   "x": 930,
-   "y": 72,
+   "x": 163,
+   "y": 180,
    "w": 27,
    "h": 30
   },
   "head_hair_medium_up": {
-   "x": 958,
-   "y": 72,
+   "x": 191,
+   "y": 180,
    "w": 27,
    "h": 27
   },
   "head_hair_long_down": {
-   "x": 986,
-   "y": 72,
+   "x": 219,
+   "y": 180,
    "w": 30,
    "h": 33
   },
   "head_hair_long_right": {
-   "x": 0,
-   "y": 108,
+   "x": 250,
+   "y": 180,
    "w": 30,
    "h": 33
   },
   "head_hair_long_left": {
-   "x": 31,
-   "y": 108,
+   "x": 281,
+   "y": 180,
    "w": 31,
    "h": 33
   },
   "head_hair_long_up": {
-   "x": 63,
-   "y": 108,
+   "x": 313,
+   "y": 180,
    "w": 31,
    "h": 33
   },
   "head_hair_ponytail_down": {
-   "x": 95,
-   "y": 108,
+   "x": 345,
+   "y": 180,
    "w": 25,
    "h": 34
   },
   "head_hair_ponytail_right": {
-   "x": 121,
-   "y": 108,
+   "x": 371,
+   "y": 180,
    "w": 30,
    "h": 33
   },
   "head_hair_ponytail_left": {
-   "x": 152,
-   "y": 108,
+   "x": 402,
+   "y": 180,
    "w": 31,
    "h": 33
   },
   "head_hair_ponytail_up": {
-   "x": 184,
-   "y": 108,
+   "x": 434,
+   "y": 180,
    "w": 25,
    "h": 31
   },
   "head_hair_bun_down": {
-   "x": 210,
-   "y": 108,
+   "x": 460,
+   "y": 180,
    "w": 25,
    "h": 35
   },
   "head_hair_bun_right": {
-   "x": 236,
-   "y": 108,
+   "x": 486,
+   "y": 180,
    "w": 30,
    "h": 32
   },
   "head_hair_bun_left": {
-   "x": 267,
-   "y": 108,
+   "x": 517,
+   "y": 180,
    "w": 30,
    "h": 32
   },
   "head_hair_bun_up": {
-   "x": 298,
-   "y": 108,
+   "x": 548,
+   "y": 180,
    "w": 25,
    "h": 29
   },
   "head_hair_wavy_down": {
-   "x": 324,
-   "y": 108,
+   "x": 574,
+   "y": 180,
    "w": 33,
    "h": 31
   },
   "head_hair_wavy_right": {
-   "x": 358,
-   "y": 108,
+   "x": 608,
+   "y": 180,
    "w": 32,
    "h": 33
   },
   "head_hair_wavy_left": {
-   "x": 391,
-   "y": 108,
+   "x": 641,
+   "y": 180,
    "w": 32,
    "h": 33
   },
   "head_hair_wavy_up": {
-   "x": 424,
-   "y": 108,
+   "x": 674,
+   "y": 180,
    "w": 26,
    "h": 29
   },
   "head_hijab_simple_down": {
-   "x": 451,
-   "y": 108,
+   "x": 701,
+   "y": 180,
    "w": 26,
    "h": 33
   },
   "head_hijab_simple_right": {
-   "x": 478,
-   "y": 108,
+   "x": 728,
+   "y": 180,
    "w": 27,
    "h": 33
   },
   "head_hijab_simple_left": {
-   "x": 506,
-   "y": 108,
+   "x": 756,
+   "y": 180,
    "w": 27,
    "h": 33
   },
   "head_hijab_simple_up": {
-   "x": 534,
-   "y": 108,
+   "x": 784,
+   "y": 180,
    "w": 27,
    "h": 32
   },
   "head_hijab_long_down": {
-   "x": 562,
-   "y": 108,
+   "x": 812,
+   "y": 180,
    "w": 31,
    "h": 33
   },
   "head_hijab_long_right": {
-   "x": 594,
-   "y": 108,
+   "x": 844,
+   "y": 180,
    "w": 30,
    "h": 33
   },
   "head_hijab_long_left": {
-   "x": 625,
-   "y": 108,
+   "x": 875,
+   "y": 180,
    "w": 30,
    "h": 33
   },
   "head_hijab_long_up": {
-   "x": 656,
-   "y": 108,
+   "x": 906,
+   "y": 180,
    "w": 31,
    "h": 33
   },
   "head_hijab_sport_down": {
-   "x": 688,
-   "y": 108,
+   "x": 938,
+   "y": 180,
    "w": 25,
    "h": 31
   },
   "head_hijab_sport_right": {
-   "x": 714,
-   "y": 108,
+   "x": 964,
+   "y": 180,
    "w": 25,
    "h": 31
   },
   "head_hijab_sport_left": {
-   "x": 740,
-   "y": 108,
+   "x": 990,
+   "y": 180,
    "w": 25,
    "h": 31
   },
   "head_hijab_sport_up": {
-   "x": 766,
-   "y": 108,
+   "x": 0,
+   "y": 216,
    "w": 25,
    "h": 26
   },
   "head_peci_down": {
-   "x": 792,
-   "y": 108,
+   "x": 26,
+   "y": 216,
    "w": 27,
    "h": 32
   },
   "head_peci_right": {
-   "x": 820,
-   "y": 108,
+   "x": 54,
+   "y": 216,
    "w": 27,
    "h": 31
   },
   "head_peci_left": {
-   "x": 848,
-   "y": 108,
+   "x": 82,
+   "y": 216,
    "w": 27,
    "h": 31
   },
   "head_peci_up": {
-   "x": 876,
-   "y": 108,
+   "x": 110,
+   "y": 216,
    "w": 27,
    "h": 29
   },
   "head_cap_baseball_down": {
-   "x": 904,
-   "y": 108,
+   "x": 138,
+   "y": 216,
    "w": 27,
    "h": 32
   },
   "head_cap_baseball_right": {
-   "x": 932,
-   "y": 108,
+   "x": 166,
+   "y": 216,
    "w": 33,
    "h": 31
   },
   "head_cap_baseball_left": {
-   "x": 966,
-   "y": 108,
+   "x": 200,
+   "y": 216,
    "w": 33,
    "h": 31
   },
   "head_cap_baseball_up": {
-   "x": 0,
-   "y": 144,
+   "x": 234,
+   "y": 216,
    "w": 25,
    "h": 29
   },
   "head_beanie_down": {
-   "x": 26,
-   "y": 144,
+   "x": 260,
+   "y": 216,
    "w": 26,
    "h": 31
   },
   "head_beanie_right": {
-   "x": 53,
-   "y": 144,
+   "x": 287,
+   "y": 216,
    "w": 28,
    "h": 30
   },
   "head_beanie_left": {
-   "x": 82,
-   "y": 144,
+   "x": 316,
+   "y": 216,
    "w": 28,
    "h": 30
   },
   "head_beanie_up": {
-   "x": 111,
-   "y": 144,
+   "x": 345,
+   "y": 216,
    "w": 27,
    "h": 28
   },
   "acc_acc_glasses_round_down": {
-   "x": 139,
-   "y": 144,
+   "x": 373,
+   "y": 216,
    "w": 17,
    "h": 7
   },
   "acc_acc_glasses_round_right": {
-   "x": 157,
-   "y": 144,
+   "x": 391,
+   "y": 216,
    "w": 13,
    "h": 8
   },
   "acc_acc_glasses_round_left": {
-   "x": 171,
-   "y": 144,
+   "x": 405,
+   "y": 216,
    "w": 13,
    "h": 8
   },
   "acc_acc_glasses_square_down": {
-   "x": 185,
-   "y": 144,
+   "x": 419,
+   "y": 216,
    "w": 19,
    "h": 7
   },
   "acc_acc_glasses_square_right": {
-   "x": 205,
-   "y": 144,
+   "x": 439,
+   "y": 216,
    "w": 13,
    "h": 7
   },
   "acc_acc_glasses_square_left": {
-   "x": 219,
-   "y": 144,
+   "x": 453,
+   "y": 216,
    "w": 13,
    "h": 7
   },
   "acc_acc_headset_down": {
-   "x": 233,
-   "y": 144,
+   "x": 467,
+   "y": 216,
    "w": 29,
    "h": 24
   },
   "acc_acc_headset_right": {
-   "x": 263,
-   "y": 144,
+   "x": 497,
+   "y": 216,
    "w": 20,
    "h": 34
   },
   "acc_acc_headset_left": {
-   "x": 284,
-   "y": 144,
+   "x": 518,
+   "y": 216,
    "w": 21,
    "h": 34
   },
   "acc_acc_headset_up": {
-   "x": 306,
-   "y": 144,
+   "x": 540,
+   "y": 216,
    "w": 18,
    "h": 7
   },
   "acc_acc_vr_headset_down": {
-   "x": 325,
-   "y": 144,
+   "x": 559,
+   "y": 216,
    "w": 21,
    "h": 20
   },
   "acc_acc_vr_headset_right": {
-   "x": 347,
-   "y": 144,
+   "x": 581,
+   "y": 216,
    "w": 25,
    "h": 16
   },
   "acc_acc_vr_headset_left": {
-   "x": 373,
-   "y": 144,
+   "x": 607,
+   "y": 216,
    "w": 25,
    "h": 15
   },
   "acc_acc_vr_headset_up": {
-   "x": 399,
-   "y": 144,
+   "x": 633,
+   "y": 216,
    "w": 17,
    "h": 19
   },
   "head_hair_short_01_down_s95": {
-   "x": 417,
-   "y": 144,
+   "x": 651,
+   "y": 216,
    "w": 24,
    "h": 29
   },
   "head_hair_short_01_right_s95": {
-   "x": 442,
-   "y": 144,
+   "x": 676,
+   "y": 216,
    "w": 25,
    "h": 29
   },
   "head_hair_short_01_left_s95": {
-   "x": 468,
-   "y": 144,
+   "x": 702,
+   "y": 216,
    "w": 25,
    "h": 28
   },
   "head_hair_short_01_up_s95": {
-   "x": 494,
-   "y": 144,
+   "x": 728,
+   "y": 216,
    "w": 25,
    "h": 26
   },
   "head_hair_short_02_down_s95": {
-   "x": 520,
-   "y": 144,
+   "x": 754,
+   "y": 216,
    "w": 29,
    "h": 29
   },
   "head_hair_short_02_right_s95": {
-   "x": 550,
-   "y": 144,
+   "x": 784,
+   "y": 216,
    "w": 31,
    "h": 29
   },
   "head_hair_short_02_left_s95": {
-   "x": 582,
-   "y": 144,
+   "x": 816,
+   "y": 216,
    "w": 31,
    "h": 28
   },
   "head_hair_short_02_up_s95": {
-   "x": 614,
-   "y": 144,
+   "x": 848,
+   "y": 216,
    "w": 30,
    "h": 26
   },
   "head_hair_buzz_down_s95": {
-   "x": 645,
-   "y": 144,
+   "x": 879,
+   "y": 216,
    "w": 24,
    "h": 28
   },
   "head_hair_buzz_right_s95": {
-   "x": 670,
-   "y": 144,
+   "x": 904,
+   "y": 216,
    "w": 23,
    "h": 26
   },
   "head_hair_buzz_left_s95": {
-   "x": 694,
-   "y": 144,
+   "x": 928,
+   "y": 216,
    "w": 23,
    "h": 26
   },
   "head_hair_buzz_up_s95": {
-   "x": 718,
-   "y": 144,
+   "x": 952,
+   "y": 216,
    "w": 24,
    "h": 25
   },
   "head_hair_curly_down_s95": {
-   "x": 743,
-   "y": 144,
+   "x": 977,
+   "y": 216,
    "w": 28,
    "h": 31
   },
   "head_hair_curly_right_s95": {
-   "x": 772,
-   "y": 144,
+   "x": 0,
+   "y": 251,
    "w": 29,
    "h": 30
   },
   "head_hair_curly_left_s95": {
-   "x": 802,
-   "y": 144,
+   "x": 30,
+   "y": 251,
    "w": 30,
    "h": 30
   },
   "head_hair_curly_up_s95": {
-   "x": 833,
-   "y": 144,
+   "x": 61,
+   "y": 251,
    "w": 28,
    "h": 28
   },
   "head_hair_undercut_down_s95": {
-   "x": 862,
-   "y": 144,
+   "x": 90,
+   "y": 251,
    "w": 24,
    "h": 28
   },
   "head_hair_undercut_right_s95": {
-   "x": 887,
-   "y": 144,
+   "x": 115,
+   "y": 251,
    "w": 26,
    "h": 29
   },
   "head_hair_undercut_left_s95": {
-   "x": 914,
-   "y": 144,
+   "x": 142,
+   "y": 251,
    "w": 27,
    "h": 29
   },
   "head_hair_undercut_up_s95": {
-   "x": 942,
-   "y": 144,
+   "x": 170,
+   "y": 251,
    "w": 23,
    "h": 28
   },
   "head_hair_medium_down_s95": {
-   "x": 966,
-   "y": 144,
+   "x": 194,
+   "y": 251,
    "w": 24,
    "h": 29
   },
   "head_hair_medium_right_s95": {
-   "x": 991,
-   "y": 144,
+   "x": 219,
+   "y": 251,
    "w": 26,
    "h": 30
   },
   "head_hair_medium_left_s95": {
-   "x": 0,
-   "y": 179,
+   "x": 246,
+   "y": 251,
    "w": 26,
    "h": 29
   },
   "head_hair_medium_up_s95": {
-   "x": 27,
-   "y": 179,
+   "x": 273,
+   "y": 251,
    "w": 25,
    "h": 26
   },
   "head_hair_long_down_s95": {
-   "x": 53,
-   "y": 179,
+   "x": 299,
+   "y": 251,
    "w": 27,
    "h": 31
   },
   "head_hair_long_right_s95": {
-   "x": 81,
-   "y": 179,
+   "x": 327,
+   "y": 251,
    "w": 29,
    "h": 31
   },
   "head_hair_long_left_s95": {
-   "x": 111,
-   "y": 179,
+   "x": 357,
+   "y": 251,
    "w": 29,
    "h": 31
   },
   "head_hair_long_up_s95": {
-   "x": 141,
-   "y": 179,
+   "x": 387,
+   "y": 251,
    "w": 29,
    "h": 31
   },
   "head_hair_ponytail_down_s95": {
-   "x": 171,
-   "y": 179,
+   "x": 417,
+   "y": 251,
    "w": 24,
    "h": 33
   },
   "head_hair_ponytail_right_s95": {
-   "x": 196,
-   "y": 179,
+   "x": 442,
+   "y": 251,
    "w": 29,
    "h": 31
   },
   "head_hair_ponytail_left_s95": {
-   "x": 226,
-   "y": 179,
+   "x": 472,
+   "y": 251,
    "w": 29,
    "h": 31
   },
   "head_hair_ponytail_up_s95": {
-   "x": 256,
-   "y": 179,
+   "x": 502,
+   "y": 251,
    "w": 24,
    "h": 29
   },
   "head_hair_bun_down_s95": {
-   "x": 281,
-   "y": 179,
+   "x": 527,
+   "y": 251,
    "w": 24,
    "h": 32
   },
   "head_hair_bun_right_s95": {
-   "x": 306,
-   "y": 179,
+   "x": 552,
+   "y": 251,
    "w": 29,
    "h": 30
   },
   "head_hair_bun_left_s95": {
-   "x": 336,
-   "y": 179,
+   "x": 582,
+   "y": 251,
    "w": 29,
    "h": 30
   },
   "head_hair_bun_up_s95": {
-   "x": 366,
-   "y": 179,
+   "x": 612,
+   "y": 251,
    "w": 24,
    "h": 29
   },
   "head_hair_wavy_down_s95": {
-   "x": 391,
-   "y": 179,
+   "x": 637,
+   "y": 251,
    "w": 32,
    "h": 29
   },
   "head_hair_wavy_right_s95": {
-   "x": 424,
-   "y": 179,
+   "x": 670,
+   "y": 251,
    "w": 30,
    "h": 31
   },
   "head_hair_wavy_left_s95": {
-   "x": 455,
-   "y": 179,
+   "x": 701,
+   "y": 251,
    "w": 30,
    "h": 31
   },
   "head_hair_wavy_up_s95": {
-   "x": 486,
-   "y": 179,
+   "x": 732,
+   "y": 251,
    "w": 25,
    "h": 28
   },
   "head_hijab_simple_down_s95": {
-   "x": 512,
-   "y": 179,
+   "x": 758,
+   "y": 251,
    "w": 25,
    "h": 31
   },
   "head_hijab_simple_right_s95": {
-   "x": 538,
-   "y": 179,
+   "x": 784,
+   "y": 251,
    "w": 26,
    "h": 31
   },
   "head_hijab_simple_left_s95": {
-   "x": 565,
-   "y": 179,
+   "x": 811,
+   "y": 251,
    "w": 26,
    "h": 31
   },
   "head_hijab_simple_up_s95": {
-   "x": 592,
-   "y": 179,
+   "x": 838,
+   "y": 251,
    "w": 26,
    "h": 30
   },
   "head_hijab_long_down_s95": {
-   "x": 619,
-   "y": 179,
+   "x": 865,
+   "y": 251,
    "w": 30,
    "h": 31
   },
   "head_hijab_long_right_s95": {
-   "x": 650,
-   "y": 179,
+   "x": 896,
+   "y": 251,
    "w": 28,
    "h": 31
   },
   "head_hijab_long_left_s95": {
-   "x": 679,
-   "y": 179,
+   "x": 925,
+   "y": 251,
    "w": 28,
    "h": 31
   },
   "head_hijab_long_up_s95": {
-   "x": 708,
-   "y": 179,
+   "x": 954,
+   "y": 251,
    "w": 29,
    "h": 31
   },
   "head_hijab_sport_down_s95": {
-   "x": 738,
-   "y": 179,
+   "x": 984,
+   "y": 251,
    "w": 24,
    "h": 30
   },
   "head_hijab_sport_right_s95": {
-   "x": 763,
-   "y": 179,
+   "x": 0,
+   "y": 285,
    "w": 24,
    "h": 29
   },
   "head_hijab_sport_left_s95": {
-   "x": 788,
-   "y": 179,
+   "x": 25,
+   "y": 285,
    "w": 24,
    "h": 29
   },
   "head_hijab_sport_up_s95": {
-   "x": 813,
-   "y": 179,
+   "x": 50,
+   "y": 285,
    "w": 24,
    "h": 26
   },
   "head_peci_down_s95": {
-   "x": 838,
-   "y": 179,
+   "x": 75,
+   "y": 285,
    "w": 26,
    "h": 31
   },
   "head_peci_right_s95": {
-   "x": 865,
-   "y": 179,
+   "x": 102,
+   "y": 285,
    "w": 26,
    "h": 30
   },
   "head_peci_left_s95": {
-   "x": 892,
-   "y": 179,
+   "x": 129,
+   "y": 285,
    "w": 26,
    "h": 29
   },
   "head_peci_up_s95": {
-   "x": 919,
-   "y": 179,
+   "x": 156,
+   "y": 285,
    "w": 24,
    "h": 28
   },
   "head_cap_baseball_down_s95": {
-   "x": 944,
-   "y": 179,
+   "x": 181,
+   "y": 285,
    "w": 26,
    "h": 30
   },
   "head_cap_baseball_right_s95": {
-   "x": 971,
-   "y": 179,
+   "x": 208,
+   "y": 285,
    "w": 31,
    "h": 29
   },
   "head_cap_baseball_left_s95": {
-   "x": 0,
-   "y": 213,
+   "x": 240,
+   "y": 285,
    "w": 32,
    "h": 29
   },
   "head_cap_baseball_up_s95": {
-   "x": 33,
-   "y": 213,
+   "x": 273,
+   "y": 285,
    "w": 24,
    "h": 28
   },
   "head_beanie_down_s95": {
-   "x": 58,
-   "y": 213,
+   "x": 298,
+   "y": 285,
    "w": 25,
    "h": 28
   },
   "head_beanie_right_s95": {
-   "x": 84,
-   "y": 213,
+   "x": 324,
+   "y": 285,
    "w": 27,
    "h": 28
   },
   "head_beanie_left_s95": {
-   "x": 112,
-   "y": 213,
+   "x": 352,
+   "y": 285,
    "w": 27,
    "h": 28
   },
   "head_beanie_up_s95": {
-   "x": 140,
-   "y": 213,
+   "x": 380,
+   "y": 285,
    "w": 26,
    "h": 27
   },
   "acc_acc_glasses_round_down_s95": {
-   "x": 167,
-   "y": 213,
+   "x": 407,
+   "y": 285,
    "w": 16,
    "h": 7
   },
   "acc_acc_glasses_round_right_s95": {
-   "x": 184,
-   "y": 213,
+   "x": 424,
+   "y": 285,
    "w": 12,
    "h": 8
   },
   "acc_acc_glasses_round_left_s95": {
-   "x": 197,
-   "y": 213,
+   "x": 437,
+   "y": 285,
    "w": 12,
    "h": 8
   },
   "acc_acc_glasses_square_down_s95": {
-   "x": 210,
-   "y": 213,
+   "x": 450,
+   "y": 285,
    "w": 18,
    "h": 7
   },
   "acc_acc_glasses_square_right_s95": {
-   "x": 229,
-   "y": 213,
+   "x": 469,
+   "y": 285,
    "w": 16,
    "h": 8
   },
   "acc_acc_glasses_square_left_s95": {
-   "x": 246,
-   "y": 213,
+   "x": 486,
+   "y": 285,
    "w": 12,
    "h": 7
   },
   "acc_acc_headset_down_s95": {
-   "x": 259,
-   "y": 213,
+   "x": 499,
+   "y": 285,
    "w": 28,
    "h": 23
   },
   "acc_acc_headset_right_s95": {
-   "x": 288,
-   "y": 213,
+   "x": 528,
+   "y": 285,
    "w": 19,
    "h": 25
   },
   "acc_acc_headset_left_s95": {
-   "x": 308,
-   "y": 213,
+   "x": 548,
+   "y": 285,
    "w": 18,
    "h": 33
   },
   "acc_acc_headset_up_s95": {
-   "x": 327,
-   "y": 213,
+   "x": 567,
+   "y": 285,
    "w": 17,
    "h": 7
   },
   "acc_acc_vr_headset_down_s95": {
-   "x": 345,
-   "y": 213,
+   "x": 585,
+   "y": 285,
    "w": 20,
    "h": 20
   },
   "acc_acc_vr_headset_right_s95": {
-   "x": 366,
-   "y": 213,
+   "x": 606,
+   "y": 285,
    "w": 24,
    "h": 15
   },
   "acc_acc_vr_headset_left_s95": {
-   "x": 391,
-   "y": 213,
+   "x": 631,
+   "y": 285,
    "w": 24,
    "h": 17
   },
   "acc_acc_vr_headset_up_s95": {
-   "x": 416,
-   "y": 213,
+   "x": 656,
+   "y": 285,
    "w": 16,
    "h": 18
   },
   "head_hair_short_01_down_s90": {
-   "x": 433,
-   "y": 213,
+   "x": 673,
+   "y": 285,
    "w": 23,
    "h": 25
   },
   "head_hair_short_01_right_s90": {
-   "x": 457,
-   "y": 213,
+   "x": 697,
+   "y": 285,
    "w": 24,
    "h": 27
   },
   "head_hair_short_01_left_s90": {
-   "x": 482,
-   "y": 213,
+   "x": 722,
+   "y": 285,
    "w": 24,
    "h": 27
   },
   "head_hair_short_01_up_s90": {
-   "x": 507,
-   "y": 213,
+   "x": 747,
+   "y": 285,
    "w": 24,
    "h": 26
   },
   "head_hair_short_02_down_s90": {
-   "x": 532,
-   "y": 213,
+   "x": 772,
+   "y": 285,
    "w": 27,
    "h": 30
   },
   "head_hair_short_02_right_s90": {
-   "x": 560,
-   "y": 213,
+   "x": 800,
+   "y": 285,
    "w": 30,
    "h": 29
   },
   "head_hair_short_02_left_s90": {
-   "x": 591,
-   "y": 213,
+   "x": 831,
+   "y": 285,
    "w": 30,
    "h": 27
   },
   "head_hair_short_02_up_s90": {
-   "x": 622,
-   "y": 213,
+   "x": 862,
+   "y": 285,
    "w": 29,
    "h": 26
   },
   "head_hair_buzz_down_s90": {
-   "x": 652,
-   "y": 213,
+   "x": 892,
+   "y": 285,
    "w": 23,
    "h": 26
   },
   "head_hair_buzz_right_s90": {
-   "x": 676,
-   "y": 213,
+   "x": 916,
+   "y": 285,
    "w": 22,
    "h": 25
   },
   "head_hair_buzz_left_s90": {
-   "x": 699,
-   "y": 213,
+   "x": 939,
+   "y": 285,
    "w": 22,
    "h": 25
   },
   "head_hair_buzz_up_s90": {
-   "x": 722,
-   "y": 213,
+   "x": 962,
+   "y": 285,
    "w": 23,
    "h": 23
   },
   "head_hair_curly_down_s90": {
-   "x": 746,
-   "y": 213,
+   "x": 986,
+   "y": 285,
    "w": 26,
    "h": 29
   },
   "head_hair_curly_right_s90": {
-   "x": 773,
-   "y": 213,
+   "x": 0,
+   "y": 319,
    "w": 27,
    "h": 28
   },
   "head_hair_curly_left_s90": {
-   "x": 801,
-   "y": 213,
+   "x": 28,
+   "y": 319,
    "w": 28,
    "h": 28
   },
   "head_hair_curly_up_s90": {
-   "x": 830,
-   "y": 213,
+   "x": 57,
+   "y": 319,
    "w": 26,
    "h": 26
   },
   "head_hair_undercut_down_s90": {
-   "x": 857,
-   "y": 213,
+   "x": 84,
+   "y": 319,
    "w": 23,
    "h": 26
   },
   "head_hair_undercut_right_s90": {
-   "x": 881,
-   "y": 213,
+   "x": 108,
+   "y": 319,
    "w": 25,
    "h": 27
   },
   "head_hair_undercut_left_s90": {
-   "x": 907,
-   "y": 213,
+   "x": 134,
+   "y": 319,
    "w": 25,
    "h": 28
   },
   "head_hair_undercut_up_s90": {
-   "x": 933,
-   "y": 213,
+   "x": 160,
+   "y": 319,
    "w": 22,
    "h": 26
   },
   "head_hair_medium_down_s90": {
-   "x": 956,
-   "y": 213,
+   "x": 183,
+   "y": 319,
    "w": 23,
    "h": 27
   },
   "head_hair_medium_right_s90": {
-   "x": 980,
-   "y": 213,
+   "x": 207,
+   "y": 319,
    "w": 24,
    "h": 28
   },
   "head_hair_medium_left_s90": {
-   "x": 0,
-   "y": 247,
+   "x": 232,
+   "y": 319,
    "w": 25,
    "h": 27
   },
   "head_hair_medium_up_s90": {
-   "x": 26,
-   "y": 247,
+   "x": 258,
+   "y": 319,
    "w": 24,
    "h": 26
   },
   "head_hair_long_down_s90": {
-   "x": 51,
-   "y": 247,
+   "x": 283,
+   "y": 319,
    "w": 26,
    "h": 30
   },
   "head_hair_long_right_s90": {
-   "x": 78,
-   "y": 247,
+   "x": 310,
+   "y": 319,
    "w": 28,
    "h": 30
   },
   "head_hair_long_left_s90": {
-   "x": 107,
-   "y": 247,
+   "x": 339,
+   "y": 319,
    "w": 28,
    "h": 30
   },
   "head_hair_long_up_s90": {
-   "x": 136,
-   "y": 247,
+   "x": 368,
+   "y": 319,
    "w": 28,
    "h": 29
   },
   "head_hair_ponytail_down_s90": {
-   "x": 165,
-   "y": 247,
+   "x": 397,
+   "y": 319,
    "w": 23,
    "h": 29
   },
   "head_hair_ponytail_right_s90": {
-   "x": 189,
-   "y": 247,
+   "x": 421,
+   "y": 319,
    "w": 27,
    "h": 29
   },
   "head_hair_ponytail_left_s90": {
-   "x": 217,
-   "y": 247,
+   "x": 449,
+   "y": 319,
    "w": 28,
    "h": 29
   },
   "head_hair_ponytail_up_s90": {
-   "x": 246,
-   "y": 247,
+   "x": 478,
+   "y": 319,
    "w": 23,
    "h": 28
   },
   "head_hair_bun_down_s90": {
-   "x": 270,
-   "y": 247,
+   "x": 502,
+   "y": 319,
    "w": 23,
    "h": 29
   },
   "head_hair_bun_right_s90": {
-   "x": 294,
-   "y": 247,
+   "x": 526,
+   "y": 319,
    "w": 27,
    "h": 29
   },
   "head_hair_bun_left_s90": {
-   "x": 322,
-   "y": 247,
+   "x": 554,
+   "y": 319,
    "w": 27,
    "h": 29
   },
   "head_hair_bun_up_s90": {
-   "x": 350,
-   "y": 247,
+   "x": 582,
+   "y": 319,
    "w": 22,
    "h": 27
   },
   "head_hair_wavy_down_s90": {
-   "x": 373,
-   "y": 247,
+   "x": 605,
+   "y": 319,
    "w": 29,
    "h": 28
   },
   "head_hair_wavy_right_s90": {
-   "x": 403,
-   "y": 247,
+   "x": 635,
+   "y": 319,
    "w": 29,
    "h": 30
   },
   "head_hair_wavy_left_s90": {
-   "x": 433,
-   "y": 247,
+   "x": 665,
+   "y": 319,
    "w": 29,
    "h": 30
   },
   "head_hair_wavy_up_s90": {
-   "x": 463,
-   "y": 247,
+   "x": 695,
+   "y": 319,
    "w": 23,
    "h": 26
   },
   "head_hijab_simple_down_s90": {
-   "x": 487,
-   "y": 247,
+   "x": 719,
+   "y": 319,
    "w": 23,
    "h": 30
   },
   "head_hijab_simple_right_s90": {
-   "x": 511,
-   "y": 247,
+   "x": 743,
+   "y": 319,
    "w": 24,
    "h": 30
   },
   "head_hijab_simple_left_s90": {
-   "x": 536,
-   "y": 247,
+   "x": 768,
+   "y": 319,
    "w": 24,
    "h": 30
   },
   "head_hijab_simple_up_s90": {
-   "x": 561,
-   "y": 247,
+   "x": 793,
+   "y": 319,
    "w": 24,
    "h": 29
   },
   "head_hijab_long_down_s90": {
-   "x": 586,
-   "y": 247,
+   "x": 818,
+   "y": 319,
    "w": 28,
    "h": 30
   },
   "head_hijab_long_right_s90": {
-   "x": 615,
-   "y": 247,
+   "x": 847,
+   "y": 319,
    "w": 27,
    "h": 30
   },
   "head_hijab_long_left_s90": {
-   "x": 643,
-   "y": 247,
+   "x": 875,
+   "y": 319,
    "w": 27,
    "h": 30
   },
   "head_hijab_long_up_s90": {
-   "x": 671,
-   "y": 247,
+   "x": 903,
+   "y": 319,
    "w": 28,
    "h": 30
   },
   "head_hijab_sport_down_s90": {
-   "x": 700,
-   "y": 247,
+   "x": 932,
+   "y": 319,
    "w": 23,
    "h": 28
   },
   "head_hijab_sport_right_s90": {
-   "x": 724,
-   "y": 247,
+   "x": 956,
+   "y": 319,
    "w": 23,
    "h": 28
   },
   "head_hijab_sport_left_s90": {
-   "x": 748,
-   "y": 247,
+   "x": 980,
+   "y": 319,
    "w": 22,
    "h": 28
   },
   "head_hijab_sport_up_s90": {
-   "x": 771,
-   "y": 247,
+   "x": 0,
+   "y": 350,
    "w": 23,
    "h": 24
   },
   "head_peci_down_s90": {
-   "x": 795,
-   "y": 247,
+   "x": 24,
+   "y": 350,
    "w": 24,
    "h": 29
   },
   "head_peci_right_s90": {
-   "x": 820,
-   "y": 247,
+   "x": 49,
+   "y": 350,
    "w": 25,
    "h": 27
   },
   "head_peci_left_s90": {
-   "x": 846,
-   "y": 247,
+   "x": 75,
+   "y": 350,
    "w": 25,
    "h": 29
   },
   "head_peci_up_s90": {
-   "x": 872,
-   "y": 247,
+   "x": 101,
+   "y": 350,
    "w": 24,
    "h": 26
   },
   "head_cap_baseball_down_s90": {
-   "x": 897,
-   "y": 247,
+   "x": 126,
+   "y": 350,
    "w": 24,
    "h": 26
   },
   "head_cap_baseball_right_s90": {
-   "x": 922,
-   "y": 247,
+   "x": 151,
+   "y": 350,
    "w": 30,
    "h": 28
   },
   "head_cap_baseball_left_s90": {
-   "x": 953,
-   "y": 247,
+   "x": 182,
+   "y": 350,
    "w": 30,
    "h": 27
   },
   "head_cap_baseball_up_s90": {
-   "x": 984,
-   "y": 247,
+   "x": 213,
+   "y": 350,
    "w": 23,
    "h": 26
   },
   "head_beanie_down_s90": {
-   "x": 0,
-   "y": 278,
+   "x": 237,
+   "y": 350,
    "w": 23,
    "h": 28
   },
   "head_beanie_right_s90": {
-   "x": 24,
-   "y": 278,
+   "x": 261,
+   "y": 350,
    "w": 25,
    "h": 27
   },
   "head_beanie_left_s90": {
-   "x": 50,
-   "y": 278,
+   "x": 287,
+   "y": 350,
    "w": 25,
    "h": 27
   },
   "head_beanie_up_s90": {
-   "x": 76,
-   "y": 278,
+   "x": 313,
+   "y": 350,
    "w": 24,
    "h": 25
   },
   "acc_acc_glasses_round_down_s90": {
-   "x": 101,
-   "y": 278,
+   "x": 338,
+   "y": 350,
    "w": 15,
    "h": 6
   },
   "acc_acc_glasses_round_right_s90": {
-   "x": 117,
-   "y": 278,
+   "x": 354,
+   "y": 350,
    "w": 12,
    "h": 7
   },
   "acc_acc_glasses_round_left_s90": {
-   "x": 130,
-   "y": 278,
+   "x": 367,
+   "y": 350,
    "w": 12,
    "h": 7
   },
   "acc_acc_glasses_square_down_s90": {
-   "x": 143,
-   "y": 278,
+   "x": 380,
+   "y": 350,
    "w": 17,
    "h": 7
   },
   "acc_acc_glasses_square_right_s90": {
-   "x": 161,
-   "y": 278,
+   "x": 398,
+   "y": 350,
    "w": 15,
    "h": 8
   },
   "acc_acc_glasses_square_left_s90": {
-   "x": 177,
-   "y": 278,
+   "x": 414,
+   "y": 350,
    "w": 15,
    "h": 7
   },
   "acc_acc_headset_down_s90": {
-   "x": 193,
-   "y": 278,
+   "x": 430,
+   "y": 350,
    "w": 24,
    "h": 30
   },
   "acc_acc_headset_right_s90": {
-   "x": 218,
-   "y": 278,
+   "x": 455,
+   "y": 350,
    "w": 18,
    "h": 31
   },
   "acc_acc_headset_left_s90": {
-   "x": 237,
-   "y": 278,
+   "x": 474,
+   "y": 350,
    "w": 16,
    "h": 31
   },
   "acc_acc_headset_up_s90": {
-   "x": 254,
-   "y": 278,
+   "x": 491,
+   "y": 350,
    "w": 16,
    "h": 5
   },
   "acc_acc_vr_headset_down_s90": {
-   "x": 271,
-   "y": 278,
+   "x": 508,
+   "y": 350,
    "w": 19,
    "h": 20
   },
   "acc_acc_vr_headset_right_s90": {
-   "x": 291,
-   "y": 278,
+   "x": 528,
+   "y": 350,
    "w": 23,
    "h": 18
   },
   "acc_acc_vr_headset_left_s90": {
-   "x": 315,
-   "y": 278,
+   "x": 552,
+   "y": 350,
    "w": 23,
    "h": 18
   },
   "acc_acc_vr_headset_up_s90": {
-   "x": 339,
-   "y": 278,
+   "x": 576,
+   "y": 350,
    "w": 15,
    "h": 17
   },
   "head_hair_short_01_down_s85": {
-   "x": 355,
-   "y": 278,
+   "x": 592,
+   "y": 350,
    "w": 22,
    "h": 26
   },
   "head_hair_short_01_right_s85": {
-   "x": 378,
-   "y": 278,
+   "x": 615,
+   "y": 350,
    "w": 22,
    "h": 24
   },
   "head_hair_short_01_left_s85": {
-   "x": 401,
-   "y": 278,
+   "x": 638,
+   "y": 350,
    "w": 22,
    "h": 25
   },
   "head_hair_short_01_up_s85": {
-   "x": 424,
-   "y": 278,
+   "x": 661,
+   "y": 350,
    "w": 22,
    "h": 24
   },
   "head_hair_short_02_down_s85": {
-   "x": 447,
-   "y": 278,
+   "x": 684,
+   "y": 350,
    "w": 26,
    "h": 27
   },
   "head_hair_short_02_right_s85": {
-   "x": 474,
-   "y": 278,
+   "x": 711,
+   "y": 350,
    "w": 28,
    "h": 27
   },
   "head_hair_short_02_left_s85": {
-   "x": 503,
-   "y": 278,
+   "x": 740,
+   "y": 350,
    "w": 28,
    "h": 25
   },
   "head_hair_short_02_up_s85": {
-   "x": 532,
-   "y": 278,
+   "x": 769,
+   "y": 350,
    "w": 27,
    "h": 24
   },
   "head_hair_buzz_down_s85": {
-   "x": 560,
-   "y": 278,
+   "x": 797,
+   "y": 350,
    "w": 22,
    "h": 25
   },
   "head_hair_buzz_right_s85": {
-   "x": 583,
-   "y": 278,
+   "x": 820,
+   "y": 350,
    "w": 21,
    "h": 24
   },
   "head_hair_buzz_left_s85": {
-   "x": 605,
-   "y": 278,
+   "x": 842,
+   "y": 350,
    "w": 20,
    "h": 24
   },
   "head_hair_buzz_up_s85": {
-   "x": 626,
-   "y": 278,
+   "x": 863,
+   "y": 350,
    "w": 22,
    "h": 21
   },
   "head_hair_curly_down_s85": {
-   "x": 649,
-   "y": 278,
+   "x": 886,
+   "y": 350,
    "w": 25,
    "h": 24
   },
   "head_hair_curly_right_s85": {
-   "x": 675,
-   "y": 278,
+   "x": 912,
+   "y": 350,
    "w": 26,
    "h": 26
   },
   "head_hair_curly_left_s85": {
-   "x": 702,
-   "y": 278,
+   "x": 939,
+   "y": 350,
    "w": 26,
    "h": 27
   },
   "head_hair_curly_up_s85": {
-   "x": 729,
-   "y": 278,
+   "x": 966,
+   "y": 350,
    "w": 25,
    "h": 25
   },
   "head_hair_undercut_down_s85": {
-   "x": 755,
-   "y": 278,
+   "x": 992,
+   "y": 350,
    "w": 22,
    "h": 27
   },
   "head_hair_undercut_right_s85": {
-   "x": 778,
-   "y": 278,
+   "x": 0,
+   "y": 382,
    "w": 23,
    "h": 27
   },
   "head_hair_undercut_left_s85": {
-   "x": 802,
-   "y": 278,
+   "x": 24,
+   "y": 382,
    "w": 24,
    "h": 26
   },
   "head_hair_undercut_up_s85": {
-   "x": 827,
-   "y": 278,
+   "x": 49,
+   "y": 382,
    "w": 21,
    "h": 25
   },
   "head_hair_medium_down_s85": {
-   "x": 849,
-   "y": 278,
+   "x": 71,
+   "y": 382,
    "w": 22,
    "h": 26
   },
   "head_hair_medium_right_s85": {
-   "x": 872,
-   "y": 278,
+   "x": 94,
+   "y": 382,
    "w": 23,
    "h": 27
   },
   "head_hair_medium_left_s85": {
-   "x": 896,
-   "y": 278,
+   "x": 118,
+   "y": 382,
    "w": 23,
    "h": 27
   },
   "head_hair_medium_up_s85": {
-   "x": 920,
-   "y": 278,
+   "x": 142,
+   "y": 382,
    "w": 23,
    "h": 24
   },
   "head_hair_long_down_s85": {
-   "x": 944,
-   "y": 278,
+   "x": 166,
+   "y": 382,
    "w": 25,
    "h": 28
   },
   "head_hair_long_right_s85": {
-   "x": 970,
-   "y": 278,
+   "x": 192,
+   "y": 382,
    "w": 26,
    "h": 27
   },
   "head_hair_long_left_s85": {
-   "x": 997,
-   "y": 278,
+   "x": 219,
+   "y": 382,
    "w": 26,
    "h": 27
   },
   "head_hair_long_up_s85": {
-   "x": 0,
-   "y": 310,
+   "x": 246,
+   "y": 382,
    "w": 26,
    "h": 28
   },
   "head_hair_ponytail_down_s85": {
-   "x": 27,
-   "y": 310,
+   "x": 273,
+   "y": 382,
    "w": 22,
    "h": 29
   },
   "head_hair_ponytail_right_s85": {
-   "x": 50,
-   "y": 310,
+   "x": 296,
+   "y": 382,
    "w": 26,
    "h": 28
   },
   "head_hair_ponytail_left_s85": {
-   "x": 77,
-   "y": 310,
+   "x": 323,
+   "y": 382,
    "w": 25,
    "h": 28
   },
   "head_hair_ponytail_up_s85": {
-   "x": 103,
-   "y": 310,
+   "x": 349,
+   "y": 382,
    "w": 21,
    "h": 26
   },
   "head_hair_bun_down_s85": {
-   "x": 125,
-   "y": 310,
+   "x": 371,
+   "y": 382,
    "w": 21,
    "h": 30
   },
   "head_hair_bun_right_s85": {
-   "x": 147,
-   "y": 310,
+   "x": 393,
+   "y": 382,
    "w": 26,
    "h": 27
   },
   "head_hair_bun_left_s85": {
-   "x": 174,
-   "y": 310,
+   "x": 420,
+   "y": 382,
    "w": 25,
    "h": 27
   },
   "head_hair_bun_up_s85": {
-   "x": 200,
-   "y": 310,
+   "x": 446,
+   "y": 382,
    "w": 21,
    "h": 26
   },
   "head_hair_wavy_down_s85": {
-   "x": 222,
-   "y": 310,
+   "x": 468,
+   "y": 382,
    "w": 28,
    "h": 27
   },
   "head_hair_wavy_right_s85": {
-   "x": 251,
-   "y": 310,
+   "x": 497,
+   "y": 382,
    "w": 27,
    "h": 28
   },
   "head_hair_wavy_left_s85": {
-   "x": 279,
-   "y": 310,
+   "x": 525,
+   "y": 382,
    "w": 27,
    "h": 28
   },
   "head_hair_wavy_up_s85": {
-   "x": 307,
-   "y": 310,
+   "x": 553,
+   "y": 382,
    "w": 22,
    "h": 25
   },
   "head_hijab_simple_down_s85": {
-   "x": 330,
-   "y": 310,
+   "x": 576,
+   "y": 382,
    "w": 22,
    "h": 28
   },
   "head_hijab_simple_right_s85": {
-   "x": 353,
-   "y": 310,
+   "x": 599,
+   "y": 382,
    "w": 23,
    "h": 28
   },
   "head_hijab_simple_left_s85": {
-   "x": 377,
-   "y": 310,
+   "x": 623,
+   "y": 382,
    "w": 23,
    "h": 28
   },
   "head_hijab_simple_up_s85": {
-   "x": 401,
-   "y": 310,
+   "x": 647,
+   "y": 382,
    "w": 23,
    "h": 27
   },
   "head_hijab_long_down_s85": {
-   "x": 425,
-   "y": 310,
+   "x": 671,
+   "y": 382,
    "w": 27,
    "h": 28
   },
   "head_hijab_long_right_s85": {
-   "x": 453,
-   "y": 310,
+   "x": 699,
+   "y": 382,
    "w": 26,
    "h": 28
   },
   "head_hijab_long_left_s85": {
-   "x": 480,
-   "y": 310,
+   "x": 726,
+   "y": 382,
    "w": 26,
    "h": 27
   },
   "head_hijab_long_up_s85": {
-   "x": 507,
-   "y": 310,
+   "x": 753,
+   "y": 382,
    "w": 27,
    "h": 28
   },
   "head_hijab_sport_down_s85": {
-   "x": 535,
-   "y": 310,
+   "x": 781,
+   "y": 382,
    "w": 22,
    "h": 27
   },
   "head_hijab_sport_right_s85": {
-   "x": 558,
-   "y": 310,
+   "x": 804,
+   "y": 382,
    "w": 22,
    "h": 26
   },
   "head_hijab_sport_left_s85": {
-   "x": 581,
-   "y": 310,
+   "x": 827,
+   "y": 382,
    "w": 22,
    "h": 26
   },
   "head_hijab_sport_up_s85": {
-   "x": 604,
-   "y": 310,
+   "x": 850,
+   "y": 382,
    "w": 21,
    "h": 22
   },
   "head_peci_down_s85": {
-   "x": 626,
-   "y": 310,
+   "x": 872,
+   "y": 382,
    "w": 23,
    "h": 25
   },
   "head_peci_right_s85": {
-   "x": 650,
-   "y": 310,
+   "x": 896,
+   "y": 382,
    "w": 23,
    "h": 27
   },
   "head_peci_left_s85": {
-   "x": 674,
-   "y": 310,
+   "x": 920,
+   "y": 382,
    "w": 22,
    "h": 28
   },
   "head_peci_up_s85": {
-   "x": 697,
-   "y": 310,
+   "x": 943,
+   "y": 382,
    "w": 21,
    "h": 25
   },
   "head_cap_baseball_down_s85": {
-   "x": 719,
-   "y": 310,
+   "x": 965,
+   "y": 382,
    "w": 23,
    "h": 27
   },
   "head_cap_baseball_right_s85": {
-   "x": 743,
-   "y": 310,
+   "x": 989,
+   "y": 382,
    "w": 28,
    "h": 27
   },
   "head_cap_baseball_left_s85": {
-   "x": 772,
-   "y": 310,
+   "x": 0,
+   "y": 413,
    "w": 28,
    "h": 27
   },
   "head_cap_baseball_up_s85": {
-   "x": 801,
-   "y": 310,
+   "x": 29,
+   "y": 413,
    "w": 22,
    "h": 25
   },
   "head_beanie_down_s85": {
-   "x": 824,
-   "y": 310,
+   "x": 52,
+   "y": 413,
    "w": 22,
    "h": 27
   },
   "head_beanie_right_s85": {
-   "x": 847,
-   "y": 310,
+   "x": 75,
+   "y": 413,
    "w": 24,
    "h": 25
   },
   "head_beanie_left_s85": {
-   "x": 872,
-   "y": 310,
+   "x": 100,
+   "y": 413,
    "w": 24,
    "h": 25
   },
   "head_beanie_up_s85": {
-   "x": 897,
-   "y": 310,
+   "x": 125,
+   "y": 413,
    "w": 23,
    "h": 24
   },
   "acc_acc_glasses_round_down_s85": {
-   "x": 921,
-   "y": 310,
+   "x": 149,
+   "y": 413,
    "w": 14,
    "h": 6
   },
   "acc_acc_glasses_round_right_s85": {
-   "x": 936,
-   "y": 310,
+   "x": 164,
+   "y": 413,
    "w": 13,
    "h": 7
   },
   "acc_acc_glasses_round_left_s85": {
-   "x": 950,
-   "y": 310,
+   "x": 178,
+   "y": 413,
    "w": 11,
    "h": 6
   },
   "acc_acc_glasses_square_down_s85": {
-   "x": 962,
-   "y": 310,
+   "x": 190,
+   "y": 413,
    "w": 15,
    "h": 5
   },
   "acc_acc_glasses_square_right_s85": {
-   "x": 978,
-   "y": 310,
+   "x": 206,
+   "y": 413,
    "w": 11,
    "h": 6
   },
   "acc_acc_glasses_square_left_s85": {
-   "x": 990,
-   "y": 310,
+   "x": 218,
+   "y": 413,
    "w": 11,
    "h": 6
   },
   "acc_acc_headset_down_s85": {
-   "x": 1002,
-   "y": 310,
+   "x": 230,
+   "y": 413,
    "w": 21,
    "h": 28
   },
   "acc_acc_headset_right_s85": {
-   "x": 0,
-   "y": 341,
+   "x": 252,
+   "y": 413,
    "w": 16,
    "h": 29
   },
   "acc_acc_headset_left_s85": {
-   "x": 17,
-   "y": 341,
+   "x": 269,
+   "y": 413,
    "w": 13,
    "h": 29
   },
   "acc_acc_headset_up_s85": {
-   "x": 31,
-   "y": 341,
+   "x": 283,
+   "y": 413,
    "w": 16,
    "h": 5
   },
   "acc_acc_vr_headset_down_s85": {
-   "x": 48,
-   "y": 341,
+   "x": 300,
+   "y": 413,
    "w": 18,
    "h": 17
   },
   "acc_acc_vr_headset_right_s85": {
-   "x": 67,
-   "y": 341,
+   "x": 319,
+   "y": 413,
    "w": 22,
    "h": 20
   },
   "acc_acc_vr_headset_left_s85": {
-   "x": 90,
-   "y": 341,
+   "x": 342,
+   "y": 413,
    "w": 22,
    "h": 17
   },
   "acc_acc_vr_headset_up_s85": {
-   "x": 113,
-   "y": 341,
+   "x": 365,
+   "y": 413,
    "w": 14,
    "h": 16
   },
   "head_hair_short_01_down_s80": {
-   "x": 128,
-   "y": 341,
+   "x": 380,
+   "y": 413,
    "w": 20,
    "h": 22
   },
   "head_hair_short_01_right_s80": {
-   "x": 149,
-   "y": 341,
+   "x": 401,
+   "y": 413,
    "w": 21,
    "h": 24
   },
   "head_hair_short_01_left_s80": {
-   "x": 171,
-   "y": 341,
+   "x": 423,
+   "y": 413,
    "w": 21,
    "h": 23
   },
   "head_hair_short_01_up_s80": {
-   "x": 193,
-   "y": 341,
+   "x": 445,
+   "y": 413,
    "w": 21,
    "h": 23
   },
   "head_hair_short_02_down_s80": {
-   "x": 215,
-   "y": 341,
+   "x": 467,
+   "y": 413,
    "w": 24,
    "h": 26
   },
   "head_hair_short_02_right_s80": {
-   "x": 240,
-   "y": 341,
+   "x": 492,
+   "y": 413,
    "w": 26,
    "h": 25
   },
   "head_hair_short_02_left_s80": {
-   "x": 267,
-   "y": 341,
+   "x": 519,
+   "y": 413,
    "w": 26,
    "h": 23
   },
   "head_hair_short_02_up_s80": {
-   "x": 294,
-   "y": 341,
+   "x": 546,
+   "y": 413,
    "w": 25,
    "h": 22
   },
   "head_hair_buzz_down_s80": {
-   "x": 320,
-   "y": 341,
+   "x": 572,
+   "y": 413,
    "w": 20,
    "h": 20
   },
   "head_hair_buzz_right_s80": {
-   "x": 341,
-   "y": 341,
+   "x": 593,
+   "y": 413,
    "w": 19,
    "h": 23
   },
   "head_hair_buzz_left_s80": {
-   "x": 361,
-   "y": 341,
+   "x": 613,
+   "y": 413,
    "w": 19,
    "h": 23
   },
   "head_hair_buzz_up_s80": {
-   "x": 381,
-   "y": 341,
+   "x": 633,
+   "y": 413,
    "w": 20,
    "h": 21
   },
   "head_hair_curly_down_s80": {
-   "x": 402,
-   "y": 341,
+   "x": 654,
+   "y": 413,
    "w": 23,
    "h": 24
   },
   "head_hair_curly_right_s80": {
-   "x": 426,
-   "y": 341,
+   "x": 678,
+   "y": 413,
    "w": 24,
    "h": 24
   },
   "head_hair_curly_left_s80": {
-   "x": 451,
-   "y": 341,
+   "x": 703,
+   "y": 413,
    "w": 25,
    "h": 24
   },
   "head_hair_curly_up_s80": {
-   "x": 477,
-   "y": 341,
+   "x": 729,
+   "y": 413,
    "w": 23,
    "h": 23
   },
   "head_hair_undercut_down_s80": {
-   "x": 501,
-   "y": 341,
+   "x": 753,
+   "y": 413,
    "w": 20,
    "h": 21
   },
   "head_hair_undercut_right_s80": {
-   "x": 522,
-   "y": 341,
+   "x": 774,
+   "y": 413,
    "w": 22,
    "h": 24
   },
   "head_hair_undercut_left_s80": {
-   "x": 545,
-   "y": 341,
+   "x": 797,
+   "y": 413,
    "w": 22,
    "h": 24
   },
   "head_hair_undercut_up_s80": {
-   "x": 568,
-   "y": 341,
+   "x": 820,
+   "y": 413,
    "w": 19,
    "h": 22
   },
   "head_hair_medium_down_s80": {
-   "x": 588,
-   "y": 341,
+   "x": 840,
+   "y": 413,
    "w": 20,
    "h": 23
   },
   "head_hair_medium_right_s80": {
-   "x": 609,
-   "y": 341,
+   "x": 861,
+   "y": 413,
    "w": 22,
    "h": 24
   },
   "head_hair_medium_left_s80": {
-   "x": 632,
-   "y": 341,
+   "x": 884,
+   "y": 413,
    "w": 22,
    "h": 24
   },
   "head_hair_medium_up_s80": {
-   "x": 655,
-   "y": 341,
+   "x": 907,
+   "y": 413,
    "w": 21,
    "h": 23
   },
   "head_hair_long_down_s80": {
-   "x": 677,
-   "y": 341,
+   "x": 929,
+   "y": 413,
    "w": 23,
    "h": 26
   },
   "head_hair_long_right_s80": {
-   "x": 701,
-   "y": 341,
+   "x": 953,
+   "y": 413,
    "w": 24,
    "h": 26
   },
   "head_hair_long_left_s80": {
-   "x": 726,
-   "y": 341,
+   "x": 978,
+   "y": 413,
    "w": 25,
    "h": 26
   },
   "head_hair_long_up_s80": {
-   "x": 752,
-   "y": 341,
+   "x": 0,
+   "y": 443,
    "w": 25,
    "h": 26
   },
   "head_hair_ponytail_down_s80": {
-   "x": 778,
-   "y": 341,
+   "x": 26,
+   "y": 443,
    "w": 20,
    "h": 27
   },
   "head_hair_ponytail_right_s80": {
-   "x": 799,
-   "y": 341,
+   "x": 47,
+   "y": 443,
    "w": 25,
    "h": 26
   },
   "head_hair_ponytail_left_s80": {
-   "x": 825,
-   "y": 341,
+   "x": 73,
+   "y": 443,
    "w": 24,
    "h": 27
   },
   "head_hair_ponytail_up_s80": {
-   "x": 850,
-   "y": 341,
+   "x": 98,
+   "y": 443,
    "w": 20,
    "h": 25
   },
   "head_hair_bun_down_s80": {
-   "x": 871,
-   "y": 341,
+   "x": 119,
+   "y": 443,
    "w": 20,
    "h": 26
   },
   "head_hair_bun_right_s80": {
-   "x": 892,
-   "y": 341,
+   "x": 140,
+   "y": 443,
    "w": 23,
    "h": 26
   },
   "head_hair_bun_left_s80": {
-   "x": 916,
-   "y": 341,
+   "x": 164,
+   "y": 443,
    "w": 24,
    "h": 26
   },
   "head_hair_bun_up_s80": {
-   "x": 941,
-   "y": 341,
+   "x": 189,
+   "y": 443,
    "w": 20,
    "h": 23
   },
   "head_hair_wavy_down_s80": {
-   "x": 962,
-   "y": 341,
+   "x": 210,
+   "y": 443,
    "w": 27,
    "h": 25
   },
   "head_hair_wavy_right_s80": {
-   "x": 990,
-   "y": 341,
+   "x": 238,
+   "y": 443,
    "w": 26,
    "h": 26
   },
   "head_hair_wavy_left_s80": {
-   "x": 0,
-   "y": 371,
+   "x": 265,
+   "y": 443,
    "w": 26,
    "h": 26
   },
   "head_hair_wavy_up_s80": {
-   "x": 27,
-   "y": 371,
+   "x": 292,
+   "y": 443,
    "w": 21,
    "h": 23
   },
   "head_hijab_simple_down_s80": {
-   "x": 49,
-   "y": 371,
+   "x": 314,
+   "y": 443,
    "w": 21,
    "h": 26
   },
   "head_hijab_simple_right_s80": {
-   "x": 71,
-   "y": 371,
+   "x": 336,
+   "y": 443,
    "w": 22,
    "h": 26
   },
   "head_hijab_simple_left_s80": {
-   "x": 94,
-   "y": 371,
+   "x": 359,
+   "y": 443,
    "w": 22,
    "h": 26
   },
   "head_hijab_simple_up_s80": {
-   "x": 117,
-   "y": 371,
+   "x": 382,
+   "y": 443,
    "w": 22,
    "h": 25
   },
   "head_hijab_long_down_s80": {
-   "x": 140,
-   "y": 371,
+   "x": 405,
+   "y": 443,
    "w": 25,
    "h": 26
   },
   "head_hijab_long_right_s80": {
-   "x": 166,
-   "y": 371,
+   "x": 431,
+   "y": 443,
    "w": 23,
    "h": 26
   },
   "head_hijab_long_left_s80": {
-   "x": 190,
-   "y": 371,
+   "x": 455,
+   "y": 443,
    "w": 23,
    "h": 26
   },
   "head_hijab_long_up_s80": {
-   "x": 214,
-   "y": 371,
+   "x": 479,
+   "y": 443,
    "w": 25,
    "h": 26
   },
   "head_hijab_sport_down_s80": {
-   "x": 240,
-   "y": 371,
+   "x": 505,
+   "y": 443,
    "w": 20,
    "h": 25
   },
   "head_hijab_sport_right_s80": {
-   "x": 261,
-   "y": 371,
+   "x": 526,
+   "y": 443,
    "w": 20,
    "h": 25
   },
   "head_hijab_sport_left_s80": {
-   "x": 282,
-   "y": 371,
+   "x": 547,
+   "y": 443,
    "w": 20,
    "h": 25
   },
   "head_hijab_sport_up_s80": {
-   "x": 303,
-   "y": 371,
+   "x": 568,
+   "y": 443,
    "w": 20,
    "h": 22
   },
   "head_peci_down_s80": {
-   "x": 324,
-   "y": 371,
+   "x": 589,
+   "y": 443,
    "w": 22,
    "h": 24
   },
   "head_peci_right_s80": {
-   "x": 347,
-   "y": 371,
+   "x": 612,
+   "y": 443,
    "w": 22,
    "h": 26
   },
   "head_peci_left_s80": {
-   "x": 370,
-   "y": 371,
+   "x": 635,
+   "y": 443,
    "w": 22,
    "h": 26
   },
   "head_peci_up_s80": {
-   "x": 393,
-   "y": 371,
+   "x": 658,
+   "y": 443,
    "w": 22,
    "h": 22
   },
   "head_cap_baseball_down_s80": {
-   "x": 416,
-   "y": 371,
+   "x": 681,
+   "y": 443,
    "w": 22,
    "h": 24
   },
   "head_cap_baseball_right_s80": {
-   "x": 439,
-   "y": 371,
+   "x": 704,
+   "y": 443,
    "w": 26,
    "h": 24
   },
   "head_cap_baseball_left_s80": {
-   "x": 466,
-   "y": 371,
+   "x": 731,
+   "y": 443,
    "w": 26,
    "h": 25
   },
   "head_cap_baseball_up_s80": {
-   "x": 493,
-   "y": 371,
+   "x": 758,
+   "y": 443,
    "w": 20,
    "h": 23
   },
   "head_beanie_down_s80": {
-   "x": 514,
-   "y": 371,
+   "x": 779,
+   "y": 443,
    "w": 21,
    "h": 21
   },
   "head_beanie_right_s80": {
-   "x": 536,
-   "y": 371,
+   "x": 801,
+   "y": 443,
    "w": 22,
    "h": 23
   },
   "head_beanie_left_s80": {
-   "x": 559,
-   "y": 371,
+   "x": 824,
+   "y": 443,
    "w": 23,
    "h": 23
   },
   "head_beanie_up_s80": {
-   "x": 583,
-   "y": 371,
+   "x": 848,
+   "y": 443,
    "w": 21,
    "h": 23
   },
   "acc_acc_glasses_round_down_s80": {
-   "x": 605,
-   "y": 371,
+   "x": 870,
+   "y": 443,
    "w": 13,
    "h": 6
   },
   "acc_acc_glasses_round_right_s80": {
-   "x": 619,
-   "y": 371,
+   "x": 884,
+   "y": 443,
    "w": 10,
    "h": 7
   },
   "acc_acc_glasses_round_left_s80": {
-   "x": 630,
-   "y": 371,
+   "x": 895,
+   "y": 443,
    "w": 10,
    "h": 6
   },
   "acc_acc_glasses_square_down_s80": {
-   "x": 641,
-   "y": 371,
+   "x": 906,
+   "y": 443,
    "w": 14,
    "h": 6
   },
   "acc_acc_glasses_square_right_s80": {
-   "x": 656,
-   "y": 371,
+   "x": 921,
+   "y": 443,
    "w": 10,
    "h": 6
   },
   "acc_acc_glasses_square_left_s80": {
-   "x": 667,
-   "y": 371,
+   "x": 932,
+   "y": 443,
    "w": 10,
    "h": 6
   },
   "acc_acc_headset_down_s80": {
-   "x": 678,
-   "y": 371,
+   "x": 943,
+   "y": 443,
    "w": 22,
    "h": 26
   },
   "acc_acc_headset_right_s80": {
-   "x": 701,
-   "y": 371,
+   "x": 966,
+   "y": 443,
    "w": 12,
    "h": 27
   },
   "acc_acc_headset_left_s80": {
-   "x": 714,
-   "y": 371,
+   "x": 979,
+   "y": 443,
    "w": 14,
    "h": 28
   },
   "acc_acc_headset_up_s80": {
-   "x": 729,
-   "y": 371,
+   "x": 994,
+   "y": 443,
    "w": 14,
    "h": 6
   },
   "acc_acc_vr_headset_down_s80": {
-   "x": 744,
-   "y": 371,
+   "x": 0,
+   "y": 472,
    "w": 16,
    "h": 16
   },
   "acc_acc_vr_headset_right_s80": {
-   "x": 761,
-   "y": 371,
+   "x": 17,
+   "y": 472,
    "w": 20,
    "h": 15
   },
   "acc_acc_vr_headset_left_s80": {
-   "x": 782,
-   "y": 371,
+   "x": 38,
+   "y": 472,
    "w": 19,
    "h": 12
   },
   "acc_acc_vr_headset_up_s80": {
-   "x": 802,
-   "y": 371,
+   "x": 58,
+   "y": 472,
    "w": 13,
    "h": 15
   },
   "bag_acc_backpack_down": {
-   "x": 816,
-   "y": 371,
+   "x": 72,
+   "y": 472,
    "w": 21,
    "h": 20
   },
   "bag_acc_backpack_left": {
-   "x": 838,
-   "y": 371,
+   "x": 94,
+   "y": 472,
    "w": 28,
    "h": 24
   },
   "bag_acc_backpack_right": {
-   "x": 867,
-   "y": 371,
+   "x": 123,
+   "y": 472,
    "w": 28,
    "h": 24
   },
   "bag_acc_backpack_up": {
-   "x": 896,
-   "y": 371,
+   "x": 152,
+   "y": 472,
    "w": 21,
    "h": 28
   },
   "bag_acc_laptop_bag_down": {
-   "x": 918,
-   "y": 371,
+   "x": 174,
+   "y": 472,
    "w": 22,
    "h": 30
   },
   "bag_acc_laptop_bag_left": {
-   "x": 941,
-   "y": 371,
+   "x": 197,
+   "y": 472,
    "w": 26,
    "h": 34
   },
   "bag_acc_laptop_bag_right": {
-   "x": 968,
-   "y": 371,
+   "x": 224,
+   "y": 472,
    "w": 26,
    "h": 34
   },
   "bag_acc_laptop_bag_up": {
-   "x": 995,
-   "y": 371,
+   "x": 251,
+   "y": 472,
    "w": 23,
    "h": 31
   }
