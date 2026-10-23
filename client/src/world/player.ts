@@ -1,7 +1,7 @@
 // Karakter di dunia: sprite yang dirakit + name tag + gelembung chat. Posisi = titik kaki.
 
 import Phaser from "phaser";
-import type { CharacterChoice, CharacterConfig, Direction, Role } from "@mita/shared";
+import { taggedName, type CharacterChoice, type CharacterConfig, type Direction, type Role } from "@mita/shared";
 import { CHAR_ORIGIN, ensureCharacterTexture, frameName } from "../char/textures";
 
 /** Panjang maksimum nama di name tag; nama utuh tampil di daftar pemain. */
@@ -21,6 +21,7 @@ export class Avatar {
   moving = false;
   sitting = false;
   private t = 0;
+  private readonly shownName: string;
 
   constructor(
     private readonly scene: Phaser.Scene,
@@ -28,15 +29,16 @@ export class Avatar {
     name: string,
     x: number,
     y: number,
-    role: Role = "mahasiswa",
+    private readonly role: Role = "mahasiswa",
+    tag: string | null = null,
   ) {
     this.x = x;
     this.y = y;
     const key = ensureCharacterTexture(scene, choice);
     this.sprite = scene.add.sprite(x, y, key, frameName("down", 1)).setOrigin(CHAR_ORIGIN.x, CHAR_ORIGIN.y);
-    const shown = name.length > TAG_MAX ? name.slice(0, TAG_MAX - 1) + "…" : name;
+    this.shownName = name.length > TAG_MAX ? name.slice(0, TAG_MAX - 1) + "…" : name;
     this.tag = scene.add
-      .text(x, y, role === "dosen" ? `${shown} · dosen` : shown, {
+      .text(x, y, this.label(tag), {
         fontFamily: "system-ui, 'Segoe UI', sans-serif",
         fontSize: "8px",
         color: role === "dosen" ? "#FFE3C9" : "#F7F5F0",
@@ -44,6 +46,16 @@ export class Avatar {
         padding: { x: 3, y: 1 },
       })
       .setOrigin(0.5, 1);
+  }
+
+  /** "[tag] Nama" (+ " · dosen"). Tag diberikan admin di /panel. */
+  private label(tag: string | null): string {
+    const n = taggedName(this.shownName, tag);
+    return this.role === "dosen" ? `${n} · dosen` : n;
+  }
+
+  setNameTag(tag: string | null): void {
+    this.tag.setText(this.label(tag));
   }
 
   setChoice(choice: CharacterChoice): void {

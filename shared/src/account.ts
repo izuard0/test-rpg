@@ -68,7 +68,27 @@ export interface AccountView {
   character: CharacterChoice | null;
   /** Admin me-reset kata sandi: wajib ganti sebelum main. */
   mustChangePassword: boolean;
+  /** Label dari admin di name tag ("[tag] Nama"); null = tanpa tag. */
+  tag: string | null;
 }
+
+// ----- tag nama (diberikan admin di /panel) -----
+
+export const TAG_MAX = 12;
+
+/**
+ * Merapikan tag dari admin. Hasil "" = hapus tag; `null` = tidak sah. Kurung siku dibuang
+ * karena ditambahkan saat tampil; hanya huruf, angka, spasi, dan . - _ & + yang boleh.
+ */
+export function normalizeTag(raw: string): string | null {
+  const t = raw.replace(/[[\]]/g, "").trim().replace(/\s+/g, " ");
+  if (!t) return "";
+  if (t.length > TAG_MAX || !/^[\p{L}\p{N}][\p{L}\p{N} .\-_&+]*$/u.test(t)) return null;
+  return t;
+}
+
+/** Teks name tag: "[tag] Nama". */
+export const taggedName = (name: string, tag?: string | null) => (tag ? `[${tag}] ${name}` : name);
 
 /** Pesan untuk akun yang belum bisa masuk (login dengan sandi benar, tetapi belum disetujui). */
 export const STATUS_MESSAGE: Record<Exclude<AccountStatus, "disetujui">, string> = {

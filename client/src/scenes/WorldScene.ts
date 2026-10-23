@@ -178,6 +178,13 @@ export class WorldScene extends Phaser.Scene {
           },
           add: (p) => p.sid !== this.mySid && this.remotes.add(p),
           remove: (m) => this.remotes.remove(m.sid),
+          tag: (m) => {
+            if (m.uid === this.myUid) {
+              this.account = { ...this.account, tag: m.tag };
+              this.registry.set("account", this.account);
+              this.player?.setNameTag(m.tag);
+            } else this.remotes.setTag(m.uid, m.tag);
+          },
           snap: (d) => this.remotes.snapshot(d),
           chat: (m) => {
             chat.message(m);
@@ -341,7 +348,7 @@ export class WorldScene extends Phaser.Scene {
 
   private spawnPlayer(): void {
     const s = this.room.spawns[this.spawnName] ?? this.room.spawns.awal ?? this.room.spawns.dari_lobi ?? Object.values(this.room.spawns)[0];
-    this.player = new Avatar(this, this.account.character!, this.account.fullName, s.x, s.y);
+    this.player = new Avatar(this, this.account.character!, this.account.fullName, s.x, s.y, this.account.role, this.account.tag);
     const cam = this.cameras.main;
     cam.startFollow(this.player.sprite, true, 0.15, 0.15, 0, 24);
     cam.setRoundPixels(true);

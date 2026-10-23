@@ -39,6 +39,7 @@ export async function attachGame(app: FastifyInstance, opts: GameOptions, accoun
   setGameContext({ world: loadWorld(opts.mapsDir), cfg, runSpeed: cfg.movement.runSpeed, files, catalog: loadCatalog(opts.catalogPath), accounts });
   // Akun dinonaktifkan / dihapus / sandinya di-reset admin: keluarkan dari game saat itu juga.
   accounts.onRevoke((accountId) => hub.kickAccount(accountId, "Sesimu dicabut admin. Silakan masuk lagi."));
+  accounts.tagChanged = (accountId, tag) => hub.setTag(accountId, tag);
 
   const transport = new WebSocketTransport({ noServer: true, maxPayload: 8 * 1024 });
   transport.attachToServer(app.server);

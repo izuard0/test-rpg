@@ -127,6 +127,16 @@ describe.each(stores)("akun & panel admin (%s)", (_name, makeStore) => {
     expect((await login("2201001", "sandi-baru-123")).status).toBe(200);
   });
 
+  it("admin memberi tag: dirapikan, divalidasi, ikut di data akun", async () => {
+    const id = await uidOf("2201001");
+    expect((await admin("POST", "/api/admin/accounts/tag", { ids: [id], tag: "  [Asdos]  " })).body).toMatchObject({ done: 1, tag: "Asdos" });
+    expect((await admin("POST", "/api/admin/accounts/tag", { ids: [id], tag: "tag yang terlalu panjang" })).status).toBe(400);
+    expect((await admin("POST", "/api/admin/accounts/tag", { ids: [id], tag: "<b>x</b>" })).status).toBe(400);
+    expect((await login("2201001", "sandi-baru-123")).body.account).toMatchObject({ tag: "Asdos" });
+    expect((await admin("POST", "/api/admin/accounts/tag", { ids: [id], tag: "" })).body).toMatchObject({ done: 1, tag: null });
+    expect((await login("2201001", "sandi-baru-123")).body.account).toMatchObject({ tag: null });
+  });
+
   it("login admin dikunci setelah 5 kali gagal dari IP yang sama", async () => {
     for (let i = 0; i < 4; i++) await call("POST", "/api/admin/login", { ...ADMIN, password: `salah${i}` }, { "x-mita-panel": "1" });
     expect((await call("POST", "/api/admin/login", ADMIN, { "x-mita-panel": "1" })).status).toBe(200); // berhasil = hitungan direset

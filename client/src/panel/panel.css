@@ -90,3 +90,11 @@ td.act button { margin: 2px 4px 2px 0; }
   .top { padding: 10px 16px; }
   .toolbar .search { max-width: none; }
 }
+
+.tagbtn { font: 600 12px var(--mono); padding: 2px 8px; border-style: dashed; color: var(--stone); }
+.tagbtn.has { border-style: solid; border-color: #c9b8e8; background: #f1ecfb; color: #4b2d86; }
+.dialog form button { width: auto; padding: 6px 14px; font-size: 14px; }
+.dialog .row { gap: 8px; align-items: center; }
+.dialog .row .spacer { flex: 1; }
+.preview { font-size: 13px; color: var(--stone); }
+.nametag { display: inline-block; padding: 1px 6px; border-radius: 3px; background: rgba(27, 42, 65, 0.85); color: var(--cream); font: 12px var(--sans); }

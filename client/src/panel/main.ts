@@ -2,6 +2,7 @@
 // menghapus, dan me-reset kata sandi. Semua persetujuan manual (keputusan 23 Okt 2026).
 // Login admin dari env server ADMIN_USERNAME + ADMIN_PASSWORD; sesi berupa cookie httpOnly.
 
+import { TAG_MAX } from "@mita/shared";
 import "./panel.css";
 
 type Status = "menunggu" | "disetujui" | "ditolak" | "nonaktif";
@@ -15,6 +16,7 @@ interface Row {
   status: Status;
   hasCharacter: boolean;
   mustChangePassword: boolean;
+  tag: string | null;
   createdAt: string;
   reviewedAt: string | null;
   lastLoginAt: string | null;
@@ -167,6 +169,7 @@ function render(): void {
     <div class="bulk" ${sel.length ? "" : "hidden"}>
       <span><b>${sel.length}</b> dipilih</span>
       ${bulk.map((a) => `<button type="button" class="${ACTION_CLASS[a]}" data-bulk="${a}">${ACTION_LABEL[a]}</button>`).join("")}
+      <button type="button" class="bulk-tag">🏷 Beri tag</button>
       <button type="button" class="ghost clear">Batal pilih</button>
     </div>
     ${
@@ -174,7 +177,7 @@ function render(): void {
         ? `<div class="table-wrap"><table>
       <thead><tr>
         <th class="ck"><input type="checkbox" class="all" aria-label="Pilih semua" ${allChecked ? "checked" : ""}></th>
-        <th>Nama lengkap</th><th>NIM / NIP</th><th>Peran</th><th>Status</th><th>Daftar</th><th>Terakhir masuk</th><th class="act">Aksi</th>
+        <th>Nama lengkap</th><th>NIM / NIP</th><th>Tag</th><th>Peran</th><th>Status</th><th>Daftar</th><th>Terakhir masuk</th><th class="act">Aksi</th>
       </tr></thead>
       <tbody>${rows
         .map(
@@ -182,6 +185,7 @@ function render(): void {
         <td class="ck"><input type="checkbox" class="one" aria-label="Pilih ${esc(r.fullName)}" ${state.selected.has(r.uid) ? "checked" : ""}></td>
         <td><b>${esc(r.fullName)}</b>${(nameCount.get(r.fullName.toLowerCase()) ?? 0) > 1 ? ` <span class="tag warn-tag" title="Ada akun lain dengan nama yang sama">nama sama</span>` : ""}${r.mustChangePassword ? ` <span class="tag">sandi sementara</span>` : ""}</td>
         <td class="mono">${esc(r.id)}</td>
+        <td><button type="button" class="tagbtn${r.tag ? " has" : ""}" data-tag title="Ubah tag (tampil di atas kepala)">${r.tag ? `[${esc(r.tag)}]` : "+ tag"}</button></td>
         <td><span class="role ${r.role}">${r.role === "dosen" ? "Dosen" : "Mahasiswa"}</span></td>
         <td><span class="status ${r.status}">${r.status}</span></td>
         <td class="muted">${fmt(r.createdAt)}</td>
@@ -237,6 +241,11 @@ function render(): void {
     const r = state.rows.find((x) => x.uid === b.closest("tr")!.dataset.uid)!;
     b.onclick = () => void act(b.dataset.act as Action, [r]);
   });
+  app.querySelectorAll<HTMLButtonElement>("[data-tag]").forEach((b) => {
+    const r = state.rows.find((x) => x.uid === b.closest("tr")!.dataset.uid)!;
+    b.onclick = () => editTag([r]);
+  });
+  app.querySelector<HTMLButtonElement>(".bulk-tag")?.addEventListener("click", () => editTag(sel));
   app.querySelectorAll<HTMLButtonElement>("[data-reset]").forEach((b) => {
     const r = state.rows.find((x) => x.uid === b.closest("tr")!.dataset.uid)!;
     b.onclick = () => void resetPassword(r);
@@ -256,6 +265,61 @@ async function act(action: Action, rows: Row[]): Promise<void> {
     state.flash = e instanceof Error ? e.message : String(e);
   }
   await reload();
+}
+
+/** Tag tampil di name tag pemain sebagai "[tag] Nama"; berlaku langsung untuk yang sedang daring. */
+function editTag(rows: Row[]): void {
+  if (!rows.length) return;
+  const first = rows[0];
+  const same = rows.every((r) => r.tag === first.tag);
+  const back = document.createElement("div");
+  back.className = "backdrop";
+  back.innerHTML = `<section class="card dialog" role="dialog" aria-modal="true">
+    <h2>Tag nama</h2>
+    <p>${rows.length === 1 ? `Untuk <b>${esc(first.fullName)}</b>.` : `Untuk <b>${rows.length} akun</b> yang dipilih.`}
+      Tag tampil di atas kepala avatar dan langsung terlihat oleh semua pemain.</p>
+    <form novalidate>
+      <label>Tag (maks. ${TAG_MAX} karakter)<input name="tag" maxlength="${TAG_MAX}" autocomplete="off" placeholder="mis. Asdos, Ketua, Admin" value="${same && first.tag ? esc(first.tag) : ""}"></label>
+      <p class="preview">Pratinjau: <span class="nametag"></span></p>
+      <p class="error" role="alert" hidden></p>
+      <div class="row">
+        <button type="button" class="ghost danger clear-tag">Hapus tag</button>
+        <span class="spacer"></span>
+        <button type="button" class="ghost cancel">Batal</button>
+        <button type="submit" class="primary">Simpan</button>
+      </div>
+    </form></section>`;
+  const input = back.querySelector<HTMLInputElement>("input")!;
+  const preview = back.querySelector<HTMLElement>(".nametag")!;
+  const err = back.querySelector<HTMLElement>(".error")!;
+  const showPreview = () => {
+    const t = input.value.replace(/[[\]]/g, "").trim();
+    preview.textContent = t ? `[${t}] ${first.fullName}` : first.fullName;
+  };
+  const close = () => back.remove();
+  const save = async (tag: string) => {
+    try {
+      const r = await api<{ done: number; tag: string | null }>("POST", "/api/admin/accounts/tag", { ids: rows.map((x) => x.uid), tag });
+      state.flash = r.tag ? `Tag [${r.tag}] diberikan ke ${r.done} akun.` : `Tag dihapus dari ${r.done} akun.`;
+      close();
+      await reload();
+    } catch (e) {
+      err.textContent = e instanceof Error ? e.message : String(e);
+      err.hidden = false;
+    }
+  };
+  input.oninput = showPreview;
+  back.querySelector("form")!.onsubmit = (e) => {
+    e.preventDefault();
+    void save(input.value);
+  };
+  back.querySelector<HTMLButtonElement>(".clear-tag")!.onclick = () => void save("");
+  back.querySelector<HTMLButtonElement>(".cancel")!.onclick = close;
+  back.addEventListener("keydown", (e) => e.key === "Escape" && close());
+  document.body.append(back);
+  showPreview();
+  input.focus();
+  input.select();
 }
 
 async function resetPassword(r: Row): Promise<void> {

@@ -30,6 +30,7 @@ export const accountView = (a: AccountRecord): AccountView => ({
   fullName: a.fullName,
   character: a.character,
   mustChangePassword: a.mustChangePassword,
+  tag: a.tag,
 });
 
 export class Accounts {
@@ -69,6 +70,9 @@ export class Accounts {
   onRevoke(fn: (accountId: string) => void): void {
     this.revokeListeners.push(fn);
   }
+
+  /** Dipanggil panel admin setelah tag akun berubah (game memperbarui name tag yang daring). */
+  tagChanged: (accountId: string, tag: string | null) => void = () => undefined;
 }
 
 const bearer = (req: FastifyRequest) => /^Bearer (\S+)$/.exec(String(req.headers.authorization ?? ""))?.[1];
