@@ -1,6 +1,6 @@
 """Tata letak Lobi, 40x28 petak, kapasitas 100 (docs/PETA.md). Satuan: petak.
 
-Perabot besar digambar 2x (scale 2) agar ruangan terasa ramai dan berskala.
+Aturan skala: dekorasi/pameran/tanaman 2x; benda yang diduduki/dipakai (sofa, bean bag, bangku, meja) 1x.
 Lantai sementara memakai lantai kelas; karpet memakai karpet perpustakaan."""
 
 CF = "classroom_floor_wall"
@@ -59,29 +59,39 @@ solid((LF, "meja_kerja_putih"), [16, 13, 4, 1], type="info", name="resepsionis",
       interact=[16, 14, 4, 1])
 solid((LT, "kios_nyala"), [22, 13, 3, 1], type="info", name="kios_info", props={"info": "peta"},
       interact=[22, 14, 3, 1])
-solid((LF, "bean_oranye"), [27, 16, 2, 1])
-solid((LF, "bean_navy"), [12, 16, 2, 1])
+solid((LF, "bean_oranye"), [27, 16, 1, 1], scale=1)
+solid((LF, "bean_abu"), [25, 16, 1, 1], scale=1)
+solid((LF, "sofa_panjang"), [12, 15, 2, 1], scale=1)
+solid((LF, "meja_bulat"), [15, 16, 1, 1], scale=1)
 solid((LF, "tanaman_c"), [14, 14, 1, 1])
 solid((LF, "tanaman_d"), [26, 13, 1, 1])
 
 # lounge kiri bawah
-solid((LF, "sofa_sudut"), [6, 23, 5, 1])
-solid((LF, "meja_bulat"), [12, 25, 2, 1])
-solid((LF, "sofa_panjang"), [15, 24, 4, 1])
-solid((LF, "bean_abu"), [8, 26, 2, 1])
-solid((LF, "bean_navy"), [16, 26, 2, 1])
+solid((LF, "sofa_sudut"), [6, 23, 3, 1], scale=1)
+solid((LF, "meja_bulat"), [12, 25, 1, 1], scale=1)
+solid((LF, "sofa_panjang"), [15, 24, 2, 1], scale=1)
+solid((LF, "bean_abu"), [8, 26, 1, 1], scale=1)
+solid((LF, "bean_navy"), [16, 26, 1, 1], scale=1)
 solid((LF, "tanaman_e"), [20, 24, 1, 1])
 solid((LD, "gantungan_jaket"), [2, 25, 2, 1])
 
 # kafe kanan bawah
 solid((LF, "bar_panjang"), [29, 19, 7, 1])
 for x in [30, 32, 34]:
-    solid((LF, "bangku_bulat"), [x, 21, 2, 1])
+    solid((LF, "bangku_bulat"), [x, 21, 1, 1], scale=1)
 solid((LF, "meja_kopi"), [31, 25, 3, 1], type="info", name="meja_kopi", props={"info": "kafe"},
       interact=[31, 26, 3, 1])
 solid((LF, "dispenser_air"), [36, 25, 1, 1])
 solid((LF, "tempat_sampah_a"), [28, 25, 1, 1])
 solid((LF, "tempat_sampah_b"), [38, 25, 1, 1])
+
+# dua pulau duduk di sisi barat dan timur tengah lobi (benda duduk 1x)
+for cx, cy in [(6, 13), (34, 13)]:
+    solid((LF, "meja_bulat"), [cx, cy, 1, 1], scale=1)
+    for dx, dy, b in [(-2, 0, "bean_navy"), (2, 0, "bean_oranye"), (0, -2, "bean_abu"), (0, 2, "bean_navy")]:
+        solid((LF, b), [cx + dx, cy + dy, 1, 1], scale=1)
+solid((LF, "tanaman_besar"), [17, 25, 2, 1])
+solid((LF, "tanaman_besar"), [23, 25, 2, 1])
 
 # tanaman besar di sudut
 for x, y in [(1, 6), (37, 6), (1, 26), (37, 26)]:

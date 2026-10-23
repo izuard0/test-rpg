@@ -19,8 +19,12 @@ def main(room):
     errors = mapgen.validate(path)
     prev = mapgen.MAPS / "preview"
     prev.mkdir(exist_ok=True)
-    mapgen.render(path, prev / f"{room}.png")
-    mapgen.render(path, prev / f"{room}-debug.png", debug=True)
+    big = mod.LAYOUT["w"] * mod.LAYOUT["h"] > 3000          # peta besar: skala 1 agar gambar tidak raksasa
+    sc = 1 if big else 2
+    mapgen.render(path, prev / f"{room}.png", scale=sc)
+    mapgen.render(path, prev / f"{room}-debug.png", debug=True, scale=sc)
+    if any(r.get("name") for r in mod.LAYOUT.get("regions", [])) or mod.LAYOUT.get("zones"):
+        mapgen.render_annotated(path, prev / f"{room}-denah.png", scale=sc)
     print("peta  :", path)
     for n in notes:
         print("catatan:", n)

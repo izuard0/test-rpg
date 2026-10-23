@@ -1,0 +1,181 @@
+{
+ "columns": 0,
+ "grid": {
+  "height": 1,
+  "orientation": "orthogonal",
+  "width": 1
+ },
+ "margin": 0,
+ "name": "kelas-c-objects",
+ "spacing": 0,
+ "tilecount": 9,
+ "tiledversion": "1.10.2",
+ "tileheight": 48,
+ "tilewidth": 90,
+ "type": "tileset",
+ "version": "1.10",
+ "tiles": [
+  {
+   "id": 0,
+   "image": "../../export/tiles/auditorium_seats/sprites/01_layar_proyektor_besar.png",
+   "imageheight": 44,
+   "imagewidth": 80,
+   "properties": [
+    {
+     "name": "name",
+     "type": "string",
+     "value": "layar_proyektor_besar"
+    },
+    {
+     "name": "lembar",
+     "type": "string",
+     "value": "auditorium_seats"
+    }
+   ]
+  },
+  {
+   "id": 1,
+   "image": "../../export/tiles/auditorium_seats/sprites/15_podium_laptop.png",
+   "imageheight": 38,
+   "imagewidth": 28,
+   "properties": [
+    {
+     "name": "name",
+     "type": "string",
+     "value": "podium_laptop"
+    },
+    {
+     "name": "lembar",
+     "type": "string",
+     "value": "auditorium_seats"
+    }
+   ]
+  },
+  {
+   "id": 2,
+   "image": "../../export/tiles/auditorium_seats/sprites/16_speaker_ganda.png",
+   "imageheight": 20,
+   "imagewidth": 26,
+   "properties": [
+    {
+     "name": "name",
+     "type": "string",
+     "value": "speaker_ganda"
+    },
+    {
+     "name": "lembar",
+     "type": "string",
+     "value": "auditorium_seats"
+    }
+   ]
+  },
+  {
+   "id": 3,
+   "image": "../../export/tiles/classroom_front/sprites/08_jam_oranye.png",
+   "imageheight": 25,
+   "imagewidth": 24,
+   "properties": [
+    {
+     "name": "name",
+     "type": "string",
+     "value": "jam_oranye"
+    },
+    {
+     "name": "lembar",
+     "type": "string",
+     "value": "classroom_front"
+    }
+   ]
+  },
+  {
+   "id": 4,
+   "image": "../../export/tiles/classroom_front/sprites/09_ac.png",
+   "imageheight": 23,
+   "imagewidth": 52,
+   "properties": [
+    {
+     "name": "name",
+     "type": "string",
+     "value": "ac"
+    },
+    {
+     "name": "lembar",
+     "type": "string",
+     "value": "classroom_front"
+    }
+   ]
+  },
+  {
+   "id": 5,
+   "image": "../../export/tiles/classroom_floor_wall/sprites/20_pintu_kelas.png",
+   "imageheight": 48,
+   "imagewidth": 27,
+   "properties": [
+    {
+     "name": "name",
+     "type": "string",
+     "value": "pintu_kelas"
+    },
+    {
+     "name": "lembar",
+     "type": "string",
+     "value": "classroom_floor_wall"
+    }
+   ]
+  },
+  {
+   "id": 6,
+   "image": "../../export/tiles/lobby_furniture/sprites/13_tanaman_a.png",
+   "imageheight": 16,
+   "imagewidth": 11,
+   "properties": [
+    {
+     "name": "name",
+     "type": "string",
+     "value": "tanaman_a"
+    },
+    {
+     "name": "lembar",
+     "type": "string",
+     "value": "lobby_furniture"
+    }
+   ]
+  },
+  {
+   "id": 7,
+   "image": "../../export/tiles/auditorium_seats/sprites/09_meja_komputer_nyala.png",
+   "imageheight": 42,
+   "imagewidth": 90,
+   "properties": [
+    {
+     "name": "name",
+     "type": "string",
+     "value": "meja_komputer_nyala"
+    },
+    {
+     "name": "lembar",
+     "type": "string",
+     "value": "auditorium_seats"
+    }
+   ]
+  },
+  {
+   "id": 8,
+   "image": "../../export/tiles/auditorium_seats/sprites/10_kursi_putar.png",
+   "imageheight": 37,
+   "imagewidth": 24,
+   "properties": [
+    {
+     "name": "name",
+     "type": "string",
+     "value": "kursi_putar"
+    },
+    {
+     "name": "lembar",
+     "type": "string",
+     "value": "auditorium_seats"
+    }
+   ]
+  }
+ ]
+}

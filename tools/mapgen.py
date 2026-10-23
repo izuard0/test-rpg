@@ -265,13 +265,19 @@ def build_room(L):
                   "x": fx * T + (fw * T - w) // 2, "y": (fy + fh) * T, "properties": props(o.get("props"))}
             {"below": below, "above": above}.get(o.get("layer"), objects).append(ob)
         if o.get("collide", True) and o.get("sprite"):
-            collision.append({"id": new_obj(), "name": o["sprite"][1], "type": "collision", "x": fx * T, "y": fy * T,
-                              "width": fw * T, "height": fh * T, "rotation": 0, "visible": True})
+            cx, cy, cw, ch = o.get("collide_rect", o["foot"])
+            collision.append({"id": new_obj(), "name": o["sprite"][1], "type": "collision", "x": cx * T, "y": cy * T,
+                              "width": cw * T, "height": ch * T, "rotation": 0, "visible": True})
         if o.get("interact"):
             ix, iy, iw, ih = o["interact"]
             interact.append({"id": new_obj(), "name": o.get("name") or (o["sprite"][1] if o.get("sprite") else o["type"]),
                              "type": o["type"], "x": ix * T, "y": iy * T, "width": iw * T, "height": ih * T,
                              "rotation": 0, "visible": True, "properties": props(o.get("props"))})
+    for r in regions:                                    # ruangan 'tampak' (cutaway): isi tak bisa dijalani
+        if r.get("cutaway"):
+            rx, ry, rw, rh = r["rect"]
+            top = r["wall"]["top_rows"]
+            L.setdefault("blocks", []).append([rx + 1, ry + top, rw - 2, rh - top - 1])
     for (x, y, w, h) in L.get("blocks", []):
         collision.append({"id": new_obj(), "name": "blok", "type": "collision", "x": x * T, "y": y * T,
                           "width": w * T, "height": h * T, "rotation": 0, "visible": True})
@@ -418,3 +424,26 @@ def render(tmj_path, out_path, debug=False, scale=2):
         except OSError:
             time.sleep(0.5 * (k + 1))
     out.save(out_path)
+
+
+def render_annotated(tmj_path, out_path, scale=1):
+    """Denah beranotasi: persegi zona + nama (dari lapisan 'zones'), di atas pratinjau bersih."""
+    base = Path(tmj_path).parent
+    tmp = Path(out_path).with_suffix(".tmp.png")
+    render(tmj_path, tmp, scale=scale)
+    img = Image.open(tmp).convert("RGBA")
+    m = json.loads(Path(tmj_path).read_text(encoding="utf-8"))
+    from PIL import ImageFont
+    font = ImageFont.load_default(size=max(14, 11 * scale))
+    ov = Image.new("RGBA", img.size, (0, 0, 0, 0))
+    d = ImageDraw.Draw(ov)
+    pal = [(231, 76, 60), (52, 152, 219), (46, 204, 113), (155, 89, 182), (241, 196, 15), (230, 126, 34), (26, 188, 156)]
+    zs = [o for L in m["layers"] if L["name"] == "zones" for o in L["objects"] if o["name"] != "luar"]
+    for i, o in enumerate(zs):
+        x, y, w, h = [v * scale for v in (o["x"], o["y"], o["width"], o["height"])]
+        c = pal[i % len(pal)]
+        d.rectangle([x + 2, y + 2, x + w - 3, y + h - 3], outline=c + (255,), width=3)
+        d.rectangle([x + 4, y + 4, x + 12 + 9 * scale * len(o["name"]), y + 8 + 14 * scale], fill=c + (230,))
+        d.text((x + 9, y + 5), o["name"], fill=(255, 255, 255, 255), font=font)
+    Image.alpha_composite(img, ov).convert("RGB").save(out_path)
+    tmp.unlink()

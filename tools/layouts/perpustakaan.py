@@ -1,7 +1,7 @@
-"""Tata letak Perpustakaan Al-Khawarizmi (docs/PETA.md bagian 4), 36 x 28 petak.
+"""Tata letak Perpustakaan Al-Khawarizmi (docs/PETA.md bagian 4), 36 x 28 petak. Satuan: petak.
 
-Semua perabot digambar 2x (selaras dengan lobi dan halaman). Satuan: petak.
-Di peta `kampus` tata letak ini digeser (lihat kampus.py)."""
+Aturan skala: rak, terminal, tanaman, pustakawan 2x (dekorasi/besar); meja baca, bilik belajar, troli,
+sofa 1x (benda yang dipakai/diduduki). Di peta `kampus` tata letak ini digeser (lihat kampus.py)."""
 
 LF = "library_floor_wall"
 BS = "library_bookshelves"
@@ -20,8 +20,8 @@ SHELVES = [  # (x, sprite, kode mata kuliah, warna, judul)
 objects = []
 
 
-def put(spr, foot, **kw):
-    objects.append({"sprite": spr, "foot": foot, "scale": 2, **kw})
+def put(spr, foot, scale=2, **kw):
+    objects.append({"sprite": spr, "foot": foot, "scale": scale, **kw})
 
 
 for x in [5, 10, 15, 20, 25]:                                   # jendela di sela rak
@@ -32,16 +32,17 @@ for i, (x, spr, course, color, title) in enumerate(SHELVES, 1):
 for i, y in enumerate([7, 11, 15, 19], 1):
     put((TE, "kios_nyala_a"), [33, y, 2, 1], type="terminal", name=f"terminal_{i}",
         props={"terminalId": i, "mode": "terminal"}, interact=[31, y, 2, 1])
-for (x, y) in [(10, 10), (20, 10), (10, 17), (20, 17)]:
-    put((FU, "meja_baca_panjang"), [x, y, 8, 5])
+for x in (9, 16, 23):                                           # 9 meja baca 1x (3 kolom x 3 baris)
+    for y in (10, 15, 20):
+        put((FU, "meja_baca_panjang"), [x, y, 4, 3], scale=1)
 put((FU, "meja_pustakawan"), [2, 21, 5, 3])
 objects.append({"type": "npc", "name": "pustakawan", "foot": [3, 20, 1, 1], "interact": [3, 24, 2, 1],
                 "props": {"npc": "pustakawan", "dialog": "tutorial-perpustakaan"}})   # sprite NPC belum ada
-put((TE, "bilik_belajar_tiga"), [12, 22, 6, 3])
-put((FU, "troli_buku"), [20, 23, 3, 2])
-put((FU, "sofa_tunggal_biru_1"), [25, 23, 2, 2])
-put((FU, "sofa_tunggal_biru_2"), [28, 23, 2, 2])
-put((FU, "papan_tulis_beroda"), [28, 19, 3, 1])
+put((TE, "bilik_belajar_tiga"), [14, 24, 3, 2], scale=1)
+put((FU, "troli_buku"), [21, 24, 2, 1], scale=1)
+put((FU, "sofa_tunggal_biru_1"), [26, 24, 1, 1], scale=1)
+put((FU, "sofa_tunggal_biru_2"), [28, 24, 1, 1], scale=1)
+put((FU, "papan_tulis_beroda"), [2, 16, 2, 1])
 for (x, y) in [(33, 4), (1, 26), (33, 26)]:
     put((FU, "tanaman_pakis"), [x, y, 2, 1])
 

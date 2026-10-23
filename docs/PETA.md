@@ -252,16 +252,26 @@ terpisah untuk set ini (belum ada; lihat bagian 9).
 
 | Peta | Isi | Ukuran | Perintah |
 |---|---|---|---|
-| `maps/kampus.tmj` | lobi + perpustakaan + pinggiran rumput (satu ruangan Colyseus) | 83 × 36 petak (2.324 × 1.008 px) | `python tools/make_map.py kampus` |
-| `maps/kelas-a.tmj` | Lab Lovelace, 30 kursi bertipe `seat` | 20 × 18 | `python tools/make_map.py kelas-a` |
+| `maps/kampus.tmj` | **satu denah gedung v3**: lobi, perpustakaan, koridor, 5 ruang kecil, 3 kelas (tampak) + pinggiran rumput | 100 × 62 petak (2.800 × 1.736 px) | `python tools/make_map.py kampus` |
+| `maps/kelas-a.tmj` | Lab Lovelace, 30 kursi `seat` | 20 × 21 | `... kelas-a` |
+| `maps/kelas-b.tmj` | Ruang Kolaborasi, 9 meja heksagon × 5 kursi = 45 | 24 × 21 | `... kelas-b` |
+| `maps/kelas-c.tmj` | Auditorium Turing, 6 × 5 meja × 2 kursi = 60 | 28 × 21 | `... kelas-c` |
 
-- **Kampus (v2, rujukan video csbinussmg).** Satu **denah gedung** dilihat dari atas, bukan kompleks
-  bangunan: lobi 40 × 28 di kiri, perpustakaan 36 × 28 di kanan (berbagi dinding timur, tersambung
-  lewat bukaan), dikelilingi **pinggiran rumput 4 petak** yang hanya berisi hiasan di tepi (pohon,
-  semak, bangku, lampu, petak bunga, rak sepeda). **Tanpa gedung depan, plaza, dan air mancur**
-  (versi pertama membuatnya dan ditolak: terlalu menonjol). Dinding selatan berjendela. Pintu
-  depan di selatan lobi menuju jalur batu pendek ke halaman. Pintu kelas A/B/C ada di dinding kiri
-  lobi; area interaksinya di sisi dalam lobi (dinding tetap padat sehingga pemain tidak keluar lewat pintu).
+- **Kampus v3 (rancangan "satu gambar besar").** Gambar: `maps/preview/kampus.png` (bersih),
+  `kampus-denah.png` (beranotasi nama zona), `kampus-debug.png` (tabrakan/interaksi/pintu).
+  Susunan: pita utara (y4–24) **Lab Lovelace | Ruang Kolaborasi | Auditorium Turing | Bilik Fokus + Ruang Diskusi A**;
+  **koridor** timur–barat (y24–30) sebagai tulang punggung; pita selatan (y30–57) **Lobi | Perpustakaan | Ruang Santai +
+  Ruang Diskusi B**. Pintu depan di selatan lobi (x23–25), sumbu lurus ke koridor. Tiga kelas **tampak** di denah
+  (interior terlihat tetapi diblokir; pintu + papan nama berwarna di koridor; area interaksi di koridor, masuk ke peta
+  kelas masing-masing). Bukaan: koridor–lobi (2), koridor–perpustakaan, lobi–perpustakaan, perpustakaan–Diskusi B,
+  koridor–Santai, koridor–Diskusi A, Diskusi A–Bilik Fokus. Luar ruangan hanya hiasan tepi.
+- **Uji keterjangkauan (BFS)** dari titik `awal`: semua petak bebas terjangkau, semua titik `interact` terjangkau,
+  interior kelas tidak bisa dijalani.
+- **Sumber:** `tools/layouts/{kampus,lobi,perpustakaan,kelas-a,kelas-b,kelas-c}.py`; `kampus.py` memakai yang lain sebagai data
+  (digeser; kelas diubah jadi dekorasi lewat `decor_only`). Fitur `mapgen`: `regions`, `ground`, `openings` global, `blocks`,
+  `scale` per objek, `collide_rect`, `cutaway`, `render_annotated`.
+- **Aturan skala:** benda yang diduduki/dipakai (kursi, bean bag, sofa, meja belajar/komputer) 1×; dekorasi, rak, pameran,
+  tanaman, poster, kios 2×. Atur per objek lewat `scale`.
 - **Skala.** Perabot besar digambar **2×** (`scale` di tata letak); lantai 28 px per petak.
 - ~~**Lorong gedung depan.**~~ (dibuang di v2) Gedung menempel di dinding selatan lobi dan pintunya sejajar dengan bukaan
   dinding. Di Phaser, urutkan kedalaman menurut **tepi bawah** sprite supaya pemain tampak

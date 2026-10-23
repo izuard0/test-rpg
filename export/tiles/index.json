@@ -6,7 +6,7 @@
    5.12
   ],
   "jumlahSprite": 16,
-  "bernama": 0
+  "bernama": 16
  },
  "classroom_floor_wall": {
   "sumber": "assets/tiles/classroom/classroom_floor_wall.png",
@@ -42,7 +42,7 @@
    5.12
   ],
   "jumlahSprite": 14,
-  "bernama": 0
+  "bernama": 14
  },
  "smart_class_pods": {
   "sumber": "assets/tiles/classroom/smart_class_pods.png",
@@ -51,7 +51,7 @@
    5.12
   ],
   "jumlahSprite": 14,
-  "bernama": 0
+  "bernama": 14
  },
  "library_bookshelves": {
   "sumber": "assets/tiles/library/library_bookshelves.png",

@@ -1,0 +1,5778 @@
+{
+ "compressionlevel": -1,
+ "height": 21,
+ "width": 28,
+ "tilewidth": 28,
+ "tileheight": 28,
+ "infinite": false,
+ "orientation": "orthogonal",
+ "renderorder": "right-down",
+ "type": "map",
+ "version": "1.10",
+ "tiledversion": "1.10.2",
+ "backgroundcolor": "#1b2a41",
+ "nextlayerid": 10,
+ "nextobjectid": 202,
+ "properties": [
+  {
+   "name": "roomId",
+   "type": "string",
+   "value": "kelas-c"
+  },
+  {
+   "name": "title",
+   "type": "string",
+   "value": "Auditorium Turing"
+  },
+  {
+   "name": "capacity",
+   "type": "int",
+   "value": 62
+  },
+  {
+   "name": "tile",
+   "type": "int",
+   "value": 28
+  }
+ ],
+ "tilesets": [
+  {
+   "firstgid": 1,
+   "source": "tilesets/kelas-c-floor-wall.tsj"
+  },
+  {
+   "firstgid": 8,
+   "source": "tilesets/kelas-c-objects.tsj"
+  }
+ ],
+ "layers": [
+  {
+   "id": 1,
+   "name": "floor",
+   "opacity": 1,
+   "visible": true,
+   "x": 0,
+   "y": 0,
+   "type": "tilelayer",
+   "width": 28,
+   "height": 21,
+   "data": [
+    3,
+    2,
+    4,
+    1,
+    1,
+    1,
+    3,
+    1,
+    2,
+    1,
+    1,
+    4,
+    4,
+    1,
+    2,
+    1,
+    4,
+    1,
+    1,
+    2,
+    1,
+    4,
+    1,
+    2,
+    1,
+    2,
+    3,
+    4,
+    2,
+    1,
+    3,
+    2,
+    1,
+    2,
+    3,
+    1,
+    1,
+    1,
+    2,
+    4,
+    4,
+    3,
+    4,
+    4,
+    3,
+    3,
+    2,
+    2,
+    2,
+    1,
+    3,
+    4,
+    3,
+    4,
+    3,
+    1,
+    1,
+    4,
+    2,
+    3,
+    2,
+    4,
+    4,
+    1,
+    1,
+    3,
+    3,
+    3,
+    4,
+    4,
+    1,
+    1,
+    3,
+    4,
+    1,
+    1,
+    3,
+    4,
+    3,
+    4,
+    3,
+    1,
+    4,
+    3,
+    2,
+    1,
+    4,
+    1,
+    2,
+    3,
+    2,
+    2,
+    4,
+    4,
+    4,
+    1,
+    2,
+    4,
+    4,
+    3,
+    2,
+    4,
+    3,
+    4,
+    3,
+    4,
+    2,
+    2,
+    1,
+    2,
+    2,
+    2,
+    2,
+    1,
+    4,
+    2,
+    3,
+    3,
+    1,
+    2,
+    4,
+    3,
+    3,
+    2,
+    1,
+    4,
+    4,
+    4,
+    4,
+    4,
+    1,
+    4,
+    4,
+    1,
+    2,
+    1,
+    2,
+    4,
+    2,
+    1,
+    3,
+    1,
+    1,
+    1,
+    2,
+    1,
+    3,
+    1,
+    1,
+    2,
+    4,
+    2,
+    3,
+    3,
+    3,
+    4,
+    1,
+    1,
+    4,
+    4,
+    4,
+    4,
+    3,
+    1,
+    2,
+    1,
+    3,
+    3,
+    4,
+    2,
+    1,
+    2,
+    3,
+    2,
+    1,
+    3,
+    1,
+    3,
+    3,
+    2,
+    3,
+    2,
+    3,
+    2,
+    2,
+    2,
+    4,
+    2,
+    2,
+    4,
+    3,
+    1,
+    1,
+    3,
+    4,
+    3,
+    2,
+    3,
+    4,
+    3,
+    3,
+    1,
+    2,
+    1,
+    2,
+    4,
+    2,
+    3,
+    2,
+    4,
+    1,
+    4,
+    3,
+    1,
+    1,
+    4,
+    2,
+    4,
+    2,
+    4,
+    3,
+    1,
+    4,
+    4,
+    4,
+    1,
+    2,
+    2,
+    2,
+    1,
+    2,
+    4,
+    2,
+    4,
+    3,
+    2,
+    2,
+    1,
+    1,
+    1,
+    2,
+    4,
+    2,
+    2,
+    1,
+    3,
+    2,
+    3,
+    2,
+    3,
+    3,
+    4,
+    2,
+    1,
+    3,
+    4,
+    4,
+    2,
+    2,
+    1,
+    4,
+    2,
+    1,
+    2,
+    2,
+    2,
+    4,
+    1,
+    1,
+    3,
+    4,
+    1,
+    1,
+    2,
+    2,
+    3,
+    1,
+    1,
+    4,
+    1,
+    1,
+    4,
+    3,
+    2,
+    3,
+    4,
+    4,
+    2,
+    3,
+    2,
+    4,
+    2,
+    4,
+    1,
+    4,
+    4,
+    3,
+    1,
+    2,
+    4,
+    1,
+    2,
+    3,
+    1,
+    2,
+    3,
+    2,
+    3,
+    2,
+    4,
+    2,
+    1,
+    4,
+    4,
+    2,
+    2,
+    2,
+    4,
+    4,
+    3,
+    4,
+    2,
+    3,
+    3,
+    1,
+    3,
+    1,
+    3,
+    4,
+    4,
+    1,
+    4,
+    3,
+    3,
+    1,
+    1,
+    2,
+    1,
+    1,
+    3,
+    3,
+    1,
+    2,
+    3,
+    2,
+    4,
+    3,
+    4,
+    2,
+    4,
+    3,
+    1,
+    3,
+    1,
+    2,
+    4,
+    1,
+    3,
+    1,
+    1,
+    3,
+    1,
+    2,
+    1,
+    3,
+    1,
+    4,
+    1,
+    3,
+    4,
+    3,
+    2,
+    1,
+    2,
+    1,
+    2,
+    3,
+    1,
+    2,
+    2,
+    3,
+    3,
+    2,
+    3,
+    4,
+    2,
+    3,
+    3,
+    1,
+    3,
+    1,
+    1,
+    1,
+    2,
+    4,
+    2,
+    4,
+    1,
+    4,
+    4,
+    4,
+    3,
+    2,
+    2,
+    3,
+    2,
+    2,
+    4,
+    3,
+    1,
+    2,
+    1,
+    1,
+    3,
+    4,
+    2,
+    1,
+    1,
+    4,
+    3,
+    2,
+    3,
+    1,
+    4,
+    2,
+    2,
+    3,
+    4,
+    1,
+    3,
+    3,
+    3,
+    3,
+    2,
+    1,
+    3,
+    2,
+    3,
+    2,
+    1,
+    3,
+    4,
+    1,
+    4,
+    3,
+    2,
+    2,
+    1,
+    1,
+    3,
+    1,
+    2,
+    4,
+    1,
+    4,
+    1,
+    3,
+    3,
+    2,
+    1,
+    2,
+    4,
+    3,
+    4,
+    2,
+    3,
+    2,
+    1,
+    4,
+    2,
+    1,
+    2,
+    1,
+    1,
+    1,
+    2,
+    3,
+    1,
+    4,
+    4,
+    1,
+    1,
+    2,
+    4,
+    3,
+    1,
+    4,
+    1,
+    1,
+    1,
+    4,
+    3,
+    1,
+    3,
+    2,
+    2,
+    2,
+    4,
+    4,
+    4,
+    1,
+    4,
+    3,
+    1,
+    2,
+    1,
+    2,
+    3,
+    3,
+    3,
+    2,
+    1,
+    4,
+    1,
+    4,
+    3,
+    1,
+    2,
+    4,
+    3,
+    3,
+    4,
+    4,
+    4,
+    1,
+    2,
+    3,
+    1,
+    4,
+    1,
+    3,
+    4,
+    1,
+    4,
+    3,
+    4,
+    2,
+    2,
+    1,
+    1,
+    2,
+    3,
+    3,
+    2,
+    3,
+    1,
+    3,
+    2,
+    4,
+    4,
+    4,
+    1,
+    2,
+    1,
+    4,
+    4,
+    4,
+    3,
+    2,
+    4,
+    3,
+    4,
+    3,
+    1,
+    3,
+    1,
+    3,
+    3,
+    4,
+    1,
+    2,
+    1,
+    3,
+    3,
+    3,
+    1,
+    4,
+    4,
+    1,
+    3,
+    4,
+    3,
+    1,
+    3,
+    1,
+    1,
+    3,
+    2
+   ]
+  },
+  {
+   "id": 2,
+   "name": "walls",
+   "opacity": 1,
+   "visible": true,
+   "x": 0,
+   "y": 0,
+   "type": "tilelayer",
+   "width": 28,
+   "height": 21,
+   "data": [
+    7,
+    7,
+    7,
+    7,
+    7,
+    7,
+    7,
+    7,
+    7,
+    7,
+    7,
+    7,
+    7,
+    7,
+    7,
+    7,
+    7,
+    7,
+    7,
+    7,
+    7,
+    7,
+    7,
+    7,
+    7,
+    7,
+    7,
+    7,
+    7,
+    5,
+    6,
+    6,
+    6,
+    5,
+    6,
+    6,
+    5,
+    6,
+    5,
+    5,
+    5,
+    6,
+    6,
+    5,
+    6,
+    6,
+    5,
+    5,
+    5,
+    6,
+    6,
+    6,
+    6,
+    6,
+    6,
+    7,
+    7,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    7,
+    7,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    7,
+    7,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    7,
+    7,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    7,
+    7,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    7,
+    7,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    7,
+    7,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    7,
+    7,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    7,
+    7,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    7,
+    7,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    7,
+    7,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    7,
+    7,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    7,
+    7,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    7,
+    7,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    7,
+    7,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    7,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    7,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    7,
+    7,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    7,
+    7,
+    7,
+    7,
+    7,
+    7,
+    7,
+    7,
+    7,
+    7,
+    7,
+    7,
+    7,
+    7,
+    7,
+    7,
+    7,
+    7,
+    7,
+    7,
+    7,
+    7,
+    7,
+    7,
+    7,
+    7,
+    7,
+    7,
+    7
+   ]
+  },
+  {
+   "id": 3,
+   "name": "below",
+   "opacity": 1,
+   "visible": true,
+   "x": 0,
+   "y": 0,
+   "type": "objectgroup",
+   "draworder": "topdown",
+   "objects": []
+  },
+  {
+   "id": 4,
+   "name": "objects",
+   "opacity": 1,
+   "visible": true,
+   "x": 0,
+   "y": 0,
+   "type": "objectgroup",
+   "draworder": "topdown",
+   "objects": [
+    {
+     "id": 1,
+     "gid": 8,
+     "name": "layar_proyektor_besar",
+     "type": "board",
+     "width": 160,
+     "height": 88,
+     "rotation": 0,
+     "visible": true,
+     "x": 312,
+     "y": 140,
+     "properties": []
+    },
+    {
+     "id": 2,
+     "gid": 9,
+     "name": "podium_laptop",
+     "type": "teacher_desk",
+     "width": 28,
+     "height": 38,
+     "rotation": 0,
+     "visible": true,
+     "x": 112,
+     "y": 196,
+     "properties": [
+      {
+       "name": "role",
+       "type": "string",
+       "value": "dosen"
+      }
+     ]
+    },
+    {
+     "id": 5,
+     "gid": 10,
+     "name": "speaker_ganda",
+     "type": "decor",
+     "width": 26,
+     "height": 20,
+     "rotation": 0,
+     "visible": true,
+     "x": 71,
+     "y": 112,
+     "properties": []
+    },
+    {
+     "id": 6,
+     "gid": 10,
+     "name": "speaker_ganda",
+     "type": "decor",
+     "width": 26,
+     "height": 20,
+     "rotation": 0,
+     "visible": true,
+     "x": 687,
+     "y": 112,
+     "properties": []
+    },
+    {
+     "id": 7,
+     "gid": 11,
+     "name": "jam_oranye",
+     "type": "decor",
+     "width": 24,
+     "height": 25,
+     "rotation": 0,
+     "visible": true,
+     "x": 674,
+     "y": 56,
+     "properties": []
+    },
+    {
+     "id": 8,
+     "gid": 12,
+     "name": "ac",
+     "type": "decor",
+     "width": 52,
+     "height": 23,
+     "rotation": 0,
+     "visible": true,
+     "x": 114,
+     "y": 56,
+     "properties": []
+    },
+    {
+     "id": 9,
+     "gid": 13,
+     "name": "pintu_kelas",
+     "type": "decor",
+     "width": 27,
+     "height": 48,
+     "rotation": 0,
+     "visible": true,
+     "x": 0,
+     "y": 504,
+     "properties": []
+    },
+    {
+     "id": 10,
+     "gid": 14,
+     "name": "tanaman_a",
+     "type": "decor",
+     "width": 11,
+     "height": 16,
+     "rotation": 0,
+     "visible": true,
+     "x": 36,
+     "y": 560,
+     "properties": []
+    },
+    {
+     "id": 12,
+     "gid": 14,
+     "name": "tanaman_a",
+     "type": "decor",
+     "width": 11,
+     "height": 16,
+     "rotation": 0,
+     "visible": true,
+     "x": 736,
+     "y": 560,
+     "properties": []
+    },
+    {
+     "id": 14,
+     "gid": 15,
+     "name": "meja_komputer_nyala",
+     "type": "decor",
+     "width": 90,
+     "height": 42,
+     "rotation": 0,
+     "visible": true,
+     "x": 53,
+     "y": 280,
+     "properties": []
+    },
+    {
+     "id": 16,
+     "gid": 16,
+     "name": "kursi_putar",
+     "type": "seat",
+     "width": 24,
+     "height": 37,
+     "rotation": 0,
+     "visible": true,
+     "x": 58,
+     "y": 308,
+     "properties": [
+      {
+       "name": "seatId",
+       "type": "int",
+       "value": 1
+      },
+      {
+       "name": "row",
+       "type": "int",
+       "value": 1
+      },
+      {
+       "name": "col",
+       "type": "int",
+       "value": 1
+      }
+     ]
+    },
+    {
+     "id": 18,
+     "gid": 16,
+     "name": "kursi_putar",
+     "type": "seat",
+     "width": 24,
+     "height": 37,
+     "rotation": 0,
+     "visible": true,
+     "x": 114,
+     "y": 308,
+     "properties": [
+      {
+       "name": "seatId",
+       "type": "int",
+       "value": 2
+      },
+      {
+       "name": "row",
+       "type": "int",
+       "value": 1
+      },
+      {
+       "name": "col",
+       "type": "int",
+       "value": 2
+      }
+     ]
+    },
+    {
+     "id": 20,
+     "gid": 15,
+     "name": "meja_komputer_nyala",
+     "type": "decor",
+     "width": 90,
+     "height": 42,
+     "rotation": 0,
+     "visible": true,
+     "x": 165,
+     "y": 280,
+     "properties": []
+    },
+    {
+     "id": 22,
+     "gid": 16,
+     "name": "kursi_putar",
+     "type": "seat",
+     "width": 24,
+     "height": 37,
+     "rotation": 0,
+     "visible": true,
+     "x": 170,
+     "y": 308,
+     "properties": [
+      {
+       "name": "seatId",
+       "type": "int",
+       "value": 3
+      },
+      {
+       "name": "row",
+       "type": "int",
+       "value": 1
+      },
+      {
+       "name": "col",
+       "type": "int",
+       "value": 3
+      }
+     ]
+    },
+    {
+     "id": 24,
+     "gid": 16,
+     "name": "kursi_putar",
+     "type": "seat",
+     "width": 24,
+     "height": 37,
+     "rotation": 0,
+     "visible": true,
+     "x": 226,
+     "y": 308,
+     "properties": [
+      {
+       "name": "seatId",
+       "type": "int",
+       "value": 4
+      },
+      {
+       "name": "row",
+       "type": "int",
+       "value": 1
+      },
+      {
+       "name": "col",
+       "type": "int",
+       "value": 4
+      }
+     ]
+    },
+    {
+     "id": 26,
+     "gid": 15,
+     "name": "meja_komputer_nyala",
+     "type": "decor",
+     "width": 90,
+     "height": 42,
+     "rotation": 0,
+     "visible": true,
+     "x": 277,
+     "y": 280,
+     "properties": []
+    },
+    {
+     "id": 28,
+     "gid": 16,
+     "name": "kursi_putar",
+     "type": "seat",
+     "width": 24,
+     "height": 37,
+     "rotation": 0,
+     "visible": true,
+     "x": 282,
+     "y": 308,
+     "properties": [
+      {
+       "name": "seatId",
+       "type": "int",
+       "value": 5
+      },
+      {
+       "name": "row",
+       "type": "int",
+       "value": 1
+      },
+      {
+       "name": "col",
+       "type": "int",
+       "value": 5
+      }
+     ]
+    },
+    {
+     "id": 30,
+     "gid": 16,
+     "name": "kursi_putar",
+     "type": "seat",
+     "width": 24,
+     "height": 37,
+     "rotation": 0,
+     "visible": true,
+     "x": 338,
+     "y": 308,
+     "properties": [
+      {
+       "name": "seatId",
+       "type": "int",
+       "value": 6
+      },
+      {
+       "name": "row",
+       "type": "int",
+       "value": 1
+      },
+      {
+       "name": "col",
+       "type": "int",
+       "value": 6
+      }
+     ]
+    },
+    {
+     "id": 32,
+     "gid": 15,
+     "name": "meja_komputer_nyala",
+     "type": "decor",
+     "width": 90,
+     "height": 42,
+     "rotation": 0,
+     "visible": true,
+     "x": 417,
+     "y": 280,
+     "properties": []
+    },
+    {
+     "id": 34,
+     "gid": 16,
+     "name": "kursi_putar",
+     "type": "seat",
+     "width": 24,
+     "height": 37,
+     "rotation": 0,
+     "visible": true,
+     "x": 422,
+     "y": 308,
+     "properties": [
+      {
+       "name": "seatId",
+       "type": "int",
+       "value": 7
+      },
+      {
+       "name": "row",
+       "type": "int",
+       "value": 1
+      },
+      {
+       "name": "col",
+       "type": "int",
+       "value": 7
+      }
+     ]
+    },
+    {
+     "id": 36,
+     "gid": 16,
+     "name": "kursi_putar",
+     "type": "seat",
+     "width": 24,
+     "height": 37,
+     "rotation": 0,
+     "visible": true,
+     "x": 478,
+     "y": 308,
+     "properties": [
+      {
+       "name": "seatId",
+       "type": "int",
+       "value": 8
+      },
+      {
+       "name": "row",
+       "type": "int",
+       "value": 1
+      },
+      {
+       "name": "col",
+       "type": "int",
+       "value": 8
+      }
+     ]
+    },
+    {
+     "id": 38,
+     "gid": 15,
+     "name": "meja_komputer_nyala",
+     "type": "decor",
+     "width": 90,
+     "height": 42,
+     "rotation": 0,
+     "visible": true,
+     "x": 529,
+     "y": 280,
+     "properties": []
+    },
+    {
+     "id": 40,
+     "gid": 16,
+     "name": "kursi_putar",
+     "type": "seat",
+     "width": 24,
+     "height": 37,
+     "rotation": 0,
+     "visible": true,
+     "x": 534,
+     "y": 308,
+     "properties": [
+      {
+       "name": "seatId",
+       "type": "int",
+       "value": 9
+      },
+      {
+       "name": "row",
+       "type": "int",
+       "value": 1
+      },
+      {
+       "name": "col",
+       "type": "int",
+       "value": 9
+      }
+     ]
+    },
+    {
+     "id": 42,
+     "gid": 16,
+     "name": "kursi_putar",
+     "type": "seat",
+     "width": 24,
+     "height": 37,
+     "rotation": 0,
+     "visible": true,
+     "x": 590,
+     "y": 308,
+     "properties": [
+      {
+       "name": "seatId",
+       "type": "int",
+       "value": 10
+      },
+      {
+       "name": "row",
+       "type": "int",
+       "value": 1
+      },
+      {
+       "name": "col",
+       "type": "int",
+       "value": 10
+      }
+     ]
+    },
+    {
+     "id": 44,
+     "gid": 15,
+     "name": "meja_komputer_nyala",
+     "type": "decor",
+     "width": 90,
+     "height": 42,
+     "rotation": 0,
+     "visible": true,
+     "x": 641,
+     "y": 280,
+     "properties": []
+    },
+    {
+     "id": 46,
+     "gid": 16,
+     "name": "kursi_putar",
+     "type": "seat",
+     "width": 24,
+     "height": 37,
+     "rotation": 0,
+     "visible": true,
+     "x": 646,
+     "y": 308,
+     "properties": [
+      {
+       "name": "seatId",
+       "type": "int",
+       "value": 11
+      },
+      {
+       "name": "row",
+       "type": "int",
+       "value": 1
+      },
+      {
+       "name": "col",
+       "type": "int",
+       "value": 11
+      }
+     ]
+    },
+    {
+     "id": 48,
+     "gid": 16,
+     "name": "kursi_putar",
+     "type": "seat",
+     "width": 24,
+     "height": 37,
+     "rotation": 0,
+     "visible": true,
+     "x": 702,
+     "y": 308,
+     "properties": [
+      {
+       "name": "seatId",
+       "type": "int",
+       "value": 12
+      },
+      {
+       "name": "row",
+       "type": "int",
+       "value": 1
+      },
+      {
+       "name": "col",
+       "type": "int",
+       "value": 12
+      }
+     ]
+    },
+    {
+     "id": 50,
+     "gid": 15,
+     "name": "meja_komputer_nyala",
+     "type": "decor",
+     "width": 90,
+     "height": 42,
+     "rotation": 0,
+     "visible": true,
+     "x": 53,
+     "y": 336,
+     "properties": []
+    },
+    {
+     "id": 52,
+     "gid": 16,
+     "name": "kursi_putar",
+     "type": "seat",
+     "width": 24,
+     "height": 37,
+     "rotation": 0,
+     "visible": true,
+     "x": 58,
+     "y": 364,
+     "properties": [
+      {
+       "name": "seatId",
+       "type": "int",
+       "value": 13
+      },
+      {
+       "name": "row",
+       "type": "int",
+       "value": 2
+      },
+      {
+       "name": "col",
+       "type": "int",
+       "value": 1
+      }
+     ]
+    },
+    {
+     "id": 54,
+     "gid": 16,
+     "name": "kursi_putar",
+     "type": "seat",
+     "width": 24,
+     "height": 37,
+     "rotation": 0,
+     "visible": true,
+     "x": 114,
+     "y": 364,
+     "properties": [
+      {
+       "name": "seatId",
+       "type": "int",
+       "value": 14
+      },
+      {
+       "name": "row",
+       "type": "int",
+       "value": 2
+      },
+      {
+       "name": "col",
+       "type": "int",
+       "value": 2
+      }
+     ]
+    },
+    {
+     "id": 56,
+     "gid": 15,
+     "name": "meja_komputer_nyala",
+     "type": "decor",
+     "width": 90,
+     "height": 42,
+     "rotation": 0,
+     "visible": true,
+     "x": 165,
+     "y": 336,
+     "properties": []
+    },
+    {
+     "id": 58,
+     "gid": 16,
+     "name": "kursi_putar",
+     "type": "seat",
+     "width": 24,
+     "height": 37,
+     "rotation": 0,
+     "visible": true,
+     "x": 170,
+     "y": 364,
+     "properties": [
+      {
+       "name": "seatId",
+       "type": "int",
+       "value": 15
+      },
+      {
+       "name": "row",
+       "type": "int",
+       "value": 2
+      },
+      {
+       "name": "col",
+       "type": "int",
+       "value": 3
+      }
+     ]
+    },
+    {
+     "id": 60,
+     "gid": 16,
+     "name": "kursi_putar",
+     "type": "seat",
+     "width": 24,
+     "height": 37,
+     "rotation": 0,
+     "visible": true,
+     "x": 226,
+     "y": 364,
+     "properties": [
+      {
+       "name": "seatId",
+       "type": "int",
+       "value": 16
+      },
+      {
+       "name": "row",
+       "type": "int",
+       "value": 2
+      },
+      {
+       "name": "col",
+       "type": "int",
+       "value": 4
+      }
+     ]
+    },
+    {
+     "id": 62,
+     "gid": 15,
+     "name": "meja_komputer_nyala",
+     "type": "decor",
+     "width": 90,
+     "height": 42,
+     "rotation": 0,
+     "visible": true,
+     "x": 277,
+     "y": 336,
+     "properties": []
+    },
+    {
+     "id": 64,
+     "gid": 16,
+     "name": "kursi_putar",
+     "type": "seat",
+     "width": 24,
+     "height": 37,
+     "rotation": 0,
+     "visible": true,
+     "x": 282,
+     "y": 364,
+     "properties": [
+      {
+       "name": "seatId",
+       "type": "int",
+       "value": 17
+      },
+      {
+       "name": "row",
+       "type": "int",
+       "value": 2
+      },
+      {
+       "name": "col",
+       "type": "int",
+       "value": 5
+      }
+     ]
+    },
+    {
+     "id": 66,
+     "gid": 16,
+     "name": "kursi_putar",
+     "type": "seat",
+     "width": 24,
+     "height": 37,
+     "rotation": 0,
+     "visible": true,
+     "x": 338,
+     "y": 364,
+     "properties": [
+      {
+       "name": "seatId",
+       "type": "int",
+       "value": 18
+      },
+      {
+       "name": "row",
+       "type": "int",
+       "value": 2
+      },
+      {
+       "name": "col",
+       "type": "int",
+       "value": 6
+      }
+     ]
+    },
+    {
+     "id": 68,
+     "gid": 15,
+     "name": "meja_komputer_nyala",
+     "type": "decor",
+     "width": 90,
+     "height": 42,
+     "rotation": 0,
+     "visible": true,
+     "x": 417,
+     "y": 336,
+     "properties": []
+    },
+    {
+     "id": 70,
+     "gid": 16,
+     "name": "kursi_putar",
+     "type": "seat",
+     "width": 24,
+     "height": 37,
+     "rotation": 0,
+     "visible": true,
+     "x": 422,
+     "y": 364,
+     "properties": [
+      {
+       "name": "seatId",
+       "type": "int",
+       "value": 19
+      },
+      {
+       "name": "row",
+       "type": "int",
+       "value": 2
+      },
+      {
+       "name": "col",
+       "type": "int",
+       "value": 7
+      }
+     ]
+    },
+    {
+     "id": 72,
+     "gid": 16,
+     "name": "kursi_putar",
+     "type": "seat",
+     "width": 24,
+     "height": 37,
+     "rotation": 0,
+     "visible": true,
+     "x": 478,
+     "y": 364,
+     "properties": [
+      {
+       "name": "seatId",
+       "type": "int",
+       "value": 20
+      },
+      {
+       "name": "row",
+       "type": "int",
+       "value": 2
+      },
+      {
+       "name": "col",
+       "type": "int",
+       "value": 8
+      }
+     ]
+    },
+    {
+     "id": 74,
+     "gid": 15,
+     "name": "meja_komputer_nyala",
+     "type": "decor",
+     "width": 90,
+     "height": 42,
+     "rotation": 0,
+     "visible": true,
+     "x": 529,
+     "y": 336,
+     "properties": []
+    },
+    {
+     "id": 76,
+     "gid": 16,
+     "name": "kursi_putar",
+     "type": "seat",
+     "width": 24,
+     "height": 37,
+     "rotation": 0,
+     "visible": true,
+     "x": 534,
+     "y": 364,
+     "properties": [
+      {
+       "name": "seatId",
+       "type": "int",
+       "value": 21
+      },
+      {
+       "name": "row",
+       "type": "int",
+       "value": 2
+      },
+      {
+       "name": "col",
+       "type": "int",
+       "value": 9
+      }
+     ]
+    },
+    {
+     "id": 78,
+     "gid": 16,
+     "name": "kursi_putar",
+     "type": "seat",
+     "width": 24,
+     "height": 37,
+     "rotation": 0,
+     "visible": true,
+     "x": 590,
+     "y": 364,
+     "properties": [
+      {
+       "name": "seatId",
+       "type": "int",
+       "value": 22
+      },
+      {
+       "name": "row",
+       "type": "int",
+       "value": 2
+      },
+      {
+       "name": "col",
+       "type": "int",
+       "value": 10
+      }
+     ]
+    },
+    {
+     "id": 80,
+     "gid": 15,
+     "name": "meja_komputer_nyala",
+     "type": "decor",
+     "width": 90,
+     "height": 42,
+     "rotation": 0,
+     "visible": true,
+     "x": 641,
+     "y": 336,
+     "properties": []
+    },
+    {
+     "id": 82,
+     "gid": 16,
+     "name": "kursi_putar",
+     "type": "seat",
+     "width": 24,
+     "height": 37,
+     "rotation": 0,
+     "visible": true,
+     "x": 646,
+     "y": 364,
+     "properties": [
+      {
+       "name": "seatId",
+       "type": "int",
+       "value": 23
+      },
+      {
+       "name": "row",
+       "type": "int",
+       "value": 2
+      },
+      {
+       "name": "col",
+       "type": "int",
+       "value": 11
+      }
+     ]
+    },
+    {
+     "id": 84,
+     "gid": 16,
+     "name": "kursi_putar",
+     "type": "seat",
+     "width": 24,
+     "height": 37,
+     "rotation": 0,
+     "visible": true,
+     "x": 702,
+     "y": 364,
+     "properties": [
+      {
+       "name": "seatId",
+       "type": "int",
+       "value": 24
+      },
+      {
+       "name": "row",
+       "type": "int",
+       "value": 2
+      },
+      {
+       "name": "col",
+       "type": "int",
+       "value": 12
+      }
+     ]
+    },
+    {
+     "id": 86,
+     "gid": 15,
+     "name": "meja_komputer_nyala",
+     "type": "decor",
+     "width": 90,
+     "height": 42,
+     "rotation": 0,
+     "visible": true,
+     "x": 53,
+     "y": 392,
+     "properties": []
+    },
+    {
+     "id": 88,
+     "gid": 16,
+     "name": "kursi_putar",
+     "type": "seat",
+     "width": 24,
+     "height": 37,
+     "rotation": 0,
+     "visible": true,
+     "x": 58,
+     "y": 420,
+     "properties": [
+      {
+       "name": "seatId",
+       "type": "int",
+       "value": 25
+      },
+      {
+       "name": "row",
+       "type": "int",
+       "value": 3
+      },
+      {
+       "name": "col",
+       "type": "int",
+       "value": 1
+      }
+     ]
+    },
+    {
+     "id": 90,
+     "gid": 16,
+     "name": "kursi_putar",
+     "type": "seat",
+     "width": 24,
+     "height": 37,
+     "rotation": 0,
+     "visible": true,
+     "x": 114,
+     "y": 420,
+     "properties": [
+      {
+       "name": "seatId",
+       "type": "int",
+       "value": 26
+      },
+      {
+       "name": "row",
+       "type": "int",
+       "value": 3
+      },
+      {
+       "name": "col",
+       "type": "int",
+       "value": 2
+      }
+     ]
+    },
+    {
+     "id": 92,
+     "gid": 15,
+     "name": "meja_komputer_nyala",
+     "type": "decor",
+     "width": 90,
+     "height": 42,
+     "rotation": 0,
+     "visible": true,
+     "x": 165,
+     "y": 392,
+     "properties": []
+    },
+    {
+     "id": 94,
+     "gid": 16,
+     "name": "kursi_putar",
+     "type": "seat",
+     "width": 24,
+     "height": 37,
+     "rotation": 0,
+     "visible": true,
+     "x": 170,
+     "y": 420,
+     "properties": [
+      {
+       "name": "seatId",
+       "type": "int",
+       "value": 27
+      },
+      {
+       "name": "row",
+       "type": "int",
+       "value": 3
+      },
+      {
+       "name": "col",
+       "type": "int",
+       "value": 3
+      }
+     ]
+    },
+    {
+     "id": 96,
+     "gid": 16,
+     "name": "kursi_putar",
+     "type": "seat",
+     "width": 24,
+     "height": 37,
+     "rotation": 0,
+     "visible": true,
+     "x": 226,
+     "y": 420,
+     "properties": [
+      {
+       "name": "seatId",
+       "type": "int",
+       "value": 28
+      },
+      {
+       "name": "row",
+       "type": "int",
+       "value": 3
+      },
+      {
+       "name": "col",
+       "type": "int",
+       "value": 4
+      }
+     ]
+    },
+    {
+     "id": 98,
+     "gid": 15,
+     "name": "meja_komputer_nyala",
+     "type": "decor",
+     "width": 90,
+     "height": 42,
+     "rotation": 0,
+     "visible": true,
+     "x": 277,
+     "y": 392,
+     "properties": []
+    },
+    {
+     "id": 100,
+     "gid": 16,
+     "name": "kursi_putar",
+     "type": "seat",
+     "width": 24,
+     "height": 37,
+     "rotation": 0,
+     "visible": true,
+     "x": 282,
+     "y": 420,
+     "properties": [
+      {
+       "name": "seatId",
+       "type": "int",
+       "value": 29
+      },
+      {
+       "name": "row",
+       "type": "int",
+       "value": 3
+      },
+      {
+       "name": "col",
+       "type": "int",
+       "value": 5
+      }
+     ]
+    },
+    {
+     "id": 102,
+     "gid": 16,
+     "name": "kursi_putar",
+     "type": "seat",
+     "width": 24,
+     "height": 37,
+     "rotation": 0,
+     "visible": true,
+     "x": 338,
+     "y": 420,
+     "properties": [
+      {
+       "name": "seatId",
+       "type": "int",
+       "value": 30
+      },
+      {
+       "name": "row",
+       "type": "int",
+       "value": 3
+      },
+      {
+       "name": "col",
+       "type": "int",
+       "value": 6
+      }
+     ]
+    },
+    {
+     "id": 104,
+     "gid": 15,
+     "name": "meja_komputer_nyala",
+     "type": "decor",
+     "width": 90,
+     "height": 42,
+     "rotation": 0,
+     "visible": true,
+     "x": 417,
+     "y": 392,
+     "properties": []
+    },
+    {
+     "id": 106,
+     "gid": 16,
+     "name": "kursi_putar",
+     "type": "seat",
+     "width": 24,
+     "height": 37,
+     "rotation": 0,
+     "visible": true,
+     "x": 422,
+     "y": 420,
+     "properties": [
+      {
+       "name": "seatId",
+       "type": "int",
+       "value": 31
+      },
+      {
+       "name": "row",
+       "type": "int",
+       "value": 3
+      },
+      {
+       "name": "col",
+       "type": "int",
+       "value": 7
+      }
+     ]
+    },
+    {
+     "id": 108,
+     "gid": 16,
+     "name": "kursi_putar",
+     "type": "seat",
+     "width": 24,
+     "height": 37,
+     "rotation": 0,
+     "visible": true,
+     "x": 478,
+     "y": 420,
+     "properties": [
+      {
+       "name": "seatId",
+       "type": "int",
+       "value": 32
+      },
+      {
+       "name": "row",
+       "type": "int",
+       "value": 3
+      },
+      {
+       "name": "col",
+       "type": "int",
+       "value": 8
+      }
+     ]
+    },
+    {
+     "id": 110,
+     "gid": 15,
+     "name": "meja_komputer_nyala",
+     "type": "decor",
+     "width": 90,
+     "height": 42,
+     "rotation": 0,
+     "visible": true,
+     "x": 529,
+     "y": 392,
+     "properties": []
+    },
+    {
+     "id": 112,
+     "gid": 16,
+     "name": "kursi_putar",
+     "type": "seat",
+     "width": 24,
+     "height": 37,
+     "rotation": 0,
+     "visible": true,
+     "x": 534,
+     "y": 420,
+     "properties": [
+      {
+       "name": "seatId",
+       "type": "int",
+       "value": 33
+      },
+      {
+       "name": "row",
+       "type": "int",
+       "value": 3
+      },
+      {
+       "name": "col",
+       "type": "int",
+       "value": 9
+      }
+     ]
+    },
+    {
+     "id": 114,
+     "gid": 16,
+     "name": "kursi_putar",
+     "type": "seat",
+     "width": 24,
+     "height": 37,
+     "rotation": 0,
+     "visible": true,
+     "x": 590,
+     "y": 420,
+     "properties": [
+      {
+       "name": "seatId",
+       "type": "int",
+       "value": 34
+      },
+      {
+       "name": "row",
+       "type": "int",
+       "value": 3
+      },
+      {
+       "name": "col",
+       "type": "int",
+       "value": 10
+      }
+     ]
+    },
+    {
+     "id": 116,
+     "gid": 15,
+     "name": "meja_komputer_nyala",
+     "type": "decor",
+     "width": 90,
+     "height": 42,
+     "rotation": 0,
+     "visible": true,
+     "x": 641,
+     "y": 392,
+     "properties": []
+    },
+    {
+     "id": 118,
+     "gid": 16,
+     "name": "kursi_putar",
+     "type": "seat",
+     "width": 24,
+     "height": 37,
+     "rotation": 0,
+     "visible": true,
+     "x": 646,
+     "y": 420,
+     "properties": [
+      {
+       "name": "seatId",
+       "type": "int",
+       "value": 35
+      },
+      {
+       "name": "row",
+       "type": "int",
+       "value": 3
+      },
+      {
+       "name": "col",
+       "type": "int",
+       "value": 11
+      }
+     ]
+    },
+    {
+     "id": 120,
+     "gid": 16,
+     "name": "kursi_putar",
+     "type": "seat",
+     "width": 24,
+     "height": 37,
+     "rotation": 0,
+     "visible": true,
+     "x": 702,
+     "y": 420,
+     "properties": [
+      {
+       "name": "seatId",
+       "type": "int",
+       "value": 36
+      },
+      {
+       "name": "row",
+       "type": "int",
+       "value": 3
+      },
+      {
+       "name": "col",
+       "type": "int",
+       "value": 12
+      }
+     ]
+    },
+    {
+     "id": 122,
+     "gid": 15,
+     "name": "meja_komputer_nyala",
+     "type": "decor",
+     "width": 90,
+     "height": 42,
+     "rotation": 0,
+     "visible": true,
+     "x": 53,
+     "y": 448,
+     "properties": []
+    },
+    {
+     "id": 124,
+     "gid": 16,
+     "name": "kursi_putar",
+     "type": "seat",
+     "width": 24,
+     "height": 37,
+     "rotation": 0,
+     "visible": true,
+     "x": 58,
+     "y": 476,
+     "properties": [
+      {
+       "name": "seatId",
+       "type": "int",
+       "value": 37
+      },
+      {
+       "name": "row",
+       "type": "int",
+       "value": 4
+      },
+      {
+       "name": "col",
+       "type": "int",
+       "value": 1
+      }
+     ]
+    },
+    {
+     "id": 126,
+     "gid": 16,
+     "name": "kursi_putar",
+     "type": "seat",
+     "width": 24,
+     "height": 37,
+     "rotation": 0,
+     "visible": true,
+     "x": 114,
+     "y": 476,
+     "properties": [
+      {
+       "name": "seatId",
+       "type": "int",
+       "value": 38
+      },
+      {
+       "name": "row",
+       "type": "int",
+       "value": 4
+      },
+      {
+       "name": "col",
+       "type": "int",
+       "value": 2
+      }
+     ]
+    },
+    {
+     "id": 128,
+     "gid": 15,
+     "name": "meja_komputer_nyala",
+     "type": "decor",
+     "width": 90,
+     "height": 42,
+     "rotation": 0,
+     "visible": true,
+     "x": 165,
+     "y": 448,
+     "properties": []
+    },
+    {
+     "id": 130,
+     "gid": 16,
+     "name": "kursi_putar",
+     "type": "seat",
+     "width": 24,
+     "height": 37,
+     "rotation": 0,
+     "visible": true,
+     "x": 170,
+     "y": 476,
+     "properties": [
+      {
+       "name": "seatId",
+       "type": "int",
+       "value": 39
+      },
+      {
+       "name": "row",
+       "type": "int",
+       "value": 4
+      },
+      {
+       "name": "col",
+       "type": "int",
+       "value": 3
+      }
+     ]
+    },
+    {
+     "id": 132,
+     "gid": 16,
+     "name": "kursi_putar",
+     "type": "seat",
+     "width": 24,
+     "height": 37,
+     "rotation": 0,
+     "visible": true,
+     "x": 226,
+     "y": 476,
+     "properties": [
+      {
+       "name": "seatId",
+       "type": "int",
+       "value": 40
+      },
+      {
+       "name": "row",
+       "type": "int",
+       "value": 4
+      },
+      {
+       "name": "col",
+       "type": "int",
+       "value": 4
+      }
+     ]
+    },
+    {
+     "id": 134,
+     "gid": 15,
+     "name": "meja_komputer_nyala",
+     "type": "decor",
+     "width": 90,
+     "height": 42,
+     "rotation": 0,
+     "visible": true,
+     "x": 277,
+     "y": 448,
+     "properties": []
+    },
+    {
+     "id": 136,
+     "gid": 16,
+     "name": "kursi_putar",
+     "type": "seat",
+     "width": 24,
+     "height": 37,
+     "rotation": 0,
+     "visible": true,
+     "x": 282,
+     "y": 476,
+     "properties": [
+      {
+       "name": "seatId",
+       "type": "int",
+       "value": 41
+      },
+      {
+       "name": "row",
+       "type": "int",
+       "value": 4
+      },
+      {
+       "name": "col",
+       "type": "int",
+       "value": 5
+      }
+     ]
+    },
+    {
+     "id": 138,
+     "gid": 16,
+     "name": "kursi_putar",
+     "type": "seat",
+     "width": 24,
+     "height": 37,
+     "rotation": 0,
+     "visible": true,
+     "x": 338,
+     "y": 476,
+     "properties": [
+      {
+       "name": "seatId",
+       "type": "int",
+       "value": 42
+      },
+      {
+       "name": "row",
+       "type": "int",
+       "value": 4
+      },
+      {
+       "name": "col",
+       "type": "int",
+       "value": 6
+      }
+     ]
+    },
+    {
+     "id": 140,
+     "gid": 15,
+     "name": "meja_komputer_nyala",
+     "type": "decor",
+     "width": 90,
+     "height": 42,
+     "rotation": 0,
+     "visible": true,
+     "x": 417,
+     "y": 448,
+     "properties": []
+    },
+    {
+     "id": 142,
+     "gid": 16,
+     "name": "kursi_putar",
+     "type": "seat",
+     "width": 24,
+     "height": 37,
+     "rotation": 0,
+     "visible": true,
+     "x": 422,
+     "y": 476,
+     "properties": [
+      {
+       "name": "seatId",
+       "type": "int",
+       "value": 43
+      },
+      {
+       "name": "row",
+       "type": "int",
+       "value": 4
+      },
+      {
+       "name": "col",
+       "type": "int",
+       "value": 7
+      }
+     ]
+    },
+    {
+     "id": 144,
+     "gid": 16,
+     "name": "kursi_putar",
+     "type": "seat",
+     "width": 24,
+     "height": 37,
+     "rotation": 0,
+     "visible": true,
+     "x": 478,
+     "y": 476,
+     "properties": [
+      {
+       "name": "seatId",
+       "type": "int",
+       "value": 44
+      },
+      {
+       "name": "row",
+       "type": "int",
+       "value": 4
+      },
+      {
+       "name": "col",
+       "type": "int",
+       "value": 8
+      }
+     ]
+    },
+    {
+     "id": 146,
+     "gid": 15,
+     "name": "meja_komputer_nyala",
+     "type": "decor",
+     "width": 90,
+     "height": 42,
+     "rotation": 0,
+     "visible": true,
+     "x": 529,
+     "y": 448,
+     "properties": []
+    },
+    {
+     "id": 148,
+     "gid": 16,
+     "name": "kursi_putar",
+     "type": "seat",
+     "width": 24,
+     "height": 37,
+     "rotation": 0,
+     "visible": true,
+     "x": 534,
+     "y": 476,
+     "properties": [
+      {
+       "name": "seatId",
+       "type": "int",
+       "value": 45
+      },
+      {
+       "name": "row",
+       "type": "int",
+       "value": 4
+      },
+      {
+       "name": "col",
+       "type": "int",
+       "value": 9
+      }
+     ]
+    },
+    {
+     "id": 150,
+     "gid": 16,
+     "name": "kursi_putar",
+     "type": "seat",
+     "width": 24,
+     "height": 37,
+     "rotation": 0,
+     "visible": true,
+     "x": 590,
+     "y": 476,
+     "properties": [
+      {
+       "name": "seatId",
+       "type": "int",
+       "value": 46
+      },
+      {
+       "name": "row",
+       "type": "int",
+       "value": 4
+      },
+      {
+       "name": "col",
+       "type": "int",
+       "value": 10
+      }
+     ]
+    },
+    {
+     "id": 152,
+     "gid": 15,
+     "name": "meja_komputer_nyala",
+     "type": "decor",
+     "width": 90,
+     "height": 42,
+     "rotation": 0,
+     "visible": true,
+     "x": 641,
+     "y": 448,
+     "properties": []
+    },
+    {
+     "id": 154,
+     "gid": 16,
+     "name": "kursi_putar",
+     "type": "seat",
+     "width": 24,
+     "height": 37,
+     "rotation": 0,
+     "visible": true,
+     "x": 646,
+     "y": 476,
+     "properties": [
+      {
+       "name": "seatId",
+       "type": "int",
+       "value": 47
+      },
+      {
+       "name": "row",
+       "type": "int",
+       "value": 4
+      },
+      {
+       "name": "col",
+       "type": "int",
+       "value": 11
+      }
+     ]
+    },
+    {
+     "id": 156,
+     "gid": 16,
+     "name": "kursi_putar",
+     "type": "seat",
+     "width": 24,
+     "height": 37,
+     "rotation": 0,
+     "visible": true,
+     "x": 702,
+     "y": 476,
+     "properties": [
+      {
+       "name": "seatId",
+       "type": "int",
+       "value": 48
+      },
+      {
+       "name": "row",
+       "type": "int",
+       "value": 4
+      },
+      {
+       "name": "col",
+       "type": "int",
+       "value": 12
+      }
+     ]
+    },
+    {
+     "id": 158,
+     "gid": 15,
+     "name": "meja_komputer_nyala",
+     "type": "decor",
+     "width": 90,
+     "height": 42,
+     "rotation": 0,
+     "visible": true,
+     "x": 53,
+     "y": 504,
+     "properties": []
+    },
+    {
+     "id": 160,
+     "gid": 16,
+     "name": "kursi_putar",
+     "type": "seat",
+     "width": 24,
+     "height": 37,
+     "rotation": 0,
+     "visible": true,
+     "x": 58,
+     "y": 532,
+     "properties": [
+      {
+       "name": "seatId",
+       "type": "int",
+       "value": 49
+      },
+      {
+       "name": "row",
+       "type": "int",
+       "value": 5
+      },
+      {
+       "name": "col",
+       "type": "int",
+       "value": 1
+      }
+     ]
+    },
+    {
+     "id": 162,
+     "gid": 16,
+     "name": "kursi_putar",
+     "type": "seat",
+     "width": 24,
+     "height": 37,
+     "rotation": 0,
+     "visible": true,
+     "x": 114,
+     "y": 532,
+     "properties": [
+      {
+       "name": "seatId",
+       "type": "int",
+       "value": 50
+      },
+      {
+       "name": "row",
+       "type": "int",
+       "value": 5
+      },
+      {
+       "name": "col",
+       "type": "int",
+       "value": 2
+      }
+     ]
+    },
+    {
+     "id": 164,
+     "gid": 15,
+     "name": "meja_komputer_nyala",
+     "type": "decor",
+     "width": 90,
+     "height": 42,
+     "rotation": 0,
+     "visible": true,
+     "x": 165,
+     "y": 504,
+     "properties": []
+    },
+    {
+     "id": 166,
+     "gid": 16,
+     "name": "kursi_putar",
+     "type": "seat",
+     "width": 24,
+     "height": 37,
+     "rotation": 0,
+     "visible": true,
+     "x": 170,
+     "y": 532,
+     "properties": [
+      {
+       "name": "seatId",
+       "type": "int",
+       "value": 51
+      },
+      {
+       "name": "row",
+       "type": "int",
+       "value": 5
+      },
+      {
+       "name": "col",
+       "type": "int",
+       "value": 3
+      }
+     ]
+    },
+    {
+     "id": 168,
+     "gid": 16,
+     "name": "kursi_putar",
+     "type": "seat",
+     "width": 24,
+     "height": 37,
+     "rotation": 0,
+     "visible": true,
+     "x": 226,
+     "y": 532,
+     "properties": [
+      {
+       "name": "seatId",
+       "type": "int",
+       "value": 52
+      },
+      {
+       "name": "row",
+       "type": "int",
+       "value": 5
+      },
+      {
+       "name": "col",
+       "type": "int",
+       "value": 4
+      }
+     ]
+    },
+    {
+     "id": 170,
+     "gid": 15,
+     "name": "meja_komputer_nyala",
+     "type": "decor",
+     "width": 90,
+     "height": 42,
+     "rotation": 0,
+     "visible": true,
+     "x": 277,
+     "y": 504,
+     "properties": []
+    },
+    {
+     "id": 172,
+     "gid": 16,
+     "name": "kursi_putar",
+     "type": "seat",
+     "width": 24,
+     "height": 37,
+     "rotation": 0,
+     "visible": true,
+     "x": 282,
+     "y": 532,
+     "properties": [
+      {
+       "name": "seatId",
+       "type": "int",
+       "value": 53
+      },
+      {
+       "name": "row",
+       "type": "int",
+       "value": 5
+      },
+      {
+       "name": "col",
+       "type": "int",
+       "value": 5
+      }
+     ]
+    },
+    {
+     "id": 174,
+     "gid": 16,
+     "name": "kursi_putar",
+     "type": "seat",
+     "width": 24,
+     "height": 37,
+     "rotation": 0,
+     "visible": true,
+     "x": 338,
+     "y": 532,
+     "properties": [
+      {
+       "name": "seatId",
+       "type": "int",
+       "value": 54
+      },
+      {
+       "name": "row",
+       "type": "int",
+       "value": 5
+      },
+      {
+       "name": "col",
+       "type": "int",
+       "value": 6
+      }
+     ]
+    },
+    {
+     "id": 176,
+     "gid": 15,
+     "name": "meja_komputer_nyala",
+     "type": "decor",
+     "width": 90,
+     "height": 42,
+     "rotation": 0,
+     "visible": true,
+     "x": 417,
+     "y": 504,
+     "properties": []
+    },
+    {
+     "id": 178,
+     "gid": 16,
+     "name": "kursi_putar",
+     "type": "seat",
+     "width": 24,
+     "height": 37,
+     "rotation": 0,
+     "visible": true,
+     "x": 422,
+     "y": 532,
+     "properties": [
+      {
+       "name": "seatId",
+       "type": "int",
+       "value": 55
+      },
+      {
+       "name": "row",
+       "type": "int",
+       "value": 5
+      },
+      {
+       "name": "col",
+       "type": "int",
+       "value": 7
+      }
+     ]
+    },
+    {
+     "id": 180,
+     "gid": 16,
+     "name": "kursi_putar",
+     "type": "seat",
+     "width": 24,
+     "height": 37,
+     "rotation": 0,
+     "visible": true,
+     "x": 478,
+     "y": 532,
+     "properties": [
+      {
+       "name": "seatId",
+       "type": "int",
+       "value": 56
+      },
+      {
+       "name": "row",
+       "type": "int",
+       "value": 5
+      },
+      {
+       "name": "col",
+       "type": "int",
+       "value": 8
+      }
+     ]
+    },
+    {
+     "id": 182,
+     "gid": 15,
+     "name": "meja_komputer_nyala",
+     "type": "decor",
+     "width": 90,
+     "height": 42,
+     "rotation": 0,
+     "visible": true,
+     "x": 529,
+     "y": 504,
+     "properties": []
+    },
+    {
+     "id": 184,
+     "gid": 16,
+     "name": "kursi_putar",
+     "type": "seat",
+     "width": 24,
+     "height": 37,
+     "rotation": 0,
+     "visible": true,
+     "x": 534,
+     "y": 532,
+     "properties": [
+      {
+       "name": "seatId",
+       "type": "int",
+       "value": 57
+      },
+      {
+       "name": "row",
+       "type": "int",
+       "value": 5
+      },
+      {
+       "name": "col",
+       "type": "int",
+       "value": 9
+      }
+     ]
+    },
+    {
+     "id": 186,
+     "gid": 16,
+     "name": "kursi_putar",
+     "type": "seat",
+     "width": 24,
+     "height": 37,
+     "rotation": 0,
+     "visible": true,
+     "x": 590,
+     "y": 532,
+     "properties": [
+      {
+       "name": "seatId",
+       "type": "int",
+       "value": 58
+      },
+      {
+       "name": "row",
+       "type": "int",
+       "value": 5
+      },
+      {
+       "name": "col",
+       "type": "int",
+       "value": 10
+      }
+     ]
+    },
+    {
+     "id": 188,
+     "gid": 15,
+     "name": "meja_komputer_nyala",
+     "type": "decor",
+     "width": 90,
+     "height": 42,
+     "rotation": 0,
+     "visible": true,
+     "x": 641,
+     "y": 504,
+     "properties": []
+    },
+    {
+     "id": 190,
+     "gid": 16,
+     "name": "kursi_putar",
+     "type": "seat",
+     "width": 24,
+     "height": 37,
+     "rotation": 0,
+     "visible": true,
+     "x": 646,
+     "y": 532,
+     "properties": [
+      {
+       "name": "seatId",
+       "type": "int",
+       "value": 59
+      },
+      {
+       "name": "row",
+       "type": "int",
+       "value": 5
+      },
+      {
+       "name": "col",
+       "type": "int",
+       "value": 11
+      }
+     ]
+    },
+    {
+     "id": 192,
+     "gid": 16,
+     "name": "kursi_putar",
+     "type": "seat",
+     "width": 24,
+     "height": 37,
+     "rotation": 0,
+     "visible": true,
+     "x": 702,
+     "y": 532,
+     "properties": [
+      {
+       "name": "seatId",
+       "type": "int",
+       "value": 60
+      },
+      {
+       "name": "row",
+       "type": "int",
+       "value": 5
+      },
+      {
+       "name": "col",
+       "type": "int",
+       "value": 12
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": 5,
+   "name": "above",
+   "opacity": 1,
+   "visible": true,
+   "x": 0,
+   "y": 0,
+   "type": "objectgroup",
+   "draworder": "topdown",
+   "objects": []
+  },
+  {
+   "id": 6,
+   "name": "collision",
+   "opacity": 1,
+   "visible": true,
+   "x": 0,
+   "y": 0,
+   "type": "objectgroup",
+   "draworder": "topdown",
+   "objects": [
+    {
+     "id": 3,
+     "name": "podium_laptop",
+     "type": "collision",
+     "x": 112,
+     "y": 168,
+     "width": 28,
+     "height": 28,
+     "rotation": 0,
+     "visible": true
+    },
+    {
+     "id": 11,
+     "name": "tanaman_a",
+     "type": "collision",
+     "x": 28,
+     "y": 532,
+     "width": 28,
+     "height": 28,
+     "rotation": 0,
+     "visible": true
+    },
+    {
+     "id": 13,
+     "name": "tanaman_a",
+     "type": "collision",
+     "x": 728,
+     "y": 532,
+     "width": 28,
+     "height": 28,
+     "rotation": 0,
+     "visible": true
+    },
+    {
+     "id": 15,
+     "name": "meja_komputer_nyala",
+     "type": "collision",
+     "x": 56,
+     "y": 252,
+     "width": 84,
+     "height": 28,
+     "rotation": 0,
+     "visible": true
+    },
+    {
+     "id": 21,
+     "name": "meja_komputer_nyala",
+     "type": "collision",
+     "x": 168,
+     "y": 252,
+     "width": 84,
+     "height": 28,
+     "rotation": 0,
+     "visible": true
+    },
+    {
+     "id": 27,
+     "name": "meja_komputer_nyala",
+     "type": "collision",
+     "x": 280,
+     "y": 252,
+     "width": 84,
+     "height": 28,
+     "rotation": 0,
+     "visible": true
+    },
+    {
+     "id": 33,
+     "name": "meja_komputer_nyala",
+     "type": "collision",
+     "x": 420,
+     "y": 252,
+     "width": 84,
+     "height": 28,
+     "rotation": 0,
+     "visible": true
+    },
+    {
+     "id": 39,
+     "name": "meja_komputer_nyala",
+     "type": "collision",
+     "x": 532,
+     "y": 252,
+     "width": 84,
+     "height": 28,
+     "rotation": 0,
+     "visible": true
+    },
+    {
+     "id": 45,
+     "name": "meja_komputer_nyala",
+     "type": "collision",
+     "x": 644,
+     "y": 252,
+     "width": 84,
+     "height": 28,
+     "rotation": 0,
+     "visible": true
+    },
+    {
+     "id": 51,
+     "name": "meja_komputer_nyala",
+     "type": "collision",
+     "x": 56,
+     "y": 308,
+     "width": 84,
+     "height": 28,
+     "rotation": 0,
+     "visible": true
+    },
+    {
+     "id": 57,
+     "name": "meja_komputer_nyala",
+     "type": "collision",
+     "x": 168,
+     "y": 308,
+     "width": 84,
+     "height": 28,
+     "rotation": 0,
+     "visible": true
+    },
+    {
+     "id": 63,
+     "name": "meja_komputer_nyala",
+     "type": "collision",
+     "x": 280,
+     "y": 308,
+     "width": 84,
+     "height": 28,
+     "rotation": 0,
+     "visible": true
+    },
+    {
+     "id": 69,
+     "name": "meja_komputer_nyala",
+     "type": "collision",
+     "x": 420,
+     "y": 308,
+     "width": 84,
+     "height": 28,
+     "rotation": 0,
+     "visible": true
+    },
+    {
+     "id": 75,
+     "name": "meja_komputer_nyala",
+     "type": "collision",
+     "x": 532,
+     "y": 308,
+     "width": 84,
+     "height": 28,
+     "rotation": 0,
+     "visible": true
+    },
+    {
+     "id": 81,
+     "name": "meja_komputer_nyala",
+     "type": "collision",
+     "x": 644,
+     "y": 308,
+     "width": 84,
+     "height": 28,
+     "rotation": 0,
+     "visible": true
+    },
+    {
+     "id": 87,
+     "name": "meja_komputer_nyala",
+     "type": "collision",
+     "x": 56,
+     "y": 364,
+     "width": 84,
+     "height": 28,
+     "rotation": 0,
+     "visible": true
+    },
+    {
+     "id": 93,
+     "name": "meja_komputer_nyala",
+     "type": "collision",
+     "x": 168,
+     "y": 364,
+     "width": 84,
+     "height": 28,
+     "rotation": 0,
+     "visible": true
+    },
+    {
+     "id": 99,
+     "name": "meja_komputer_nyala",
+     "type": "collision",
+     "x": 280,
+     "y": 364,
+     "width": 84,
+     "height": 28,
+     "rotation": 0,
+     "visible": true
+    },
+    {
+     "id": 105,
+     "name": "meja_komputer_nyala",
+     "type": "collision",
+     "x": 420,
+     "y": 364,
+     "width": 84,
+     "height": 28,
+     "rotation": 0,
+     "visible": true
+    },
+    {
+     "id": 111,
+     "name": "meja_komputer_nyala",
+     "type": "collision",
+     "x": 532,
+     "y": 364,
+     "width": 84,
+     "height": 28,
+     "rotation": 0,
+     "visible": true
+    },
+    {
+     "id": 117,
+     "name": "meja_komputer_nyala",
+     "type": "collision",
+     "x": 644,
+     "y": 364,
+     "width": 84,
+     "height": 28,
+     "rotation": 0,
+     "visible": true
+    },
+    {
+     "id": 123,
+     "name": "meja_komputer_nyala",
+     "type": "collision",
+     "x": 56,
+     "y": 420,
+     "width": 84,
+     "height": 28,
+     "rotation": 0,
+     "visible": true
+    },
+    {
+     "id": 129,
+     "name": "meja_komputer_nyala",
+     "type": "collision",
+     "x": 168,
+     "y": 420,
+     "width": 84,
+     "height": 28,
+     "rotation": 0,
+     "visible": true
+    },
+    {
+     "id": 135,
+     "name": "meja_komputer_nyala",
+     "type": "collision",
+     "x": 280,
+     "y": 420,
+     "width": 84,
+     "height": 28,
+     "rotation": 0,
+     "visible": true
+    },
+    {
+     "id": 141,
+     "name": "meja_komputer_nyala",
+     "type": "collision",
+     "x": 420,
+     "y": 420,
+     "width": 84,
+     "height": 28,
+     "rotation": 0,
+     "visible": true
+    },
+    {
+     "id": 147,
+     "name": "meja_komputer_nyala",
+     "type": "collision",
+     "x": 532,
+     "y": 420,
+     "width": 84,
+     "height": 28,
+     "rotation": 0,
+     "visible": true
+    },
+    {
+     "id": 153,
+     "name": "meja_komputer_nyala",
+     "type": "collision",
+     "x": 644,
+     "y": 420,
+     "width": 84,
+     "height": 28,
+     "rotation": 0,
+     "visible": true
+    },
+    {
+     "id": 159,
+     "name": "meja_komputer_nyala",
+     "type": "collision",
+     "x": 56,
+     "y": 476,
+     "width": 84,
+     "height": 28,
+     "rotation": 0,
+     "visible": true
+    },
+    {
+     "id": 165,
+     "name": "meja_komputer_nyala",
+     "type": "collision",
+     "x": 168,
+     "y": 476,
+     "width": 84,
+     "height": 28,
+     "rotation": 0,
+     "visible": true
+    },
+    {
+     "id": 171,
+     "name": "meja_komputer_nyala",
+     "type": "collision",
+     "x": 280,
+     "y": 476,
+     "width": 84,
+     "height": 28,
+     "rotation": 0,
+     "visible": true
+    },
+    {
+     "id": 177,
+     "name": "meja_komputer_nyala",
+     "type": "collision",
+     "x": 420,
+     "y": 476,
+     "width": 84,
+     "height": 28,
+     "rotation": 0,
+     "visible": true
+    },
+    {
+     "id": 183,
+     "name": "meja_komputer_nyala",
+     "type": "collision",
+     "x": 532,
+     "y": 476,
+     "width": 84,
+     "height": 28,
+     "rotation": 0,
+     "visible": true
+    },
+    {
+     "id": 189,
+     "name": "meja_komputer_nyala",
+     "type": "collision",
+     "x": 644,
+     "y": 476,
+     "width": 84,
+     "height": 28,
+     "rotation": 0,
+     "visible": true
+    },
+    {
+     "id": 194,
+     "name": "dinding",
+     "type": "collision",
+     "x": 0,
+     "y": 0,
+     "width": 784,
+     "height": 56,
+     "rotation": 0,
+     "visible": true
+    },
+    {
+     "id": 195,
+     "name": "dinding",
+     "type": "collision",
+     "x": 0,
+     "y": 56,
+     "width": 28,
+     "height": 420,
+     "rotation": 0,
+     "visible": true
+    },
+    {
+     "id": 196,
+     "name": "dinding",
+     "type": "collision",
+     "x": 0,
+     "y": 532,
+     "width": 28,
+     "height": 28,
+     "rotation": 0,
+     "visible": true
+    },
+    {
+     "id": 197,
+     "name": "dinding",
+     "type": "collision",
+     "x": 756,
+     "y": 56,
+     "width": 28,
+     "height": 504,
+     "rotation": 0,
+     "visible": true
+    },
+    {
+     "id": 198,
+     "name": "dinding",
+     "type": "collision",
+     "x": 0,
+     "y": 560,
+     "width": 784,
+     "height": 28,
+     "rotation": 0,
+     "visible": true
+    }
+   ]
+  },
+  {
+   "id": 7,
+   "name": "interact",
+   "opacity": 1,
+   "visible": true,
+   "x": 0,
+   "y": 0,
+   "type": "objectgroup",
+   "draworder": "topdown",
+   "objects": [
+    {
+     "id": 4,
+     "name": "podium",
+     "type": "teacher_desk",
+     "x": 112,
+     "y": 196,
+     "width": 28,
+     "height": 28,
+     "rotation": 0,
+     "visible": true,
+     "properties": [
+      {
+       "name": "role",
+       "type": "string",
+       "value": "dosen"
+      }
+     ]
+    },
+    {
+     "id": 17,
+     "name": "kursi_1",
+     "type": "seat",
+     "x": 56,
+     "y": 280,
+     "width": 28,
+     "height": 28,
+     "rotation": 0,
+     "visible": true,
+     "properties": [
+      {
+       "name": "seatId",
+       "type": "int",
+       "value": 1
+      },
+      {
+       "name": "row",
+       "type": "int",
+       "value": 1
+      },
+      {
+       "name": "col",
+       "type": "int",
+       "value": 1
+      }
+     ]
+    },
+    {
+     "id": 19,
+     "name": "kursi_2",
+     "type": "seat",
+     "x": 112,
+     "y": 280,
+     "width": 28,
+     "height": 28,
+     "rotation": 0,
+     "visible": true,
+     "properties": [
+      {
+       "name": "seatId",
+       "type": "int",
+       "value": 2
+      },
+      {
+       "name": "row",
+       "type": "int",
+       "value": 1
+      },
+      {
+       "name": "col",
+       "type": "int",
+       "value": 2
+      }
+     ]
+    },
+    {
+     "id": 23,
+     "name": "kursi_3",
+     "type": "seat",
+     "x": 168,
+     "y": 280,
+     "width": 28,
+     "height": 28,
+     "rotation": 0,
+     "visible": true,
+     "properties": [
+      {
+       "name": "seatId",
+       "type": "int",
+       "value": 3
+      },
+      {
+       "name": "row",
+       "type": "int",
+       "value": 1
+      },
+      {
+       "name": "col",
+       "type": "int",
+       "value": 3
+      }
+     ]
+    },
+    {
+     "id": 25,
+     "name": "kursi_4",
+     "type": "seat",
+     "x": 224,
+     "y": 280,
+     "width": 28,
+     "height": 28,
+     "rotation": 0,
+     "visible": true,
+     "properties": [
+      {
+       "name": "seatId",
+       "type": "int",
+       "value": 4
+      },
+      {
+       "name": "row",
+       "type": "int",
+       "value": 1
+      },
+      {
+       "name": "col",
+       "type": "int",
+       "value": 4
+      }
+     ]
+    },
+    {
+     "id": 29,
+     "name": "kursi_5",
+     "type": "seat",
+     "x": 280,
+     "y": 280,
+     "width": 28,
+     "height": 28,
+     "rotation": 0,
+     "visible": true,
+     "properties": [
+      {
+       "name": "seatId",
+       "type": "int",
+       "value": 5
+      },
+      {
+       "name": "row",
+       "type": "int",
+       "value": 1
+      },
+      {
+       "name": "col",
+       "type": "int",
+       "value": 5
+      }
+     ]
+    },
+    {
+     "id": 31,
+     "name": "kursi_6",
+     "type": "seat",
+     "x": 336,
+     "y": 280,
+     "width": 28,
+     "height": 28,
+     "rotation": 0,
+     "visible": true,
+     "properties": [
+      {
+       "name": "seatId",
+       "type": "int",
+       "value": 6
+      },
+      {
+       "name": "row",
+       "type": "int",
+       "value": 1
+      },
+      {
+       "name": "col",
+       "type": "int",
+       "value": 6
+      }
+     ]
+    },
+    {
+     "id": 35,
+     "name": "kursi_7",
+     "type": "seat",
+     "x": 420,
+     "y": 280,
+     "width": 28,
+     "height": 28,
+     "rotation": 0,
+     "visible": true,
+     "properties": [
+      {
+       "name": "seatId",
+       "type": "int",
+       "value": 7
+      },
+      {
+       "name": "row",
+       "type": "int",
+       "value": 1
+      },
+      {
+       "name": "col",
+       "type": "int",
+       "value": 7
+      }
+     ]
+    },
+    {
+     "id": 37,
+     "name": "kursi_8",
+     "type": "seat",
+     "x": 476,
+     "y": 280,
+     "width": 28,
+     "height": 28,
+     "rotation": 0,
+     "visible": true,
+     "properties": [
+      {
+       "name": "seatId",
+       "type": "int",
+       "value": 8
+      },
+      {
+       "name": "row",
+       "type": "int",
+       "value": 1
+      },
+      {
+       "name": "col",
+       "type": "int",
+       "value": 8
+      }
+     ]
+    },
+    {
+     "id": 41,
+     "name": "kursi_9",
+     "type": "seat",
+     "x": 532,
+     "y": 280,
+     "width": 28,
+     "height": 28,
+     "rotation": 0,
+     "visible": true,
+     "properties": [
+      {
+       "name": "seatId",
+       "type": "int",
+       "value": 9
+      },
+      {
+       "name": "row",
+       "type": "int",
+       "value": 1
+      },
+      {
+       "name": "col",
+       "type": "int",
+       "value": 9
+      }
+     ]
+    },
+    {
+     "id": 43,
+     "name": "kursi_10",
+     "type": "seat",
+     "x": 588,
+     "y": 280,
+     "width": 28,
+     "height": 28,
+     "rotation": 0,
+     "visible": true,
+     "properties": [
+      {
+       "name": "seatId",
+       "type": "int",
+       "value": 10
+      },
+      {
+       "name": "row",
+       "type": "int",
+       "value": 1
+      },
+      {
+       "name": "col",
+       "type": "int",
+       "value": 10
+      }
+     ]
+    },
+    {
+     "id": 47,
+     "name": "kursi_11",
+     "type": "seat",
+     "x": 644,
+     "y": 280,
+     "width": 28,
+     "height": 28,
+     "rotation": 0,
+     "visible": true,
+     "properties": [
+      {
+       "name": "seatId",
+       "type": "int",
+       "value": 11
+      },
+      {
+       "name": "row",
+       "type": "int",
+       "value": 1
+      },
+      {
+       "name": "col",
+       "type": "int",
+       "value": 11
+      }
+     ]
+    },
+    {
+     "id": 49,
+     "name": "kursi_12",
+     "type": "seat",
+     "x": 700,
+     "y": 280,
+     "width": 28,
+     "height": 28,
+     "rotation": 0,
+     "visible": true,
+     "properties": [
+      {
+       "name": "seatId",
+       "type": "int",
+       "value": 12
+      },
+      {
+       "name": "row",
+       "type": "int",
+       "value": 1
+      },
+      {
+       "name": "col",
+       "type": "int",
+       "value": 12
+      }
+     ]
+    },
+    {
+     "id": 53,
+     "name": "kursi_13",
+     "type": "seat",
+     "x": 56,
+     "y": 336,
+     "width": 28,
+     "height": 28,
+     "rotation": 0,
+     "visible": true,
+     "properties": [
+      {
+       "name": "seatId",
+       "type": "int",
+       "value": 13
+      },
+      {
+       "name": "row",
+       "type": "int",
+       "value": 2
+      },
+      {
+       "name": "col",
+       "type": "int",
+       "value": 1
+      }
+     ]
+    },
+    {
+     "id": 55,
+     "name": "kursi_14",
+     "type": "seat",
+     "x": 112,
+     "y": 336,
+     "width": 28,
+     "height": 28,
+     "rotation": 0,
+     "visible": true,
+     "properties": [
+      {
+       "name": "seatId",
+       "type": "int",
+       "value": 14
+      },
+      {
+       "name": "row",
+       "type": "int",
+       "value": 2
+      },
+      {
+       "name": "col",
+       "type": "int",
+       "value": 2
+      }
+     ]
+    },
+    {
+     "id": 59,
+     "name": "kursi_15",
+     "type": "seat",
+     "x": 168,
+     "y": 336,
+     "width": 28,
+     "height": 28,
+     "rotation": 0,
+     "visible": true,
+     "properties": [
+      {
+       "name": "seatId",
+       "type": "int",
+       "value": 15
+      },
+      {
+       "name": "row",
+       "type": "int",
+       "value": 2
+      },
+      {
+       "name": "col",
+       "type": "int",
+       "value": 3
+      }
+     ]
+    },
+    {
+     "id": 61,
+     "name": "kursi_16",
+     "type": "seat",
+     "x": 224,
+     "y": 336,
+     "width": 28,
+     "height": 28,
+     "rotation": 0,
+     "visible": true,
+     "properties": [
+      {
+       "name": "seatId",
+       "type": "int",
+       "value": 16
+      },
+      {
+       "name": "row",
+       "type": "int",
+       "value": 2
+      },
+      {
+       "name": "col",
+       "type": "int",
+       "value": 4
+      }
+     ]
+    },
+    {
+     "id": 65,
+     "name": "kursi_17",
+     "type": "seat",
+     "x": 280,
+     "y": 336,
+     "width": 28,
+     "height": 28,
+     "rotation": 0,
+     "visible": true,
+     "properties": [
+      {
+       "name": "seatId",
+       "type": "int",
+       "value": 17
+      },
+      {
+       "name": "row",
+       "type": "int",
+       "value": 2
+      },
+      {
+       "name": "col",
+       "type": "int",
+       "value": 5
+      }
+     ]
+    },
+    {
+     "id": 67,
+     "name": "kursi_18",
+     "type": "seat",
+     "x": 336,
+     "y": 336,
+     "width": 28,
+     "height": 28,
+     "rotation": 0,
+     "visible": true,
+     "properties": [
+      {
+       "name": "seatId",
+       "type": "int",
+       "value": 18
+      },
+      {
+       "name": "row",
+       "type": "int",
+       "value": 2
+      },
+      {
+       "name": "col",
+       "type": "int",
+       "value": 6
+      }
+     ]
+    },
+    {
+     "id": 71,
+     "name": "kursi_19",
+     "type": "seat",
+     "x": 420,
+     "y": 336,
+     "width": 28,
+     "height": 28,
+     "rotation": 0,
+     "visible": true,
+     "properties": [
+      {
+       "name": "seatId",
+       "type": "int",
+       "value": 19
+      },
+      {
+       "name": "row",
+       "type": "int",
+       "value": 2
+      },
+      {
+       "name": "col",
+       "type": "int",
+       "value": 7
+      }
+     ]
+    },
+    {
+     "id": 73,
+     "name": "kursi_20",
+     "type": "seat",
+     "x": 476,
+     "y": 336,
+     "width": 28,
+     "height": 28,
+     "rotation": 0,
+     "visible": true,
+     "properties": [
+      {
+       "name": "seatId",
+       "type": "int",
+       "value": 20
+      },
+      {
+       "name": "row",
+       "type": "int",
+       "value": 2
+      },
+      {
+       "name": "col",
+       "type": "int",
+       "value": 8
+      }
+     ]
+    },
+    {
+     "id": 77,
+     "name": "kursi_21",
+     "type": "seat",
+     "x": 532,
+     "y": 336,
+     "width": 28,
+     "height": 28,
+     "rotation": 0,
+     "visible": true,
+     "properties": [
+      {
+       "name": "seatId",
+       "type": "int",
+       "value": 21
+      },
+      {
+       "name": "row",
+       "type": "int",
+       "value": 2
+      },
+      {
+       "name": "col",
+       "type": "int",
+       "value": 9
+      }
+     ]
+    },
+    {
+     "id": 79,
+     "name": "kursi_22",
+     "type": "seat",
+     "x": 588,
+     "y": 336,
+     "width": 28,
+     "height": 28,
+     "rotation": 0,
+     "visible": true,
+     "properties": [
+      {
+       "name": "seatId",
+       "type": "int",
+       "value": 22
+      },
+      {
+       "name": "row",
+       "type": "int",
+       "value": 2
+      },
+      {
+       "name": "col",
+       "type": "int",
+       "value": 10
+      }
+     ]
+    },
+    {
+     "id": 83,
+     "name": "kursi_23",
+     "type": "seat",
+     "x": 644,
+     "y": 336,
+     "width": 28,
+     "height": 28,
+     "rotation": 0,
+     "visible": true,
+     "properties": [
+      {
+       "name": "seatId",
+       "type": "int",
+       "value": 23
+      },
+      {
+       "name": "row",
+       "type": "int",
+       "value": 2
+      },
+      {
+       "name": "col",
+       "type": "int",
+       "value": 11
+      }
+     ]
+    },
+    {
+     "id": 85,
+     "name": "kursi_24",
+     "type": "seat",
+     "x": 700,
+     "y": 336,
+     "width": 28,
+     "height": 28,
+     "rotation": 0,
+     "visible": true,
+     "properties": [
+      {
+       "name": "seatId",
+       "type": "int",
+       "value": 24
+      },
+      {
+       "name": "row",
+       "type": "int",
+       "value": 2
+      },
+      {
+       "name": "col",
+       "type": "int",
+       "value": 12
+      }
+     ]
+    },
+    {
+     "id": 89,
+     "name": "kursi_25",
+     "type": "seat",
+     "x": 56,
+     "y": 392,
+     "width": 28,
+     "height": 28,
+     "rotation": 0,
+     "visible": true,
+     "properties": [
+      {
+       "name": "seatId",
+       "type": "int",
+       "value": 25
+      },
+      {
+       "name": "row",
+       "type": "int",
+       "value": 3
+      },
+      {
+       "name": "col",
+       "type": "int",
+       "value": 1
+      }
+     ]
+    },
+    {
+     "id": 91,
+     "name": "kursi_26",
+     "type": "seat",
+     "x": 112,
+     "y": 392,
+     "width": 28,
+     "height": 28,
+     "rotation": 0,
+     "visible": true,
+     "properties": [
+      {
+       "name": "seatId",
+       "type": "int",
+       "value": 26
+      },
+      {
+       "name": "row",
+       "type": "int",
+       "value": 3
+      },
+      {
+       "name": "col",
+       "type": "int",
+       "value": 2
+      }
+     ]
+    },
+    {
+     "id": 95,
+     "name": "kursi_27",
+     "type": "seat",
+     "x": 168,
+     "y": 392,
+     "width": 28,
+     "height": 28,
+     "rotation": 0,
+     "visible": true,
+     "properties": [
+      {
+       "name": "seatId",
+       "type": "int",
+       "value": 27
+      },
+      {
+       "name": "row",
+       "type": "int",
+       "value": 3
+      },
+      {
+       "name": "col",
+       "type": "int",
+       "value": 3
+      }
+     ]
+    },
+    {
+     "id": 97,
+     "name": "kursi_28",
+     "type": "seat",
+     "x": 224,
+     "y": 392,
+     "width": 28,
+     "height": 28,
+     "rotation": 0,
+     "visible": true,
+     "properties": [
+      {
+       "name": "seatId",
+       "type": "int",
+       "value": 28
+      },
+      {
+       "name": "row",
+       "type": "int",
+       "value": 3
+      },
+      {
+       "name": "col",
+       "type": "int",
+       "value": 4
+      }
+     ]
+    },
+    {
+     "id": 101,
+     "name": "kursi_29",
+     "type": "seat",
+     "x": 280,
+     "y": 392,
+     "width": 28,
+     "height": 28,
+     "rotation": 0,
+     "visible": true,
+     "properties": [
+      {
+       "name": "seatId",
+       "type": "int",
+       "value": 29
+      },
+      {
+       "name": "row",
+       "type": "int",
+       "value": 3
+      },
+      {
+       "name": "col",
+       "type": "int",
+       "value": 5
+      }
+     ]
+    },
+    {
+     "id": 103,
+     "name": "kursi_30",
+     "type": "seat",
+     "x": 336,
+     "y": 392,
+     "width": 28,
+     "height": 28,
+     "rotation": 0,
+     "visible": true,
+     "properties": [
+      {
+       "name": "seatId",
+       "type": "int",
+       "value": 30
+      },
+      {
+       "name": "row",
+       "type": "int",
+       "value": 3
+      },
+      {
+       "name": "col",
+       "type": "int",
+       "value": 6
+      }
+     ]
+    },
+    {
+     "id": 107,
+     "name": "kursi_31",
+     "type": "seat",
+     "x": 420,
+     "y": 392,
+     "width": 28,
+     "height": 28,
+     "rotation": 0,
+     "visible": true,
+     "properties": [
+      {
+       "name": "seatId",
+       "type": "int",
+       "value": 31
+      },
+      {
+       "name": "row",
+       "type": "int",
+       "value": 3
+      },
+      {
+       "name": "col",
+       "type": "int",
+       "value": 7
+      }
+     ]
+    },
+    {
+     "id": 109,
+     "name": "kursi_32",
+     "type": "seat",
+     "x": 476,
+     "y": 392,
+     "width": 28,
+     "height": 28,
+     "rotation": 0,
+     "visible": true,
+     "properties": [
+      {
+       "name": "seatId",
+       "type": "int",
+       "value": 32
+      },
+      {
+       "name": "row",
+       "type": "int",
+       "value": 3
+      },
+      {
+       "name": "col",
+       "type": "int",
+       "value": 8
+      }
+     ]
+    },
+    {
+     "id": 113,
+     "name": "kursi_33",
+     "type": "seat",
+     "x": 532,
+     "y": 392,
+     "width": 28,
+     "height": 28,
+     "rotation": 0,
+     "visible": true,
+     "properties": [
+      {
+       "name": "seatId",
+       "type": "int",
+       "value": 33
+      },
+      {
+       "name": "row",
+       "type": "int",
+       "value": 3
+      },
+      {
+       "name": "col",
+       "type": "int",
+       "value": 9
+      }
+     ]
+    },
+    {
+     "id": 115,
+     "name": "kursi_34",
+     "type": "seat",
+     "x": 588,
+     "y": 392,
+     "width": 28,
+     "height": 28,
+     "rotation": 0,
+     "visible": true,
+     "properties": [
+      {
+       "name": "seatId",
+       "type": "int",
+       "value": 34
+      },
+      {
+       "name": "row",
+       "type": "int",
+       "value": 3
+      },
+      {
+       "name": "col",
+       "type": "int",
+       "value": 10
+      }
+     ]
+    },
+    {
+     "id": 119,
+     "name": "kursi_35",
+     "type": "seat",
+     "x": 644,
+     "y": 392,
+     "width": 28,
+     "height": 28,
+     "rotation": 0,
+     "visible": true,
+     "properties": [
+      {
+       "name": "seatId",
+       "type": "int",
+       "value": 35
+      },
+      {
+       "name": "row",
+       "type": "int",
+       "value": 3
+      },
+      {
+       "name": "col",
+       "type": "int",
+       "value": 11
+      }
+     ]
+    },
+    {
+     "id": 121,
+     "name": "kursi_36",
+     "type": "seat",
+     "x": 700,
+     "y": 392,
+     "width": 28,
+     "height": 28,
+     "rotation": 0,
+     "visible": true,
+     "properties": [
+      {
+       "name": "seatId",
+       "type": "int",
+       "value": 36
+      },
+      {
+       "name": "row",
+       "type": "int",
+       "value": 3
+      },
+      {
+       "name": "col",
+       "type": "int",
+       "value": 12
+      }
+     ]
+    },
+    {
+     "id": 125,
+     "name": "kursi_37",
+     "type": "seat",
+     "x": 56,
+     "y": 448,
+     "width": 28,
+     "height": 28,
+     "rotation": 0,
+     "visible": true,
+     "properties": [
+      {
+       "name": "seatId",
+       "type": "int",
+       "value": 37
+      },
+      {
+       "name": "row",
+       "type": "int",
+       "value": 4
+      },
+      {
+       "name": "col",
+       "type": "int",
+       "value": 1
+      }
+     ]
+    },
+    {
+     "id": 127,
+     "name": "kursi_38",
+     "type": "seat",
+     "x": 112,
+     "y": 448,
+     "width": 28,
+     "height": 28,
+     "rotation": 0,
+     "visible": true,
+     "properties": [
+      {
+       "name": "seatId",
+       "type": "int",
+       "value": 38
+      },
+      {
+       "name": "row",
+       "type": "int",
+       "value": 4
+      },
+      {
+       "name": "col",
+       "type": "int",
+       "value": 2
+      }
+     ]
+    },
+    {
+     "id": 131,
+     "name": "kursi_39",
+     "type": "seat",
+     "x": 168,
+     "y": 448,
+     "width": 28,
+     "height": 28,
+     "rotation": 0,
+     "visible": true,
+     "properties": [
+      {
+       "name": "seatId",
+       "type": "int",
+       "value": 39
+      },
+      {
+       "name": "row",
+       "type": "int",
+       "value": 4
+      },
+      {
+       "name": "col",
+       "type": "int",
+       "value": 3
+      }
+     ]
+    },
+    {
+     "id": 133,
+     "name": "kursi_40",
+     "type": "seat",
+     "x": 224,
+     "y": 448,
+     "width": 28,
+     "height": 28,
+     "rotation": 0,
+     "visible": true,
+     "properties": [
+      {
+       "name": "seatId",
+       "type": "int",
+       "value": 40
+      },
+      {
+       "name": "row",
+       "type": "int",
+       "value": 4
+      },
+      {
+       "name": "col",
+       "type": "int",
+       "value": 4
+      }
+     ]
+    },
+    {
+     "id": 137,
+     "name": "kursi_41",
+     "type": "seat",
+     "x": 280,
+     "y": 448,
+     "width": 28,
+     "height": 28,
+     "rotation": 0,
+     "visible": true,
+     "properties": [
+      {
+       "name": "seatId",
+       "type": "int",
+       "value": 41
+      },
+      {
+       "name": "row",
+       "type": "int",
+       "value": 4
+      },
+      {
+       "name": "col",
+       "type": "int",
+       "value": 5
+      }
+     ]
+    },
+    {
+     "id": 139,
+     "name": "kursi_42",
+     "type": "seat",
+     "x": 336,
+     "y": 448,
+     "width": 28,
+     "height": 28,
+     "rotation": 0,
+     "visible": true,
+     "properties": [
+      {
+       "name": "seatId",
+       "type": "int",
+       "value": 42
+      },
+      {
+       "name": "row",
+       "type": "int",
+       "value": 4
+      },
+      {
+       "name": "col",
+       "type": "int",
+       "value": 6
+      }
+     ]
+    },
+    {
+     "id": 143,
+     "name": "kursi_43",
+     "type": "seat",
+     "x": 420,
+     "y": 448,
+     "width": 28,
+     "height": 28,
+     "rotation": 0,
+     "visible": true,
+     "properties": [
+      {
+       "name": "seatId",
+       "type": "int",
+       "value": 43
+      },
+      {
+       "name": "row",
+       "type": "int",
+       "value": 4
+      },
+      {
+       "name": "col",
+       "type": "int",
+       "value": 7
+      }
+     ]
+    },
+    {
+     "id": 145,
+     "name": "kursi_44",
+     "type": "seat",
+     "x": 476,
+     "y": 448,
+     "width": 28,
+     "height": 28,
+     "rotation": 0,
+     "visible": true,
+     "properties": [
+      {
+       "name": "seatId",
+       "type": "int",
+       "value": 44
+      },
+      {
+       "name": "row",
+       "type": "int",
+       "value": 4
+      },
+      {
+       "name": "col",
+       "type": "int",
+       "value": 8
+      }
+     ]
+    },
+    {
+     "id": 149,
+     "name": "kursi_45",
+     "type": "seat",
+     "x": 532,
+     "y": 448,
+     "width": 28,
+     "height": 28,
+     "rotation": 0,
+     "visible": true,
+     "properties": [
+      {
+       "name": "seatId",
+       "type": "int",
+       "value": 45
+      },
+      {
+       "name": "row",
+       "type": "int",
+       "value": 4
+      },
+      {
+       "name": "col",
+       "type": "int",
+       "value": 9
+      }
+     ]
+    },
+    {
+     "id": 151,
+     "name": "kursi_46",
+     "type": "seat",
+     "x": 588,
+     "y": 448,
+     "width": 28,
+     "height": 28,
+     "rotation": 0,
+     "visible": true,
+     "properties": [
+      {
+       "name": "seatId",
+       "type": "int",
+       "value": 46
+      },
+      {
+       "name": "row",
+       "type": "int",
+       "value": 4
+      },
+      {
+       "name": "col",
+       "type": "int",
+       "value": 10
+      }
+     ]
+    },
+    {
+     "id": 155,
+     "name": "kursi_47",
+     "type": "seat",
+     "x": 644,
+     "y": 448,
+     "width": 28,
+     "height": 28,
+     "rotation": 0,
+     "visible": true,
+     "properties": [
+      {
+       "name": "seatId",
+       "type": "int",
+       "value": 47
+      },
+      {
+       "name": "row",
+       "type": "int",
+       "value": 4
+      },
+      {
+       "name": "col",
+       "type": "int",
+       "value": 11
+      }
+     ]
+    },
+    {
+     "id": 157,
+     "name": "kursi_48",
+     "type": "seat",
+     "x": 700,
+     "y": 448,
+     "width": 28,
+     "height": 28,
+     "rotation": 0,
+     "visible": true,
+     "properties": [
+      {
+       "name": "seatId",
+       "type": "int",
+       "value": 48
+      },
+      {
+       "name": "row",
+       "type": "int",
+       "value": 4
+      },
+      {
+       "name": "col",
+       "type": "int",
+       "value": 12
+      }
+     ]
+    },
+    {
+     "id": 161,
+     "name": "kursi_49",
+     "type": "seat",
+     "x": 56,
+     "y": 504,
+     "width": 28,
+     "height": 28,
+     "rotation": 0,
+     "visible": true,
+     "properties": [
+      {
+       "name": "seatId",
+       "type": "int",
+       "value": 49
+      },
+      {
+       "name": "row",
+       "type": "int",
+       "value": 5
+      },
+      {
+       "name": "col",
+       "type": "int",
+       "value": 1
+      }
+     ]
+    },
+    {
+     "id": 163,
+     "name": "kursi_50",
+     "type": "seat",
+     "x": 112,
+     "y": 504,
+     "width": 28,
+     "height": 28,
+     "rotation": 0,
+     "visible": true,
+     "properties": [
+      {
+       "name": "seatId",
+       "type": "int",
+       "value": 50
+      },
+      {
+       "name": "row",
+       "type": "int",
+       "value": 5
+      },
+      {
+       "name": "col",
+       "type": "int",
+       "value": 2
+      }
+     ]
+    },
+    {
+     "id": 167,
+     "name": "kursi_51",
+     "type": "seat",
+     "x": 168,
+     "y": 504,
+     "width": 28,
+     "height": 28,
+     "rotation": 0,
+     "visible": true,
+     "properties": [
+      {
+       "name": "seatId",
+       "type": "int",
+       "value": 51
+      },
+      {
+       "name": "row",
+       "type": "int",
+       "value": 5
+      },
+      {
+       "name": "col",
+       "type": "int",
+       "value": 3
+      }
+     ]
+    },
+    {
+     "id": 169,
+     "name": "kursi_52",
+     "type": "seat",
+     "x": 224,
+     "y": 504,
+     "width": 28,
+     "height": 28,
+     "rotation": 0,
+     "visible": true,
+     "properties": [
+      {
+       "name": "seatId",
+       "type": "int",
+       "value": 52
+      },
+      {
+       "name": "row",
+       "type": "int",
+       "value": 5
+      },
+      {
+       "name": "col",
+       "type": "int",
+       "value": 4
+      }
+     ]
+    },
+    {
+     "id": 173,
+     "name": "kursi_53",
+     "type": "seat",
+     "x": 280,
+     "y": 504,
+     "width": 28,
+     "height": 28,
+     "rotation": 0,
+     "visible": true,
+     "properties": [
+      {
+       "name": "seatId",
+       "type": "int",
+       "value": 53
+      },
+      {
+       "name": "row",
+       "type": "int",
+       "value": 5
+      },
+      {
+       "name": "col",
+       "type": "int",
+       "value": 5
+      }
+     ]
+    },
+    {
+     "id": 175,
+     "name": "kursi_54",
+     "type": "seat",
+     "x": 336,
+     "y": 504,
+     "width": 28,
+     "height": 28,
+     "rotation": 0,
+     "visible": true,
+     "properties": [
+      {
+       "name": "seatId",
+       "type": "int",
+       "value": 54
+      },
+      {
+       "name": "row",
+       "type": "int",
+       "value": 5
+      },
+      {
+       "name": "col",
+       "type": "int",
+       "value": 6
+      }
+     ]
+    },
+    {
+     "id": 179,
+     "name": "kursi_55",
+     "type": "seat",
+     "x": 420,
+     "y": 504,
+     "width": 28,
+     "height": 28,
+     "rotation": 0,
+     "visible": true,
+     "properties": [
+      {
+       "name": "seatId",
+       "type": "int",
+       "value": 55
+      },
+      {
+       "name": "row",
+       "type": "int",
+       "value": 5
+      },
+      {
+       "name": "col",
+       "type": "int",
+       "value": 7
+      }
+     ]
+    },
+    {
+     "id": 181,
+     "name": "kursi_56",
+     "type": "seat",
+     "x": 476,
+     "y": 504,
+     "width": 28,
+     "height": 28,
+     "rotation": 0,
+     "visible": true,
+     "properties": [
+      {
+       "name": "seatId",
+       "type": "int",
+       "value": 56
+      },
+      {
+       "name": "row",
+       "type": "int",
+       "value": 5
+      },
+      {
+       "name": "col",
+       "type": "int",
+       "value": 8
+      }
+     ]
+    },
+    {
+     "id": 185,
+     "name": "kursi_57",
+     "type": "seat",
+     "x": 532,
+     "y": 504,
+     "width": 28,
+     "height": 28,
+     "rotation": 0,
+     "visible": true,
+     "properties": [
+      {
+       "name": "seatId",
+       "type": "int",
+       "value": 57
+      },
+      {
+       "name": "row",
+       "type": "int",
+       "value": 5
+      },
+      {
+       "name": "col",
+       "type": "int",
+       "value": 9
+      }
+     ]
+    },
+    {
+     "id": 187,
+     "name": "kursi_58",
+     "type": "seat",
+     "x": 588,
+     "y": 504,
+     "width": 28,
+     "height": 28,
+     "rotation": 0,
+     "visible": true,
+     "properties": [
+      {
+       "name": "seatId",
+       "type": "int",
+       "value": 58
+      },
+      {
+       "name": "row",
+       "type": "int",
+       "value": 5
+      },
+      {
+       "name": "col",
+       "type": "int",
+       "value": 10
+      }
+     ]
+    },
+    {
+     "id": 191,
+     "name": "kursi_59",
+     "type": "seat",
+     "x": 644,
+     "y": 504,
+     "width": 28,
+     "height": 28,
+     "rotation": 0,
+     "visible": true,
+     "properties": [
+      {
+       "name": "seatId",
+       "type": "int",
+       "value": 59
+      },
+      {
+       "name": "row",
+       "type": "int",
+       "value": 5
+      },
+      {
+       "name": "col",
+       "type": "int",
+       "value": 11
+      }
+     ]
+    },
+    {
+     "id": 193,
+     "name": "kursi_60",
+     "type": "seat",
+     "x": 700,
+     "y": 504,
+     "width": 28,
+     "height": 28,
+     "rotation": 0,
+     "visible": true,
+     "properties": [
+      {
+       "name": "seatId",
+       "type": "int",
+       "value": 60
+      },
+      {
+       "name": "row",
+       "type": "int",
+       "value": 5
+      },
+      {
+       "name": "col",
+       "type": "int",
+       "value": 12
+      }
+     ]
+    },
+    {
+     "id": 199,
+     "name": "Ke Lobi",
+     "type": "door",
+     "x": 0,
+     "y": 476,
+     "width": 28,
+     "height": 56,
+     "rotation": 0,
+     "visible": true,
+     "properties": [
+      {
+       "name": "target",
+       "type": "string",
+       "value": "kampus"
+      },
+      {
+       "name": "spawn",
+       "type": "string",
+       "value": "dari_kelas_c"
+      },
+      {
+       "name": "label",
+       "type": "string",
+       "value": "Ke Lobi"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": 8,
+   "name": "spawn",
+   "opacity": 1,
+   "visible": true,
+   "x": 0,
+   "y": 0,
+   "type": "objectgroup",
+   "draworder": "topdown",
+   "objects": [
+    {
+     "id": 200,
+     "name": "dari_lobi",
+     "type": "spawn",
+     "point": true,
+     "x": 56,
+     "y": 504,
+     "width": 0,
+     "height": 0,
+     "rotation": 0,
+     "visible": true,
+     "properties": [
+      {
+       "name": "name",
+       "type": "string",
+       "value": "dari_lobi"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": 9,
+   "name": "zones",
+   "opacity": 1,
+   "visible": true,
+   "x": 0,
+   "y": 0,
+   "type": "objectgroup",
+   "draworder": "topdown",
+   "objects": [
+    {
+     "id": 201,
+     "name": "kelas-c",
+     "type": "zone",
+     "x": 0,
+     "y": 0,
+     "width": 784,
+     "height": 588,
+     "rotation": 0,
+     "visible": true,
+     "properties": [
+      {
+       "name": "name",
+       "type": "string",
+       "value": "kelas-c"
+      },
+      {
+       "name": "chatRadius",
+       "type": "int",
+       "value": 3
+      },
+      {
+       "name": "chatPublic",
+       "type": "bool",
+       "value": false
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}

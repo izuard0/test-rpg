@@ -28,7 +28,7 @@
     1.29,
     1.21
    ],
-   "nama": null
+   "nama": "papan_biru"
   },
   {
    "id": 2,
@@ -44,7 +44,7 @@
     1.29,
     1.21
    ],
-   "nama": null
+   "nama": "papan_oranye"
   },
   {
    "id": 3,
@@ -60,7 +60,7 @@
     1.29,
     1.21
    ],
-   "nama": null
+   "nama": "papan_hijau"
   },
   {
    "id": 4,
@@ -76,7 +76,7 @@
     1.25,
     1.21
    ],
-   "nama": null
+   "nama": "papan_gelap"
   },
   {
    "id": 5,
@@ -92,7 +92,7 @@
     1.29,
     1.21
    ],
-   "nama": null
+   "nama": "papan_biru_menyala"
   },
   {
    "id": 6,
@@ -108,7 +108,7 @@
     1.29,
     1.21
    ],
-   "nama": null
+   "nama": "papan_oranye_menyala"
   },
   {
    "id": 7,
@@ -124,7 +124,7 @@
     1.29,
     1.21
    ],
-   "nama": null
+   "nama": "papan_hijau_menyala"
   },
   {
    "id": 8,
@@ -140,7 +140,7 @@
     1.25,
     1.21
    ],
-   "nama": null
+   "nama": "papan_gelap_b"
   },
   {
    "id": 9,
@@ -156,7 +156,7 @@
     1.29,
     1.32
    ],
-   "nama": null
+   "nama": "papan_ganda_biru"
   },
   {
    "id": 10,
@@ -172,7 +172,7 @@
     1.29,
     1.32
    ],
-   "nama": null
+   "nama": "papan_ganda_oranye"
   },
   {
    "id": 11,
@@ -188,7 +188,7 @@
     1.29,
     1.32
    ],
-   "nama": null
+   "nama": "papan_ganda_hijau"
   },
   {
    "id": 12,
@@ -204,7 +204,7 @@
     1.21,
     1.36
    ],
-   "nama": null
+   "nama": "papan_ganda_gelap"
   },
   {
    "id": 13,
@@ -220,7 +220,7 @@
     0.68,
     1.43
    ],
-   "nama": null
+   "nama": "papan_lipat"
   },
   {
    "id": 14,
@@ -236,7 +236,7 @@
     1.25,
     1.36
    ],
-   "nama": null
+   "nama": "papan_ganda_gelap_b"
   }
  ]
 }

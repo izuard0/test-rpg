@@ -8,9 +8,9 @@
  "margin": 0,
  "name": "kampus-objects",
  "spacing": 0,
- "tilecount": 58,
+ "tilecount": 80,
  "tiledversion": "1.10.2",
- "tileheight": 74,
+ "tileheight": 76,
  "tilewidth": 110,
  "type": "tileset",
  "version": "1.10",
@@ -89,24 +89,6 @@
   },
   {
    "id": 4,
-   "image": "../../export/tiles/lobby_doors/sprites/06_pintu_kayu.png",
-   "imageheight": 40,
-   "imagewidth": 18,
-   "properties": [
-    {
-     "name": "name",
-     "type": "string",
-     "value": "pintu_kayu"
-    },
-    {
-     "name": "lembar",
-     "type": "string",
-     "value": "lobby_doors"
-    }
-   ]
-  },
-  {
-   "id": 5,
    "image": "../../export/tiles/lobby_tech/sprites/04_arkade_cokelat.png",
    "imageheight": 65,
    "imagewidth": 39,
@@ -124,7 +106,7 @@
    ]
   },
   {
-   "id": 6,
+   "id": 5,
    "image": "../../export/tiles/lobby_tech/sprites/05_arkade_biru.png",
    "imageheight": 66,
    "imagewidth": 40,
@@ -142,7 +124,7 @@
    ]
   },
   {
-   "id": 7,
+   "id": 6,
    "image": "../../export/tiles/lobby_decor/sprites/16_lemari_piala.png",
    "imageheight": 51,
    "imagewidth": 38,
@@ -160,7 +142,7 @@
    ]
   },
   {
-   "id": 8,
+   "id": 7,
    "image": "../../export/tiles/lobby_tech/sprites/07_lengan_robot.png",
    "imageheight": 58,
    "imagewidth": 32,
@@ -178,7 +160,7 @@
    ]
   },
   {
-   "id": 9,
+   "id": 8,
    "image": "../../export/tiles/lobby_tech/sprites/06_etalase_robot.png",
    "imageheight": 53,
    "imagewidth": 52,
@@ -196,7 +178,7 @@
    ]
   },
   {
-   "id": 10,
+   "id": 9,
    "image": "../../export/tiles/lobby_tech/sprites/08_printer3d_meja.png",
    "imageheight": 52,
    "imagewidth": 37,
@@ -214,7 +196,7 @@
    ]
   },
   {
-   "id": 11,
+   "id": 10,
    "image": "../../export/tiles/lobby_tech/sprites/09_rak_server_meja.png",
    "imageheight": 48,
    "imagewidth": 42,
@@ -232,7 +214,7 @@
    ]
   },
   {
-   "id": 12,
+   "id": 11,
    "image": "../../export/tiles/lobby_furniture/sprites/09_meja_kerja_putih.png",
    "imageheight": 39,
    "imagewidth": 45,
@@ -250,7 +232,7 @@
    ]
   },
   {
-   "id": 13,
+   "id": 12,
    "image": "../../export/tiles/lobby_tech/sprites/03_kios_nyala.png",
    "imageheight": 59,
    "imagewidth": 37,
@@ -268,7 +250,7 @@
    ]
   },
   {
-   "id": 14,
+   "id": 13,
    "image": "../../export/tiles/lobby_furniture/sprites/02_bean_oranye.png",
    "imageheight": 25,
    "imagewidth": 24,
@@ -286,115 +268,7 @@
    ]
   },
   {
-   "id": 15,
-   "image": "../../export/tiles/lobby_furniture/sprites/01_bean_navy.png",
-   "imageheight": 25,
-   "imagewidth": 25,
-   "properties": [
-    {
-     "name": "name",
-     "type": "string",
-     "value": "bean_navy"
-    },
-    {
-     "name": "lembar",
-     "type": "string",
-     "value": "lobby_furniture"
-    }
-   ]
-  },
-  {
-   "id": 16,
-   "image": "../../export/tiles/lobby_furniture/sprites/15_tanaman_c.png",
-   "imageheight": 19,
-   "imagewidth": 12,
-   "properties": [
-    {
-     "name": "name",
-     "type": "string",
-     "value": "tanaman_c"
-    },
-    {
-     "name": "lembar",
-     "type": "string",
-     "value": "lobby_furniture"
-    }
-   ]
-  },
-  {
-   "id": 17,
-   "image": "../../export/tiles/lobby_furniture/sprites/17_tanaman_d.png",
-   "imageheight": 20,
-   "imagewidth": 16,
-   "properties": [
-    {
-     "name": "name",
-     "type": "string",
-     "value": "tanaman_d"
-    },
-    {
-     "name": "lembar",
-     "type": "string",
-     "value": "lobby_furniture"
-    }
-   ]
-  },
-  {
-   "id": 18,
-   "image": "../../export/tiles/lobby_furniture/sprites/04_sofa_sudut.png",
-   "imageheight": 55,
-   "imagewidth": 70,
-   "properties": [
-    {
-     "name": "name",
-     "type": "string",
-     "value": "sofa_sudut"
-    },
-    {
-     "name": "lembar",
-     "type": "string",
-     "value": "lobby_furniture"
-    }
-   ]
-  },
-  {
-   "id": 19,
-   "image": "../../export/tiles/lobby_furniture/sprites/05_meja_bulat.png",
-   "imageheight": 22,
-   "imagewidth": 29,
-   "properties": [
-    {
-     "name": "name",
-     "type": "string",
-     "value": "meja_bulat"
-    },
-    {
-     "name": "lembar",
-     "type": "string",
-     "value": "lobby_furniture"
-    }
-   ]
-  },
-  {
-   "id": 20,
-   "image": "../../export/tiles/lobby_furniture/sprites/08_sofa_panjang.png",
-   "imageheight": 32,
-   "imagewidth": 53,
-   "properties": [
-    {
-     "name": "name",
-     "type": "string",
-     "value": "sofa_panjang"
-    },
-    {
-     "name": "lembar",
-     "type": "string",
-     "value": "lobby_furniture"
-    }
-   ]
-  },
-  {
-   "id": 21,
+   "id": 14,
    "image": "../../export/tiles/lobby_furniture/sprites/03_bean_abu.png",
    "imageheight": 25,
    "imagewidth": 25,
@@ -412,7 +286,115 @@
    ]
   },
   {
-   "id": 22,
+   "id": 15,
+   "image": "../../export/tiles/lobby_furniture/sprites/08_sofa_panjang.png",
+   "imageheight": 32,
+   "imagewidth": 53,
+   "properties": [
+    {
+     "name": "name",
+     "type": "string",
+     "value": "sofa_panjang"
+    },
+    {
+     "name": "lembar",
+     "type": "string",
+     "value": "lobby_furniture"
+    }
+   ]
+  },
+  {
+   "id": 16,
+   "image": "../../export/tiles/lobby_furniture/sprites/05_meja_bulat.png",
+   "imageheight": 22,
+   "imagewidth": 29,
+   "properties": [
+    {
+     "name": "name",
+     "type": "string",
+     "value": "meja_bulat"
+    },
+    {
+     "name": "lembar",
+     "type": "string",
+     "value": "lobby_furniture"
+    }
+   ]
+  },
+  {
+   "id": 17,
+   "image": "../../export/tiles/lobby_furniture/sprites/15_tanaman_c.png",
+   "imageheight": 19,
+   "imagewidth": 12,
+   "properties": [
+    {
+     "name": "name",
+     "type": "string",
+     "value": "tanaman_c"
+    },
+    {
+     "name": "lembar",
+     "type": "string",
+     "value": "lobby_furniture"
+    }
+   ]
+  },
+  {
+   "id": 18,
+   "image": "../../export/tiles/lobby_furniture/sprites/17_tanaman_d.png",
+   "imageheight": 20,
+   "imagewidth": 16,
+   "properties": [
+    {
+     "name": "name",
+     "type": "string",
+     "value": "tanaman_d"
+    },
+    {
+     "name": "lembar",
+     "type": "string",
+     "value": "lobby_furniture"
+    }
+   ]
+  },
+  {
+   "id": 19,
+   "image": "../../export/tiles/lobby_furniture/sprites/04_sofa_sudut.png",
+   "imageheight": 55,
+   "imagewidth": 70,
+   "properties": [
+    {
+     "name": "name",
+     "type": "string",
+     "value": "sofa_sudut"
+    },
+    {
+     "name": "lembar",
+     "type": "string",
+     "value": "lobby_furniture"
+    }
+   ]
+  },
+  {
+   "id": 20,
+   "image": "../../export/tiles/lobby_furniture/sprites/01_bean_navy.png",
+   "imageheight": 25,
+   "imagewidth": 25,
+   "properties": [
+    {
+     "name": "name",
+     "type": "string",
+     "value": "bean_navy"
+    },
+    {
+     "name": "lembar",
+     "type": "string",
+     "value": "lobby_furniture"
+    }
+   ]
+  },
+  {
+   "id": 21,
    "image": "../../export/tiles/lobby_furniture/sprites/18_tanaman_e.png",
    "imageheight": 17,
    "imagewidth": 13,
@@ -430,7 +412,7 @@
    ]
   },
   {
-   "id": 23,
+   "id": 22,
    "image": "../../export/tiles/lobby_decor/sprites/15_gantungan_jaket.png",
    "imageheight": 62,
    "imagewidth": 28,
@@ -448,7 +430,7 @@
    ]
   },
   {
-   "id": 24,
+   "id": 23,
    "image": "../../export/tiles/lobby_furniture/sprites/10_bar_panjang.png",
    "imageheight": 34,
    "imagewidth": 93,
@@ -466,7 +448,7 @@
    ]
   },
   {
-   "id": 25,
+   "id": 24,
    "image": "../../export/tiles/lobby_furniture/sprites/12_bangku_bulat.png",
    "imageheight": 27,
    "imagewidth": 16,
@@ -484,7 +466,7 @@
    ]
   },
   {
-   "id": 26,
+   "id": 25,
    "image": "../../export/tiles/lobby_furniture/sprites/22_meja_kopi.png",
    "imageheight": 45,
    "imagewidth": 45,
@@ -502,7 +484,7 @@
    ]
   },
   {
-   "id": 27,
+   "id": 26,
    "image": "../../export/tiles/lobby_furniture/sprites/21_dispenser_air.png",
    "imageheight": 43,
    "imagewidth": 15,
@@ -520,7 +502,7 @@
    ]
   },
   {
-   "id": 28,
+   "id": 27,
    "image": "../../export/tiles/lobby_furniture/sprites/23_tempat_sampah_a.png",
    "imageheight": 25,
    "imagewidth": 16,
@@ -538,7 +520,7 @@
    ]
   },
   {
-   "id": 29,
+   "id": 28,
    "image": "../../export/tiles/lobby_furniture/sprites/24_tempat_sampah_b.png",
    "imageheight": 25,
    "imagewidth": 17,
@@ -556,7 +538,7 @@
    ]
   },
   {
-   "id": 30,
+   "id": 29,
    "image": "../../export/tiles/lobby_furniture/sprites/16_tanaman_besar.png",
    "imageheight": 59,
    "imagewidth": 34,
@@ -574,7 +556,7 @@
    ]
   },
   {
-   "id": 31,
+   "id": 30,
    "image": "../../export/tiles/library_floor_wall/sprites/27_jendela_kayu.png",
    "imageheight": 32,
    "imagewidth": 23,
@@ -592,7 +574,7 @@
    ]
   },
   {
-   "id": 32,
+   "id": 31,
    "image": "../../export/tiles/library_bookshelves/sprites/01_rak_biru.png",
    "imageheight": 68,
    "imagewidth": 44,
@@ -610,7 +592,7 @@
    ]
   },
   {
-   "id": 33,
+   "id": 32,
    "image": "../../export/tiles/library_bookshelves/sprites/05_rak_biru_2.png",
    "imageheight": 69,
    "imagewidth": 44,
@@ -628,7 +610,7 @@
    ]
   },
   {
-   "id": 34,
+   "id": 33,
    "image": "../../export/tiles/library_bookshelves/sprites/02_rak_oranye.png",
    "imageheight": 68,
    "imagewidth": 45,
@@ -646,7 +628,7 @@
    ]
   },
   {
-   "id": 35,
+   "id": 34,
    "image": "../../export/tiles/library_bookshelves/sprites/03_rak_hijau.png",
    "imageheight": 68,
    "imagewidth": 44,
@@ -664,7 +646,7 @@
    ]
   },
   {
-   "id": 36,
+   "id": 35,
    "image": "../../export/tiles/library_bookshelves/sprites/07_rak_hijau_2.png",
    "imageheight": 69,
    "imagewidth": 44,
@@ -682,7 +664,7 @@
    ]
   },
   {
-   "id": 37,
+   "id": 36,
    "image": "../../export/tiles/library_terminals/sprites/03_kios_nyala_a.png",
    "imageheight": 45,
    "imagewidth": 23,
@@ -700,7 +682,7 @@
    ]
   },
   {
-   "id": 38,
+   "id": 37,
    "image": "../../export/tiles/library_furniture/sprites/01_meja_baca_panjang.png",
    "imageheight": 74,
    "imagewidth": 110,
@@ -718,7 +700,7 @@
    ]
   },
   {
-   "id": 39,
+   "id": 38,
    "image": "../../export/tiles/library_furniture/sprites/06_meja_pustakawan.png",
    "imageheight": 49,
    "imagewidth": 68,
@@ -736,7 +718,7 @@
    ]
   },
   {
-   "id": 40,
+   "id": 39,
    "image": "../../export/tiles/library_terminals/sprites/08_bilik_belajar_tiga.png",
    "imageheight": 52,
    "imagewidth": 84,
@@ -754,7 +736,7 @@
    ]
   },
   {
-   "id": 41,
+   "id": 40,
    "image": "../../export/tiles/library_furniture/sprites/07_troli_buku.png",
    "imageheight": 41,
    "imagewidth": 43,
@@ -772,7 +754,7 @@
    ]
   },
   {
-   "id": 42,
+   "id": 41,
    "image": "../../export/tiles/library_furniture/sprites/03_sofa_tunggal_biru_1.png",
    "imageheight": 33,
    "imagewidth": 33,
@@ -790,7 +772,7 @@
    ]
   },
   {
-   "id": 43,
+   "id": 42,
    "image": "../../export/tiles/library_furniture/sprites/05_sofa_tunggal_biru_2.png",
    "imageheight": 39,
    "imagewidth": 33,
@@ -808,7 +790,7 @@
    ]
   },
   {
-   "id": 44,
+   "id": 43,
    "image": "../../export/tiles/library_furniture/sprites/08_papan_tulis_beroda.png",
    "imageheight": 42,
    "imagewidth": 46,
@@ -826,7 +808,7 @@
    ]
   },
   {
-   "id": 45,
+   "id": 44,
    "image": "../../export/tiles/library_furniture/sprites/10_tanaman_pakis.png",
    "imageheight": 36,
    "imagewidth": 30,
@@ -844,7 +826,421 @@
    ]
   },
   {
+   "id": 45,
+   "image": "../../export/tiles/classroom_front/sprites/01_papan_tulis.png",
+   "imageheight": 54,
+   "imagewidth": 88,
+   "properties": [
+    {
+     "name": "name",
+     "type": "string",
+     "value": "papan_tulis"
+    },
+    {
+     "name": "lembar",
+     "type": "string",
+     "value": "classroom_front"
+    }
+   ]
+  },
+  {
    "id": 46,
+   "image": "../../export/tiles/classroom_front/sprites/05_tv_nyala.png",
+   "imageheight": 40,
+   "imagewidth": 65,
+   "properties": [
+    {
+     "name": "name",
+     "type": "string",
+     "value": "tv_nyala"
+    },
+    {
+     "name": "lembar",
+     "type": "string",
+     "value": "classroom_front"
+    }
+   ]
+  },
+  {
+   "id": 47,
+   "image": "../../export/tiles/classroom_front/sprites/09_ac.png",
+   "imageheight": 23,
+   "imagewidth": 52,
+   "properties": [
+    {
+     "name": "name",
+     "type": "string",
+     "value": "ac"
+    },
+    {
+     "name": "lembar",
+     "type": "string",
+     "value": "classroom_front"
+    }
+   ]
+  },
+  {
+   "id": 48,
+   "image": "../../export/tiles/classroom_front/sprites/08_jam_oranye.png",
+   "imageheight": 25,
+   "imagewidth": 24,
+   "properties": [
+    {
+     "name": "name",
+     "type": "string",
+     "value": "jam_oranye"
+    },
+    {
+     "name": "lembar",
+     "type": "string",
+     "value": "classroom_front"
+    }
+   ]
+  },
+  {
+   "id": 49,
+   "image": "../../export/tiles/classroom_front/sprites/12_meja_dosen.png",
+   "imageheight": 52,
+   "imagewidth": 90,
+   "properties": [
+    {
+     "name": "name",
+     "type": "string",
+     "value": "meja_dosen"
+    },
+    {
+     "name": "lembar",
+     "type": "string",
+     "value": "classroom_front"
+    }
+   ]
+  },
+  {
+   "id": 50,
+   "image": "../../export/tiles/classroom_front/sprites/13_podium.png",
+   "imageheight": 42,
+   "imagewidth": 26,
+   "properties": [
+    {
+     "name": "name",
+     "type": "string",
+     "value": "podium"
+    },
+    {
+     "name": "lembar",
+     "type": "string",
+     "value": "classroom_front"
+    }
+   ]
+  },
+  {
+   "id": 51,
+   "image": "../../export/tiles/lobby_furniture/sprites/13_tanaman_a.png",
+   "imageheight": 16,
+   "imagewidth": 11,
+   "properties": [
+    {
+     "name": "name",
+     "type": "string",
+     "value": "tanaman_a"
+    },
+    {
+     "name": "lembar",
+     "type": "string",
+     "value": "lobby_furniture"
+    }
+   ]
+  },
+  {
+   "id": 52,
+   "image": "../../export/tiles/classroom_front/sprites/07_server_kecil.png",
+   "imageheight": 24,
+   "imagewidth": 15,
+   "properties": [
+    {
+     "name": "name",
+     "type": "string",
+     "value": "server_kecil"
+    },
+    {
+     "name": "lembar",
+     "type": "string",
+     "value": "classroom_front"
+    }
+   ]
+  },
+  {
+   "id": 53,
+   "image": "../../export/tiles/classroom_front/sprites/11_speaker.png",
+   "imageheight": 23,
+   "imagewidth": 17,
+   "properties": [
+    {
+     "name": "name",
+     "type": "string",
+     "value": "speaker"
+    },
+    {
+     "name": "lembar",
+     "type": "string",
+     "value": "classroom_front"
+    }
+   ]
+  },
+  {
+   "id": 54,
+   "image": "../../export/tiles/lab_computer_desks/sprites/05_meja_komputer_nyala.png",
+   "imageheight": 42,
+   "imagewidth": 90,
+   "properties": [
+    {
+     "name": "name",
+     "type": "string",
+     "value": "meja_komputer_nyala"
+    },
+    {
+     "name": "lembar",
+     "type": "string",
+     "value": "lab_computer_desks"
+    }
+   ]
+  },
+  {
+   "id": 55,
+   "image": "../../export/tiles/lab_computer_desks/sprites/02_kursi_putar_a.png",
+   "imageheight": 39,
+   "imagewidth": 24,
+   "properties": [
+    {
+     "name": "name",
+     "type": "string",
+     "value": "kursi_putar_a"
+    },
+    {
+     "name": "lembar",
+     "type": "string",
+     "value": "lab_computer_desks"
+    }
+   ]
+  },
+  {
+   "id": 56,
+   "image": "../../export/tiles/classroom_front/sprites/06_layar_proyektor.png",
+   "imageheight": 68,
+   "imagewidth": 87,
+   "properties": [
+    {
+     "name": "name",
+     "type": "string",
+     "value": "layar_proyektor"
+    },
+    {
+     "name": "lembar",
+     "type": "string",
+     "value": "classroom_front"
+    }
+   ]
+  },
+  {
+   "id": 57,
+   "image": "../../export/tiles/smart_class_pods/sprites/08_meja_heksagon_nyala.png",
+   "imageheight": 76,
+   "imagewidth": 90,
+   "properties": [
+    {
+     "name": "name",
+     "type": "string",
+     "value": "meja_heksagon_nyala"
+    },
+    {
+     "name": "lembar",
+     "type": "string",
+     "value": "smart_class_pods"
+    }
+   ]
+  },
+  {
+   "id": 58,
+   "image": "../../export/tiles/auditorium_seats/sprites/01_layar_proyektor_besar.png",
+   "imageheight": 44,
+   "imagewidth": 80,
+   "properties": [
+    {
+     "name": "name",
+     "type": "string",
+     "value": "layar_proyektor_besar"
+    },
+    {
+     "name": "lembar",
+     "type": "string",
+     "value": "auditorium_seats"
+    }
+   ]
+  },
+  {
+   "id": 59,
+   "image": "../../export/tiles/auditorium_seats/sprites/15_podium_laptop.png",
+   "imageheight": 38,
+   "imagewidth": 28,
+   "properties": [
+    {
+     "name": "name",
+     "type": "string",
+     "value": "podium_laptop"
+    },
+    {
+     "name": "lembar",
+     "type": "string",
+     "value": "auditorium_seats"
+    }
+   ]
+  },
+  {
+   "id": 60,
+   "image": "../../export/tiles/auditorium_seats/sprites/16_speaker_ganda.png",
+   "imageheight": 20,
+   "imagewidth": 26,
+   "properties": [
+    {
+     "name": "name",
+     "type": "string",
+     "value": "speaker_ganda"
+    },
+    {
+     "name": "lembar",
+     "type": "string",
+     "value": "auditorium_seats"
+    }
+   ]
+  },
+  {
+   "id": 61,
+   "image": "../../export/tiles/auditorium_seats/sprites/09_meja_komputer_nyala.png",
+   "imageheight": 42,
+   "imagewidth": 90,
+   "properties": [
+    {
+     "name": "name",
+     "type": "string",
+     "value": "meja_komputer_nyala"
+    },
+    {
+     "name": "lembar",
+     "type": "string",
+     "value": "auditorium_seats"
+    }
+   ]
+  },
+  {
+   "id": 62,
+   "image": "../../export/tiles/auditorium_seats/sprites/10_kursi_putar.png",
+   "imageheight": 37,
+   "imagewidth": 24,
+   "properties": [
+    {
+     "name": "name",
+     "type": "string",
+     "value": "kursi_putar"
+    },
+    {
+     "name": "lembar",
+     "type": "string",
+     "value": "auditorium_seats"
+    }
+   ]
+  },
+  {
+   "id": 63,
+   "image": "../../export/tiles/classroom_floor_wall/sprites/20_pintu_kelas.png",
+   "imageheight": 48,
+   "imagewidth": 27,
+   "properties": [
+    {
+     "name": "name",
+     "type": "string",
+     "value": "pintu_kelas"
+    },
+    {
+     "name": "lembar",
+     "type": "string",
+     "value": "classroom_floor_wall"
+    }
+   ]
+  },
+  {
+   "id": 64,
+   "image": "../../export/tiles/room_signs/sprites/01_papan_biru.png",
+   "imageheight": 34,
+   "imagewidth": 36,
+   "properties": [
+    {
+     "name": "name",
+     "type": "string",
+     "value": "papan_biru"
+    },
+    {
+     "name": "lembar",
+     "type": "string",
+     "value": "room_signs"
+    }
+   ]
+  },
+  {
+   "id": 65,
+   "image": "../../export/tiles/room_signs/sprites/02_papan_oranye.png",
+   "imageheight": 34,
+   "imagewidth": 36,
+   "properties": [
+    {
+     "name": "name",
+     "type": "string",
+     "value": "papan_oranye"
+    },
+    {
+     "name": "lembar",
+     "type": "string",
+     "value": "room_signs"
+    }
+   ]
+  },
+  {
+   "id": 66,
+   "image": "../../export/tiles/room_signs/sprites/05_papan_biru_menyala.png",
+   "imageheight": 34,
+   "imagewidth": 36,
+   "properties": [
+    {
+     "name": "name",
+     "type": "string",
+     "value": "papan_biru_menyala"
+    },
+    {
+     "name": "lembar",
+     "type": "string",
+     "value": "room_signs"
+    }
+   ]
+  },
+  {
+   "id": 67,
+   "image": "../../export/tiles/room_signs/sprites/03_papan_hijau.png",
+   "imageheight": 34,
+   "imagewidth": 36,
+   "properties": [
+    {
+     "name": "name",
+     "type": "string",
+     "value": "papan_hijau"
+    },
+    {
+     "name": "lembar",
+     "type": "string",
+     "value": "room_signs"
+    }
+   ]
+  },
+  {
+   "id": 68,
    "image": "../../export/tiles/classroom_floor_wall/sprites/19_jendela_gabung_a.png",
    "imageheight": 23,
    "imagewidth": 85,
@@ -862,7 +1258,7 @@
    ]
   },
   {
-   "id": 47,
+   "id": 69,
    "image": "../../export/tiles/outdoor/sprites/21_pohon_rimbun.png",
    "imageheight": 64,
    "imagewidth": 62,
@@ -880,7 +1276,7 @@
    ]
   },
   {
-   "id": 48,
+   "id": 70,
    "image": "../../export/tiles/outdoor/sprites/24_pohon_besar.png",
    "imageheight": 63,
    "imagewidth": 63,
@@ -898,7 +1294,7 @@
    ]
   },
   {
-   "id": 49,
+   "id": 71,
    "image": "../../export/tiles/outdoor/sprites/28_semak_kecil.png",
    "imageheight": 30,
    "imagewidth": 30,
@@ -916,7 +1312,7 @@
    ]
   },
   {
-   "id": 50,
+   "id": 72,
    "image": "../../export/tiles/outdoor/sprites/04_petak_bunga_panjang.png",
    "imageheight": 16,
    "imagewidth": 64,
@@ -934,7 +1330,7 @@
    ]
   },
   {
-   "id": 51,
+   "id": 73,
    "image": "../../export/tiles/outdoor/sprites/06_bangku_a.png",
    "imageheight": 14,
    "imagewidth": 29,
@@ -952,7 +1348,7 @@
    ]
   },
   {
-   "id": 52,
+   "id": 74,
    "image": "../../export/tiles/outdoor/sprites/09_lampu_taman.png",
    "imageheight": 31,
    "imagewidth": 6,
@@ -970,7 +1366,7 @@
    ]
   },
   {
-   "id": 53,
+   "id": 75,
    "image": "../../export/tiles/outdoor/sprites/13_rak_sepeda.png",
    "imageheight": 10,
    "imagewidth": 30,
@@ -988,7 +1384,7 @@
    ]
   },
   {
-   "id": 54,
+   "id": 76,
    "image": "../../export/tiles/outdoor/sprites/11_sepeda_merah.png",
    "imageheight": 11,
    "imagewidth": 16,
@@ -1006,7 +1402,7 @@
    ]
   },
   {
-   "id": 55,
+   "id": 77,
    "image": "../../export/tiles/outdoor/sprites/12_sepeda_biru.png",
    "imageheight": 11,
    "imagewidth": 16,
@@ -1024,7 +1420,7 @@
    ]
   },
   {
-   "id": 56,
+   "id": 78,
    "image": "../../export/tiles/outdoor/sprites/07_bangku_b.png",
    "imageheight": 14,
    "imagewidth": 29,
@@ -1042,7 +1438,7 @@
    ]
   },
   {
-   "id": 57,
+   "id": 79,
    "image": "../../export/tiles/outdoor/sprites/34_pot_batu_bunga.png",
    "imageheight": 14,
    "imagewidth": 12,

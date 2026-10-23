@@ -1,0 +1,163 @@
+{
+ "columns": 0,
+ "grid": {
+  "height": 1,
+  "orientation": "orthogonal",
+  "width": 1
+ },
+ "margin": 0,
+ "name": "kelas-b-objects",
+ "spacing": 0,
+ "tilecount": 8,
+ "tiledversion": "1.10.2",
+ "tileheight": 76,
+ "tilewidth": 90,
+ "type": "tileset",
+ "version": "1.10",
+ "tiles": [
+  {
+   "id": 0,
+   "image": "../../export/tiles/classroom_front/sprites/01_papan_tulis.png",
+   "imageheight": 54,
+   "imagewidth": 88,
+   "properties": [
+    {
+     "name": "name",
+     "type": "string",
+     "value": "papan_tulis"
+    },
+    {
+     "name": "lembar",
+     "type": "string",
+     "value": "classroom_front"
+    }
+   ]
+  },
+  {
+   "id": 1,
+   "image": "../../export/tiles/classroom_front/sprites/05_tv_nyala.png",
+   "imageheight": 40,
+   "imagewidth": 65,
+   "properties": [
+    {
+     "name": "name",
+     "type": "string",
+     "value": "tv_nyala"
+    },
+    {
+     "name": "lembar",
+     "type": "string",
+     "value": "classroom_front"
+    }
+   ]
+  },
+  {
+   "id": 2,
+   "image": "../../export/tiles/classroom_front/sprites/06_layar_proyektor.png",
+   "imageheight": 68,
+   "imagewidth": 87,
+   "properties": [
+    {
+     "name": "name",
+     "type": "string",
+     "value": "layar_proyektor"
+    },
+    {
+     "name": "lembar",
+     "type": "string",
+     "value": "classroom_front"
+    }
+   ]
+  },
+  {
+   "id": 3,
+   "image": "../../export/tiles/classroom_front/sprites/08_jam_oranye.png",
+   "imageheight": 25,
+   "imagewidth": 24,
+   "properties": [
+    {
+     "name": "name",
+     "type": "string",
+     "value": "jam_oranye"
+    },
+    {
+     "name": "lembar",
+     "type": "string",
+     "value": "classroom_front"
+    }
+   ]
+  },
+  {
+   "id": 4,
+   "image": "../../export/tiles/classroom_front/sprites/12_meja_dosen.png",
+   "imageheight": 52,
+   "imagewidth": 90,
+   "properties": [
+    {
+     "name": "name",
+     "type": "string",
+     "value": "meja_dosen"
+    },
+    {
+     "name": "lembar",
+     "type": "string",
+     "value": "classroom_front"
+    }
+   ]
+  },
+  {
+   "id": 5,
+   "image": "../../export/tiles/classroom_floor_wall/sprites/20_pintu_kelas.png",
+   "imageheight": 48,
+   "imagewidth": 27,
+   "properties": [
+    {
+     "name": "name",
+     "type": "string",
+     "value": "pintu_kelas"
+    },
+    {
+     "name": "lembar",
+     "type": "string",
+     "value": "classroom_floor_wall"
+    }
+   ]
+  },
+  {
+   "id": 6,
+   "image": "../../export/tiles/lobby_furniture/sprites/13_tanaman_a.png",
+   "imageheight": 16,
+   "imagewidth": 11,
+   "properties": [
+    {
+     "name": "name",
+     "type": "string",
+     "value": "tanaman_a"
+    },
+    {
+     "name": "lembar",
+     "type": "string",
+     "value": "lobby_furniture"
+    }
+   ]
+  },
+  {
+   "id": 7,
+   "image": "../../export/tiles/smart_class_pods/sprites/08_meja_heksagon_nyala.png",
+   "imageheight": 76,
+   "imagewidth": 90,
+   "properties": [
+    {
+     "name": "name",
+     "type": "string",
+     "value": "meja_heksagon_nyala"
+    },
+    {
+     "name": "lembar",
+     "type": "string",
+     "value": "smart_class_pods"
+    }
+   ]
+  }
+ ]
+}

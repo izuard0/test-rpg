@@ -16,7 +16,7 @@ Rancangan lengkap dan keputusan yang sudah disepakati ada di
 | Prototipe karakter (gerak, kamera, kustomisasi) | Selesai: `prototype/karakter/index.html` |
 | Aset tile (lobi, perpustakaan, kelas) | Sudah diolah jadi 339 sprite transparan (`export/tiles/`); petak game **28 px** (diputuskan; temuan skala di `docs/TILES.md`) |
 | Aset NPC, ikon, dua latar layar | Belum dibuat (lihat `belum-dibuat/`) |
-| Peta `kampus` (luar + lobi + perpustakaan) dan `kelas-a` | Dibuat dan divalidasi lewat skrip; **belum dibuka di Tiled/Phaser** |
+| Peta `kampus` (denah gedung) dan `kelas-a/b/c` | Dibuat dan divalidasi lewat skrip; **belum dibuka di Tiled/Phaser** |
 | Klien (Phaser), server (Colyseus), terminal, kuis | Belum dimulai |
 
 Pengembangan dilanjutkan di repositori ini, dimulai dari tahap 1 pada
@@ -36,7 +36,7 @@ python tools/build_sim.py           # bangun ulang halaman prototipe
 python tools/export_character.py    # paket karakter ke export/character/
 python tools/process_tiles.py       # lembar tile -> sprite transparan (± 12 detik)
 python tools/process_outdoor.py     # lembar luar ruangan -> sprite
-python tools/make_map.py kampus     # peta Tiled + pratinjau di maps/ (juga: kelas-a)
+python tools/make_map.py kampus     # peta Tiled + pratinjau di maps/ (juga: kelas-a, kelas-b, kelas-c)
 ```
 
 Rencana alat klien: Node 24 + npm, TypeScript, Phaser 3 (belum ada di repositori).

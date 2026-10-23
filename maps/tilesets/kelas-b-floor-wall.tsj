@@ -1,0 +1,122 @@
+{
+ "columns": 8,
+ "image": "kelas-b-floor-wall.png",
+ "imageheight": 28,
+ "imagewidth": 224,
+ "margin": 0,
+ "name": "kelas-b-floor-wall",
+ "spacing": 0,
+ "tilecount": 7,
+ "tiledversion": "1.10.2",
+ "tileheight": 28,
+ "tilewidth": 28,
+ "type": "tileset",
+ "version": "1.10",
+ "tiles": [
+  {
+   "id": 0,
+   "properties": [
+    {
+     "name": "name",
+     "type": "string",
+     "value": "lantai_a"
+    },
+    {
+     "name": "sumber",
+     "type": "string",
+     "value": "classroom_floor_wall/lantai_a 26x27"
+    }
+   ]
+  },
+  {
+   "id": 1,
+   "properties": [
+    {
+     "name": "name",
+     "type": "string",
+     "value": "lantai_b"
+    },
+    {
+     "name": "sumber",
+     "type": "string",
+     "value": "classroom_floor_wall/lantai_b 26x27"
+    }
+   ]
+  },
+  {
+   "id": 2,
+   "properties": [
+    {
+     "name": "name",
+     "type": "string",
+     "value": "lantai_c"
+    },
+    {
+     "name": "sumber",
+     "type": "string",
+     "value": "classroom_floor_wall/lantai_c 26x27"
+    }
+   ]
+  },
+  {
+   "id": 3,
+   "properties": [
+    {
+     "name": "name",
+     "type": "string",
+     "value": "lantai_d"
+    },
+    {
+     "name": "sumber",
+     "type": "string",
+     "value": "classroom_floor_wall/lantai_d 26x27"
+    }
+   ]
+  },
+  {
+   "id": 4,
+   "properties": [
+    {
+     "name": "name",
+     "type": "string",
+     "value": "dinding_biru_a"
+    },
+    {
+     "name": "sumber",
+     "type": "string",
+     "value": "classroom_floor_wall/dinding_biru_a 27x24"
+    }
+   ]
+  },
+  {
+   "id": 5,
+   "properties": [
+    {
+     "name": "name",
+     "type": "string",
+     "value": "dinding_biru_b"
+    },
+    {
+     "name": "sumber",
+     "type": "string",
+     "value": "classroom_floor_wall/dinding_biru_b 26x24"
+    }
+   ]
+  },
+  {
+   "id": 6,
+   "properties": [
+    {
+     "name": "name",
+     "type": "string",
+     "value": "panel_gelap_a"
+    },
+    {
+     "name": "sumber",
+     "type": "string",
+     "value": "classroom_floor_wall/panel_gelap_a 26x28"
+    }
+   ]
+  }
+ ]
+}
