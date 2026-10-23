@@ -431,6 +431,10 @@ sekitar 1 menit). Set baru otomatis mendapat versi badan ramping.
    Rencana kuis: kursi, panel kuis, halaman dosen untuk memulai kuis
    dan mengunduh nilai; kuis praktik memakai terminal di Lab Komputer.
 5. **Login & penyimpanan**: akun, karakter tersimpan, kemajuan latihan, lencana.
+   Akun dosen **disetujui admin** (keputusan 23 Okt 2026): daftar dengan NIP, lalu admin
+   menyetujui di halaman admin sebelum peran dosen aktif. Setelah itu `KODE_DOSEN` dihapus
+   dan bagi file cukup memeriksa peran dosen yang sudah disetujui. Sampai saat itu
+   `KODE_DOSEN` boleh dibiarkan kosong (bagi file nonaktif, fitur kelas lain tetap jalan).
 6. **Peluncuran**: HTTPS di server, uji coba dengan satu kelas.
 
 ### Cakupan versi pertama (uji coba satu kelas)
