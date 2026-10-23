@@ -9,11 +9,11 @@ menapak lantai). Gambar benda boleh lebih tinggi dari telapaknya.
 
 | # | Topik | Keputusan |
 |---|---|---|
-| 1 | Tampilan | **Kamera diam, seluruh ruangan terlihat.** Zoom bulat terbesar yang masih memuat ruangan |
+| 1 | Tampilan | **Kamera mengikuti pemain**, agak tele (zoom bulat 2× atau lebih) *(diubah dari "kamera diam", disetujui pemilik proyek)* |
 | 2 | Rak buku | **6 rak**: 2 biru (Logika Komputasional), 2 oranye (Kecerdasan Buatan), 2 hijau (cadangan, "segera hadir") |
 | 3 | Terminal | **4 terminal**, semuanya membuka terminal praktik yang sama; latihan dipilih di dalam panel |
 | 4 | Tabrakan pemain | **Pemain saling menembus** (tanpa tabrakan antarpemain) |
-| 5 | Perpindahan | **Ruangan terpisah** dengan pintu; satu ruangan Colyseus per peta |
+| 5 | Perpindahan | **Hibrida (diubah, disetujui):** satu peta **`kampus`** yang terhubung untuk halaman luar, lobi, dan perpustakaan (satu ruangan Colyseus, server hanya mengirim pemain di sekitar); **kelas tetap terpisah** lewat pintu (satu ruangan Colyseus per kelas) agar kuis, kursi terkunci, dan chat terisolasi |
 | 6 | Kursi kelas | Bebas memilih kursi kosong; **terkunci saat kuis dimulai**; yang terlambat masuk sebagai **penonton** (tidak ikut dinilai kecuali diizinkan dosen) |
 | 7 | Pembuatan peta | Berkas **Tiled (`.tmj`)** dihasilkan skrip dari spesifikasi ini, lalu bisa disunting di Tiled |
 | 8 | Nama ruangan | Perpustakaan Al-Khawarizmi, Lab Lovelace, Ruang Kolaborasi, Auditorium Turing |
@@ -35,7 +35,7 @@ terlalu padat; ubah bila perlu.
 
 ## 3. Aturan umum
 
-**Kamera.** Zoom `z` = bilangan bulat terbesar dengan `lebarRuangan × z ≤ lebar layar` dan
+**Kamera (aturan lama, hanya untuk ruangan kelas yang kecil).** Zoom `z` = bilangan bulat terbesar dengan `lebarRuangan × z ≤ lebar layar` dan
 `tinggiRuangan × z ≤ tinggi layar`, minimal 1; ruangan di tengah, latar navy `#1B2A41`.
 Bila layar lebih kecil dari ruangan pada zoom 1, kamera mengikuti pemain (cadangan).
 
@@ -248,41 +248,37 @@ terpisah untuk set ini (belum ada; lihat bagian 9).
 
 ## 9. Status dan urutan pengerjaan
 
-**Selesai (perpustakaan):**
+**Peta (semuanya dihasilkan skrip; jangan sunting `.tmj` dengan tangan):**
 
-- Petak lantai dinormalisasi ke 28 × 28 (nearest). Garis tepi bawaan yang membentuk kisi
-  dibuang: petak karpet (garis cokelat dekat tepi atas dan bawah) dan petak dinding gelap
-  (baris atas dan kolom kanan yang terang).
-- Tiap sprite diekspor sebagai PNG: `export/tiles/<lembar>/sprites/NN_nama.png`.
-- Pembuat peta: `tools/mapgen.py` (umum), `tools/layouts/perpustakaan.py` (tata letak),
-  `tools/make_map.py` (perintah).
-- Hasil: `maps/perpustakaan.tmj`, set tile di `maps/tilesets/`, dan pratinjau di
-  `maps/preview/` (`perpustakaan.png` bersih; `perpustakaan-debug.png` menampilkan
-  tabrakan, interaksi, pintu, dan titik muncul).
+| Peta | Isi | Ukuran | Perintah |
+|---|---|---|---|
+| `maps/kampus.tmj` | halaman luar, lobi, perpustakaan (satu ruangan Colyseus) | 78 × 54 petak (2.184 × 1.512 px) | `python tools/make_map.py kampus` |
+| `maps/kelas-a.tmj` | Lab Lovelace, 30 kursi bertipe `seat` | 20 × 18 | `python tools/make_map.py kelas-a` |
 
-```bash
-python tools/make_map.py perpustakaan
-```
+- **Kampus.** Lobi 40 × 28 di kiri atas; perpustakaan **36 × 28** (diperbesar dari 30 × 22 karena
+  perabotnya kini 2×) di sebelah kanan, tersambung lewat bukaan di dinding timur lobi (tanpa layar
+  loading). Di selatan lobi ada **gedung depan** (aset luar ruangan, 2×) dengan lorong ke lobi,
+  plaza berair mancur, jalan batu, pohon, bangku, lampu, dan rak sepeda. Tiga pintu kiri lobi menuju
+  kelas A/B/C (ruangan terpisah). Titik muncul pemain baru: `awal` di depan gedung.
+- **Skala.** Perabot besar digambar **2×** (`scale` di tata letak); lantai 28 px per petak.
+- **Lorong gedung depan.** Gedung menempel di dinding selatan lobi dan pintunya sejajar dengan bukaan
+  dinding. Di Phaser, urutkan kedalaman menurut **tepi bawah** sprite supaya pemain tampak
+  "masuk" di balik gedung lalu muncul di lobi. Sayap gedung bertabrakan lewat objek `blok`; lorong x=19..21 terbuka.
+- Tata letak sumber: `tools/layouts/{kampus,lobi,perpustakaan,kelas-a}.py`. `lobi.py` dan
+  `perpustakaan.py` kini hanya **data** yang digeser oleh `kampus.py` (tidak lagi dibangun sendiri).
+- Aset luar ruangan: `tools/process_outdoor.py` mengolah `assets/tiles/_draft/outdoor_tileset_*.jpg`
+  (kisi hitam 2 px di gambar mentah diperbaiki; 1 piksel seni = 4 px sumber) menjadi
+  `export/tiles/outdoor/{sprites,ground}/`.
 
-**Catatan keandalan.** Berkas `.tmj` divalidasi skrip (gid, gambar, id objek ganda) dan
-pratinjau digambar ulang **dari berkas itu**, bukan dari spesifikasi. Namun berkas ini
-**belum pernah dibuka di aplikasi Tiled** maupun dimuat di Phaser. Objek memakai kunci
-`type` (bukan `class`) agar terbaca Phaser; Tiled 1.9+ masih membacanya, tetapi belum
-diverifikasi. Perlakukan uji buka di Tiled dan Phaser sebagai langkah wajib berikutnya.
-
-**Selesai juga:** `maps/lobi.tmj` (40×28, 4 pintu: Lab Lovelace, Ruang Kolaborasi, Auditorium Turing, Perpustakaan) dan
-`maps/kelas-a.tmj` (Lab Lovelace 20×18, 15 meja × 2 = 30 kursi bertipe `seat`, meja dosen, papan tulis).
-Lantai lobi sementara memakai lantai kelas; lobi masih jarang perabotnya dan perlu penataan visual.
-Pintu kelas B dan C di lobi sudah ada, petanya belum.
-
-```bash
-python tools/make_map.py lobi
-python tools/make_map.py kelas-a
-```
+**Catatan keandalan.** Berkas `.tmj` divalidasi skrip (gid, gambar, id objek ganda) dan pratinjau
+digambar ulang dari berkas itu, bukan dari spesifikasi. Namun berkas ini **belum pernah dibuka di
+aplikasi Tiled** maupun dimuat di Phaser. Objek memakai kunci `type` (bukan `class`).
 
 **Belum:**
 
-1. Kelas B dan C; 2 kursi penonton Lab Lovelace (logika, bukan petak).
-2. Membuat ulang `lobby_floor_wall` dan `lobby_doors` (lantai lobi, pintu setinggi karakter).
+1. Kelas B dan C. Kelas A masih berskala 1× (lihat pertanyaan skala di bawah).
+2. Lantai lobi asli dan pintu lobi setinggi karakter (lantai lobi sementara memakai lantai kelas).
 3. NPC pustakawan dan NPC lain (belum ada sprite).
-4. Uji buka di Tiled dan muat di Phaser.
+4. Uji buka di Tiled dan muat di Phaser; uji beban satu ruangan kampus (± 150 pemain, hanya kirim pemain di sekitar).
+5. **Skala perabot vs karakter.** Perabot 2× (mis. kursi 48 × 78 px) lebih besar daripada karakter
+   (29 × 54 px). Perlu dilihat bersama karakter di game; kelas (30–60 kursi) di skala 2× butuh ruangan jauh lebih besar.

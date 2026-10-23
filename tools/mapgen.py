@@ -12,6 +12,7 @@ tools/character_config.json). Tile objek Tiled berpatokan pada tepi BAWAH-kiri.
 import json
 import os
 import random
+import time
 from pathlib import Path
 
 import numpy as np
@@ -28,6 +29,8 @@ BG = "#1b2a41"
 
 # ------------------------------------------------------------------ util
 def sprite_path(sheet, name):
+    if sheet == "outdoor_ground":                      # petak lantai luar ruangan (bukan sprite)
+        return TL / "outdoor" / "ground" / f"{name}.png"
     hits = sorted((TL / sheet / "sprites").glob(f"*_{name}.png"))
     if not hits:
         raise FileNotFoundError(f"sprite tidak ditemukan: {sheet}/{name}")
@@ -144,13 +147,18 @@ def merge_runs(solid):
 def build_room(L):
     rid, W, H = L["id"], L["w"], L["h"]
     rng = random.Random(7)
+    regions = L.get("regions") or [{"rect": [0, 0, W, H], "floor": L["floor"], "wall": L["wall"]}]
+    ground = L.get("ground")
     floor_names = {}
-    for n, sp in L["floor"]["base"]:
-        floor_names[n] = sp
-    for n, sp in L["floor"]["carpet"]["tiles"]:
-        floor_names[n] = sp
-    for n, sp in L["wall"]["face"] + [L["wall"]["dark"]]:
-        floor_names[n] = sp
+    if ground:
+        for n, sp in ground["base"]:
+            floor_names[n] = sp
+        for pth in ground.get("paths", []):
+            for n, sp in pth["tiles"]:
+                floor_names[n] = sp
+    for r in regions:
+        for n, sp in r["floor"]["base"] + r["floor"]["carpet"]["tiles"] + r["wall"]["face"] + [r["wall"]["dark"]]:
+            floor_names[n] = sp
     ftiles = [(n, sp) for n, sp in floor_names.items()]
     fids, notes = build_floor_tileset(ftiles, name=f"{rid}-floor-wall")
 
@@ -163,28 +171,47 @@ def build_room(L):
 
     # lapisan petak
     floor = [[0] * W for _ in range(H)]
-    base = [n for n, _ in L["floor"]["base"]]
-    rugs = L["floor"]["carpet"]["rect"]
-    rugs = [rugs] if isinstance(rugs[0], int) else rugs
-    carpet = [n for n, _ in L["floor"]["carpet"]["tiles"]]
-    for y in range(H):
-        for x in range(W):
-            in_c = any(a <= x <= c and b <= y <= d for a, b, c, d in rugs)
-            floor[y][x] = 1 + fids[rng.choice(carpet if in_c else base)]
     walls = [[0] * W for _ in range(H)]
     solid = [[False] * W for _ in range(H)]
-    opening = {(x, y) for (ox, oy, ow, oh) in L["wall"]["openings"]
-               for x in range(ox, ox + ow) for y in range(oy, oy + oh)}
-    dark = 1 + fids[L["wall"]["dark"][0]]
-    face = [1 + fids[n] for n, _ in L["wall"]["face"]]
-    top = L["wall"]["top_rows"]
-    for y in range(H):
-        for x in range(W):
-            edge = y < top or x == 0 or x == W - 1 or y == H - 1
-            if not edge or (x, y) in opening:
-                continue
-            solid[y][x] = True
-            walls[y][x] = rng.choice(face) if (top - L["wall"].get("face_rows", 1) <= y < top and 0 < x < W - 1) else dark
+    if ground:
+        gb = [n for n, _ in ground["base"]]
+        for y in range(H):
+            for x in range(W):
+                floor[y][x] = 1 + fids[rng.choice(gb)]
+        for pth in ground.get("paths", []):
+            x0, y0, x1, y1 = pth["rect"]
+            pt = [n for n, _ in pth["tiles"]]
+            for y in range(y0, y1 + 1):
+                for x in range(x0, x1 + 1):
+                    floor[y][x] = 1 + fids[rng.choice(pt)]
+    for r in regions:
+        rx, ry, rw, rh = r["rect"]
+        fl, wl = r["floor"], r["wall"]
+        base = [n for n, _ in fl["base"]]
+        rugs = fl["carpet"]["rect"]
+        rugs = [rugs] if isinstance(rugs[0], int) else rugs
+        carpet = [n for n, _ in fl["carpet"]["tiles"]]
+        for y in range(ry, ry + rh):
+            for x in range(rx, rx + rw):
+                in_c = any(a <= x <= c and b <= y <= d for a, b, c, d in rugs)
+                floor[y][x] = 1 + fids[rng.choice(carpet if in_c else base)]
+        opening = {(x, y) for (ox, oy, ow, oh) in wl["openings"]
+                   for x in range(ox, ox + ow) for y in range(oy, oy + oh)}
+        dark = 1 + fids[wl["dark"][0]]
+        face = [1 + fids[n] for n, _ in wl["face"]]
+        top = ry + wl["top_rows"]
+        for y in range(ry, ry + rh):
+            for x in range(rx, rx + rw):
+                edge = y < top or x == rx or x == rx + rw - 1 or y == ry + rh - 1
+                if (x, y) in opening:
+                    walls[y][x] = 0
+                    solid[y][x] = False
+                    continue
+                if not edge:
+                    continue
+                solid[y][x] = True
+                is_face = top - wl.get("face_rows", 1) <= y < top and rx < x < rx + rw - 1
+                walls[y][x] = rng.choice(face) if is_face else dark
 
     nid = {"layer": 1, "obj": 1}
 
@@ -220,6 +247,9 @@ def build_room(L):
             interact.append({"id": new_obj(), "name": o.get("name") or (o["sprite"][1] if o.get("sprite") else o["type"]),
                              "type": o["type"], "x": ix * T, "y": iy * T, "width": iw * T, "height": ih * T,
                              "rotation": 0, "visible": True, "properties": props(o.get("props"))})
+    for (x, y, w, h) in L.get("blocks", []):
+        collision.append({"id": new_obj(), "name": "blok", "type": "collision", "x": x * T, "y": y * T,
+                          "width": w * T, "height": h * T, "rotation": 0, "visible": True})
     for (x, y, w, h) in merge_runs(solid):
         collision.append({"id": new_obj(), "name": "dinding", "type": "collision", "x": x * T, "y": y * T,
                           "width": w * T, "height": h * T, "rotation": 0, "visible": True})
@@ -355,4 +385,11 @@ def render(tmj_path, out_path, debug=False, scale=2):
                 elif L["name"] == "zones":
                     d.rectangle([x, y, x + w - 1, y + h - 1], outline=(255, 255, 255, 200))
         img = Image.alpha_composite(img, ov)
-    img.convert("RGB").resize((W * scale, H * scale), Image.NEAREST).save(out_path)
+    out = img.convert("RGB").resize((W * scale, H * scale), Image.NEAREST)
+    for k in range(6):                    # Windows kadang menolak membuka berkas pratinjau sesaat (antivirus/penampil)
+        try:
+            out.save(out_path)
+            return
+        except OSError:
+            time.sleep(0.5 * (k + 1))
+    out.save(out_path)

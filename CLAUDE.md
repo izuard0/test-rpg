@@ -16,8 +16,8 @@ disepakati dengan pemilik proyek, jangan diubah diam-diam.
   bukan di server.
 - Kepala berhijab sementara hanya boleh memakai baju Hoodie dan Flanel; Hijab
   panjang dan Hijab sport disembunyikan dulu.
-- Peta: ruangan **terpisah** (`lobi`, `perpustakaan`, `kelas-a/b/c`), **kamera diam** dengan seluruh
-  ruangan terlihat (zoom bulat), pemain **saling menembus**, rintangan berupa persegi di lapisan
+- Peta: **hibrida**: satu peta `kampus` terhubung (halaman luar + lobi + perpustakaan, kamera mengikuti pemain,
+  agak tele), kelas (`kelas-a/b/c`) ruangan terpisah lewat pintu; pemain **saling menembus**, rintangan berupa persegi di lapisan
   `collision`. Spesifikasi lengkap: `docs/PETA.md`.
 - Deploy di **Coolify** (Docker, dari repo GitHub ini): satu image aplikasi + PostgreSQL
   terpisah; konfigurasi lewat environment variable; WebSocket lewat proxy Coolify.
@@ -81,7 +81,7 @@ keputusan terbuka no. 9 di `docs/RANCANGAN.md`; jangan menetapkannya diam-diam.
 ## Alur peta
 
 ```
-tools/layouts/<kode>.py  (tata letak, satuan petak)  -> python tools/make_map.py <kode>
+tools/layouts/<kode>.py  (tata letak, satuan petak; kampus.py memakai lobi.py + perpustakaan.py)  -> python tools/make_map.py <kode>
   -> maps/<kode>.tmj + maps/tilesets/*.tsj + maps/preview/<kode>[-debug].png
 ```
 

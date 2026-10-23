@@ -1,4 +1,7 @@
-"""Tata letak Perpustakaan Al-Khawarizmi (docs/PETA.md bagian 4). Satuan: petak."""
+"""Tata letak Perpustakaan Al-Khawarizmi (docs/PETA.md bagian 4), 36 x 28 petak.
+
+Semua perabot digambar 2x (selaras dengan lobi dan halaman). Satuan: petak.
+Di peta `kampus` tata letak ini digeser (lihat kampus.py)."""
 
 LF = "library_floor_wall"
 BS = "library_bookshelves"
@@ -6,53 +9,54 @@ FU = "library_furniture"
 TE = "library_terminals"
 
 SHELVES = [  # (x, sprite, kode mata kuliah, warna, judul)
-    (3, "rak_biru", "logika-komputasional", "biru", "Logika Komputasional"),
+    (2, "rak_biru", "logika-komputasional", "biru", "Logika Komputasional"),
     (7, "rak_biru_2", "logika-komputasional", "biru", "Logika Komputasional"),
-    (11, "rak_oranye", "kecerdasan-buatan", "oranye", "Kecerdasan Buatan"),
-    (15, "rak_oranye", "kecerdasan-buatan", "oranye", "Kecerdasan Buatan"),
-    (19, "rak_hijau", "", "hijau", "Segera hadir"),
-    (23, "rak_hijau_2", "", "hijau", "Segera hadir"),
+    (12, "rak_oranye", "kecerdasan-buatan", "oranye", "Kecerdasan Buatan"),
+    (17, "rak_oranye", "kecerdasan-buatan", "oranye", "Kecerdasan Buatan"),
+    (22, "rak_hijau", "", "hijau", "Segera hadir"),
+    (27, "rak_hijau_2", "", "hijau", "Segera hadir"),
 ]
 
 objects = []
+
+
+def put(spr, foot, **kw):
+    objects.append({"sprite": spr, "foot": foot, "scale": 2, **kw})
+
+
+for x in [5, 10, 15, 20, 25]:                                   # jendela di sela rak
+    put((LF, "jendela_kayu"), [x, 2, 2, 1], collide=False)
 for i, (x, spr, course, color, title) in enumerate(SHELVES, 1):
-    objects.append({"sprite": (BS, spr), "foot": [x, 4, 2, 1], "type": "shelf", "name": f"rak_{i}",
-                    "props": {"shelfId": i, "course": course, "color": color, "title": title},
-                    "interact": [x, 5, 2, 1]})
-for i, y in enumerate([5, 8, 11, 14], 1):
-    objects.append({"sprite": (TE, "kios_nyala_a"), "foot": [27, y, 1, 1], "type": "terminal", "name": f"terminal_{i}",
-                    "props": {"terminalId": i, "mode": "terminal"}, "interact": [26, y, 1, 1]})
-for (x, y) in [(6, 9), (13, 9), (6, 14), (13, 14)]:
-    objects.append({"sprite": (FU, "meja_baca_panjang"), "foot": [x, y, 4, 3]})
-objects += [
-    {"sprite": (FU, "meja_pustakawan"), "foot": [2, 16, 3, 2]},
-    {"type": "npc", "name": "pustakawan", "foot": [3, 15, 1, 1], "interact": [3, 18, 1, 1],
-     "props": {"npc": "pustakawan", "dialog": "tutorial-perpustakaan"}},  # NPC belum punya sprite
-    {"sprite": (FU, "sofa_tunggal_biru_1"), "foot": [24, 19, 1, 1]},
-    {"sprite": (FU, "sofa_tunggal_biru_2"), "foot": [26, 19, 1, 1]},
-    {"sprite": (FU, "troli_buku"), "foot": [19, 19, 2, 1]},
-    {"sprite": (FU, "papan_tulis_beroda"), "foot": [24, 10, 2, 1]},
-    {"sprite": (TE, "bilik_belajar_tiga"), "foot": [21, 17, 3, 2]},
-    {"sprite": (LF, "pembaca_kartu_pilar"), "foot": [0, 9, 1, 1], "collide": False},
-]
-for (x, y) in [(1, 2), (28, 2), (1, 20), (28, 20)]:
-    objects.append({"sprite": (FU, "tanaman_pakis"), "foot": [x, y, 1, 1]})
-for x in [3, 9, 15, 21, 26]:
-    objects.append({"sprite": (LF, "jendela_kayu"), "foot": [x, 1, 1, 1], "collide": False})
+    put((BS, spr), [x, 5, 3, 1], type="shelf", name=f"rak_{i}",
+        props={"shelfId": i, "course": course, "color": color, "title": title}, interact=[x, 6, 3, 1])
+for i, y in enumerate([7, 11, 15, 19], 1):
+    put((TE, "kios_nyala_a"), [33, y, 2, 1], type="terminal", name=f"terminal_{i}",
+        props={"terminalId": i, "mode": "terminal"}, interact=[31, y, 2, 1])
+for (x, y) in [(10, 10), (20, 10), (10, 17), (20, 17)]:
+    put((FU, "meja_baca_panjang"), [x, y, 8, 5])
+put((FU, "meja_pustakawan"), [2, 21, 5, 3])
+objects.append({"type": "npc", "name": "pustakawan", "foot": [3, 20, 1, 1], "interact": [3, 24, 2, 1],
+                "props": {"npc": "pustakawan", "dialog": "tutorial-perpustakaan"}})   # sprite NPC belum ada
+put((TE, "bilik_belajar_tiga"), [12, 22, 6, 3])
+put((FU, "troli_buku"), [20, 23, 3, 2])
+put((FU, "sofa_tunggal_biru_1"), [25, 23, 2, 2])
+put((FU, "sofa_tunggal_biru_2"), [28, 23, 2, 2])
+put((FU, "papan_tulis_beroda"), [28, 19, 3, 1])
+for (x, y) in [(33, 4), (1, 26), (33, 26)]:
+    put((FU, "tanaman_pakis"), [x, y, 2, 1])
 
 LAYOUT = {
-    "id": "perpustakaan", "title": "Perpustakaan Al-Khawarizmi", "w": 30, "h": 22, "capacity": 40,
+    "id": "perpustakaan", "title": "Perpustakaan Al-Khawarizmi", "w": 36, "h": 28, "capacity": 40,
     "floor": {
-        "base": [("lantai_parket_a", (LF, "lantai_parket_a")), ("lantai_parket_b", (LF, "lantai_parket_b")),
-                 ("lantai_parket_c", (LF, "lantai_parket_c")), ("lantai_parket_d", (LF, "lantai_parket_d"))],
-        "carpet": {"rect": [4, 8, 25, 18],
+        "base": [(f"lantai_parket_{c}", (LF, f"lantai_parket_{c}")) for c in "abcd"],
+        "carpet": {"rect": [8, 9, 29, 25],
                    "tiles": [("karpet_navy_a", (LF, "karpet_navy_a")), ("karpet_navy_b", (LF, "karpet_navy_b"))]},
     },
     "wall": {"dark": ("panel_navy_gelap", (LF, "panel_navy_gelap")),
              "face": [("dinding_krem_a", (LF, "dinding_krem_a")), ("dinding_krem_b", (LF, "dinding_krem_b"))],
-             "top_rows": 2, "openings": [[0, 10, 1, 2]]},
+             "top_rows": 3, "face_rows": 2, "openings": [[0, 10, 1, 3]]},
     "objects": objects,
-    "doors": [{"rect": [0, 10, 1, 2], "target": "lobi", "spawn": "dari_perpustakaan", "label": "Ke Lobi"}],
-    "spawns": [{"name": "dari_lobi", "tile": [2.5, 11]}],
-    "zones": [{"name": "perpustakaan", "rect": [0, 0, 30, 22], "chatRadius": 3, "chatPublic": False}],
+    "doors": [{"rect": [0, 10, 1, 3], "target": "kampus", "spawn": "dari_perpustakaan", "label": "Ke Lobi"}],
+    "spawns": [{"name": "dari_lobi", "tile": [2.5, 11.5]}],
+    "zones": [{"name": "perpustakaan", "rect": [0, 0, 36, 28], "chatRadius": 3, "chatPublic": False}],
 }

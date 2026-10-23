@@ -89,6 +89,6 @@ Use the attached reference image as the strict style guide. Match its exact pixe
 Prompt Siap Tempel:
 Use the attached reference image as the strict style guide. Match its exact pixel art style: same outline thickness and color, same shading and highlight style, and the same color palette. Pixel art, 16-bit style, 16:9 dark navy (#1B2A41) background with a faint circuit-board grid pattern, empty terminal-style progress bar outline in the center, a small yellow rubber duck with tiny glasses in the bottom right corner, no text, no readable letters.
 
-[ ] 12. tiles_outdoor.png (Opsional)
+[~] 12. tiles_outdoor.png (SUDAH ADA sebagai draf: assets/tiles/_draft/outdoor_tileset_*.jpg; sudah diolah, lihat tools/process_outdoor.py)
 Prompt Siap Tempel:
 Use the attached reference image as the strict style guide. Match its exact pixel art style: same outline thickness and color, same shading and highlight style, same level of detail, same top-down 3/4 perspective and the same color palette. Pixel art, 16-bit style, top-down 3/4 view, crisp hard pixel edges, no anti-aliasing. Outdoor campus tileset: grass (4 variations), paved campus path, flower beds, trees, benches with charging ports, lampposts, bicycle rack, front facade of a modern two-story computer science building with glass entrance and blank sign board, no text, no readable letters. Solid flat magenta #FF00FF background.
