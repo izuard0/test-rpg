@@ -24,8 +24,8 @@ bersama secara daring.
 | Kelas B · Ruang Kolaborasi | 45 kursi (9 meja kelompok × 5) | Kuis tim, diskusi kelompok |
 | Kelas C · Auditorium | 60 kursi (bertingkat) | Kuis besar, kuliah umum |
 
-Usulan nama ruangan (belum final): Perpustakaan Al-Khawarizmi, Lab Lovelace,
-Ruang Kolaborasi, Auditorium Turing.
+Nama ruangan (diputuskan): Perpustakaan Al-Khawarizmi, Lab Lovelace, Ruang Kolaborasi,
+Auditorium Turing. Tata letak, ukuran, dan aturan peta: [`docs/PETA.md`](PETA.md).
 
 ---
 
@@ -389,7 +389,7 @@ sekitar 1 menit). Set baru otomatis mendapat versi badan ramping.
 
 1. **Prototipe satu pemain** *(sebagian)*: gerak, kamera, dan kreator karakter
    sudah jadi (bagian 6). Masih tersisa peta dari Tiled dengan tileset asli dan
-   rak buku yang membuka materi. Belum memakai server.
+   rak buku yang membuka materi (spesifikasi peta: `docs/PETA.md`). Belum memakai server.
 2. **Terminal perpustakaan**: editor, mode SQL, Python, dan pseudocode,
    sandbox, beberapa latihan contoh. Masih satu pemain, tanpa server.
 3. **Multipemain lobi**: saling melihat, pindah ruangan, empat mode chat, emote.
@@ -405,7 +405,7 @@ sesuaikan bila keduanya sudah ada.
 
 | Masuk versi pertama | Menyusul |
 |---|---|
-| Lobi, perpustakaan, **satu kelas** (Lab Algoritma, 30 kursi) | Kelas B (45) dan Kelas C (60) |
+| Lobi, perpustakaan, **satu kelas** (Lab Lovelace, 30 kursi) | Kelas B (45) dan Kelas C (60) |
 | Chat mode **Sekitar** dan **Publik** | Mode Berdua dan Kelompok |
 | Terminal **SQL** dan **pseudocode** | Python (Pyodide ± 10 MB) |
 | Kuis **pilihan ganda** | Kuis praktik di terminal |
@@ -429,5 +429,5 @@ dibuktikan lebih awal.
 | 5 | Nilai kuis | Hanya di game **atau** bisa diunduh dosen (CSV/Excel) | diputuskan (atas saran): dosen mengunduh CSV |
 | 6 | Perangkat utama | Laptop, HP, atau keduanya | diputuskan (atas saran): laptop lebih dulu; HP bisa dibuka (kontrol sentuh sudah ada) tetapi terminal praktik tidak dioptimalkan |
 | 7 | Perawat kode | Dosen, mahasiswa, atau tim IT kampus (memengaruhi bahasa server) | belum diputuskan |
-| 8 | Nama platform & nama ruangan | Usulan pemilik proyek untuk nama platform: **MITA** (Mayantara Interaktif Tatap-maya Akademik). Ide lain: Kampus Piksel, Gedung Algoritma, InfoVerse, Ruang Kode. Nama ruangan belum ditentukan | nama kerja: MITA; cek domain dan merek sebelum dipakai publik |
+| 8 | Nama platform & nama ruangan | Usulan pemilik proyek untuk nama platform: **MITA** (Mayantara Interaktif Tatap-maya Akademik). Ide lain: Kampus Piksel, Gedung Algoritma, InfoVerse, Ruang Kode. Nama ruangan diputuskan: Perpustakaan Al-Khawarizmi, Lab Lovelace, Ruang Kolaborasi, Auditorium Turing | nama kerja: MITA; cek domain dan merek sebelum dipakai publik |
 | 9 | Skala petak dan benda | Petak game 32 dengan lembar dibesarkan **atau** petak 28 + buat ulang `lobby_floor_wall` dan `lobby_doors` (saran) — lihat `docs/TILES.md` | diputuskan (atas saran): petak 28 + buat ulang `lobby_floor_wall` dan `lobby_doors`; lantai lobi sementara memakai petak lantai kelas |

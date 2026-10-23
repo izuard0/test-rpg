@@ -16,6 +16,9 @@ disepakati dengan pemilik proyek, jangan diubah diam-diam.
   bukan di server.
 - Kepala berhijab sementara hanya boleh memakai baju Hoodie dan Flanel; Hijab
   panjang dan Hijab sport disembunyikan dulu.
+- Peta: ruangan **terpisah** (`lobi`, `perpustakaan`, `kelas-a/b/c`), **kamera diam** dengan seluruh
+  ruangan terlihat (zoom bulat), pemain **saling menembus**, rintangan berupa persegi di lapisan
+  `collision`. Spesifikasi lengkap: `docs/PETA.md`.
 - Deploy di **Coolify** (Docker, dari repo GitHub ini): satu image aplikasi + PostgreSQL
   terpisah; konfigurasi lewat environment variable; WebSocket lewat proxy Coolify.
 
