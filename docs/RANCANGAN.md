@@ -5,6 +5,9 @@ Bagian **Keputusan terbuka** di akhir berisi hal yang masih perlu diputuskan.
 
 Terakhir diperbarui: 23 Oktober 2026
 
+**Status terbaru:** prototipe karakter sudah selesai dan berjalan dengan baik
+(berjalan 4 arah, kamera, kustomisasi). Ringkasannya ada di **bagian 6**.
+
 ---
 
 ## 1. Ringkasan
@@ -80,32 +83,46 @@ warna neon. Latar tetap terang dan tenang karena pemain akan membaca materi lama
 
 ### Struktur folder (rencana)
 
+Proyek saat ini berada di `D:\project-virtualclass\test-rpg\`. Folder bertanda
+(ada) sudah dibuat; sisanya masih rencana.
+
 ```
-project-virtualclass/
-  asset-prompts/   prompt pembuatan aset
-  assets/          aset gambar (PNG)
+test-rpg/
+  asset-prompts/   (ada) prompt pembuatan aset
+  assets/          (ada) aset gambar; characters/raw/ = hasil mentah dari Gemini
+  belum-dibuat/    (ada) daftar aset yang belum dibuat + gambar acuan
+  prototype/       (ada) prototipe yang sudah jadi: karakter/index.html
+  tools/           (ada) skrip pemroses aset & pembuat simulasi
+  docs/            (ada) dokumen rancangan (file ini)
   client/          Phaser + UI HTML
   server/          Colyseus + Fastify
   shared/          tipe data bersama klien & server
   maps/            peta Tiled (.tmj)
   materi/          file materi HTML + materi.json
   latihan/         soal latihan terminal (SQL, Python, pseudocode) + dataset
-  docs/            dokumen rancangan (file ini)
 ```
 
 ### Karakter kustom
 
-Karakter disusun dari lapisan (badan, rambut, baju, bawahan, sepatu, hijab/topi,
-aksesori). Yang disimpan di database hanya pilihan pemain, misalnya:
+Karakter dirakit dari tiga bagian (berdasarkan hasil prototipe, bagian 6):
+
+1. **Kepala utuh**: wajah + rambut / hijab / topi dalam satu sprite, 4 arah.
+2. **Badan tanpa kepala**: satu set busana lengkap (atasan + bawahan + sepatu).
+   Dagu langsung menempel di kerah, tanpa leher.
+3. **Aksesori**: kacamata dan headset (relatif terhadap dagu), tas (relatif
+   terhadap kerah).
+
+Yang disimpan di database hanya pilihan pemain, misalnya:
 
 ```json
-{ "body": "base_02", "hair": "hair_long", "hairColor": "#3B2A20",
-  "top": "top_hoodie", "topColor": "#2F6FB0", "bottom": "bottom_jeans",
-  "shoes": "shoes_sneakers", "head": null, "accessories": ["acc_glasses_square"] }
+{ "gender": "P", "head": "hijab_simple", "hijabColor": "#A9B89A",
+  "set": "hoodie", "topColor": "#E8DCC4", "skin": 1,
+  "glasses": "acc_glasses_round", "headgear": null, "bag": "acc_backpack" }
 ```
 
-Gambar disusun di browser masing-masing. Rambut dan pakaian berwarna abu-abu
-lalu diwarnai oleh game, sehingga satu aset menghasilkan banyak pilihan warna.
+Gambar disusun di browser masing-masing. Rambut, hijab, topi, dan atasan
+berwarna abu-abu lalu diwarnai oleh game, sehingga satu aset menghasilkan
+banyak pilihan warna. Warna kulit juga diganti oleh game (5 pilihan).
 
 ### Data yang disimpan (garis besar)
 
@@ -249,10 +266,64 @@ praktik, dengan pemeriksaan di server agar nilainya dapat dipercaya.
 
 ---
 
-## 6. Tahapan pengerjaan
+## 6. Status prototipe karakter
 
-1. **Prototipe satu pemain**: peta, gerak, rak buku membuka materi, kreator
-   karakter. Belum memakai server. Grafik sementara selama aset belum lengkap.
+**Selesai.** Prototipe untuk memastikan karakter bisa dirakit dan berjalan dengan
+baik di browser sudah jadi: `prototype/karakter/index.html`. Satu berkas, bisa
+dibuka dengan klik dua kali, tanpa server.
+
+### Yang sudah berjalan
+
+| Area | Hasil |
+|---|---|
+| Gerak | Berjalan 4 arah (panah / WASD / tombol layar untuk HP), animasi 3 frame per arah. Bawaan **lari**; tahan Shift untuk jalan pelan |
+| Kamera | Mengikuti karakter dengan halus dan berhenti di tepi dunia. Zoom 1×–4× (bawaan 1×, kelipatan bulat agar piksel tajam), grid petak 32×32 bisa dinyalakan. Dunia uji seluas lobi (40 × 28 petak) dengan perabot sementara |
+| Perakitan | Kepala utuh + badan tanpa kepala, tanpa leher; aksesori mengikuti posisi dagu/kerah |
+| Jenis kelamin | Laki-laki / Perempuan. Daftar kepala, daftar baju, dan palet warna menyesuaikan. Badan perempuan dirampingkan lewat kode (membuang 4 jalur piksel kain polos); tinggi dan posisi kerah tetap sama sehingga semua kepala dan aksesori cocok |
+| Pilihan | 16 sprite kepala, 4 set baju (Hoodie, Flanel, Kaos, Kemeja), aksesori (kacamata bulat/kotak, headset, VR, ransel, tas laptop), warna rambut/hijab/topi, warna atasan, 5 warna kulit |
+| Aturan | Kepala berhijab hanya bisa memakai Hoodie dan Flanel (sementara). Hijab panjang dan Hijab sport disembunyikan sementara (sprite tetap ada). Peci tidak punya pilihan warna |
+| Alat setel | Posisi kepala per jenis kelamin / gaya / arah (±piksel) dan ukuran kepala 100%–80% (diambil ulang dari gambar asli, jadi tetap tajam). Disimpan di `tools/head_adjust.json`. Hijab tampak belakang sudah tanpa leher |
+
+Daftar kepala saat ini: **laki-laki 10** (pendek rapi, pendek acak, cepak,
+keriting, undercut, sebahu, bergelombang, peci, topi, beanie) dan **perempuan 9**
+(hijab, panjang, sebahu, kuncir, cepol, bergelombang, pendek rapi, beanie, topi).
+
+### Alur produksi aset
+
+```
+assets/characters/raw/*.jpg   hasil Gemini
+  -> tools/process_character.py   hapus latar magenta, kembalikan ke piksel asli,
+                                  pisahkan kepala / badan / aksesori, buat atlas
+  -> tools/build_sim.py           membuat halaman simulasi (atlas tertanam)
+```
+
+Menambah set busana baru: masukkan gambar ke `raw/`, daftarkan nomor figurnya
+di `SETS` pada `process_character.py`, lalu jalankan kedua skrip (pemrosesan
+sekitar 1 menit). Set baru otomatis mendapat versi badan ramping.
+
+### Keterbatasan yang diketahui
+
+- **Tampak samping**: gambar Gemini tidak punya pose berdiri samping murni.
+  Hoodie hanya punya 2 frame samping yang konsisten.
+- **Set busana**: batik, almamater, tunik, dan jas lab belum dibuat. Pose duduk
+  di kelas (badan tampak belakang dipotong di pinggang) belum diuji.
+- **Aksesori**: tas tidak berayun mengikuti langkah; headphone di leher belum ada.
+- **Urutan gambar** (karakter berada di balik benda) belum diatur; perabot
+  masih sementara.
+- **Ujung rambut panjang** dan hijab panjang terpotong datar (bawaan gambar).
+- **Setelan kepala perempuan belum dikunci.** Setelan laki-laki sudah dikunci dan
+  tersimpan di berkas; setelan perempuan yang sudah dibuat masih ada di browser
+  (localStorage), belum tersimpan ke `head_adjust.json`.
+- **Belum ada penyimpanan pilihan karakter**: pilihan hilang saat halaman dimuat
+  ulang.
+
+---
+
+## 7. Tahapan pengerjaan
+
+1. **Prototipe satu pemain** *(sebagian)*: gerak, kamera, dan kreator karakter
+   sudah jadi (bagian 6). Masih tersisa peta dari Tiled dengan tileset asli dan
+   rak buku yang membuka materi. Belum memakai server.
 2. **Terminal perpustakaan**: editor, mode SQL, Python, dan pseudocode,
    sandbox, beberapa latihan contoh. Masih satu pemain, tanpa server.
 3. **Multipemain lobi**: saling melihat, pindah ruangan, empat mode chat, emote.
@@ -263,12 +334,12 @@ praktik, dengan pemeriksaan di server agar nilainya dapat dipercaya.
 
 ---
 
-## 7. Keputusan terbuka
+## 8. Keputusan terbuka
 
 | No | Hal | Pilihan | Status |
 |---|---|---|---|
 | 1 | Penyimpanan laporan chat | Simpan pesan yang dilaporkan + beberapa pesan sebelumnya, hapus otomatis setelah 7 hari **atau** tanpa penyimpanan sama sekali | belum diputuskan |
-| 2 | Karakter kustom | Aset buatan AI sesuai panduan **atau** LPC Character Generator (wajib kredit) | belum diputuskan |
+| 2 | Karakter kustom | Aset buatan AI (Gemini) dirakit lewat kode **atau** LPC Character Generator (wajib kredit) | berjalan dengan aset AI; terbukti di prototipe (bagian 6) |
 | 3 | Server | Server kampus **atau** sewa VPS | belum diputuskan |
 | 4 | Login | SSO/akun kampus **atau** NIM/email + kata sandi | belum diputuskan |
 | 5 | Nilai kuis | Hanya di game **atau** bisa diunduh dosen (CSV/Excel) | belum diputuskan |
