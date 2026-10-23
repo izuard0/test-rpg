@@ -1,0 +1,298 @@
+/* Palet: docs/RANCANGAN.md bagian 2. UI meniru alat kerja programmer. */
+:root {
+  --navy: #1b2a41;
+  --navy-2: #24364f;
+  --stone: #4f5d6e;
+  --cream: #f7f5f0;
+  --line: #d9d4c7;
+  --wood: #9c6b43;
+  --orange: #e8833a;
+  --cyan: #3fc1c9;
+  --green: #6cc3a2;
+  --ink: #0e1522;
+  --mono: ui-monospace, "Cascadia Code", "JetBrains Mono", Consolas, monospace;
+  --sans: system-ui, "Segoe UI", Roboto, sans-serif;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; overflow: hidden; background: var(--ink); color: var(--cream); font-family: var(--sans); }
+#game, #game canvas { position: fixed; inset: 0; image-rendering: pixelated; }
+#ui { position: fixed; inset: 0; pointer-events: none; }
+#ui > * { pointer-events: auto; }
+
+kbd {
+  font-family: var(--mono); font-size: 0.85em; padding: 0 5px; border-radius: 4px;
+  background: rgba(247, 245, 240, 0.14); border: 1px solid rgba(247, 245, 240, 0.25);
+}
+
+#hud {
+  position: absolute; left: 12px; top: 12px; padding: 8px 12px; border-radius: 10px;
+  background: rgba(14, 21, 34, 0.78); pointer-events: none;
+}
+#place { font-weight: 700; font-size: 15px; }
+#chat-rule { font-size: 12px; color: #c9d3e0; margin-top: 2px; }
+#chat-rule:empty { display: none; }
+
+#help {
+  position: absolute; right: 12px; top: 12px; padding: 6px 10px; border-radius: 10px; font-size: 12px;
+  color: #c9d3e0; background: rgba(14, 21, 34, 0.7); pointer-events: none;
+}
+
+#prompt {
+  position: absolute; left: 50%; bottom: 28px; transform: translateX(-50%);
+  padding: 8px 14px; border-radius: 999px; font-size: 14px; white-space: nowrap;
+  background: rgba(14, 21, 34, 0.88); border: 2px solid var(--orange); pointer-events: none;
+}
+#prompt kbd { background: var(--orange); border-color: var(--orange); color: var(--ink); font-weight: 700; }
+
+#loading, #error {
+  position: absolute; inset: 0; display: grid; place-items: center; font-family: var(--mono);
+  background: var(--navy); font-size: 15px;
+}
+/* Gambar bg_loading 16:9 menutupi layar; .stage selalu seukuran gambar yang tampil,
+   jadi bar bisa diletakkan dengan persen tepat di dalam bingkainya
+   (bagian dalam bingkai: x 803–1948, y 700–826 dari 2752 × 1536). */
+#loading { overflow: hidden; animation: muncul 0.2s 0.15s both; }
+#loading .stage {
+  position: absolute; left: 50%; top: 50%; translate: -50% -50%;
+  width: max(100vw, 177.78vh); height: max(100vh, 56.25vw);
+  /* Gambar 2752 px biasanya diperkecil; "pixelated" saat diperkecil malah bergerigi. */
+  background: url("/game/assets/backgrounds/bg_loading.jpg") center / 100% 100% no-repeat;
+}
+/* Layar tegak (HP): gambar 2× lebar layar supaya bingkai (46 % lebar gambar) terlihat utuh;
+   sisa atas/bawah diisi warna latar gambar. */
+@media (max-aspect-ratio: 1/1) {
+  #loading { background: #12213b; }
+  #loading .stage {
+    width: 200vw; height: 112.5vw;
+    mask-image: linear-gradient(transparent, #000 22%, #000 78%, transparent);
+  }
+  #loading .label { top: calc(50% + 9vw); }
+}
+#loading .bar { position: absolute; left: 29.5%; top: 46.2%; width: 41%; height: 6.9%; }
+#loading .bar i {
+  display: block; height: 100%; width: 0; transition: width 0.15s linear;
+  background: repeating-linear-gradient(90deg, var(--cyan) 0 14px, #2fa3aa 14px 18px);
+  box-shadow: 0 0 12px rgba(63, 193, 201, 0.55);
+}
+#loading .label {
+  position: absolute; left: 0; right: 0; top: calc(50% + max(7vh, 4vw)); margin: 0;
+  text-align: center; color: #c9d3e0; letter-spacing: 1px;
+}
+/* Muncul setelah jeda singkat: ruangan yang sudah tersimpan di cache tidak berkedip. */
+@keyframes muncul { from { opacity: 0; } to { opacity: 1; } }
+#error { color: #ffb4a8; padding: 24px; text-align: center; }
+[hidden] { display: none !important; }
+
+/* Kontrol sentuh: hanya untuk perangkat tanpa penunjuk presisi. */
+#pad {
+  position: absolute; right: 16px; bottom: 16px; display: none;
+  grid-template-columns: repeat(3, 54px); grid-template-rows: repeat(3, 54px); gap: 4px;
+}
+#pad button {
+  border: 0; border-radius: 12px; background: rgba(247, 245, 240, 0.18); color: #fff; font-size: 20px;
+  touch-action: none; user-select: none;
+}
+#pad button:active { background: rgba(232, 131, 58, 0.6); }
+#pad .act { background: rgba(232, 131, 58, 0.45); font-family: var(--mono); font-weight: 700; }
+@media (pointer: coarse) {
+  #pad { display: grid; }
+  #help { display: none; }
+  #prompt { bottom: auto; top: 76px; }
+}
+
+/* ---------- jendela bergaya terminal ---------- */
+.backdrop {
+  position: absolute; inset: 0; display: grid; place-items: center; padding: 16px;
+  background: rgba(14, 21, 34, 0.45);
+}
+.window {
+  width: min(520px, 100%); max-height: min(86vh, 760px); display: flex; flex-direction: column;
+  background: var(--cream); color: var(--navy); border-radius: 12px; overflow: hidden;
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.45); border: 2px solid var(--navy);
+}
+.window.wide { width: min(980px, 100%); }
+.titlebar {
+  display: flex; align-items: center; gap: 10px; padding: 8px 10px; background: var(--navy); color: var(--cream);
+}
+.titlebar h2 { margin: 0; flex: 1; font: 600 13px var(--mono); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.dots { display: flex; gap: 6px; }
+.dots i { width: 11px; height: 11px; border-radius: 50%; background: #e86a5a; }
+.dots i:nth-child(2) { background: #e8b83a; }
+.dots i:nth-child(3) { background: var(--green); }
+.close {
+  border: 0; background: transparent; color: var(--cream); font-size: 16px; cursor: pointer;
+  width: 28px; height: 28px; border-radius: 6px;
+}
+.close:hover, .close:focus-visible { background: rgba(247, 245, 240, 0.16); outline: none; }
+.content { padding: 16px 18px 20px; overflow: auto; font-size: 15px; line-height: 1.55; }
+.content p { margin: 0 0 10px; }
+.content ul { margin: 0; padding-left: 20px; }
+.content code { font-family: var(--mono); font-size: 0.9em; background: #ece7db; padding: 1px 5px; border-radius: 4px; }
+.who { font: 700 12px var(--mono); color: #b4501a; text-transform: uppercase; letter-spacing: 1px; }
+.muted { color: var(--stone); }
+.small { font-size: 12px; }
+pre.map { font: 12px/1.35 var(--mono); margin: 0; overflow-x: auto; }
+pre.term {
+  margin: -16px -18px -20px; padding: 16px 18px; min-height: 160px; background: var(--ink); color: #d7e0ea;
+  font: 13px/1.6 var(--mono); white-space: pre-wrap;
+}
+pre.term .ok { color: var(--green); }
+pre.term .path { color: var(--cyan); }
+.cursor { animation: blink 1s steps(1) infinite; color: var(--orange); }
+@keyframes blink { 50% { opacity: 0; } }
+
+.files { display: flex; flex-direction: column; gap: 4px; }
+.file {
+  display: flex; gap: 10px; align-items: center; text-align: left; padding: 8px 10px; border-radius: 8px;
+  border: 1px solid transparent; background: transparent; font: 14px var(--mono); color: var(--navy); cursor: pointer;
+}
+.file:hover, .file:focus-visible { background: #fff4ea; border-color: var(--orange); outline: none; }
+.file .ico { color: var(--orange); }
+.materi { display: flex; flex-direction: column; height: 70vh; margin: -16px -18px -20px; }
+.materi .bar { display: flex; justify-content: space-between; gap: 12px; padding: 6px 12px; font-size: 13px; background: #ece7db; }
+.materi .bar a { color: #b4501a; }
+.materi iframe { flex: 1; border: 0; background: #fff; }
+
+/* ---------- kreator karakter ---------- */
+.creator { display: grid; grid-template-columns: 260px 1fr; gap: 20px; }
+.creator .preview { display: flex; flex-direction: column; gap: 10px; }
+.creator .dirs {
+  display: flex; justify-content: space-around; padding: 10px 4px; background: #fff;
+  border: 2px solid var(--line); border-radius: 12px;
+}
+.creator .dirs canvas { width: 54px; height: 86px; image-rendering: pixelated; }
+.creator .name { display: flex; flex-direction: column; gap: 4px; font-size: 13px; font-weight: 600; }
+.creator .name input {
+  font: 15px var(--sans); padding: 8px 10px; border-radius: 8px; border: 2px solid var(--line); color: var(--navy);
+}
+.creator .name input:focus { outline: none; border-color: var(--orange); }
+.creator .name input.invalid { border-color: #d8574a; }
+.creator h3 { margin: 14px 0 6px; font-size: 12px; letter-spacing: 1.4px; text-transform: uppercase; color: #b4501a; }
+.creator h3:first-child { margin-top: 0; }
+.creator .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(76px, 1fr)); gap: 6px; }
+.creator .opt {
+  display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 4px 2px 6px; border-radius: 10px;
+  border: 2px solid var(--line); background: #fff; color: var(--navy); font-size: 11px; cursor: pointer;
+}
+.creator .opt canvas { width: 52px; height: 52px; image-rendering: pixelated; }
+.creator .opt.tall canvas { width: 52px; height: 86px; }
+.creator .opt.on, .creator .chips button.on { border-color: var(--orange); background: #fff4ea; }
+.creator .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.creator .chips button {
+  border: 2px solid var(--line); background: #fff; border-radius: 999px; padding: 5px 11px; font-size: 12px;
+  color: var(--navy); cursor: pointer;
+}
+.creator .sw { display: flex; flex-wrap: wrap; gap: 8px; }
+.creator .sw button {
+  width: 30px; height: 30px; border-radius: 50%; border: 3px solid #fff; box-shadow: 0 0 0 2px var(--line); cursor: pointer;
+}
+.creator .sw button.on { box-shadow: 0 0 0 3px var(--orange); }
+.creator .acc { display: grid; grid-template-columns: 72px 1fr; align-items: center; gap: 8px; margin-bottom: 6px; font-size: 13px; }
+.primary {
+  border: 0; border-radius: 10px; padding: 11px 14px; background: var(--orange); color: var(--ink);
+  font: 700 15px var(--sans); cursor: pointer;
+}
+.primary:hover, .primary:focus-visible { filter: brightness(1.06); outline: 2px solid var(--navy); }
+@media (max-width: 720px) {
+  .creator { grid-template-columns: 1fr; }
+  #help { display: none; }
+}
+#ui:has(.backdrop) #prompt { display: none !important; }
+
+/* ---------- di luar game (halaman awal) ---------- */
+body:not(.in-game) #hud,
+body:not(.in-game) #help,
+body:not(.in-game) #prompt,
+body:not(.in-game) #pad { display: none !important; }
+
+#account {
+  position: absolute; left: 12px; top: 74px; display: flex; align-items: center; gap: 8px;
+  padding: 4px 4px 4px 12px; border-radius: 999px; font-size: 13px; background: rgba(14, 21, 34, 0.78);
+}
+#account .acc-name { max-width: 220px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+#account .logout {
+  border: 1px solid rgba(247, 245, 240, 0.3); background: transparent; color: var(--cream); border-radius: 999px;
+  padding: 3px 10px; font-size: 12px; cursor: pointer;
+}
+#account .logout:hover, #account .logout:focus-visible { border-color: var(--orange); outline: none; }
+
+/* ---------- halaman awal ---------- */
+#title {
+  position: fixed; inset: 0; display: flex; align-items: flex-start; padding: 24px clamp(16px, 6vw, 96px);
+  background:
+    linear-gradient(90deg, rgba(14, 21, 34, 0.92) 0%, rgba(14, 21, 34, 0.6) 42%, rgba(14, 21, 34, 0.05) 75%),
+    url("/game/assets/backgrounds/bg_title.png") center bottom / cover no-repeat, var(--navy);
+  image-rendering: pixelated; overflow: auto;
+}
+.title-card {
+  width: min(400px, 100%); display: flex; flex-direction: column; gap: 14px; image-rendering: auto;
+  margin-block: auto; /* tengah vertikal tanpa terpotong saat formulir lebih tinggi dari layar */
+}
+.brand h1 {
+  margin: 0; font: 800 clamp(48px, 9vw, 76px)/1 var(--mono); letter-spacing: 6px; color: var(--cream);
+  text-shadow: 4px 4px 0 var(--orange), 8px 8px 0 rgba(0, 0, 0, 0.35);
+}
+.brand p { margin: 10px 0 0; font-size: 15px; color: #dfe6ee; }
+.brand .sub { margin-top: 2px; font: 600 13px var(--mono); color: var(--cyan); letter-spacing: 1px; text-transform: uppercase; }
+.title-card .actions { display: flex; flex-direction: column; gap: 10px; margin-top: 18px; }
+.secondary {
+  border: 2px solid rgba(247, 245, 240, 0.55); border-radius: 10px; padding: 10px 14px; background: rgba(14, 21, 34, 0.5);
+  color: var(--cream); font: 700 15px var(--sans); cursor: pointer;
+}
+.secondary:hover, .secondary:focus-visible { border-color: var(--orange); outline: none; }
+.title-card form {
+  display: flex; flex-direction: column; gap: 12px; padding: 18px; border-radius: 12px;
+  background: var(--cream); color: var(--navy); border: 2px solid var(--navy); box-shadow: 0 18px 50px rgba(0, 0, 0, 0.45);
+}
+.title-card h2 { margin: 0; font: 700 14px var(--mono); color: #b4501a; text-transform: uppercase; letter-spacing: 1.4px; }
+.field { display: flex; flex-direction: column; gap: 4px; font-size: 13px; font-weight: 600; }
+.field input {
+  font: 15px var(--sans); padding: 9px 10px; border-radius: 8px; border: 2px solid var(--line); color: var(--navy); background: #fff;
+}
+.field input:focus { outline: none; border-color: var(--orange); }
+.field.invalid input { border-color: #d8574a; }
+.field .hint { font-weight: 400; color: var(--stone); }
+.field .err { font-weight: 600; color: #b8382c; }
+.field.invalid .hint { display: none; }
+.form-error { margin: 0; padding: 8px 10px; border-radius: 8px; background: #fde4df; color: #8e2a20; font-size: 13px; }
+.role { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+.role button {
+  padding: 8px; border-radius: 8px; border: 2px solid var(--line); background: #fff; color: var(--navy);
+  font: 600 14px var(--sans); cursor: pointer;
+}
+.role button[aria-checked="true"] { border-color: var(--orange); background: #fff4ea; }
+.swap { margin: 0; font-size: 14px; color: #dfe6ee; }
+.link { border: 0; background: none; padding: 0; color: var(--orange); font: 600 14px var(--sans); cursor: pointer; text-decoration: underline; }
+.link.back { align-self: flex-start; color: #dfe6ee; text-decoration: none; }
+.test-mode {
+  margin: 4px 0 0; padding: 8px 12px; border-radius: 8px; font-size: 12px; line-height: 1.45;
+  background: rgba(232, 184, 58, 0.16); border: 1px solid rgba(232, 184, 58, 0.55); color: #f3e2b5;
+}
+.primary:disabled { opacity: 0.6; cursor: wait; }
+.creator .name b { font-size: 15px; }
+.creator .form-error { margin-top: 0; }
+@media (max-width: 720px) {
+  #title {
+    align-items: flex-start;
+    background:
+      linear-gradient(180deg, rgba(14, 21, 34, 0.55) 0%, rgba(14, 21, 34, 0.92) 55%),
+      url("/game/assets/backgrounds/bg_title.png") 30% top / auto 46vh no-repeat, var(--ink);
+  }
+  .title-card { margin-top: 18vh; }
+}
+
+/* Layar Masuk/Daftar: latar meja belajar (bg_register), formulir di tengah. */
+#title[data-screen="login"], #title[data-screen="register"] {
+  justify-content: center; image-rendering: auto;
+  background:
+    radial-gradient(ellipse at center, rgba(14, 21, 34, 0.35) 0%, rgba(14, 21, 34, 0.82) 75%),
+    url("/game/assets/backgrounds/bg_register.jpg") center / cover no-repeat, var(--ink);
+}
+@media (max-width: 720px) {
+  #title[data-screen="login"], #title[data-screen="register"] {
+    background:
+      linear-gradient(180deg, rgba(14, 21, 34, 0.5) 0%, rgba(14, 21, 34, 0.9) 50%),
+      url("/game/assets/backgrounds/bg_register.jpg") 70% top / auto 50vh no-repeat, var(--ink);
+  }
+}

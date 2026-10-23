@@ -158,12 +158,12 @@ OPEN = [
 
 # ---- Koridor: pintu ganda 1.65x ke tiga kelas (pas dengan tinggi dinding koridor 2 baris), kios, sofa tunggu, tanaman
 doors = []
-for (nm, tgt, spawn, dx, door_spr, label) in [
+for (nm, tgt, _back, dx, door_spr, label) in [  # _back = titik muncul saat kembali ke kampus
         ("kelas-a", "kelas-a", "dari_lab_lovelace", 16, "pintu_ganda_kaca", "Lab Lovelace"),
         ("kelas-b", "kelas-b", "dari_kelas_b", 38, "pintu_ganda_kayu_a", "Ruang Kolaborasi"),
         ("kelas-c", "kelas-c", "dari_kelas_c", 62, "pintu_ganda_kaca", "Auditorium Turing")]:
     objects.append({"sprite": (LDR, door_spr), "foot": [dx, CY + 1, 3, 1], "scale": 1.65, "collide": False})
-    doors.append({"rect": [dx, CY + 2, 3, 1], "target": tgt, "spawn": spawn, "label": label})
+    doors.append({"rect": [dx, CY + 2, 3, 1], "target": tgt, "spawn": "dari_lobi", "label": label})
 
 # Perabot koridor: kios informasi di rotunda tengah, sofa tunggu menghadap utara, tanaman besar, dispenser, tempat sampah
 put("kios_nyala", [50, 29, 3, 1], scale=2, sheet=LTC, type="info", name="kios_koridor", props={"info": "peta"},

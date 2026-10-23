@@ -17,7 +17,9 @@ Rancangan lengkap dan keputusan yang sudah disepakati ada di
 | Aset tile (lobi, perpustakaan, kelas) | Sudah diolah jadi 339 sprite transparan (`export/tiles/`); petak game **28 px** (diputuskan; temuan skala di `docs/TILES.md`) |
 | Aset NPC, ikon, dua latar layar | Belum dibuat (lihat `belum-dibuat/`) |
 | Peta `kampus` (denah gedung) dan `kelas-a/b/c` | Dibuat dan divalidasi lewat skrip; **belum dibuka di Tiled/Phaser** |
-| Klien (Phaser), server (Colyseus), terminal, kuis | Belum dimulai |
+| Klien Phaser satu pemain (`client/`) | **Berjalan**: halaman awal, daftar/masuk (mode uji, akun di browser), kreator avatar, peta Tiled asli, gerak + tabrakan, interaksi `E` (rak, terminal penampung, NPC, pintu ke kelas, kursi) |
+| Server (`server/`) | Fastify menyajikan klien + `/health`; Colyseus, API login, dan PostgreSQL belum |
+| Terminal, kuis | Belum dimulai |
 
 Pengembangan dilanjutkan di repositori ini, dimulai dari tahap 1 pada
 `docs/RANCANGAN.md` bagian 7.
@@ -40,7 +42,22 @@ python tools/process_items.py       # sheet ikon/lencana/emote -> 68 sprite di e
 python tools/make_map.py kampus     # peta Tiled + pratinjau di maps/ (juga: kelas-a, kelas-b, kelas-c)
 ```
 
-Rencana alat klien: Node 24 + npm, TypeScript, Phaser 3 (belum ada di repositori).
+### Menjalankan game (butuh Node 22+)
+
+```bash
+npm install
+npm run dev          # klien di http://localhost:5173 (aset disalin otomatis)
+npm test             # tes tabrakan, peta, karakter, akun, server
+npm run build && npm start   # versi produksi di http://localhost:3000
+```
+
+Tambahkan `?debug=1` di alamat untuk melihat kotak tabrakan (merah) dan interaksi (cyan).
+Akun di tahap ini **mode uji**: tersimpan di browser saja, belum diverifikasi ke daftar kelas.
+
+### Deploy (Coolify)
+
+Buat aplikasi dari repo ini dengan build pack **Dockerfile**, port **3000**, health check
+`/health`. Tidak ada environment variable wajib untuk tahap ini (opsional: `APP_VERSION`).
 
 ## Struktur folder
 
@@ -52,6 +69,10 @@ assets/
   backgrounds/      layar judul
 asset-prompts/      prompt pembuatan aset; karakter-hemat/ = kotak masuk gambar baru
 belum-dibuat/       daftar aset yang belum dibuat + gambar acuan
+client/             klien Phaser + UI HTML (Vite, TypeScript)
+server/             server Fastify (kelak + Colyseus dan API)
+shared/             logika bersama klien & server (tabrakan, peta, aturan karakter & akun)
+materi/             materi.json + file materi HTML untuk rak perpustakaan
 docs/               RANCANGAN.md dan dokumen teknis
 export/character/   paket karakter siap pakai untuk klien (dihasilkan; docs/KARAKTER.md)
 export/tiles/       sprite tile transparan hasil olahan (dihasilkan; docs/TILES.md)
