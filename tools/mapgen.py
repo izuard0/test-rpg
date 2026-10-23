@@ -164,11 +164,12 @@ def build_room(L):
     # lapisan petak
     floor = [[0] * W for _ in range(H)]
     base = [n for n, _ in L["floor"]["base"]]
-    cx0, cy0, cx1, cy1 = L["floor"]["carpet"]["rect"]
+    rugs = L["floor"]["carpet"]["rect"]
+    rugs = [rugs] if isinstance(rugs[0], int) else rugs
     carpet = [n for n, _ in L["floor"]["carpet"]["tiles"]]
     for y in range(H):
         for x in range(W):
-            in_c = cx0 <= x <= cx1 and cy0 <= y <= cy1
+            in_c = any(a <= x <= c and b <= y <= d for a, b, c, d in rugs)
             floor[y][x] = 1 + fids[rng.choice(carpet if in_c else base)]
     walls = [[0] * W for _ in range(H)]
     solid = [[False] * W for _ in range(H)]
@@ -183,7 +184,7 @@ def build_room(L):
             if not edge or (x, y) in opening:
                 continue
             solid[y][x] = True
-            walls[y][x] = rng.choice(face) if (y == top - 1 and 0 < x < W - 1) else dark
+            walls[y][x] = rng.choice(face) if (top - L["wall"].get("face_rows", 1) <= y < top and 0 < x < W - 1) else dark
 
     nid = {"layer": 1, "obj": 1}
 
@@ -206,6 +207,7 @@ def build_room(L):
         fx, fy, fw, fh = o["foot"]
         if o.get("sprite"):
             w, h = Image.open(sprite_path(*o["sprite"])).size
+            w, h = w * o.get("scale", 1), h * o.get("scale", 1)
             ob = {"id": new_obj(), "gid": first_obj + oids[o["sprite"]], "name": o["sprite"][1],
                   "type": o.get("type", "decor"), "width": w, "height": h, "rotation": 0, "visible": True,
                   "x": fx * T + (fw * T - w) // 2, "y": (fy + fh) * T, "properties": props(o.get("props"))}
@@ -332,6 +334,8 @@ def render(tmj_path, out_path, debug=False, scale=2):
         elif L["name"] in ("below", "objects", "above"):
             for o in sorted(L["objects"], key=lambda o: o["y"]):
                 im = tile_img(o["gid"])
+                if im.size != (int(o["width"]), int(o["height"])):
+                    im = im.resize((int(o["width"]), int(o["height"])), Image.NEAREST)
                 img.alpha_composite(im, (int(o["x"]), int(o["y"]) - im.height))
     if debug:
         ov = Image.new("RGBA", (W, H), (0, 0, 0, 0))

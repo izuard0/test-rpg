@@ -252,5 +252,29 @@
   "18": "pintu_sirkuit",
   "19": "pintu_ganda_terbuka_a",
   "20": "pintu_ganda_terbuka_b"
+ },
+ "outdoor": {
+  "21": "pohon_rimbun",
+  "22": "rumput_tinggi_a",
+  "23": "semak_oval",
+  "24": "pohon_besar",
+  "25": "semak_a",
+  "26": "semak_bulat",
+  "27": "semak_lebar",
+  "28": "semak_kecil",
+  "29": "pakis_besar_a",
+  "30": "semak_tanah",
+  "31": "semak_c",
+  "32": "semak_d",
+  "33": "bunga_liar",
+  "34": "pot_batu_bunga",
+  "35": "_buang",
+  "36": "rumput_tinggi_b",
+  "37": "pakis_a",
+  "38": "pakis_b",
+  "39": "tepi_batu_c",
+  "40": "semak_ganda",
+  "41": "_buang",
+  "42": "_buang"
  }
 }

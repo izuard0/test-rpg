@@ -8,7 +8,7 @@
  "margin": 0,
  "name": "lobi-objects",
  "spacing": 0,
- "tilecount": 27,
+ "tilecount": 31,
  "tiledversion": "1.10.2",
  "tileheight": 70,
  "tilewidth": 94,
@@ -53,24 +53,6 @@
   },
   {
    "id": 2,
-   "image": "../../export/tiles/lobby_decor/sprites/03_poster_chip_abu.png",
-   "imageheight": 38,
-   "imagewidth": 27,
-   "properties": [
-    {
-     "name": "name",
-     "type": "string",
-     "value": "poster_chip_abu"
-    },
-    {
-     "name": "lembar",
-     "type": "string",
-     "value": "lobby_decor"
-    }
-   ]
-  },
-  {
-   "id": 3,
    "image": "../../export/tiles/lobby_tech/sprites/01_papan_info_layar.png",
    "imageheight": 62,
    "imagewidth": 94,
@@ -84,6 +66,24 @@
      "name": "lembar",
      "type": "string",
      "value": "lobby_tech"
+    }
+   ]
+  },
+  {
+   "id": 3,
+   "image": "../../export/tiles/lobby_decor/sprites/03_poster_chip_abu.png",
+   "imageheight": 38,
+   "imagewidth": 27,
+   "properties": [
+    {
+     "name": "name",
+     "type": "string",
+     "value": "poster_chip_abu"
+    },
+    {
+     "name": "lembar",
+     "type": "string",
+     "value": "lobby_decor"
     }
    ]
   },
@@ -107,78 +107,6 @@
   },
   {
    "id": 5,
-   "image": "../../export/tiles/lobby_tech/sprites/06_etalase_robot.png",
-   "imageheight": 53,
-   "imagewidth": 52,
-   "properties": [
-    {
-     "name": "name",
-     "type": "string",
-     "value": "etalase_robot"
-    },
-    {
-     "name": "lembar",
-     "type": "string",
-     "value": "lobby_tech"
-    }
-   ]
-  },
-  {
-   "id": 6,
-   "image": "../../export/tiles/lobby_tech/sprites/07_lengan_robot.png",
-   "imageheight": 58,
-   "imagewidth": 32,
-   "properties": [
-    {
-     "name": "name",
-     "type": "string",
-     "value": "lengan_robot"
-    },
-    {
-     "name": "lembar",
-     "type": "string",
-     "value": "lobby_tech"
-    }
-   ]
-  },
-  {
-   "id": 7,
-   "image": "../../export/tiles/lobby_tech/sprites/08_printer3d_meja.png",
-   "imageheight": 52,
-   "imagewidth": 37,
-   "properties": [
-    {
-     "name": "name",
-     "type": "string",
-     "value": "printer3d_meja"
-    },
-    {
-     "name": "lembar",
-     "type": "string",
-     "value": "lobby_tech"
-    }
-   ]
-  },
-  {
-   "id": 8,
-   "image": "../../export/tiles/lobby_tech/sprites/09_rak_server_meja.png",
-   "imageheight": 48,
-   "imagewidth": 42,
-   "properties": [
-    {
-     "name": "name",
-     "type": "string",
-     "value": "rak_server_meja"
-    },
-    {
-     "name": "lembar",
-     "type": "string",
-     "value": "lobby_tech"
-    }
-   ]
-  },
-  {
-   "id": 9,
    "image": "../../export/tiles/lobby_tech/sprites/04_arkade_cokelat.png",
    "imageheight": 65,
    "imagewidth": 39,
@@ -196,7 +124,7 @@
    ]
   },
   {
-   "id": 10,
+   "id": 6,
    "image": "../../export/tiles/lobby_tech/sprites/05_arkade_biru.png",
    "imageheight": 66,
    "imagewidth": 40,
@@ -214,7 +142,7 @@
    ]
   },
   {
-   "id": 11,
+   "id": 7,
    "image": "../../export/tiles/lobby_decor/sprites/16_lemari_piala.png",
    "imageheight": 51,
    "imagewidth": 38,
@@ -228,6 +156,78 @@
      "name": "lembar",
      "type": "string",
      "value": "lobby_decor"
+    }
+   ]
+  },
+  {
+   "id": 8,
+   "image": "../../export/tiles/lobby_tech/sprites/07_lengan_robot.png",
+   "imageheight": 58,
+   "imagewidth": 32,
+   "properties": [
+    {
+     "name": "name",
+     "type": "string",
+     "value": "lengan_robot"
+    },
+    {
+     "name": "lembar",
+     "type": "string",
+     "value": "lobby_tech"
+    }
+   ]
+  },
+  {
+   "id": 9,
+   "image": "../../export/tiles/lobby_tech/sprites/06_etalase_robot.png",
+   "imageheight": 53,
+   "imagewidth": 52,
+   "properties": [
+    {
+     "name": "name",
+     "type": "string",
+     "value": "etalase_robot"
+    },
+    {
+     "name": "lembar",
+     "type": "string",
+     "value": "lobby_tech"
+    }
+   ]
+  },
+  {
+   "id": 10,
+   "image": "../../export/tiles/lobby_tech/sprites/08_printer3d_meja.png",
+   "imageheight": 52,
+   "imagewidth": 37,
+   "properties": [
+    {
+     "name": "name",
+     "type": "string",
+     "value": "printer3d_meja"
+    },
+    {
+     "name": "lembar",
+     "type": "string",
+     "value": "lobby_tech"
+    }
+   ]
+  },
+  {
+   "id": 11,
+   "image": "../../export/tiles/lobby_tech/sprites/09_rak_server_meja.png",
+   "imageheight": 48,
+   "imagewidth": 42,
+   "properties": [
+    {
+     "name": "name",
+     "type": "string",
+     "value": "rak_server_meja"
+    },
+    {
+     "name": "lembar",
+     "type": "string",
+     "value": "lobby_tech"
     }
    ]
   },
@@ -269,14 +269,14 @@
   },
   {
    "id": 14,
-   "image": "../../export/tiles/lobby_furniture/sprites/04_sofa_sudut.png",
-   "imageheight": 55,
-   "imagewidth": 70,
+   "image": "../../export/tiles/lobby_furniture/sprites/02_bean_oranye.png",
+   "imageheight": 25,
+   "imagewidth": 24,
    "properties": [
     {
      "name": "name",
      "type": "string",
-     "value": "sofa_sudut"
+     "value": "bean_oranye"
     },
     {
      "name": "lembar",
@@ -287,60 +287,6 @@
   },
   {
    "id": 15,
-   "image": "../../export/tiles/lobby_furniture/sprites/05_meja_bulat.png",
-   "imageheight": 22,
-   "imagewidth": 29,
-   "properties": [
-    {
-     "name": "name",
-     "type": "string",
-     "value": "meja_bulat"
-    },
-    {
-     "name": "lembar",
-     "type": "string",
-     "value": "lobby_furniture"
-    }
-   ]
-  },
-  {
-   "id": 16,
-   "image": "../../export/tiles/lobby_furniture/sprites/08_sofa_panjang.png",
-   "imageheight": 32,
-   "imagewidth": 53,
-   "properties": [
-    {
-     "name": "name",
-     "type": "string",
-     "value": "sofa_panjang"
-    },
-    {
-     "name": "lembar",
-     "type": "string",
-     "value": "lobby_furniture"
-    }
-   ]
-  },
-  {
-   "id": 17,
-   "image": "../../export/tiles/lobby_furniture/sprites/03_bean_abu.png",
-   "imageheight": 25,
-   "imagewidth": 25,
-   "properties": [
-    {
-     "name": "name",
-     "type": "string",
-     "value": "bean_abu"
-    },
-    {
-     "name": "lembar",
-     "type": "string",
-     "value": "lobby_furniture"
-    }
-   ]
-  },
-  {
-   "id": 18,
    "image": "../../export/tiles/lobby_furniture/sprites/01_bean_navy.png",
    "imageheight": 25,
    "imagewidth": 25,
@@ -358,15 +304,69 @@
    ]
   },
   {
-   "id": 19,
-   "image": "../../export/tiles/lobby_furniture/sprites/22_meja_kopi.png",
-   "imageheight": 45,
-   "imagewidth": 45,
+   "id": 16,
+   "image": "../../export/tiles/lobby_furniture/sprites/15_tanaman_c.png",
+   "imageheight": 19,
+   "imagewidth": 12,
    "properties": [
     {
      "name": "name",
      "type": "string",
-     "value": "meja_kopi"
+     "value": "tanaman_c"
+    },
+    {
+     "name": "lembar",
+     "type": "string",
+     "value": "lobby_furniture"
+    }
+   ]
+  },
+  {
+   "id": 17,
+   "image": "../../export/tiles/lobby_furniture/sprites/17_tanaman_d.png",
+   "imageheight": 20,
+   "imagewidth": 16,
+   "properties": [
+    {
+     "name": "name",
+     "type": "string",
+     "value": "tanaman_d"
+    },
+    {
+     "name": "lembar",
+     "type": "string",
+     "value": "lobby_furniture"
+    }
+   ]
+  },
+  {
+   "id": 18,
+   "image": "../../export/tiles/lobby_furniture/sprites/04_sofa_sudut.png",
+   "imageheight": 55,
+   "imagewidth": 70,
+   "properties": [
+    {
+     "name": "name",
+     "type": "string",
+     "value": "sofa_sudut"
+    },
+    {
+     "name": "lembar",
+     "type": "string",
+     "value": "lobby_furniture"
+    }
+   ]
+  },
+  {
+   "id": 19,
+   "image": "../../export/tiles/lobby_furniture/sprites/05_meja_bulat.png",
+   "imageheight": 22,
+   "imagewidth": 29,
+   "properties": [
+    {
+     "name": "name",
+     "type": "string",
+     "value": "meja_bulat"
     },
     {
      "name": "lembar",
@@ -377,14 +377,14 @@
   },
   {
    "id": 20,
-   "image": "../../export/tiles/lobby_furniture/sprites/21_dispenser_air.png",
-   "imageheight": 43,
-   "imagewidth": 15,
+   "image": "../../export/tiles/lobby_furniture/sprites/08_sofa_panjang.png",
+   "imageheight": 32,
+   "imagewidth": 53,
    "properties": [
     {
      "name": "name",
      "type": "string",
-     "value": "dispenser_air"
+     "value": "sofa_panjang"
     },
     {
      "name": "lembar",
@@ -395,14 +395,14 @@
   },
   {
    "id": 21,
-   "image": "../../export/tiles/lobby_furniture/sprites/23_tempat_sampah_a.png",
+   "image": "../../export/tiles/lobby_furniture/sprites/03_bean_abu.png",
    "imageheight": 25,
-   "imagewidth": 16,
+   "imagewidth": 25,
    "properties": [
     {
      "name": "name",
      "type": "string",
-     "value": "tempat_sampah_a"
+     "value": "bean_abu"
     },
     {
      "name": "lembar",
@@ -413,14 +413,14 @@
   },
   {
    "id": 22,
-   "image": "../../export/tiles/lobby_furniture/sprites/10_bar_panjang.png",
-   "imageheight": 34,
-   "imagewidth": 93,
+   "image": "../../export/tiles/lobby_furniture/sprites/18_tanaman_e.png",
+   "imageheight": 17,
+   "imagewidth": 13,
    "properties": [
     {
      "name": "name",
      "type": "string",
-     "value": "bar_panjang"
+     "value": "tanaman_e"
     },
     {
      "name": "lembar",
@@ -431,24 +431,6 @@
   },
   {
    "id": 23,
-   "image": "../../export/tiles/lobby_furniture/sprites/12_bangku_bulat.png",
-   "imageheight": 27,
-   "imagewidth": 16,
-   "properties": [
-    {
-     "name": "name",
-     "type": "string",
-     "value": "bangku_bulat"
-    },
-    {
-     "name": "lembar",
-     "type": "string",
-     "value": "lobby_furniture"
-    }
-   ]
-  },
-  {
-   "id": 24,
    "image": "../../export/tiles/lobby_decor/sprites/15_gantungan_jaket.png",
    "imageheight": 62,
    "imagewidth": 28,
@@ -466,15 +448,33 @@
    ]
   },
   {
-   "id": 25,
-   "image": "../../export/tiles/lobby_furniture/sprites/16_tanaman_besar.png",
-   "imageheight": 59,
-   "imagewidth": 34,
+   "id": 24,
+   "image": "../../export/tiles/lobby_furniture/sprites/10_bar_panjang.png",
+   "imageheight": 34,
+   "imagewidth": 93,
    "properties": [
     {
      "name": "name",
      "type": "string",
-     "value": "tanaman_besar"
+     "value": "bar_panjang"
+    },
+    {
+     "name": "lembar",
+     "type": "string",
+     "value": "lobby_furniture"
+    }
+   ]
+  },
+  {
+   "id": 25,
+   "image": "../../export/tiles/lobby_furniture/sprites/12_bangku_bulat.png",
+   "imageheight": 27,
+   "imagewidth": 16,
+   "properties": [
+    {
+     "name": "name",
+     "type": "string",
+     "value": "bangku_bulat"
     },
     {
      "name": "lembar",
@@ -485,14 +485,86 @@
   },
   {
    "id": 26,
-   "image": "../../export/tiles/lobby_furniture/sprites/13_tanaman_a.png",
-   "imageheight": 16,
-   "imagewidth": 11,
+   "image": "../../export/tiles/lobby_furniture/sprites/22_meja_kopi.png",
+   "imageheight": 45,
+   "imagewidth": 45,
    "properties": [
     {
      "name": "name",
      "type": "string",
-     "value": "tanaman_a"
+     "value": "meja_kopi"
+    },
+    {
+     "name": "lembar",
+     "type": "string",
+     "value": "lobby_furniture"
+    }
+   ]
+  },
+  {
+   "id": 27,
+   "image": "../../export/tiles/lobby_furniture/sprites/21_dispenser_air.png",
+   "imageheight": 43,
+   "imagewidth": 15,
+   "properties": [
+    {
+     "name": "name",
+     "type": "string",
+     "value": "dispenser_air"
+    },
+    {
+     "name": "lembar",
+     "type": "string",
+     "value": "lobby_furniture"
+    }
+   ]
+  },
+  {
+   "id": 28,
+   "image": "../../export/tiles/lobby_furniture/sprites/23_tempat_sampah_a.png",
+   "imageheight": 25,
+   "imagewidth": 16,
+   "properties": [
+    {
+     "name": "name",
+     "type": "string",
+     "value": "tempat_sampah_a"
+    },
+    {
+     "name": "lembar",
+     "type": "string",
+     "value": "lobby_furniture"
+    }
+   ]
+  },
+  {
+   "id": 29,
+   "image": "../../export/tiles/lobby_furniture/sprites/24_tempat_sampah_b.png",
+   "imageheight": 25,
+   "imagewidth": 17,
+   "properties": [
+    {
+     "name": "name",
+     "type": "string",
+     "value": "tempat_sampah_b"
+    },
+    {
+     "name": "lembar",
+     "type": "string",
+     "value": "lobby_furniture"
+    }
+   ]
+  },
+  {
+   "id": 30,
+   "image": "../../export/tiles/lobby_furniture/sprites/16_tanaman_besar.png",
+   "imageheight": 59,
+   "imagewidth": 34,
+   "properties": [
+    {
+     "name": "name",
+     "type": "string",
+     "value": "tanaman_besar"
     },
     {
      "name": "lembar",
