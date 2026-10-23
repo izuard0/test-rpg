@@ -384,4 +384,4 @@ sekitar 1 menit). Set baru otomatis mendapat versi badan ramping.
 | 5 | Nilai kuis | Hanya di game **atau** bisa diunduh dosen (CSV/Excel) | belum diputuskan |
 | 6 | Perangkat utama | Laptop, HP, atau keduanya | belum diputuskan |
 | 7 | Perawat kode | Dosen, mahasiswa, atau tim IT kampus (memengaruhi bahasa server) | belum diputuskan |
-| 8 | Nama platform & nama ruangan | Ide: Kampus Piksel, Gedung Algoritma, InfoVerse, Ruang Kode | belum diputuskan |
+| 8 | Nama platform & nama ruangan | Usulan pemilik proyek untuk nama platform: **MITA** (Mayantara Interaktif Tatap-maya Akademik). Ide lain: Kampus Piksel, Gedung Algoritma, InfoVerse, Ruang Kode. Nama ruangan belum ditentukan | MITA diusulkan; belum final |

@@ -37,12 +37,17 @@ assets/characters/raw/*.jpg  (hasil Gemini)
   -> python tools/process_character.py   (hapus latar, kembalikan ke piksel asli,
                                           pisahkan bagian, buat atlas)
   -> python tools/build_sim.py           (bangun prototype/karakter/index.html)
+  -> python tools/export_character.py    (validasi + paket ramping ke export/character/)
 ```
+
+Daftar pilihan, palet, dan aturan karakter ada di **`tools/character_config.json`**
+(satu-satunya sumber; prototipe membacanya). Spesifikasi perakitan untuk klien:
+**`docs/KARAKTER.md`**.
 
 - `prototype/karakter/` (`atlas.png`, `atlas.json`, `index.html`) **dihasilkan
   otomatis**. Jangan edit tangan; ubah skrip lalu jalankan ulang.
-- Logika perakitan saat ini ada di templat JavaScript di dalam `tools/build_sim.py`
-  (fungsi `drawChar`, `recolor`). Klien Phaser harus meniru logika itu.
+- Prototipe (`tools/build_sim.py`, fungsi `drawChar` dan `recolor`) adalah acuan
+  visual; klien Phaser harus menghasilkan tampilan yang sama (lihat `docs/KARAKTER.md`).
 - Menambah set busana: simpan gambar di `assets/characters/raw/set_<nama>.jpg`,
   jalankan `python tools/inspect_set.py <gambar> <keluaran.png>` untuk melihat nomor
   tiap figur, lalu daftarkan di `SETS` pada `process_character.py` dan jalankan

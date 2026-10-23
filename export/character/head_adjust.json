@@ -1,0 +1,16 @@
+{
+  "_keterangan": "Penyetelan posisi kepala per jenis kelamin, gaya & arah (piksel). dy negatif = naik, dx negatif = ke kiri. Aksesori kepala ikut bergeser. 'locked' = jenis kelamin yang sudah final (alat setel dimatikan). Ukuran kepala (scale 80-100) belum ada yang diubah.",
+  "locked": ["L", "P"],
+  "L": {
+    "hair_short_01": {"up": {"dy": -4}, "down": {"dy": -1}}
+  },
+  "P": {
+    "hair_short_01": {"up": {"dy": -2}, "down": {"dy": -1}, "right": {"dx": 2}, "left": {"dy": 1, "dx": -1}},
+    "hair_long": {"down": {"dy": -2}},
+    "hair_wavy": {"left": {"dy": 3}, "right": {"dy": 2, "dx": 1}, "up": {"dx": -1}},
+    "hijab_simple": {"left": {"dx": -4, "dy": 2}, "right": {"dx": 3, "dy": 2}, "up": {"dy": 6}},
+    "hijab_sport": {"down": {"dy": 1}, "left": {"dx": -4, "dy": 3}, "right": {"dx": 2, "dy": 1}},
+    "beanie": {"left": {"dy": 2, "dx": -1}, "right": {"dy": 2, "dx": 1}, "up": {"dx": -1}},
+    "cap_baseball": {"left": {"dx": -1}, "right": {"dx": 1}, "up": {"dx": -2}}
+  }
+}

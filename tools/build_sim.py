@@ -7,6 +7,7 @@ OUT = ROOT / "prototype" / "karakter"
 atlas_b64 = base64.b64encode((OUT / "atlas.png").read_bytes()).decode()
 meta = (OUT / "atlas.json").read_text()
 head_adj = (ROOT / "tools" / "head_adjust.json").read_text(encoding="utf-8")
+cfg = (ROOT / "tools" / "character_config.json").read_text(encoding="utf-8")
 
 HTML = r"""<!DOCTYPE html>
 <html lang="id">
@@ -86,9 +87,9 @@ h2{font-size:13px;letter-spacing:1.5px;text-transform:uppercase;color:#B4501A;ma
   <h2>Kepala</h2>
   <div class="grid" id="heads"></div>
   <h2>Aksesori</h2>
-  <div class="accrow"><span>Kacamata</span><div class="chips" data-slot="glasses" data-opts="acc_glasses_round,acc_glasses_square"></div></div>
-  <div class="accrow"><span>Kepala</span><div class="chips" data-slot="headgear" data-opts="acc_headset,acc_vr_headset"></div></div>
-  <div class="accrow"><span>Tas</span><div class="chips" data-slot="bag" data-opts="acc_backpack,acc_laptop_bag"></div></div>
+  <div class="accrow"><span>Kacamata</span><div class="chips" data-slot="glasses"></div></div>
+  <div class="accrow"><span>Kepala</span><div class="chips" data-slot="headgear"></div></div>
+  <div class="accrow"><span>Tas</span><div class="chips" data-slot="bag"></div></div>
   <div id="headColorBox"><h2 id="headColorTitle">Warna rambut</h2>
   <div class="sw" id="hairSw"></div></div>
   <h2>Warna atasan</h2>
@@ -104,34 +105,16 @@ h2{font-size:13px;letter-spacing:1.5px;text-transform:uppercase;color:#B4501A;ma
 const META = __META__;
 const HEAD_ADJ = __HEADADJ__;   // tools/head_adjust.json
 const ATLAS = "data:image/png;base64,__ATLAS__";
-const HEAD_LABEL = {hair_short_01:"Pendek rapi",hair_short_02:"Pendek acak",hair_buzz:"Cepak",hair_curly:"Keriting",hair_undercut:"Undercut",
-  hair_medium:"Sebahu",hair_long:"Panjang",hair_ponytail:"Kuncir",hair_bun:"Cepol",hair_wavy:"Bergelombang",
-  hijab_simple:"Hijab",hijab_long:"Hijab panjang",hijab_sport:"Hijab sport",peci:"Peci",cap_baseball:"Topi",beanie:"Beanie"};
-// konfigurasi per jenis kelamin: kepala, baju, dan palet warna
-const GENDER = {
-  L: {label: "Laki-laki", btype: "a",
-      heads: ["hair_short_01","hair_short_02","hair_buzz","hair_curly","hair_undercut","hair_medium","hair_wavy","peci","cap_baseball","beanie"],
-      sets: ["hoodie","flannel","kaos","kemeja","batik","almamater","labcoat"],
-      hair: ["#2B2B33","#3B2A20","#5A3A24","#7A5232","#A7A9AE"],
-      top: [null,"#1B2A41","#2F6FB0","#2B2B2B","#4B5A3A","#7A2E3A","#E8833A","#E8DCC4"],
-      def: {head: "hair_short_01", set: "hoodie", top: "#1B2A41", hair: "#2B2B33"}},
-  P: {label: "Perempuan", btype: "b",
-      heads: ["hijab_simple","hair_long",   // hijab panjang & sport dinonaktifkan sementara
-             "hair_medium","hair_ponytail","hair_bun","hair_wavy","hair_short_01","beanie","cap_baseball"],
-      sets: ["tunik","kemeja","kaos","hoodie","flannel","batik","almamater","labcoat"],
-      hair: ["#2B2B33","#3B2A20","#5A3A24","#7A5232","#C9A35A","#8E3B3B"],
-      top: [null,"#D9A5A0","#B9A7D6","#E8DCC4","#A9B89A","#1B2A41","#7A2E3A","#D9A441"],
-      def: {head: "hijab_simple", set: "hoodie", top: "#E8DCC4", hair: "#3B2A20", hijab: "#A9B89A"}},
-};
-// baju yang cocok untuk kepala berhijab (sementara: hoodie & flanel)
-const HIJAB_SETS = ["hoodie","flannel"];
-const HIJAB = ["#2B2B33","#1B2A41","#E8DCC4","#A7A9AE","#7A2E3A","#A9B89A","#D9A5A0","#9C7A5B"];
-const CAPS = ["#2B2B33","#1B2A41","#2F6FB0","#7A2E3A","#E8833A","#E3E6EC"];
-const headCat = k => k.startsWith("hijab") ? "hijab" : (k === "cap_baseball" || k === "beanie") ? "topi" : k === "peci" ? "peci" : "rambut";
-const HEAD_COLORS = {rambut: {title: "Warna rambut", key: "hairColor"}, hijab: {title: "Warna hijab", key: "hijabColor", pal: HIJAB},
-                     topi: {title: "Warna topi", key: "capColor", pal: CAPS}};
-const SKIN = [[247,214,186],[234,186,148],[205,150,110],[160,108,72],[110,70,46]];
-const DIRS = ["down","left","right","up"];
+const CFG = __CFG__;   // tools/character_config.json
+const HEAD_LABEL = CFG.headLabels;
+const GENDER = CFG.genders;
+const HIJAB_SETS = CFG.hijabSets;   // baju yang boleh dipakai kepala berhijab
+const HIJAB = CFG.colorCategories.hijab.palette, CAPS = CFG.colorCategories.topi.palette;
+const headCat = k => CFG.headCategory[k];
+const HEAD_COLORS = Object.fromEntries(Object.entries(CFG.colorCategories).map(([k, v]) => [k, {title: v.title, key: v.key, pal: v.palette}]));
+const SKIN = CFG.skinTones;
+const RC = CFG.recolor, MV = CFG.movement;
+const DIRS = CFG.directions;
 const st = {gender:"L", set:"hoodie", glasses:null, headgear:null, bag:null, head:"hair_short_01", hairColor:"#2B2B33", hijabColor:"#2B2B33", capColor:"#1B2A41", topColor:"#1B2A41", skin:1, x:0, y:0, dir:"down", moving:false, t:0, grid:false};
 const keys = new Set();
 
@@ -150,8 +133,8 @@ function sprite(key){
 const cache = {};
 const hex = h => [1,3,5].map(i => parseInt(h.slice(i, i+2), 16));
 const lum = (r,g,b) => 0.299*r + 0.587*g + 0.114*b;
-function isSkin(r,g,b){ return r > g + 18 && g > b + 5 && r > 150; }
-const SKIN_REF = lum(234,186,148);
+function isSkin(r,g,b){ const k = RC.skin; return r > g + k.rMinusG && g > b + k.gMinusB && r > k.rMin; }
+const SKIN_REF = lum(...RC.skinReference);
 function recolor(key, tint, tintBelow, skinIdx){
   const id = key + "|" + tint + "|" + tintBelow + "|" + skinIdx;
   if (cache[id]) return cache[id];
@@ -167,11 +150,11 @@ function recolor(key, tint, tintBelow, skinIdx){
     if (isSkin(r,g,b)){
       const k = L / SKIN_REF;
       p[i] = Math.min(255, S[0]*k); p[i+1] = Math.min(255, S[1]*k); p[i+2] = Math.min(255, S[2]*k);
-    } else if (T && sat < 30 && L > 95 && y < tintBelow){
-      const k = L / 185;
-      p[i] = Math.min(255, T[0]*k + (k > 1.12 ? 30 : 0));
-      p[i+1] = Math.min(255, T[1]*k + (k > 1.12 ? 30 : 0));
-      p[i+2] = Math.min(255, T[2]*k + (k > 1.12 ? 30 : 0));
+    } else if (T && sat < RC.tint.maxSaturation && L > RC.tint.minLuminance && y < tintBelow){
+      const k = L / RC.tint.refLuminance, hb = k > RC.tint.highlightAbove ? RC.tint.highlightBoost : 0;
+      p[i] = Math.min(255, T[0]*k + hb);
+      p[i+1] = Math.min(255, T[1]*k + hb);
+      p[i+2] = Math.min(255, T[2]*k + hb);
     }
   }
   x.putImageData(d, 0, 0);
@@ -179,7 +162,7 @@ function recolor(key, tint, tintBelow, skinIdx){
 }
 
 /* ---------- character drawing ---------- */
-const SEQ = [0, 1, 2, 1];
+const SEQ = MV.walkSequence;
 function drawChar(ctx, cx, footY, dir, frame, headKey){
   const setKey = GENDER[st.gender].btype === "b" ? st.set + "_b" : st.set;
   const bm = META.sets[setKey][dir][frame];
@@ -287,14 +270,14 @@ function tick(now){
   if (st.moving){
     if (vx && vy){ vx *= Math.SQRT1_2; vy *= Math.SQRT1_2; }
     st.dir = Math.abs(vx) > Math.abs(vy) ? (vx < 0 ? "left" : "right") : (vy < 0 ? "up" : "down");
-    const sp = st.walk ? 80 : 150;   // bawaan: lari
+    const sp = st.walk ? MV.walkSpeed : MV.runSpeed;   // bawaan: lari
     st.x = Math.max(T + 12, Math.min(WW - T - 12, st.x + vx * sp * dt));
     st.y = Math.max(2*T + 8, Math.min(WH - T - 2, st.y + vy * sp * dt));
-    st.t += dt * (st.walk ? 1 : 1.7);
+    st.t += dt * (st.walk ? 1 : MV.runAnimMultiplier);
   } else st.t = 0;
   updateCamera(dt);
   drawWorld();
-  const frame = st.moving ? SEQ[Math.floor(st.t * 8) % 4] : 1;
+  const frame = st.moving ? SEQ[Math.floor(st.t * MV.animFps) % SEQ.length] : 1;
   drawChar(g, Math.round(st.x - cam.x), Math.round(st.y - cam.y), st.dir, frame, st.head);
   requestAnimationFrame(tick);
 }
@@ -438,7 +421,7 @@ function buildPanel(){
   document.querySelectorAll("#gender button").forEach(b => b.onclick = () => setGender(b.dataset.g));
   document.querySelectorAll(".chips[data-slot]").forEach(box => {
     const slot = box.dataset.slot;
-    [null, ...box.dataset.opts.split(",")].forEach(k => {
+    [null, ...CFG.accessories[slot]].forEach(k => {
       const b = document.createElement("button"); b.dataset.k = k || "";
       b.textContent = k ? (META.acc[k] || META.bags[k]).label : "Tidak ada";
       b.onclick = () => { st[slot] = k; refreshPanel(); };
@@ -475,6 +458,6 @@ function start(){
 </body>
 </html>
 """
-html = HTML.replace("__META__", meta).replace("__HEADADJ__", head_adj).replace("__ATLAS__", atlas_b64)
+html = HTML.replace("__META__", meta).replace("__HEADADJ__", head_adj).replace("__CFG__", cfg).replace("__ATLAS__", atlas_b64)
 (OUT / "index.html").write_text(html, encoding="utf-8")
 print("index.html", len(html) // 1024, "KB")

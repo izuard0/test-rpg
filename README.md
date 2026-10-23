@@ -47,6 +47,7 @@ assets/
 asset-prompts/      prompt pembuatan aset; karakter-hemat/ = kotak masuk gambar baru
 belum-dibuat/       daftar aset yang belum dibuat + gambar acuan
 docs/               RANCANGAN.md dan dokumen teknis
+export/character/   paket karakter siap pakai untuk klien (dihasilkan; docs/KARAKTER.md)
 prototype/karakter/ prototipe karakter (dibangun otomatis, jangan diedit tangan)
 tools/              skrip pemroses aset dan pembuat prototipe
 ```

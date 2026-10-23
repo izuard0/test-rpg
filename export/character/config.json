@@ -1,0 +1,63 @@
+{
+  "_keterangan": "Konfigurasi kreator karakter: SATU-SATUNYA sumber untuk daftar pilihan, palet warna, aturan, dan konstanta gerak. Dibaca oleh tools/build_sim.py (prototipe) dan disalin ke export/character/config.json untuk klien. Penjelasan lengkap: docs/KARAKTER.md.",
+  "tile": 32,
+  "directions": ["down", "left", "right", "up"],
+  "movement": {
+    "runSpeed": 150,
+    "walkSpeed": 80,
+    "runAnimMultiplier": 1.7,
+    "animFps": 8,
+    "walkSequence": [0, 1, 2, 1]
+  },
+  "skinTones": [[247, 214, 186], [234, 186, 148], [205, 150, 110], [160, 108, 72], [110, 70, 46]],
+  "recolor": {
+    "skin": {"rMinusG": 18, "gMinusB": 5, "rMin": 150},
+    "skinReference": [234, 186, 148],
+    "tint": {"maxSaturation": 30, "minLuminance": 95, "refLuminance": 185, "highlightAbove": 1.12, "highlightBoost": 30}
+  },
+  "headLabels": {
+    "hair_short_01": "Pendek rapi", "hair_short_02": "Pendek acak", "hair_buzz": "Cepak",
+    "hair_curly": "Keriting", "hair_undercut": "Undercut", "hair_medium": "Sebahu",
+    "hair_long": "Panjang", "hair_ponytail": "Kuncir", "hair_bun": "Cepol",
+    "hair_wavy": "Bergelombang", "hijab_simple": "Hijab", "hijab_long": "Hijab panjang",
+    "hijab_sport": "Hijab sport", "peci": "Peci", "cap_baseball": "Topi", "beanie": "Beanie"
+  },
+  "headCategory": {
+    "hair_short_01": "rambut", "hair_short_02": "rambut", "hair_buzz": "rambut", "hair_curly": "rambut",
+    "hair_undercut": "rambut", "hair_medium": "rambut", "hair_long": "rambut", "hair_ponytail": "rambut",
+    "hair_bun": "rambut", "hair_wavy": "rambut",
+    "hijab_simple": "hijab", "hijab_long": "hijab", "hijab_sport": "hijab",
+    "peci": "peci", "cap_baseball": "topi", "beanie": "topi"
+  },
+  "colorCategories": {
+    "rambut": {"title": "Warna rambut", "key": "hairColor"},
+    "hijab": {"title": "Warna hijab", "key": "hijabColor",
+              "palette": ["#2B2B33", "#1B2A41", "#E8DCC4", "#A7A9AE", "#7A2E3A", "#A9B89A", "#D9A5A0", "#9C7A5B"]},
+    "topi": {"title": "Warna topi", "key": "capColor",
+             "palette": ["#2B2B33", "#1B2A41", "#2F6FB0", "#7A2E3A", "#E8833A", "#E3E6EC"]}
+  },
+  "hijabSets": ["hoodie", "flannel"],
+  "genders": {
+    "L": {
+      "label": "Laki-laki", "btype": "a",
+      "heads": ["hair_short_01", "hair_short_02", "hair_buzz", "hair_curly", "hair_undercut", "hair_medium", "hair_wavy", "peci", "cap_baseball", "beanie"],
+      "sets": ["hoodie", "flannel", "kaos", "kemeja", "batik", "almamater", "labcoat"],
+      "hair": ["#2B2B33", "#3B2A20", "#5A3A24", "#7A5232", "#A7A9AE"],
+      "top": [null, "#1B2A41", "#2F6FB0", "#2B2B2B", "#4B5A3A", "#7A2E3A", "#E8833A", "#E8DCC4"],
+      "def": {"head": "hair_short_01", "set": "hoodie", "top": "#1B2A41", "hair": "#2B2B33"}
+    },
+    "P": {
+      "label": "Perempuan", "btype": "b",
+      "heads": ["hijab_simple", "hair_long", "hair_medium", "hair_ponytail", "hair_bun", "hair_wavy", "hair_short_01", "beanie", "cap_baseball"],
+      "sets": ["tunik", "kemeja", "kaos", "hoodie", "flannel", "batik", "almamater", "labcoat"],
+      "hair": ["#2B2B33", "#3B2A20", "#5A3A24", "#7A5232", "#C9A35A", "#8E3B3B"],
+      "top": [null, "#D9A5A0", "#B9A7D6", "#E8DCC4", "#A9B89A", "#1B2A41", "#7A2E3A", "#D9A441"],
+      "def": {"head": "hijab_simple", "set": "hoodie", "top": "#E8DCC4", "hair": "#3B2A20", "hijab": "#A9B89A"}
+    }
+  },
+  "accessories": {
+    "glasses": ["acc_glasses_round", "acc_glasses_square"],
+    "headgear": ["acc_headset", "acc_vr_headset"],
+    "bag": ["acc_backpack", "acc_laptop_bag"]
+  }
+}
