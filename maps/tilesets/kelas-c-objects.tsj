@@ -8,9 +8,9 @@
  "margin": 0,
  "name": "kelas-c-objects",
  "spacing": 0,
- "tilecount": 9,
+ "tilecount": 12,
  "tiledversion": "1.10.2",
- "tileheight": 48,
+ "tileheight": 52,
  "tilewidth": 90,
  "type": "tileset",
  "version": "1.10",
@@ -35,6 +35,24 @@
   },
   {
    "id": 1,
+   "image": "../../export/tiles/classroom_front/sprites/05_tv_nyala.png",
+   "imageheight": 40,
+   "imagewidth": 65,
+   "properties": [
+    {
+     "name": "name",
+     "type": "string",
+     "value": "tv_nyala"
+    },
+    {
+     "name": "lembar",
+     "type": "string",
+     "value": "classroom_front"
+    }
+   ]
+  },
+  {
+   "id": 2,
    "image": "../../export/tiles/auditorium_seats/sprites/15_podium_laptop.png",
    "imageheight": 38,
    "imagewidth": 28,
@@ -52,7 +70,25 @@
    ]
   },
   {
-   "id": 2,
+   "id": 3,
+   "image": "../../export/tiles/classroom_front/sprites/12_meja_dosen.png",
+   "imageheight": 52,
+   "imagewidth": 90,
+   "properties": [
+    {
+     "name": "name",
+     "type": "string",
+     "value": "meja_dosen"
+    },
+    {
+     "name": "lembar",
+     "type": "string",
+     "value": "classroom_front"
+    }
+   ]
+  },
+  {
+   "id": 4,
    "image": "../../export/tiles/auditorium_seats/sprites/16_speaker_ganda.png",
    "imageheight": 20,
    "imagewidth": 26,
@@ -70,7 +106,25 @@
    ]
   },
   {
-   "id": 3,
+   "id": 5,
+   "image": "../../export/tiles/auditorium_seats/sprites/12_rak_perangkat.png",
+   "imageheight": 39,
+   "imagewidth": 22,
+   "properties": [
+    {
+     "name": "name",
+     "type": "string",
+     "value": "rak_perangkat"
+    },
+    {
+     "name": "lembar",
+     "type": "string",
+     "value": "auditorium_seats"
+    }
+   ]
+  },
+  {
+   "id": 6,
    "image": "../../export/tiles/classroom_front/sprites/08_jam_oranye.png",
    "imageheight": 25,
    "imagewidth": 24,
@@ -88,7 +142,7 @@
    ]
   },
   {
-   "id": 4,
+   "id": 7,
    "image": "../../export/tiles/classroom_front/sprites/09_ac.png",
    "imageheight": 23,
    "imagewidth": 52,
@@ -106,7 +160,7 @@
    ]
   },
   {
-   "id": 5,
+   "id": 8,
    "image": "../../export/tiles/classroom_floor_wall/sprites/20_pintu_kelas.png",
    "imageheight": 48,
    "imagewidth": 27,
@@ -124,25 +178,25 @@
    ]
   },
   {
-   "id": 6,
-   "image": "../../export/tiles/lobby_furniture/sprites/13_tanaman_a.png",
-   "imageheight": 16,
-   "imagewidth": 11,
+   "id": 9,
+   "image": "../../export/tiles/library_furniture/sprites/10_tanaman_pakis.png",
+   "imageheight": 36,
+   "imagewidth": 30,
    "properties": [
     {
      "name": "name",
      "type": "string",
-     "value": "tanaman_a"
+     "value": "tanaman_pakis"
     },
     {
      "name": "lembar",
      "type": "string",
-     "value": "lobby_furniture"
+     "value": "library_furniture"
     }
    ]
   },
   {
-   "id": 7,
+   "id": 10,
    "image": "../../export/tiles/auditorium_seats/sprites/09_meja_komputer_nyala.png",
    "imageheight": 42,
    "imagewidth": 90,
@@ -160,7 +214,7 @@
    ]
   },
   {
-   "id": 8,
+   "id": 11,
    "image": "../../export/tiles/auditorium_seats/sprites/10_kursi_putar.png",
    "imageheight": 37,
    "imagewidth": 24,

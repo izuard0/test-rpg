@@ -1,0 +1,307 @@
+{
+ "columns": 0,
+ "grid": {
+  "height": 1,
+  "orientation": "orthogonal",
+  "width": 1
+ },
+ "margin": 0,
+ "name": "perpustakaan-objects",
+ "spacing": 0,
+ "tilecount": 16,
+ "tiledversion": "1.10.2",
+ "tileheight": 74,
+ "tilewidth": 110,
+ "type": "tileset",
+ "version": "1.10",
+ "tiles": [
+  {
+   "id": 0,
+   "image": "../../export/tiles/library_floor_wall/sprites/27_jendela_kayu.png",
+   "imageheight": 32,
+   "imagewidth": 23,
+   "properties": [
+    {
+     "name": "name",
+     "type": "string",
+     "value": "jendela_kayu"
+    },
+    {
+     "name": "lembar",
+     "type": "string",
+     "value": "library_floor_wall"
+    }
+   ]
+  },
+  {
+   "id": 1,
+   "image": "../../export/tiles/library_bookshelves/sprites/01_rak_biru.png",
+   "imageheight": 68,
+   "imagewidth": 44,
+   "properties": [
+    {
+     "name": "name",
+     "type": "string",
+     "value": "rak_biru"
+    },
+    {
+     "name": "lembar",
+     "type": "string",
+     "value": "library_bookshelves"
+    }
+   ]
+  },
+  {
+   "id": 2,
+   "image": "../../export/tiles/library_bookshelves/sprites/05_rak_biru_2.png",
+   "imageheight": 69,
+   "imagewidth": 44,
+   "properties": [
+    {
+     "name": "name",
+     "type": "string",
+     "value": "rak_biru_2"
+    },
+    {
+     "name": "lembar",
+     "type": "string",
+     "value": "library_bookshelves"
+    }
+   ]
+  },
+  {
+   "id": 3,
+   "image": "../../export/tiles/library_bookshelves/sprites/02_rak_oranye.png",
+   "imageheight": 68,
+   "imagewidth": 45,
+   "properties": [
+    {
+     "name": "name",
+     "type": "string",
+     "value": "rak_oranye"
+    },
+    {
+     "name": "lembar",
+     "type": "string",
+     "value": "library_bookshelves"
+    }
+   ]
+  },
+  {
+   "id": 4,
+   "image": "../../export/tiles/library_bookshelves/sprites/03_rak_hijau.png",
+   "imageheight": 68,
+   "imagewidth": 44,
+   "properties": [
+    {
+     "name": "name",
+     "type": "string",
+     "value": "rak_hijau"
+    },
+    {
+     "name": "lembar",
+     "type": "string",
+     "value": "library_bookshelves"
+    }
+   ]
+  },
+  {
+   "id": 5,
+   "image": "../../export/tiles/library_bookshelves/sprites/07_rak_hijau_2.png",
+   "imageheight": 69,
+   "imagewidth": 44,
+   "properties": [
+    {
+     "name": "name",
+     "type": "string",
+     "value": "rak_hijau_2"
+    },
+    {
+     "name": "lembar",
+     "type": "string",
+     "value": "library_bookshelves"
+    }
+   ]
+  },
+  {
+   "id": 6,
+   "image": "../../export/tiles/library_terminals/sprites_flip/03_kios_nyala_a.png",
+   "imageheight": 45,
+   "imagewidth": 23,
+   "properties": [
+    {
+     "name": "name",
+     "type": "string",
+     "value": "kios_nyala_a"
+    },
+    {
+     "name": "lembar",
+     "type": "string",
+     "value": "library_terminals"
+    }
+   ]
+  },
+  {
+   "id": 7,
+   "image": "../../export/tiles/library_furniture/sprites/01_meja_baca_panjang.png",
+   "imageheight": 74,
+   "imagewidth": 110,
+   "properties": [
+    {
+     "name": "name",
+     "type": "string",
+     "value": "meja_baca_panjang"
+    },
+    {
+     "name": "lembar",
+     "type": "string",
+     "value": "library_furniture"
+    }
+   ]
+  },
+  {
+   "id": 8,
+   "image": "../../export/tiles/library_furniture/sprites/06_meja_pustakawan.png",
+   "imageheight": 49,
+   "imagewidth": 68,
+   "properties": [
+    {
+     "name": "name",
+     "type": "string",
+     "value": "meja_pustakawan"
+    },
+    {
+     "name": "lembar",
+     "type": "string",
+     "value": "library_furniture"
+    }
+   ]
+  },
+  {
+   "id": 9,
+   "image": "../../export/tiles/library_furniture/sprites/08_papan_tulis_beroda.png",
+   "imageheight": 42,
+   "imagewidth": 46,
+   "properties": [
+    {
+     "name": "name",
+     "type": "string",
+     "value": "papan_tulis_beroda"
+    },
+    {
+     "name": "lembar",
+     "type": "string",
+     "value": "library_furniture"
+    }
+   ]
+  },
+  {
+   "id": 10,
+   "image": "../../export/tiles/library_terminals/sprites/08_bilik_belajar_tiga.png",
+   "imageheight": 52,
+   "imagewidth": 84,
+   "properties": [
+    {
+     "name": "name",
+     "type": "string",
+     "value": "bilik_belajar_tiga"
+    },
+    {
+     "name": "lembar",
+     "type": "string",
+     "value": "library_terminals"
+    }
+   ]
+  },
+  {
+   "id": 11,
+   "image": "../../export/tiles/library_furniture/sprites/07_troli_buku.png",
+   "imageheight": 41,
+   "imagewidth": 43,
+   "properties": [
+    {
+     "name": "name",
+     "type": "string",
+     "value": "troli_buku"
+    },
+    {
+     "name": "lembar",
+     "type": "string",
+     "value": "library_furniture"
+    }
+   ]
+  },
+  {
+   "id": 12,
+   "image": "../../export/tiles/library_furniture/sprites/03_sofa_tunggal_biru_1.png",
+   "imageheight": 33,
+   "imagewidth": 33,
+   "properties": [
+    {
+     "name": "name",
+     "type": "string",
+     "value": "sofa_tunggal_biru_1"
+    },
+    {
+     "name": "lembar",
+     "type": "string",
+     "value": "library_furniture"
+    }
+   ]
+  },
+  {
+   "id": 13,
+   "image": "../../export/tiles/lobby_furniture/sprites/05_meja_bulat.png",
+   "imageheight": 22,
+   "imagewidth": 29,
+   "properties": [
+    {
+     "name": "name",
+     "type": "string",
+     "value": "meja_bulat"
+    },
+    {
+     "name": "lembar",
+     "type": "string",
+     "value": "lobby_furniture"
+    }
+   ]
+  },
+  {
+   "id": 14,
+   "image": "../../export/tiles/library_furniture/sprites/05_sofa_tunggal_biru_2.png",
+   "imageheight": 39,
+   "imagewidth": 33,
+   "properties": [
+    {
+     "name": "name",
+     "type": "string",
+     "value": "sofa_tunggal_biru_2"
+    },
+    {
+     "name": "lembar",
+     "type": "string",
+     "value": "library_furniture"
+    }
+   ]
+  },
+  {
+   "id": 15,
+   "image": "../../export/tiles/library_furniture/sprites/10_tanaman_pakis.png",
+   "imageheight": 36,
+   "imagewidth": 30,
+   "properties": [
+    {
+     "name": "name",
+     "type": "string",
+     "value": "tanaman_pakis"
+    },
+    {
+     "name": "lembar",
+     "type": "string",
+     "value": "library_furniture"
+    }
+   ]
+  }
+ ]
+}

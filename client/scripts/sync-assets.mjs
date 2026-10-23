@@ -39,6 +39,8 @@ for (const file of maps) {
   }
 }
 copy(join(ROOT, "assets/backgrounds/bg_title.png"));
+// Ikon UI (penanda interaksi, kelak lencana dan emote).
+for (const f of readdirSync(join(ROOT, "export/ui/items/sprites"))) copy(join(ROOT, "export/ui/items/sprites", f));
 for (const f of ["atlas.png", "atlas.json", "config.json", "head_adjust.json"]) copy(join(ROOT, "export/character", f));
 
 const materi = join(ROOT, "materi");

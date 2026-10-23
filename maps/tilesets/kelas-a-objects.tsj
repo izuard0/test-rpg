@@ -125,6 +125,42 @@
   },
   {
    "id": 6,
+   "image": "../../export/tiles/auditorium_seats/sprites/12_rak_perangkat.png",
+   "imageheight": 39,
+   "imagewidth": 22,
+   "properties": [
+    {
+     "name": "name",
+     "type": "string",
+     "value": "rak_perangkat"
+    },
+    {
+     "name": "lembar",
+     "type": "string",
+     "value": "auditorium_seats"
+    }
+   ]
+  },
+  {
+   "id": 7,
+   "image": "../../export/tiles/classroom_front/sprites/11_speaker.png",
+   "imageheight": 23,
+   "imagewidth": 17,
+   "properties": [
+    {
+     "name": "name",
+     "type": "string",
+     "value": "speaker"
+    },
+    {
+     "name": "lembar",
+     "type": "string",
+     "value": "classroom_front"
+    }
+   ]
+  },
+  {
+   "id": 8,
    "image": "../../export/tiles/classroom_floor_wall/sprites/20_pintu_kelas.png",
    "imageheight": 48,
    "imagewidth": 27,
@@ -142,56 +178,20 @@
    ]
   },
   {
-   "id": 7,
-   "image": "../../export/tiles/lobby_furniture/sprites/13_tanaman_a.png",
-   "imageheight": 16,
-   "imagewidth": 11,
+   "id": 9,
+   "image": "../../export/tiles/lobby_furniture/sprites/17_tanaman_d.png",
+   "imageheight": 20,
+   "imagewidth": 16,
    "properties": [
     {
      "name": "name",
      "type": "string",
-     "value": "tanaman_a"
+     "value": "tanaman_d"
     },
     {
      "name": "lembar",
      "type": "string",
      "value": "lobby_furniture"
-    }
-   ]
-  },
-  {
-   "id": 8,
-   "image": "../../export/tiles/classroom_front/sprites/07_server_kecil.png",
-   "imageheight": 24,
-   "imagewidth": 15,
-   "properties": [
-    {
-     "name": "name",
-     "type": "string",
-     "value": "server_kecil"
-    },
-    {
-     "name": "lembar",
-     "type": "string",
-     "value": "classroom_front"
-    }
-   ]
-  },
-  {
-   "id": 9,
-   "image": "../../export/tiles/classroom_front/sprites/11_speaker.png",
-   "imageheight": 23,
-   "imagewidth": 17,
-   "properties": [
-    {
-     "name": "name",
-     "type": "string",
-     "value": "speaker"
-    },
-    {
-     "name": "lembar",
-     "type": "string",
-     "value": "classroom_front"
     }
    ]
   },

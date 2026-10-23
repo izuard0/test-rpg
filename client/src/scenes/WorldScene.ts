@@ -21,7 +21,7 @@ import { openCreator } from "../ui/creator";
 import { setHud, setPrompt, showError, showLoading } from "../ui/hud";
 import { closePanel, isPanelOpen } from "../ui/panel";
 import { onTouchAction, touchDirs } from "../ui/touch";
-import { loadMap, loadMateri, textureForGid, type LoadedMap } from "../world/loader";
+import { MARKER_KEY, loadMap, loadWorldUi, textureForGid, type LoadedMap } from "../world/loader";
 import { Avatar } from "../world/player";
 
 export interface WorldData {
@@ -55,7 +55,7 @@ export class WorldScene extends Phaser.Scene {
   private placed: Placed[] = [];
   private focus?: Interactable;
   private focusImages: Phaser.GameObjects.Image[] = [];
-  private marker!: Phaser.GameObjects.Triangle;
+  private marker!: Phaser.GameObjects.Image;
   private zone?: Zone;
   private zoomLevel = 0;
   private ready = false;
@@ -90,7 +90,7 @@ export class WorldScene extends Phaser.Scene {
     // Akun dan layanan akun diisi main.ts setelah pemain masuk dan punya avatar.
     this.account = this.registry.get("account") as Account;
     this.auth = this.registry.get("auth") as AuthService;
-    await loadMateri(this);
+    await loadWorldUi(this);
     this.loaded = await loadMap(this, this.roomCode);
     this.cfg = getAssembler().cfg;
     this.catalog = this.cache.json.get("materi") as MateriCatalog | undefined;
@@ -101,8 +101,8 @@ export class WorldScene extends Phaser.Scene {
     this.drawObjects();
     this.cameras.main.setBackgroundColor(this.loaded.map.backgroundcolor ?? "#1b2a41");
 
-    this.marker = this.add.triangle(0, 0, 0, 0, 10, 0, 5, 7, ORANGE).setOrigin(0.5, 1).setVisible(false).setDepth(2e6);
-    this.marker.setStrokeStyle(1, 0x1b2a41);
+    // Ikon 22 × 26 px digambar setengah ukuran: penanda "panah oranye kecil" (docs/PETA.md).
+    this.marker = this.add.image(0, 0, MARKER_KEY).setOrigin(0.5, 1).setScale(0.5).setVisible(false).setDepth(2e6);
     this.tweens.add({ targets: this.marker, y: "-=3", duration: 450, yoyo: true, repeat: -1, ease: "Sine.inOut" });
 
     this.setupInput();
@@ -146,15 +146,22 @@ export class WorldScene extends Phaser.Scene {
 
   /** Gambar benda yang menjadi milik sebuah persegi interaksi (untuk sorotan oranye). */
   private imagesFor(it: Interactable): Phaser.GameObjects.Image[] {
-    const r = new Phaser.Geom.Rectangle(it.rect.x - 4, it.rect.y - 4, it.rect.w + 8, it.rect.h + 8);
-    return this.placed
-      .filter((p) => {
-        const b = p.bounds;
-        // Telapak benda (baris bawah gambar) harus bersinggungan dengan persegi interaksi.
-        const foot = new Phaser.Geom.Rectangle(b.x, b.bottom - this.room.tile, b.width, this.room.tile);
-        return Phaser.Geom.Intersects.RectangleToRectangle(foot, r);
-      })
-      .map((p) => p.image);
+    const r = it.rect;
+    // Benda harus menutupi setidaknya separuh lebarnya di atas persegi interaksi.
+    const covers = (b: Phaser.Geom.Rectangle) => Math.min(b.right, r.x + r.w) - Math.max(b.x, r.x) >= Math.min(b.width, r.w) / 2;
+    const near = this.placed.filter((p) => covers(p.bounds));
+    // Utamakan benda yang telapaknya DI DALAM persegi (kursi, terminal). Bila tidak ada,
+    // ambil benda yang berdiri tepat di belakangnya (rak, pintu: persegi ada di depannya).
+    const inside = near.filter((p) => p.bounds.bottom > r.y + 2 && p.bounds.bottom <= r.y + r.h + 4);
+    const behind = near.filter((p) => Math.abs(p.bounds.bottom - r.y) <= 4);
+    if (inside.length || behind.length) return (inside.length ? inside : behind).map((p) => p.image);
+    // Sisanya: benda di samping persegi (terminal di dinding) atau yang menutupinya
+    // (kios lebih besar dari persegi); pilih yang telapaknya paling dekat.
+    const grown = new Phaser.Geom.Rectangle(r.x - 8, r.y, r.w + 16, r.h);
+    const touching = this.placed.filter((p) => Phaser.Geom.Intersects.RectangleToRectangle(p.bounds, grown));
+    const gap = (p: Placed) => Math.abs(p.bounds.bottom - (r.y + r.h));
+    const best = Math.min(...touching.map(gap));
+    return touching.filter((p) => gap(p) === best).map((p) => p.image);
   }
 
   private drawDebug(): void {
@@ -167,6 +174,7 @@ export class WorldScene extends Phaser.Scene {
       room: () => this.roomCode,
       player: () => this.player && { x: this.player.x, y: this.player.y, dir: this.player.dir, sitting: this.player.sitting },
       focus: () => this.focus?.name ?? null,
+      glow: () => this.focusImages.map((i) => i.texture.key.split("/").pop()),
       interactables: () => this.room.interactables.map((i) => ({ name: i.name, kind: i.kind, rect: i.rect })),
       teleport: (x: number, y: number) => {
         if (this.player) {

@@ -1,12 +1,12 @@
 {
  "columns": 8,
  "image": "kelas-b-floor-wall.png",
- "imageheight": 28,
+ "imageheight": 56,
  "imagewidth": 224,
  "margin": 0,
  "name": "kelas-b-floor-wall",
  "spacing": 0,
- "tilecount": 7,
+ "tilecount": 9,
  "tiledversion": "1.10.2",
  "tileheight": 28,
  "tilewidth": 28,
@@ -79,6 +79,36 @@
     {
      "name": "name",
      "type": "string",
+     "value": "karpet_terakota_a"
+    },
+    {
+     "name": "sumber",
+     "type": "string",
+     "value": "library_floor_wall/karpet_navy_a 24x27"
+    }
+   ]
+  },
+  {
+   "id": 5,
+   "properties": [
+    {
+     "name": "name",
+     "type": "string",
+     "value": "karpet_terakota_b"
+    },
+    {
+     "name": "sumber",
+     "type": "string",
+     "value": "library_floor_wall/karpet_navy_b 23x27"
+    }
+   ]
+  },
+  {
+   "id": 6,
+   "properties": [
+    {
+     "name": "name",
+     "type": "string",
      "value": "dinding_biru_a"
     },
     {
@@ -89,7 +119,7 @@
    ]
   },
   {
-   "id": 5,
+   "id": 7,
    "properties": [
     {
      "name": "name",
@@ -104,7 +134,7 @@
    ]
   },
   {
-   "id": 6,
+   "id": 8,
    "properties": [
     {
      "name": "name",

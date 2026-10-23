@@ -106,9 +106,12 @@ export function textureForGid(loaded: LoadedMap, gid: number): string | undefine
   return ts?.tileKeys.get(g - ts.firstgid);
 }
 
-/** Katalog materi untuk rak buku (materi/materi.json). */
-export async function loadMateri(scene: Phaser.Scene): Promise<void> {
+export const MARKER_KEY = "ui:panah_bawah";
+
+/** Katalog materi untuk rak buku (materi/materi.json) dan ikon UI di dunia game. */
+export async function loadWorldUi(scene: Phaser.Scene): Promise<void> {
   await runLoader(scene, (load) => {
     if (!scene.cache.json.exists("materi")) load.json("materi", GAME_BASE + "materi/materi.json");
+    if (!scene.textures.exists(MARKER_KEY)) load.image(MARKER_KEY, GAME_BASE + "export/ui/items/sprites/29_panah_bawah.png");
   });
 }

@@ -38,6 +38,7 @@ python tools/build_sim.py           # bangun ulang halaman prototipe
 python tools/export_character.py    # paket karakter ke export/character/
 python tools/process_tiles.py       # lembar tile -> sprite transparan (± 12 detik)
 python tools/process_outdoor.py     # lembar luar ruangan -> sprite
+python tools/process_items.py       # sheet ikon/lencana/emote -> 68 sprite di export/ui/items/
 python tools/make_map.py kampus     # peta Tiled + pratinjau di maps/ (juga: kelas-a, kelas-b, kelas-c)
 ```
 
@@ -75,6 +76,7 @@ materi/             materi.json + file materi HTML untuk rak perpustakaan
 docs/               RANCANGAN.md dan dokumen teknis
 export/character/   paket karakter siap pakai untuk klien (dihasilkan; docs/KARAKTER.md)
 export/tiles/       sprite tile transparan hasil olahan (dihasilkan; docs/TILES.md)
+export/ui/items/    68 ikon, lencana, emote transparan (dihasilkan; sprites_hd = penuh, sprites = 1x)
 maps/               peta Tiled (.tmj), set tile, dan pratinjau (dihasilkan; docs/PETA.md)
 prototype/karakter/ prototipe karakter (dibangun otomatis, jangan diedit tangan)
 tools/              skrip pemroses aset dan pembuat prototipe

@@ -252,40 +252,38 @@ terpisah untuk set ini (belum ada; lihat bagian 9).
 
 | Peta | Isi | Ukuran | Perintah |
 |---|---|---|---|
-| `maps/kampus.tmj` | **satu denah gedung v3**: lobi, perpustakaan, koridor, 5 ruang kecil, 3 kelas (tampak) + pinggiran rumput | 100 × 62 petak (2.800 × 1.736 px) | `python tools/make_map.py kampus` |
+| `maps/kampus.tmj` | **satu denah gedung bersayap v4**: lobi, perpustakaan, koridor & rotunda, bilik fokus, 2 ruang diskusi, lounge timur, 3 kelas (tampak) + Plaza Air Mancur (U-Courtyard) & Parkir Sepeda | 108 × 70 petak (3.024 × 1.960 px) | `python tools/make_map.py kampus` |
 | `maps/kelas-a.tmj` | Lab Lovelace, 30 kursi `seat` | 20 × 21 | `... kelas-a` |
-| `maps/kelas-b.tmj` | Ruang Kolaborasi, 9 meja heksagon × 5 kursi = 45 | 24 × 21 | `... kelas-b` |
+| `maps/kelas-b.tmj` | Ruang Kolaborasi, 9 meja heksagon × 5 kursi = 45 | 24 × 23 | `... kelas-b` |
 | `maps/kelas-c.tmj` | Auditorium Turing, 6 × 5 meja × 2 kursi = 60 | 28 × 21 | `... kelas-c` |
 
-- **Kampus v3 (rancangan "satu gambar besar").** Gambar: `maps/preview/kampus.png` (bersih),
+- **Kampus v4 (arsitektur bersayap majemuk + Plaza Air Mancur).** Gambar: `maps/preview/kampus.png` (bersih),
   `kampus-denah.png` (beranotasi nama zona), `kampus-debug.png` (tabrakan/interaksi/pintu).
-  Susunan: pita utara (y4–24) **Lab Lovelace | Ruang Kolaborasi | Auditorium Turing | Bilik Fokus + Ruang Diskusi A**;
-  **koridor** timur–barat (y24–30) sebagai tulang punggung; pita selatan (y30–57) **Lobi | Perpustakaan | Ruang Santai +
-  Ruang Diskusi B**. Pintu depan di selatan lobi (x23–25), sumbu lurus ke koridor. Tiga kelas **tampak** di denah
-  (interior terlihat tetapi diblokir; pintu + papan nama berwarna di koridor; area interaksi di koridor, masuk ke peta
-  kelas masing-masing). Bukaan: koridor–lobi (2), koridor–perpustakaan, lobi–perpustakaan, perpustakaan–Diskusi B,
-  koridor–Santai, koridor–Diskusi A, Diskusi A–Bilik Fokus. Luar ruangan hanya hiasan tepi.
-- **Uji keterjangkauan (BFS)** dari titik `awal`: semua petak bebas terjangkau, semua titik `interact` terjangkau,
-  interior kelas tidak bisa dijalani.
+  Alih-alih satu kotak persegi panjang kaku, gedung v4 memiliki siluet **bersayap majemuk (multi-wing)** dengan
+  lekukan di setiap sisi:
+  - **Sayap Akademik Utara:** Ruang Kolaborasi (`y=3..25`) menjorok 2 petak lebih utara sebagai paviliun utama, diapit
+    Lab Lovelace (`y=5..25`) dan Auditorium Turing (`y=5..25`), sementara Bilik Fokus (`x=77..98, y=8..25`) mundur ke
+    selatan membentuk taman sudut timur laut.
+  - **Koridor Utama & Rotunda Tengah:** Koridor timur–barat (`x=9..95, y=25..31`) melebar di tengah (`x=42..61, y=25..32`)
+    membentuk rotunda dengan kios informasi, sofa tunggu menghadap utara, dan bukaan lebar ke Lobi (`x=18..21`) serta
+    Perpustakaan (`x=57..60`).
+  - **Sayap Selatan Berbentuk U (Courtyard):** Lobi Utama (`x=3..42, y=32..55`), Sayap Diskusi Barat Daya (`x=7..22, y=55..64`),
+    Perpustakaan (`x=42..77, y=32..59`), Lounge Mahasiswa Timur (`x=77..101, y=30..45`), dan Ruang Diskusi B (`x=77..95, y=45..56`)
+    membentuk **Plaza Gerbang Utama Berbentuk U** di selatan Lobi dengan **Air Mancur**, bangku taman, lampu jalan, jalur
+    pedestrian batu ke timur, dan **Teluk Parkir Sepeda** di tenggara.
+- **Kesesuaian skala & arah hadap (`scale` pecahan + `flip=True`).** Semua perabot duduk dan meja telah disesuaikan skalanya
+  (`1.55×`–`1.85×` di lobi/perpustakaan/ruang santai, `1.15×`–`1.6×` di kelas, `2.2×`–`3×` untuk bangku/lampu/sepeda luar)
+  agar sebanding dengan rak buku, resepsionis, dan kios (`1.85×`–`2×`). `tools/mapgen.py` mendukung pencerminan horizontal
+  (`"flip": True`) otomatis (`sprites_flip/`) sehingga terminal perpustakaan di dinding kanan menghadap kiri ke dalam ruangan,
+  sofa sudut/samping menghadap meja kopi di tengah karpet, dan sepeda/monitor saling berhadapan secara alami.
+- **Uji keterjangkauan (BFS)** dari titik `awal`: 4.718 petak bebas terjangkau, semua titik `interact`, `spawn`, dan `door`
+  terjangkau 100%, sementara interior ketiga kelas tampak tetap terblokir.
 - **Sumber:** `tools/layouts/{kampus,lobi,perpustakaan,kelas-a,kelas-b,kelas-c}.py`; `kampus.py` memakai yang lain sebagai data
   (digeser; kelas diubah jadi dekorasi lewat `decor_only`). Fitur `mapgen`: `regions`, `ground`, `openings` global, `blocks`,
-  `scale` per objek, `collide_rect`, `cutaway`, `render_annotated`.
-- **Aturan skala:** benda yang diduduki/dipakai (kursi, bean bag, sofa, meja belajar/komputer) 1×; dekorasi, rak, pameran,
-  tanaman, poster, kios 2×. Atur per objek lewat `scale`.
-- **Skala.** Perabot besar digambar **2×** (`scale` di tata letak); lantai 28 px per petak.
-- ~~**Lorong gedung depan.**~~ (dibuang di v2) Gedung menempel di dinding selatan lobi dan pintunya sejajar dengan bukaan
-  dinding. Di Phaser, urutkan kedalaman menurut **tepi bawah** sprite supaya pemain tampak
-  "masuk" di balik gedung lalu muncul di lobi. Sayap gedung bertabrakan lewat objek `blok`; lorong x=19..21 terbuka.
-- Tata letak sumber: `tools/layouts/{kampus,lobi,perpustakaan,kelas-a}.py`. `lobi.py` dan
-  `perpustakaan.py` kini hanya **data** yang digeser oleh `kampus.py` (tidak lagi dibangun sendiri).
-- Aset luar ruangan: `tools/process_outdoor.py` mengolah `assets/tiles/_draft/outdoor_tileset_*.jpg`
-  (kisi hitam 2 px di gambar mentah diperbaiki; 1 piksel seni = 4 px sumber) menjadi
-  `export/tiles/outdoor/{sprites,ground}/`.
-
-- **Palet peta (ramah).** Karpet navy gelap diwarnai ulang jadi hijau sage lembut, dan panel dinding
-  navy gelap jadi biru-abu debu. Pewarnaan dilakukan saat membuat set tile (`RAMP_KARPET`,
-  `RAMP_DINDING` di `tools/mapgen.py`); sprite asli di `export/tiles/` tidak diubah. Nama tile masih
-  `karpet_navy_*`/`panel_*` demi kompatibilitas tata letak. Mengganti warna = ubah dua konstanta itu.
+  `scale` pecahan per objek, `flip` horizontal, `collide_rect`, `cutaway`, `render_annotated`.
+- **Palet peta (ramah & bervariasi).** Selain karpet hijau sage (`RAMP_KARPET`), `tools/mapgen.py` menyediakan karpet biru
+  abu lembut (`RAMP_KARPET_BIRU`, tile `karpet_biru_*`) untuk kelas & bilik fokus, serta karpet terakota hangat
+  (`RAMP_KARPET_TERAKOTA`, tile `karpet_terakota_*`) untuk ruang kolaborasi & ruang diskusi.
 
 **Catatan keandalan.** Berkas `.tmj` divalidasi skrip (gid, gambar, id objek ganda) dan pratinjau
 digambar ulang dari berkas itu, bukan dari spesifikasi. Namun berkas ini **belum pernah dibuka di

@@ -38,7 +38,7 @@ function startGame(auth: AuthService, account: Account): void {
   mountTouchPad();
   const bar = document.getElementById("account")!;
   bar.hidden = false;
-  bar.querySelector(".who")!.textContent = account.fullName;
+  bar.querySelector(".acc-name")!.textContent = account.fullName;
   bar.querySelector<HTMLButtonElement>(".logout")!.onclick = () => {
     auth.logout();
     location.reload();

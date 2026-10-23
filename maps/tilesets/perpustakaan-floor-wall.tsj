@@ -1,0 +1,152 @@
+{
+ "columns": 8,
+ "image": "perpustakaan-floor-wall.png",
+ "imageheight": 56,
+ "imagewidth": 224,
+ "margin": 0,
+ "name": "perpustakaan-floor-wall",
+ "spacing": 0,
+ "tilecount": 9,
+ "tiledversion": "1.10.2",
+ "tileheight": 28,
+ "tilewidth": 28,
+ "type": "tileset",
+ "version": "1.10",
+ "tiles": [
+  {
+   "id": 0,
+   "properties": [
+    {
+     "name": "name",
+     "type": "string",
+     "value": "lantai_parket_a"
+    },
+    {
+     "name": "sumber",
+     "type": "string",
+     "value": "library_floor_wall/lantai_parket_a 26x28"
+    }
+   ]
+  },
+  {
+   "id": 1,
+   "properties": [
+    {
+     "name": "name",
+     "type": "string",
+     "value": "lantai_parket_b"
+    },
+    {
+     "name": "sumber",
+     "type": "string",
+     "value": "library_floor_wall/lantai_parket_b 28x28"
+    }
+   ]
+  },
+  {
+   "id": 2,
+   "properties": [
+    {
+     "name": "name",
+     "type": "string",
+     "value": "lantai_parket_c"
+    },
+    {
+     "name": "sumber",
+     "type": "string",
+     "value": "library_floor_wall/lantai_parket_c 26x27"
+    }
+   ]
+  },
+  {
+   "id": 3,
+   "properties": [
+    {
+     "name": "name",
+     "type": "string",
+     "value": "lantai_parket_d"
+    },
+    {
+     "name": "sumber",
+     "type": "string",
+     "value": "library_floor_wall/lantai_parket_d 28x27"
+    }
+   ]
+  },
+  {
+   "id": 4,
+   "properties": [
+    {
+     "name": "name",
+     "type": "string",
+     "value": "karpet_navy_a"
+    },
+    {
+     "name": "sumber",
+     "type": "string",
+     "value": "library_floor_wall/karpet_navy_a 24x27"
+    }
+   ]
+  },
+  {
+   "id": 5,
+   "properties": [
+    {
+     "name": "name",
+     "type": "string",
+     "value": "karpet_navy_b"
+    },
+    {
+     "name": "sumber",
+     "type": "string",
+     "value": "library_floor_wall/karpet_navy_b 23x27"
+    }
+   ]
+  },
+  {
+   "id": 6,
+   "properties": [
+    {
+     "name": "name",
+     "type": "string",
+     "value": "dinding_krem_a"
+    },
+    {
+     "name": "sumber",
+     "type": "string",
+     "value": "library_floor_wall/dinding_krem_a 24x27"
+    }
+   ]
+  },
+  {
+   "id": 7,
+   "properties": [
+    {
+     "name": "name",
+     "type": "string",
+     "value": "dinding_krem_b"
+    },
+    {
+     "name": "sumber",
+     "type": "string",
+     "value": "library_floor_wall/dinding_krem_b 23x27"
+    }
+   ]
+  },
+  {
+   "id": 8,
+   "properties": [
+    {
+     "name": "name",
+     "type": "string",
+     "value": "panel_navy_gelap"
+    },
+    {
+     "name": "sumber",
+     "type": "string",
+     "value": "library_floor_wall/panel_navy_gelap 26x32"
+    }
+   ]
+  }
+ ]
+}

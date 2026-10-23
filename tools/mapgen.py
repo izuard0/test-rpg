@@ -28,13 +28,21 @@ BG = "#1b2a41"
 
 
 # ------------------------------------------------------------------ util
-def sprite_path(sheet, name):
+def sprite_path(sheet, name, flip=False):
     if sheet == "outdoor_ground":                      # petak lantai luar ruangan (bukan sprite)
         return TL / "outdoor" / "ground" / f"{name}.png"
     hits = sorted((TL / sheet / "sprites").glob(f"*_{name}.png"))
     if not hits:
         raise FileNotFoundError(f"sprite tidak ditemukan: {sheet}/{name}")
-    return hits[0]
+    src = hits[0]
+    if not flip:
+        return src
+    fdir = TL / sheet / "sprites_flip"
+    fdir.mkdir(parents=True, exist_ok=True)
+    dst = fdir / src.name
+    if not dst.exists() or dst.stat().st_mtime < src.stat().st_mtime:
+        Image.open(src).convert("RGBA").transpose(Image.FLIP_LEFT_RIGHT).save(dst)
+    return dst
 
 
 def props(d):
@@ -53,6 +61,8 @@ def rel(path, start):
 # Palet ramah (permintaan pemilik proyek): karpet navy gelap -> hijau sage lembut; dinding/panel navy gelap -> biru-abu debu.
 # Peta kecerahan -> warna (lo..hi dipetakan dari warna gelap ke terang); pola tekstur tetap terbaca.
 RAMP_KARPET = ((20, 60), (112, 150, 134), (158, 192, 174))
+RAMP_KARPET_BIRU = ((20, 60), (94, 126, 156), (138, 170, 200))
+RAMP_KARPET_TERAKOTA = ((20, 60), (162, 122, 96), (204, 164, 136))
 RAMP_DINDING = ((20, 70), (96, 112, 138), (140, 156, 180))
 
 
@@ -73,7 +83,7 @@ def clean_tile(name, im):
         return im.crop((2, 0, im.width - 2, im.height))
     if name == "panel_navy_gelap":                       # baris atas dan kolom kanan lebih terang
         return im.crop((0, 5, 22, im.height))
-    if name.startswith("karpet_navy_") and "sudut" not in name:   # garis cokelat dekat tepi atas/bawah
+    if name.startswith(("karpet_navy_", "karpet_biru_", "karpet_terakota_")) and "sudut" not in name:
         a = np.array(im)
         h = a.shape[0]
         brown = lambda row: (row[:, 0].astype(int) > row[:, 2].astype(int) + 25).mean() > .5
@@ -100,6 +110,10 @@ def build_floor_tileset(tiles, name="floor-wall"):
         im = clean_tile(tname, im).resize((T, T), Image.NEAREST)
         if tname.startswith("karpet_navy_"):
             im = recolor(im, RAMP_KARPET)
+        elif tname.startswith("karpet_biru_"):
+            im = recolor(im, RAMP_KARPET_BIRU)
+        elif tname.startswith("karpet_terakota_"):
+            im = recolor(im, RAMP_KARPET_TERAKOTA)
         elif tname.startswith(("panel_navy_gelap", "panel_gelap_")):
             im = recolor(im, RAMP_DINDING)
         holes = float((np.array(im)[..., 3] < 255).mean())
@@ -121,12 +135,14 @@ def build_object_tileset(sprites, name):
     TS.mkdir(parents=True, exist_ok=True)
     ids, tiles, mw, mh = {}, [], 0, 0
     for i, key in enumerate(sprites):
-        path = sprite_path(*key)
+        sh, sp = key[0], key[1]
+        fl = key[2] if len(key) > 2 else False
+        path = sprite_path(sh, sp, flip=fl)
         w, h = Image.open(path).size
         mw, mh = max(mw, w), max(mh, h)
         ids[key] = i
         tiles.append({"id": i, "image": rel(path, TS), "imageheight": h, "imagewidth": w,
-                      "properties": props({"name": key[1], "lembar": key[0]})})
+                      "properties": props({"name": sp, "lembar": sh})})
     tsj = {"columns": 0, "grid": {"height": 1, "orientation": "orthogonal", "width": 1}, "margin": 0,
            "name": name, "spacing": 0, "tilecount": len(tiles), "tiledversion": TILED,
            "tileheight": mh, "tilewidth": mw, "type": "tileset", "version": "1.10", "tiles": tiles}
@@ -183,8 +199,10 @@ def build_room(L):
 
     sprites = []
     for o in L["objects"]:
-        if o.get("sprite") and o["sprite"] not in sprites:
-            sprites.append(o["sprite"])
+        if o.get("sprite"):
+            key = (*o["sprite"], bool(o.get("flip")))
+            if key not in sprites:
+                sprites.append(key)
     oids = build_object_tileset(sprites, name=f"{rid}-objects")
     first_obj = 1 + len(ftiles)
 
@@ -258,11 +276,13 @@ def build_room(L):
     for o in L["objects"]:
         fx, fy, fw, fh = o["foot"]
         if o.get("sprite"):
-            w, h = Image.open(sprite_path(*o["sprite"])).size
-            w, h = w * o.get("scale", 1), h * o.get("scale", 1)
-            ob = {"id": new_obj(), "gid": first_obj + oids[o["sprite"]], "name": o["sprite"][1],
+            key = (*o["sprite"], bool(o.get("flip")))
+            w, h = Image.open(sprite_path(*o["sprite"], flip=bool(o.get("flip")))).size
+            sc = o.get("scale", 1)
+            w, h = round(w * sc), round(h * sc)
+            ob = {"id": new_obj(), "gid": first_obj + oids[key], "name": o["sprite"][1],
                   "type": o.get("type", "decor"), "width": w, "height": h, "rotation": 0, "visible": True,
-                  "x": fx * T + (fw * T - w) // 2, "y": (fy + fh) * T, "properties": props(o.get("props"))}
+                  "x": round(fx * T + (fw * T - w) / 2), "y": (fy + fh) * T, "properties": props(o.get("props"))}
             {"below": below, "above": above}.get(o.get("layer"), objects).append(ob)
         if o.get("collide", True) and o.get("sprite"):
             cx, cy, cw, ch = o.get("collide_rect", o["foot"])
@@ -417,18 +437,21 @@ def render(tmj_path, out_path, debug=False, scale=2):
                     d.rectangle([x, y, x + w - 1, y + h - 1], outline=(255, 255, 255, 200))
         img = Image.alpha_composite(img, ov)
     out = img.convert("RGB").resize((W * scale, H * scale), Image.NEAREST)
+    _save_img(out, out_path)
+
+
+def _save_img(im, out_path):
     for k in range(6):                    # Windows kadang menolak membuka berkas pratinjau sesaat (antivirus/penampil)
         try:
-            out.save(out_path)
+            im.save(out_path)
             return
         except OSError:
             time.sleep(0.5 * (k + 1))
-    out.save(out_path)
+    im.save(out_path)
 
 
 def render_annotated(tmj_path, out_path, scale=1):
     """Denah beranotasi: persegi zona + nama (dari lapisan 'zones'), di atas pratinjau bersih."""
-    base = Path(tmj_path).parent
     tmp = Path(out_path).with_suffix(".tmp.png")
     render(tmj_path, tmp, scale=scale)
     img = Image.open(tmp).convert("RGBA")
@@ -445,5 +468,5 @@ def render_annotated(tmj_path, out_path, scale=1):
         d.rectangle([x + 2, y + 2, x + w - 3, y + h - 3], outline=c + (255,), width=3)
         d.rectangle([x + 4, y + 4, x + 12 + 9 * scale * len(o["name"]), y + 8 + 14 * scale], fill=c + (230,))
         d.text((x + 9, y + 5), o["name"], fill=(255, 255, 255, 255), font=font)
-    Image.alpha_composite(img, ov).convert("RGB").save(out_path)
-    tmp.unlink()
+    _save_img(Image.alpha_composite(img, ov).convert("RGB"), out_path)
+    tmp.unlink(missing_ok=True)

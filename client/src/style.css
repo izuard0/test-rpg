@@ -178,7 +178,7 @@ body:not(.in-game) #pad { display: none !important; }
   position: absolute; left: 12px; top: 74px; display: flex; align-items: center; gap: 8px;
   padding: 4px 4px 4px 12px; border-radius: 999px; font-size: 13px; background: rgba(14, 21, 34, 0.78);
 }
-#account .who { max-width: 220px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+#account .acc-name { max-width: 220px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 #account .logout {
   border: 1px solid rgba(247, 245, 240, 0.3); background: transparent; color: var(--cream); border-radius: 999px;
   padding: 3px 10px; font-size: 12px; cursor: pointer;
