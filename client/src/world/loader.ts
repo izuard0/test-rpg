@@ -35,16 +35,26 @@ export interface LoadedMap {
 }
 
 /** Menjalankan satu putaran loader Phaser dan menunggu sampai selesai. */
-function runLoader(scene: Phaser.Scene, queue: (load: Phaser.Loader.LoaderPlugin) => void): Promise<void> {
+function runLoader(
+  scene: Phaser.Scene,
+  queue: (load: Phaser.Loader.LoaderPlugin) => void,
+  onProgress?: (p: number) => void,
+): Promise<void> {
   return new Promise((resolve, reject) => {
     const load = scene.load;
     const failed: string[] = [];
     const onError = (file: Phaser.Loader.File) => failed.push(file.src);
+    const progress = (p: number) => onProgress?.(p);
     queue(load);
-    if (load.list.size === 0) return resolve();
+    if (load.list.size === 0) {
+      progress(1);
+      return resolve();
+    }
     load.on(Phaser.Loader.Events.FILE_LOAD_ERROR, onError);
+    load.on(Phaser.Loader.Events.PROGRESS, progress);
     load.once(Phaser.Loader.Events.COMPLETE, () => {
       load.off(Phaser.Loader.Events.FILE_LOAD_ERROR, onError);
+      load.off(Phaser.Loader.Events.PROGRESS, progress);
       if (failed.length) reject(new Error(`Gagal memuat: ${failed.join(", ")}`));
       else resolve();
     });
@@ -54,19 +64,21 @@ function runLoader(scene: Phaser.Scene, queue: (load: Phaser.Loader.LoaderPlugin
 
 const textureKey = (path: string) => `img:${path}`;
 
-export async function loadMap(scene: Phaser.Scene, code: string): Promise<LoadedMap> {
+/** `onProgress` menerima 0..1: data peta 10 %, set tile 10 %, gambar 80 %. */
+export async function loadMap(scene: Phaser.Scene, code: string, onProgress?: (p: number) => void): Promise<LoadedMap> {
+  const stage = (from: number, size: number) => (p: number) => onProgress?.(from + p * size);
   const mapPath = `maps/${code}.tmj`;
   const tilemapKey = `tilemap:${code}`;
   const jsonKey = `json:${mapPath}`;
   await runLoader(scene, (load) => {
     if (!scene.cache.json.exists(jsonKey)) load.json(jsonKey, GAME_BASE + mapPath);
-  });
+  }, stage(0, 0.1));
   const map = scene.cache.json.get(jsonKey) as TiledMap;
 
   const tsPaths = map.tilesets.map((t) => joinPath(mapPath, t.source));
   await runLoader(scene, (load) => {
     for (const p of tsPaths) if (!scene.cache.json.exists(`json:${p}`)) load.json(`json:${p}`, GAME_BASE + p);
-  });
+  }, stage(0.1, 0.1));
 
   const tilesets: LoadedTileset[] = map.tilesets.map((ref, i) => {
     const data = scene.cache.json.get(`json:${tsPaths[i]}`) as TiledTileset;
@@ -83,7 +95,7 @@ export async function loadMap(scene: Phaser.Scene, code: string): Promise<Loaded
       for (const k of ts.tileKeys.values()) keys.add(k);
     }
     for (const k of keys) if (!scene.textures.exists(k)) load.image(k, GAME_BASE + k.slice(4));
-  });
+  }, stage(0.2, 0.8));
 
   if (!scene.cache.tilemap.exists(tilemapKey)) {
     // Set tile ditanam; set kumpulan gambar tidak dipakai lapisan petak, jadi cukup

@@ -32,8 +32,19 @@ export function setPrompt(label: string | null): void {
   if (label) p.innerHTML = `<kbd>E</kbd> ${label.replace(/[&<>]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;" })[c]!)}`;
 }
 
-export function showLoading(on: boolean): void {
-  el("loading").hidden = !on;
+/** Layar muat (bg_loading) dengan bar kemajuan di dalam bingkai gambar. */
+export function showLoading(on: boolean, label = "Memuat…"): void {
+  const box = el("loading");
+  box.hidden = !on;
+  if (on) {
+    box.querySelector(".label")!.textContent = label;
+    setLoadingProgress(0);
+  }
+}
+
+export function setLoadingProgress(p: number): void {
+  const fill = el("loading").querySelector<HTMLElement>(".bar i")!;
+  fill.style.width = `${Math.round(Math.min(1, Math.max(0, p)) * 100)}%`;
 }
 
 export function showError(msg: string): void {

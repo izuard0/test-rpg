@@ -38,7 +38,7 @@ for (const file of maps) {
     for (const t of tileset.tiles ?? []) if (t.image) copy(resolve(dirname(tsPath), t.image));
   }
 }
-copy(join(ROOT, "assets/backgrounds/bg_title.png"));
+for (const f of ["bg_title.png", "bg_register.jpg", "bg_loading.jpg"]) copy(join(ROOT, "assets/backgrounds", f));
 // Ikon UI (penanda interaksi, kelak lencana dan emote).
 for (const f of readdirSync(join(ROOT, "export/ui/items/sprites"))) copy(join(ROOT, "export/ui/items/sprites", f));
 for (const f of ["atlas.png", "atlas.json", "config.json", "head_adjust.json"]) copy(join(ROOT, "export/character", f));

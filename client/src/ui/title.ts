@@ -18,6 +18,7 @@ export function showTitle(auth: AuthService): Promise<Account> {
 
     function render(screen: Screen) {
       const card = screen === "home" ? home() : screen === "login" ? login() : register();
+      el.dataset.screen = screen;
       el.replaceChildren(card);
       card.querySelector<HTMLElement>("[autofocus]")?.focus();
     }

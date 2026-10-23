@@ -22,7 +22,10 @@
         <button data-d="left" aria-label="Kiri">◀</button><button data-a="1" class="act" aria-label="Aksi">E</button><button data-d="right" aria-label="Kanan">▶</button>
         <span></span><button data-d="down" aria-label="Bawah">▼</button><span></span>
       </div>
-      <div id="loading">Memuat…</div>
+      <div id="loading">
+        <div class="stage" aria-hidden="true"><div class="bar"><i></i></div></div>
+        <p class="label" role="status">Memuat…</p>
+      </div>
       <div id="error" hidden></div>
     </div>
     <script type="module" src="/src/main.ts"></script>

@@ -83,11 +83,11 @@ Use the attached reference image as the strict style guide. Match its exact pixe
                + belum-dibuat\acuan\library_furniture.png
 =====================================================================
 
-[ ] 10. bg_register.png (PERLU DIBUAT ULANG: assets/backgrounds/bg_register.jpg ternyata berisi lembar sprite badan/kepala berlatar magenta, bukan latar; layar daftar sementara memakai bg_title.png)
+[x] 10. bg_register.png (SUDAH ADA: assets/backgrounds/bg_register.jpg versi baru; dipakai di layar Masuk/Daftar)
 Prompt Siap Tempel:
 Use the attached reference image as the strict style guide. Match its exact pixel art style: same outline thickness and color, same shading and highlight style, same level of detail, and the same color palette. Pixel art, 16-bit style, 16:9 wide cozy student desk setup at night: laptop and a second monitor glowing cyan #3FC1C9, mechanical keyboard, coffee mug, small yellow rubber duck, blank sticky notes, bookshelf with programming books, warm desk lamp, window with city lights at night, clear empty area in the center for a form panel, no text, no readable letters.
 
-[ ] 11. bg_loading.png (PERLU DIBUAT ULANG: assets/backgrounds/bg_loading.jpg juga berisi lembar sprite badan/kepala, bukan latar)
+[x] 11. bg_loading.png (SUDAH ADA: assets/backgrounds/bg_loading.jpg versi baru; dipakai di layar muat, bar kemajuan diisi kode)
 Prompt Siap Tempel:
 Use the attached reference image as the strict style guide. Match its exact pixel art style: same outline thickness and color, same shading and highlight style, and the same color palette. Pixel art, 16-bit style, 16:9 dark navy (#1B2A41) background with a faint circuit-board grid pattern, empty terminal-style progress bar outline in the center, a small yellow rubber duck with tiny glasses in the bottom right corner, no text, no readable letters.
 

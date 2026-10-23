@@ -49,6 +49,38 @@ kbd {
   position: absolute; inset: 0; display: grid; place-items: center; font-family: var(--mono);
   background: var(--navy); font-size: 15px;
 }
+/* Gambar bg_loading 16:9 menutupi layar; .stage selalu seukuran gambar yang tampil,
+   jadi bar bisa diletakkan dengan persen tepat di dalam bingkainya
+   (bagian dalam bingkai: x 803–1948, y 700–826 dari 2752 × 1536). */
+#loading { overflow: hidden; animation: muncul 0.2s 0.15s both; }
+#loading .stage {
+  position: absolute; left: 50%; top: 50%; translate: -50% -50%;
+  width: max(100vw, 177.78vh); height: max(100vh, 56.25vw);
+  /* Gambar 2752 px biasanya diperkecil; "pixelated" saat diperkecil malah bergerigi. */
+  background: url("/game/assets/backgrounds/bg_loading.jpg") center / 100% 100% no-repeat;
+}
+/* Layar tegak (HP): gambar 2× lebar layar supaya bingkai (46 % lebar gambar) terlihat utuh;
+   sisa atas/bawah diisi warna latar gambar. */
+@media (max-aspect-ratio: 1/1) {
+  #loading { background: #12213b; }
+  #loading .stage {
+    width: 200vw; height: 112.5vw;
+    mask-image: linear-gradient(transparent, #000 22%, #000 78%, transparent);
+  }
+  #loading .label { top: calc(50% + 9vw); }
+}
+#loading .bar { position: absolute; left: 29.5%; top: 46.2%; width: 41%; height: 6.9%; }
+#loading .bar i {
+  display: block; height: 100%; width: 0; transition: width 0.15s linear;
+  background: repeating-linear-gradient(90deg, var(--cyan) 0 14px, #2fa3aa 14px 18px);
+  box-shadow: 0 0 12px rgba(63, 193, 201, 0.55);
+}
+#loading .label {
+  position: absolute; left: 0; right: 0; top: calc(50% + max(7vh, 4vw)); margin: 0;
+  text-align: center; color: #c9d3e0; letter-spacing: 1px;
+}
+/* Muncul setelah jeda singkat: ruangan yang sudah tersimpan di cache tidak berkedip. */
+@keyframes muncul { from { opacity: 0; } to { opacity: 1; } }
 #error { color: #ffb4a8; padding: 24px; text-align: center; }
 [hidden] { display: none !important; }
 
@@ -248,4 +280,19 @@ body:not(.in-game) #pad { display: none !important; }
       url("/game/assets/backgrounds/bg_title.png") 30% top / auto 46vh no-repeat, var(--ink);
   }
   .title-card { margin-top: 18vh; }
+}
+
+/* Layar Masuk/Daftar: latar meja belajar (bg_register), formulir di tengah. */
+#title[data-screen="login"], #title[data-screen="register"] {
+  justify-content: center; image-rendering: auto;
+  background:
+    radial-gradient(ellipse at center, rgba(14, 21, 34, 0.35) 0%, rgba(14, 21, 34, 0.82) 75%),
+    url("/game/assets/backgrounds/bg_register.jpg") center / cover no-repeat, var(--ink);
+}
+@media (max-width: 720px) {
+  #title[data-screen="login"], #title[data-screen="register"] {
+    background:
+      linear-gradient(180deg, rgba(14, 21, 34, 0.5) 0%, rgba(14, 21, 34, 0.9) 50%),
+      url("/game/assets/backgrounds/bg_register.jpg") 70% top / auto 50vh no-repeat, var(--ink);
+  }
 }

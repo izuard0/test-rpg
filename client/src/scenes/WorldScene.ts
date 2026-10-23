@@ -18,7 +18,7 @@ import { getAssembler } from "../char/textures";
 import type { Account, AuthService } from "../auth";
 import { actionLabel, openInfo, openShelf, openTerminalPlaceholder, type MateriCatalog } from "../ui/content";
 import { openCreator } from "../ui/creator";
-import { setHud, setPrompt, showError, showLoading } from "../ui/hud";
+import { setHud, setLoadingProgress, setPrompt, showError, showLoading } from "../ui/hud";
 import { closePanel, isPanelOpen } from "../ui/panel";
 import { onTouchAction, touchDirs } from "../ui/touch";
 import { MARKER_KEY, loadMap, loadWorldUi, textureForGid, type LoadedMap } from "../world/loader";
@@ -79,7 +79,7 @@ export class WorldScene extends Phaser.Scene {
   }
 
   create(): void {
-    showLoading(true);
+    showLoading(true, this.roomCode === "kampus" ? "Memuat kampus…" : "Memuat ruang kelas…");
     this.build().catch((err: unknown) => {
       console.error(err);
       showError(`Gagal memuat ruangan "${this.roomCode}". ${err instanceof Error ? err.message : ""}`);
@@ -91,7 +91,7 @@ export class WorldScene extends Phaser.Scene {
     this.account = this.registry.get("account") as Account;
     this.auth = this.registry.get("auth") as AuthService;
     await loadWorldUi(this);
-    this.loaded = await loadMap(this, this.roomCode);
+    this.loaded = await loadMap(this, this.roomCode, setLoadingProgress);
     this.cfg = getAssembler().cfg;
     this.catalog = this.cache.json.get("materi") as MateriCatalog | undefined;
     this.room = readRoom(this.loaded.map);
