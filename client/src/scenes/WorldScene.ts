@@ -33,8 +33,24 @@ const ORANGE = 0xe8833a;
 /** `?debug=1`: gambar persegi tabrakan/interaksi dan buka kait untuk uji otomatis. */
 const DEBUG = new URLSearchParams(location.search).has("debug");
 const FADE_MS = 300;
-/** Lebar dunia minimal yang terlihat (piksel) saat memilih zoom bawaan. */
-const VIEW_TARGET_W = 560;
+/**
+ * Kamera "agak tele" (docs/PETA.md): zoom bawaan = bilangan bulat terbesar yang masih
+ * menampilkan ± 15 × 8,5 petak (420 × 240 px dunia). Laptop 1366 × 768 -> 3×, 1920 × 1080 -> 4×.
+ */
+const VIEW_TARGET = { w: 420, h: 240 };
+/** Zoom terbesar: sisi layar terpendek masih menampilkan ± 6 petak (160 px dunia). */
+const VIEW_MIN_SIDE = 160;
+const ZOOM_MAX = 6;
+/** Zoom pilihan pemain (+/−) diingat per browser; hanya kenyamanan, boleh hilang. */
+const ZOOM_KEY = "mita:zoom";
+
+function savedZoom(): number {
+  try {
+    return Number(localStorage.getItem(ZOOM_KEY)) || 0;
+  } catch {
+    return 0;
+  }
+}
 
 interface Placed {
   image: Phaser.GameObjects.Image;
@@ -58,6 +74,8 @@ export class WorldScene extends Phaser.Scene {
   private marker!: Phaser.GameObjects.Image;
   private zone?: Zone;
   private zoomLevel = 0;
+  /** Zoom pilihan pemain; 0 = bawaan menurut ukuran layar. */
+  private zoomPref = savedZoom();
   private ready = false;
   private transitioning = false;
   private keys!: Record<"up" | "down" | "left" | "right" | "w" | "a" | "s" | "d" | "shift", Phaser.Input.Keyboard.Key>;
@@ -174,6 +192,7 @@ export class WorldScene extends Phaser.Scene {
       room: () => this.roomCode,
       player: () => this.player && { x: this.player.x, y: this.player.y, dir: this.player.dir, sitting: this.player.sitting },
       focus: () => this.focus?.name ?? null,
+      zoom: () => this.zoomLevel,
       glow: () => this.focusImages.map((i) => i.texture.key.split("/").pop()),
       interactables: () => this.room.interactables.map((i) => ({ name: i.name, kind: i.kind, rect: i.rect })),
       teleport: (x: number, y: number) => {
@@ -199,14 +218,32 @@ export class WorldScene extends Phaser.Scene {
     cam.centerOn(this.player.x, this.player.y - 24);
   }
 
+  private maxZoom(): number {
+    const { width, height } = this.scale;
+    return Phaser.Math.Clamp(Math.floor(Math.min(width, height) / VIEW_MIN_SIDE), 1, ZOOM_MAX);
+  }
+
   private defaultZoom(): number {
-    const w = this.scale.width;
-    return Phaser.Math.Clamp(Math.floor(w / VIEW_TARGET_W), 1, 4);
+    const { width, height } = this.scale;
+    const z = Math.floor(Math.min(width / VIEW_TARGET.w, height / VIEW_TARGET.h));
+    // Layar HP terlalu kecil untuk 15 × 8,5 petak; tetap tele (2×) agar karakter tidak mungil.
+    return Phaser.Math.Clamp(Math.max(z, 2), 1, this.maxZoom());
+  }
+
+  private changeZoom(delta: number): void {
+    this.zoomPref = Phaser.Math.Clamp(this.zoomLevel + delta, 1, this.maxZoom());
+    try {
+      localStorage.setItem(ZOOM_KEY, String(this.zoomPref));
+    } catch {
+      // Tanpa penyimpanan, pilihan berlaku sampai halaman ditutup.
+    }
+    this.applyZoom();
   }
 
   /** Zoom selalu bilangan bulat agar piksel tetap tajam. */
-  private applyZoom(level = this.zoomLevel): void {
-    this.zoomLevel = level || this.defaultZoom();
+  private applyZoom(): void {
+    // Pilihan pemain dipakai selama masih muat di layar ini (mis. setelah jendela diperkecil).
+    this.zoomLevel = Math.min(this.zoomPref || this.defaultZoom(), this.maxZoom());
     const cam = this.cameras.main;
     cam.setZoom(this.zoomLevel);
     // Ruangan yang lebih kecil dari layar diletakkan di tengah: batas kamera
@@ -228,10 +265,10 @@ export class WorldScene extends Phaser.Scene {
     kb.on("keydown-E", () => this.interact());
     kb.on("keydown-SPACE", () => this.interact());
     kb.on("keydown-C", () => this.editCharacter());
-    kb.on("keydown-MINUS", () => this.applyZoom(Math.max(1, this.zoomLevel - 1)));
-    kb.on("keydown-NUMPAD_SUBTRACT", () => this.applyZoom(Math.max(1, this.zoomLevel - 1)));
-    kb.on("keydown-PLUS", () => this.applyZoom(Math.min(4, this.zoomLevel + 1)));
-    kb.on("keydown-NUMPAD_ADD", () => this.applyZoom(Math.min(4, this.zoomLevel + 1)));
+    kb.on("keydown-MINUS", () => this.changeZoom(-1));
+    kb.on("keydown-NUMPAD_SUBTRACT", () => this.changeZoom(-1));
+    kb.on("keydown-PLUS", () => this.changeZoom(1));
+    kb.on("keydown-NUMPAD_ADD", () => this.changeZoom(1));
     onTouchAction(() => this.interact());
     this.scale.on(Phaser.Scale.Events.RESIZE, this.onResize, this);
     this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
@@ -241,8 +278,6 @@ export class WorldScene extends Phaser.Scene {
   }
 
   private onResize(): void {
-    // Zoom pilihan pemain dipertahankan selama masih muat; bila tidak, kembali ke bawaan.
-    if (this.zoomLevel > this.defaultZoom() + 1) this.zoomLevel = 0;
     this.applyZoom();
   }
 
