@@ -59,7 +59,7 @@ solid((LT, "rak_server_meja"), [36, 6, 3, 1], scale=2)
 # resepsionis & kios info di tengah lobi (kios dicerminkan agar menghadap ke area tengah)
 solid((LF, "meja_kerja_putih"), [16, 11, 4, 1], scale=2, type="info", name="resepsionis", props={"info": "bantuan"},
       interact=[16, 12, 4, 1])
-solid((LT, "kios_nyala"), [22, 11, 3, 1], scale=2, flip=True, type="info", name="kios_info", props={"info": "peta"},
+solid((LT, "kios_nyala"), [22, 11, 3, 1], scale=2, flip=True, type="info", name="kios_info", props={"info": "web_informatika"},
       interact=[22, 12, 3, 1])
 solid((LF, "tanaman_d"), [14, 11, 1, 1], scale=2)
 solid((LF, "tanaman_d"), [26, 11, 1, 1], scale=2)

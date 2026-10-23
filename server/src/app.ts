@@ -26,6 +26,12 @@ export async function buildApp(opts: AppOptions): Promise<FastifyInstance> {
   // forceCloseConnections: koneksi keep-alive dan WebSocket ikut ditutup saat server berhenti.
   const app = Fastify({ logger: opts.logger ?? false, trustProxy: true, forceCloseConnections: true });
   const startedAt = Date.now();
+  // Galat tak terduga (mis. database mati): detail hanya di log server, bukan ke browser.
+  app.setErrorHandler((err: { statusCode?: number; message: string }, req, reply) => {
+    const status = err.statusCode && err.statusCode < 500 ? err.statusCode : 500;
+    if (status >= 500) req.log.error(err);
+    return reply.code(status).send({ error: status >= 500 ? "Terjadi gangguan di server. Coba lagi sebentar lagi." : err.message });
+  });
 
   // Dipakai health check Coolify / Docker.
   app.get("/health", async () => ({
