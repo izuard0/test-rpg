@@ -20,7 +20,9 @@ RINGKASAN STATUS ASET
 
 * BELUM DIBUAT (Total 12 Gambar):
   - Ikon, Lencana & Emote Gabungan (`assets\items\`) : 1 gambar utuh (No. 01)
-  - NPC (`assets\npc\`)                              : 8 gambar (No. 02 - 09)
+  - NPC (`assets\npc\`)                              : 8 gambar (No. 02 - 09) — DITUNDA
+    (keputusan pemilik proyek, 23 Okt 2026: belum perlu NPC untuk sementara; interaksi
+    pustakawan memakai meja pustakawan yang menyala)
   - Sisa Latar Layar (`assets\backgrounds\`)          : 3 gambar (No. 10 - 12)
 
 
@@ -81,11 +83,11 @@ Use the attached reference image as the strict style guide. Match its exact pixe
                + belum-dibuat\acuan\library_furniture.png
 =====================================================================
 
-[x] 10. bg_register.png (SUDAH ADA: assets/backgrounds/bg_register.jpg)
+[ ] 10. bg_register.png (PERLU DIBUAT ULANG: assets/backgrounds/bg_register.jpg ternyata berisi lembar sprite badan/kepala berlatar magenta, bukan latar; layar daftar sementara memakai bg_title.png)
 Prompt Siap Tempel:
 Use the attached reference image as the strict style guide. Match its exact pixel art style: same outline thickness and color, same shading and highlight style, same level of detail, and the same color palette. Pixel art, 16-bit style, 16:9 wide cozy student desk setup at night: laptop and a second monitor glowing cyan #3FC1C9, mechanical keyboard, coffee mug, small yellow rubber duck, blank sticky notes, bookshelf with programming books, warm desk lamp, window with city lights at night, clear empty area in the center for a form panel, no text, no readable letters.
 
-[x] 11. bg_loading.png (SUDAH ADA: assets/backgrounds/bg_loading.jpg)
+[ ] 11. bg_loading.png (PERLU DIBUAT ULANG: assets/backgrounds/bg_loading.jpg juga berisi lembar sprite badan/kepala, bukan latar)
 Prompt Siap Tempel:
 Use the attached reference image as the strict style guide. Match its exact pixel art style: same outline thickness and color, same shading and highlight style, and the same color palette. Pixel art, 16-bit style, 16:9 dark navy (#1B2A41) background with a faint circuit-board grid pattern, empty terminal-style progress bar outline in the center, a small yellow rubber duck with tiny glasses in the bottom right corner, no text, no readable letters.
 
