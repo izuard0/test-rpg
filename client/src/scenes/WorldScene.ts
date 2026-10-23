@@ -89,6 +89,7 @@ export class WorldScene extends Phaser.Scene {
   /** seatId -> sid pemain yang duduk (dari server). */
   private seats = new Map<number, number>();
   private mySid = -1;
+  private debugTeleported = false;
   private keys!: Record<"up" | "down" | "left" | "right" | "w" | "a" | "s" | "d" | "shift", Phaser.Input.Keyboard.Key>;
 
   constructor() {
@@ -183,7 +184,8 @@ export class WorldScene extends Phaser.Scene {
           pmStatus: (st) => chat.pmStatus(st),
           notice: (n) => chat.system(n.text),
           correct: (c) => {
-            if (!this.player) return;
+            // Teleport uji (?debug=1) sengaja melompat; jangan ditarik kembali oleh server.
+            if (!this.player || this.debugTeleported) return;
             this.player.x = c.x;
             this.player.y = c.y;
           },
@@ -197,7 +199,8 @@ export class WorldScene extends Phaser.Scene {
       );
     } catch (e) {
       console.warn("multipemain tidak tersedia:", e);
-      chat.offline("Server multipemain tidak terhubung: kamu bermain sendiri untuk sementara.");
+      const msg = e instanceof Error && /penuh/.test(e.message) ? e.message : "Server multipemain tidak terhubung.";
+      chat.offline(`${msg} Kamu bermain sendiri untuk sementara.`);
     }
   }
 
@@ -273,6 +276,7 @@ export class WorldScene extends Phaser.Scene {
           this.player.x = x;
           this.player.y = y;
           this.player.sitting = false;
+          this.debugTeleported = true;
         }
       },
     };

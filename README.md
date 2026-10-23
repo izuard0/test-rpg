@@ -18,7 +18,8 @@ Rancangan lengkap dan keputusan yang sudah disepakati ada di
 | Aset NPC, ikon, dua latar layar | Belum dibuat (lihat `belum-dibuat/`) |
 | Peta `kampus` (denah gedung) dan `kelas-a/b/c` | Dibuat dan divalidasi lewat skrip; **belum dibuka di Tiled/Phaser** |
 | Klien Phaser satu pemain (`client/`) | **Berjalan**: halaman awal, daftar/masuk (mode uji, akun di browser), kreator avatar, peta Tiled asli, gerak + tabrakan, interaksi `E` (rak, terminal penampung, NPC, pintu ke kelas, kursi) |
-| Server (`server/`) | Fastify menyajikan klien + `/health`; Colyseus, API login, dan PostgreSQL belum |
+| Multipemain (tahap 3) | **Berjalan**: Colyseus di server yang sama; pemain saling melihat (hanya yang di sekitar dikirim), chat Sekitar/Global/Pribadi dengan izin dosen, kursi kelas, isi kelas tampak dari kampus. Uji beban: 150 bot di satu ruang, tick ± 6 ms dari 100 ms. Mode Kelompok dan emote menyusul |
+| Server (`server/`) | Fastify menyajikan klien + `/health` + game; API login dan PostgreSQL belum |
 | Terminal perpustakaan (tahap 2) | **Berjalan** di bilik komputer: mode SQL (sql.js, sintaks MySQL umum diterima) dan pseudocode (penerjemah sendiri + langkah demi langkah + tabel jejak), sandbox, 10 latihan contoh dengan pemeriksaan otomatis (`latihan/`). Python menyusul |
 | Kuis | Belum dimulai |
 
@@ -52,7 +53,13 @@ npm test             # tes tabrakan, peta, karakter, akun, server
 npm run build && npm start   # versi produksi di http://localhost:3000
 ```
 
+Saat `npm run dev`, jalankan juga server game di terminal lain: `npm run build -w server && npm start`
+(klien di port 5173 otomatis menyambung ke server di port 3000).
+
 Tambahkan `?debug=1` di alamat untuk melihat kotak tabrakan (merah) dan interaksi (cyan).
+
+Uji beban dengan pemain tiruan (bot): `MITA_TICK_LOG=1 npm start` lalu
+`npx tsx server/scripts/bots.ts http://127.0.0.1:3000 100 60` (alamat, jumlah bot, detik).
 Akun di tahap ini **mode uji**: tersimpan di browser saja, belum diverifikasi ke daftar kelas.
 
 ### Deploy (Coolify)

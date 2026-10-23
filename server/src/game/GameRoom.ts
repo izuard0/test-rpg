@@ -38,6 +38,12 @@ export interface GameContext {
 }
 
 let ctx: GameContext;
+/**
+ * Peta yang ruangnya sedang aktif. Tiap peta hanya boleh punya SATU ruang: bila penuh,
+ * matchmaker Colyseus akan membuat ruang kedua, jadi pembuatan itu ditolak di onCreate.
+ */
+const activeMaps = new Set<string>();
+const TICK_LOG = !!process.env.MITA_TICK_LOG;
 export function setGameContext(c: GameContext): void {
   ctx = c;
 }
@@ -55,6 +61,10 @@ export class GameRoom extends Room {
     this.code = this.roomName === "kelas" ? String(options.kelas ?? "") : "kampus";
     const map = ctx.world.rooms.get(this.code);
     if (!map || (this.roomName === "kelas" && !/^kelas-/.test(this.code))) throw new Error(`Ruang tidak dikenal: ${this.code}`);
+    if (activeMaps.has(this.code)) {
+      throw new Error(`${map.data.title} sedang penuh (${map.data.capacity} orang). Coba lagi sebentar lagi.`);
+    }
+    activeMaps.add(this.code);
     this.map = map;
     this.maxClients = Math.max(1, map.data.capacity || 150);
     this.autoDispose = this.roomName === "kelas";
@@ -130,6 +140,10 @@ export class GameRoom extends Room {
       seats: Object.fromEntries(this.seats),
       history: this.history,
     });
+  }
+
+  onDispose(): void {
+    activeMaps.delete(this.code);
   }
 
   onLeave(client: Client): void {
@@ -225,8 +239,25 @@ export class GameRoom extends Room {
     return [...hub.sessions.values()].filter((s) => ctx.world.mirrorOffset.has(s.room.code));
   }
 
+  private tickStats = { n: 0, total: 0, max: 0, since: Date.now() };
+
   private tick(): void {
     if (!this.mine.size) return;
+    const t0 = performance.now();
+    this.snapshotAll();
+    if (!TICK_LOG) return;
+    // MITA_TICK_LOG=1: ringkasan durasi tick tiap 10 detik (untuk uji beban / pemantauan).
+    const ms = performance.now() - t0, st = this.tickStats;
+    st.n++;
+    st.total += ms;
+    st.max = Math.max(st.max, ms);
+    if (Date.now() - st.since >= 10_000) {
+      console.log(`[tick] ${this.code}: ${this.mine.size} pemain, rata ${(st.total / st.n).toFixed(2)} ms, maks ${st.max.toFixed(2)} ms`);
+      this.tickStats = { n: 0, total: 0, max: 0, since: Date.now() };
+    }
+  }
+
+  private snapshotAll(): void {
     const tile = this.map.data.tile;
     const hx = VIEW_HALF_TILES.x * tile, hy = VIEW_HALF_TILES.y * tile;
     // Pemain kelas tampak di kampus dengan posisi digeser ke ruang "tampak"-nya.

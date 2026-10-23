@@ -192,6 +192,17 @@ describe("multipemain", () => {
     for (const p of [watcher, b]) await p.room.leave();
   });
 
+  it("ruang penuh menolak pemain baru, bukan membuat ruang kedua", async () => {
+    // Lab Lovelace: 30 kursi + 2 = 32 orang.
+    const ps = [];
+    for (let i = 0; i < 32; i++) ps.push(await player(`23019${String(i).padStart(3, "0")}`, `Penuh ${i}`, "mahasiswa", ROOM_KELAS, { kelas: "kelas-a" }));
+    await expect(player("2301999", "Terlambat", "mahasiswa", ROOM_KELAS, { kelas: "kelas-a" })).rejects.toThrow(/penuh/);
+    await ps[0].room.leave();
+    const masuk = await player("2301999", "Terlambat", "mahasiswa", ROOM_KELAS, { kelas: "kelas-a" });
+    expect(masuk.welcome.players).toHaveLength(32);
+    for (const p of [...ps.slice(1), masuk]) await p.room.leave();
+  });
+
   it("menolak identitas yang tidak sah", async () => {
     await expect(player("ab", "X")).rejects.toThrow();
   });

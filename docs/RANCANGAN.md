@@ -412,7 +412,10 @@ sekitar 1 menit). Set baru otomatis mendapat versi badan ramping.
 2. **Terminal perpustakaan** *(sebagian, 23 Okt 2026)*: editor CodeMirror, mode SQL (sql.js) dan
    pseudocode (langkah demi langkah + tabel jejak), sandbox, 10 latihan contoh di `latihan/`.
    Python (Pyodide) belum. Masih satu pemain, tanpa server.
-3. **Multipemain lobi**: saling melihat, pindah ruangan, empat mode chat, emote.
+3. **Multipemain lobi** *(sebagian, 23 Okt 2026)*: saling melihat (hanya pemain di sekitar yang
+   dikirim), pindah ruangan, chat Sekitar/Global/Pribadi dengan izin dosen, kursi kelas, isi kelas
+   tampak dari kampus. Uji beban lokal: 150 bot di satu ruang, tick rata-rata ± 6 ms dari 100 ms.
+   Belum: mode Kelompok, emote, bisukan pemain, laporkan pesan, uji beban di server Coolify.
 4. **Kuis di kelas**: kursi, panel kuis, halaman dosen untuk memulai kuis
    dan mengunduh nilai; kuis praktik memakai terminal di Lab Komputer.
 5. **Login & penyimpanan**: akun, karakter tersimpan, kemajuan latihan, lencana.
