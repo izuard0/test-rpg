@@ -213,6 +213,12 @@ def build_room(L):
                 is_face = top - wl.get("face_rows", 1) <= y < top and rx < x < rx + rw - 1
                 walls[y][x] = rng.choice(face) if is_face else dark
 
+    for (ox, oy, ow, oh) in L.get("openings", []):     # bukaan antarwilayah: berlaku setelah semua dinding digambar
+        for y in range(oy, oy + oh):
+            for x in range(ox, ox + ow):
+                walls[y][x] = 0
+                solid[y][x] = False
+
     nid = {"layer": 1, "obj": 1}
 
     def new_obj():
