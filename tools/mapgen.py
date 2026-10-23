@@ -50,6 +50,21 @@ def rel(path, start):
 
 
 # ------------------------------------------------------------------ set tile
+# Palet ramah (permintaan pemilik proyek): karpet navy gelap -> hijau sage lembut; dinding/panel navy gelap -> biru-abu debu.
+# Peta kecerahan -> warna (lo..hi dipetakan dari warna gelap ke terang); pola tekstur tetap terbaca.
+RAMP_KARPET = ((20, 60), (112, 150, 134), (158, 192, 174))
+RAMP_DINDING = ((20, 70), (96, 112, 138), (140, 156, 180))
+
+
+def recolor(im, ramp):
+    (lo, hi), c0, c1 = ramp
+    a = np.array(im.convert("RGBA")).astype(float)
+    lum = a[..., :3] @ np.array([.299, .587, .114])
+    t = np.clip((lum - lo) / (hi - lo), 0, 1)[..., None]
+    a[..., :3] = np.array(c0) * (1 - t) + np.array(c1) * t
+    return Image.fromarray(a.astype(np.uint8))
+
+
 def clean_tile(name, im):
     """Buang garis tepi bawaan sprite yang membentuk kisi/garis saat petak diulang."""
     if name.startswith(("lantai_", "panel_gelap_")):      # lembar kelas: tepi 2 px berwarna ungu sisa latar
@@ -83,6 +98,10 @@ def build_floor_tileset(tiles, name="floor-wall"):
         im = Image.open(sprite_path(sh, sp)).convert("RGBA")
         src = im.size
         im = clean_tile(tname, im).resize((T, T), Image.NEAREST)
+        if tname.startswith("karpet_navy_"):
+            im = recolor(im, RAMP_KARPET)
+        elif tname.startswith(("panel_navy_gelap", "panel_gelap_")):
+            im = recolor(im, RAMP_DINDING)
         holes = float((np.array(im)[..., 3] < 255).mean())
         if holes:
             notes.append(f"{tname}: {holes * 100:.0f}% piksel transparan")

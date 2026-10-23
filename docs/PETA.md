@@ -272,6 +272,11 @@ terpisah untuk set ini (belum ada; lihat bagian 9).
   (kisi hitam 2 px di gambar mentah diperbaiki; 1 piksel seni = 4 px sumber) menjadi
   `export/tiles/outdoor/{sprites,ground}/`.
 
+- **Palet peta (ramah).** Karpet navy gelap diwarnai ulang jadi hijau sage lembut, dan panel dinding
+  navy gelap jadi biru-abu debu. Pewarnaan dilakukan saat membuat set tile (`RAMP_KARPET`,
+  `RAMP_DINDING` di `tools/mapgen.py`); sprite asli di `export/tiles/` tidak diubah. Nama tile masih
+  `karpet_navy_*`/`panel_*` demi kompatibilitas tata letak. Mengganti warna = ubah dua konstanta itu.
+
 **Catatan keandalan.** Berkas `.tmj` divalidasi skrip (gid, gambar, id objek ganda) dan pratinjau
 digambar ulang dari berkas itu, bukan dari spesifikasi. Namun berkas ini **belum pernah dibuka di
 aplikasi Tiled** maupun dimuat di Phaser. Objek memakai kunci `type` (bukan `class`).
