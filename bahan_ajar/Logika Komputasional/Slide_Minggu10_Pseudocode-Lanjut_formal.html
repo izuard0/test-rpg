@@ -1,0 +1,1334 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pseudocode Lanjut · Minggu 10</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Domine:wght@500;700&family=Nunito+Sans:wght@400;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --dark:#1B2A41; --dark2:#24364F; --light:#F7F5F0; --light2:#EDEAE2; --white:#FFFFFF;
+  --blue:#2F6FB0; --orange:#E8833A; --orange-dk:#B4501A; --green:#3E9C7A; --red:#C0392B;
+  --muted:#4F5D6E; --muted-dk:#C9D3E0; --line:#D9D4C7;
+  --serif:'Domine', Georgia, serif; --sans:'Nunito Sans', 'Segoe UI', Arial, sans-serif; --mono:'JetBrains Mono', Consolas, monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;background:#0E1522;overflow:hidden;font-family:var(--sans);color:var(--dark)}
+#stage{position:absolute;left:50%;top:50%;width:1920px;height:1080px;transform-origin:center center;overflow:hidden;background:var(--light)}
+.slide{position:absolute;inset:0;padding:100px 128px 120px;background:var(--light);opacity:0;visibility:hidden;transition:opacity .45s ease, visibility 0s linear .45s;display:flex;flex-direction:column}
+.slide.active{opacity:1;visibility:visible;transition:opacity .45s ease}
+.slide.alt{background:var(--light2)}
+.slide.dark{background:var(--dark);color:var(--light)}
+
+/* type */
+h1{font:700 118px/1.04 var(--serif);letter-spacing:-1px}
+h2{font:700 60px/1.12 var(--serif);letter-spacing:-.5px}
+h3{font:800 30px/1.25 var(--sans)}
+p,li{font-size:27px;line-height:1.45}
+.eyebrow{font:800 22px/1 var(--sans);letter-spacing:3px;text-transform:uppercase;color:var(--orange-dk);margin-bottom:16px}
+.dark .eyebrow{color:var(--orange)}
+.lead{font-size:31px;line-height:1.45;color:var(--muted)}
+.dark .lead{color:var(--muted-dk)}
+.muted{color:var(--muted)} .dark .muted{color:var(--muted-dk)}
+.head{margin-bottom:36px}
+code,.mono{font-family:var(--mono);font-size:.86em}
+b{font-weight:800}
+.hl-b{color:var(--blue)} .hl-o{color:var(--orange-dk)} .hl-g{color:var(--green)} .hl-r{color:var(--red)}
+
+/* layout */
+.row{display:flex;gap:28px}
+.col{display:flex;flex-direction:column;gap:20px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:48px;flex:1;min-height:0}
+.card{background:var(--white);border:2px solid var(--line);border-radius:20px;padding:24px 28px}
+.dark .card{background:var(--dark2);border-color:#33486A}
+.card h3{font-size:27px;margin-bottom:6px}
+.card p{font-size:23px;color:var(--muted);line-height:1.42}
+.dark .card p{color:var(--muted-dk)}
+.icard{display:flex;gap:20px;align-items:flex-start}
+.icard .ic{flex:none;width:58px;height:58px;border-radius:16px;background:#FBE6D6;color:var(--orange-dk);display:flex;align-items:center;justify-content:center;font:700 30px/1 var(--serif)}
+.icard .ic.b{background:#E3ECF6;color:var(--blue)} .icard .ic.g{background:#DDEFE7;color:var(--green)} .icard .ic.r{background:#F6DAD6;color:var(--red)}
+.warn{border-color:var(--orange);background:#FFF8F1}
+.pill{display:inline-block;font:800 19px/1 var(--sans);letter-spacing:1px;text-transform:uppercase;padding:9px 16px;border-radius:999px;background:#E3ECF6;color:var(--blue)}
+.pill.o{background:#FBE6D6;color:var(--orange-dk)} .pill.g{background:#DDEFE7;color:var(--green)}
+.btn{font:800 21px/1 var(--sans);padding:13px 22px;border-radius:999px;border:2px solid var(--dark);background:transparent;color:var(--dark);cursor:pointer;transition:all .2s}
+.btn:hover{transform:translateY(-2px)}
+.btn:disabled{opacity:.35;transform:none;cursor:default}
+.btn.on{background:var(--dark);color:var(--light)}
+.btn.primary{background:var(--orange);border-color:var(--orange);color:var(--dark)}
+.dark .btn{border-color:var(--light);color:var(--light)} .dark .btn.primary{border-color:var(--orange);color:var(--dark)}
+.ctrl{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+.ctrl .lbl{font-size:22px;font-weight:800;margin-right:4px}
+input.num{font:500 25px/1 var(--mono);padding:12px 16px;border:2px solid var(--line);border-radius:12px;width:230px;background:var(--white);color:var(--dark);outline:none}
+input.num:focus{border-color:var(--orange)}
+input.num.bad{border-color:var(--red);background:#FCEDEB}
+input[type=range]{accent-color:var(--orange);height:28px}
+
+/* entry animation */
+.slide.active .rise{animation:rise .7s cubic-bezier(.2,.7,.2,1) both;animation-delay:var(--d,0s)}
+@keyframes rise{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:none}}
+.slide.active .pop{animation:pop .55s cubic-bezier(.3,1.6,.5,1) both;animation-delay:var(--d,0s)}
+@keyframes pop{from{opacity:0;transform:scale(.6)}to{opacity:1;transform:none}}
+
+/* chrome */
+#progress{position:fixed;left:0;top:0;height:5px;background:var(--orange);transition:width .4s;z-index:10}
+#counter{position:absolute;right:56px;bottom:40px;font:700 22px/1 var(--sans);color:var(--muted);z-index:5;display:flex;gap:14px;align-items:center}
+#counter button{width:52px;height:52px;border-radius:50%;border:2px solid currentColor;background:transparent;color:inherit;font-size:24px;cursor:pointer}
+#stage.on-dark #counter{color:var(--muted-dk)}
+#notes{position:fixed;left:50%;bottom:16px;transform:translateX(-50%);width:min(1100px,94vw);background:rgba(14,21,34,.94);color:#F2F0EA;border-radius:14px;padding:18px 24px;font-size:17px;line-height:1.5;z-index:20;display:none;box-shadow:0 10px 40px rgba(0,0,0,.4)}
+#notes.show{display:block}
+#notes b{color:var(--orange)}
+.src{position:absolute;left:128px;bottom:44px;max-width:1350px;font-size:19px;line-height:1.35;color:var(--muted)}
+.dark .src{color:var(--muted-dk)}
+.src i{font-style:italic}
+
+/* pseudocode blocks */
+pre.code{background:var(--dark);color:#E6E1D6;font:500 23px/1.5 var(--mono);border-radius:18px;padding:20px 16px;white-space:pre;overflow:hidden;counter-reset:ln}
+pre.code.sm{font-size:21px}
+pre.code.xs{font-size:19.5px;padding:16px 12px}
+pre.code .ln{display:block;padding:0 14px 0 56px;border-radius:6px;position:relative;transition:background .25s,box-shadow .25s,opacity .25s}
+pre.code .ln::before{counter-increment:ln;content:counter(ln);position:absolute;left:6px;width:34px;text-align:right;color:#5F7090;font-size:.78em;top:.12em}
+pre.code.nonum .ln{padding-left:14px} pre.code.nonum .ln::before{display:none}
+pre.code .ln.cur,pre.code .ln.hov{background:rgba(232,131,58,.26);box-shadow:inset 5px 0 0 var(--orange)}
+pre.code .ln.p1{background:rgba(47,111,176,.32);box-shadow:inset 5px 0 0 #6FA3DA}
+pre.code .ln.p2{background:rgba(232,131,58,.26);box-shadow:inset 5px 0 0 var(--orange)}
+pre.code .ln.p3{background:rgba(62,156,122,.32);box-shadow:inset 5px 0 0 #6CC3A2}
+pre.code .ln.fix{background:rgba(62,156,122,.32);box-shadow:inset 5px 0 0 #6CC3A2}
+pre.code .ln.bug{background:rgba(192,57,43,.32);box-shadow:inset 5px 0 0 #E2766A}
+.tk-kw{color:#8DB7EA;font-weight:700} .tk-cm{color:#8D9AAE;font-style:italic} .tk-st{color:#9ED4B5} .tk-ar{color:#F2A766;font-weight:700} .tk-nu{color:#F2D7BF} .tk-cs{color:#E9C46A}
+.codelabel{font:800 20px/1 var(--sans);letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+.dark .codelabel{color:var(--muted-dk)}
+
+/* variable panel & trace */
+.vars{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:14px}
+.var{background:var(--white);border:2px solid var(--line);border-radius:16px;padding:12px 18px;transition:border-color .3s,background .3s}
+.var .nm{font:500 19px/1.2 var(--mono);color:var(--muted)}
+.var .vl{display:block;font:700 36px/1.2 var(--serif);margin-top:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.var.chg{border-color:var(--orange);background:#FFF8F1}
+.var.out{background:var(--dark);border-color:var(--dark);color:var(--light)} .var.out .nm{color:var(--muted-dk)}
+.tnote{font-size:24px;line-height:1.4;min-height:68px;padding:14px 20px;border-radius:14px;background:var(--white);border:2px dashed var(--line)}
+table.trace{border-collapse:separate;border-spacing:0;width:100%}
+table.trace th,table.trace td{padding:9px 18px;text-align:left;font-size:23px;border-bottom:2px solid var(--line);background:var(--white)}
+table.trace th{background:var(--dark);color:var(--light);font-size:21px;font-weight:800}
+table.trace th:first-child{border-radius:12px 0 0 0} table.trace th:last-child{border-radius:0 12px 0 0}
+table.trace td{font-family:var(--mono);font-size:22px}
+table.trace tr.new td{background:#FFF1E4;animation:rowin .45s ease}
+table.trace td.ok{color:var(--green);font-weight:700} table.trace td.no{color:var(--red);font-weight:700}
+@keyframes rowin{from{opacity:0;transform:translateX(-12px)}to{opacity:1;transform:none}}
+
+/* formal table */
+table.formal{border-collapse:separate;border-spacing:0;width:100%}
+table.formal th,table.formal td{padding:16px 22px;text-align:left;font-size:25px;border-bottom:2px solid var(--line);background:var(--white);vertical-align:top}
+table.formal th{background:var(--dark);color:var(--light);font-size:23px;font-weight:800}
+table.formal th:first-child{border-radius:14px 0 0 0}table.formal th:last-child{border-radius:0 14px 0 0}
+table.formal td.mono{font-family:var(--mono);font-size:21px}
+table.formal th.c1{background:var(--blue)} table.formal th.c2{background:var(--orange-dk)} table.formal th.c3{background:var(--green)}
+
+/* cover */
+#s-cover .content{position:relative;z-index:2;margin-top:auto;margin-bottom:auto;max-width:1050px}
+#s-cover h1{color:var(--light);margin:10px 0 34px}
+#s-cover .lead{font-size:37px;max-width:960px}
+.loopvis{position:absolute;right:150px;top:calc(50% - 330px);width:640px;height:640px}
+.loopvis svg{position:absolute;inset:0;width:100%;height:100%}
+.slide.active .loopvis .spin{animation:spin 9s linear infinite;transform-origin:320px 320px}
+@keyframes spin{to{transform:rotate(360deg)}}
+.loopvis pre.code{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font-size:24px;background:var(--dark2);border:2px solid #33486A}
+.loopvis .tick{position:absolute;left:50%;top:76%;transform:translateX(-50%);font:700 22px/1 var(--mono);color:var(--orange)}
+
+/* divider */
+.slide.divider{justify-content:center}
+.divider .big{font:700 230px/1 var(--serif);color:var(--orange);opacity:.95}
+.divider h2{font-size:84px;color:var(--light);margin:18px 0 22px}
+.divider .lead{max-width:1200px}
+.divider .chips{display:flex;gap:14px;margin-top:40px;flex-wrap:wrap}
+.divider .chips span{font:700 22px/1 var(--mono);padding:12px 18px;border-radius:12px;background:var(--dark2);border:2px solid #33486A;color:#F2D7BF}
+
+/* objectives */
+.objs{display:flex;flex-direction:column;gap:16px}
+.obj{display:grid;grid-template-columns:64px 1fr 250px;align-items:center;gap:22px;background:var(--white);border:2px solid var(--line);border-radius:20px;padding:20px 28px}
+.obj .n{font:700 44px/1 var(--serif);color:var(--orange)}
+.obj p{font-size:27px}
+.obj .pill{justify-self:end}
+.crit{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:26px}
+.crit .card{border-top:8px solid var(--blue)} .crit .card:nth-child(2){border-top-color:var(--orange)} .crit .card:nth-child(3){border-top-color:var(--green)}
+
+/* agenda */
+.struct3{display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
+.struct3 .card{display:flex;flex-direction:column;gap:10px;position:relative;min-height:220px}
+.struct3 .card.now{border-color:var(--orange);box-shadow:0 14px 34px rgba(232,131,58,.18)}
+.struct3 svg{width:100%;height:92px}
+.struct3 .when{position:absolute;right:24px;top:22px}
+.timeline{display:grid;grid-template-columns:35fr 15fr 10fr 10fr 30fr;gap:8px;margin-top:40px}
+.timeline .seg{border-radius:12px;padding:16px 18px;color:var(--white);min-height:118px;display:flex;flex-direction:column;justify-content:space-between}
+.timeline .seg b{font:700 21px/1 var(--mono);opacity:.85}
+.timeline .seg span{font-size:21px;font-weight:700;line-height:1.25}
+
+/* why */
+.anat{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:30px}
+.anat .card{cursor:pointer;border-left:10px solid var(--line);transition:all .25s}
+.anat .card:hover{transform:translateY(-4px)}
+.anat .card.c1{border-left-color:var(--blue)} .anat .card.c2{border-left-color:var(--orange)} .anat .card.c3{border-left-color:var(--green)}
+
+/* loop x100 demo */
+.loopdemo{display:grid;grid-template-columns:1fr 1fr;gap:48px;margin-top:24px}
+.console{background:#0F1A2B;border-radius:16px;padding:12px 20px;height:200px;overflow:hidden;font:500 22px/1.5 var(--mono);color:#9ED4B5;display:flex;flex-direction:column;justify-content:flex-end}
+.console div{white-space:nowrap;animation:rowin .3s ease}
+.console .no{display:inline-block;width:64px;color:#5F7090}
+.console .end{color:#F2A766}
+.bigcount{display:flex;align-items:baseline;gap:6px;font:700 58px/1 var(--mono)}
+.bigcount small{font-size:26px;color:var(--muted)}
+.bigcount em{margin-left:auto;font:700 21px/1 var(--mono);font-style:normal;color:var(--orange-dk);background:#FBE6D6;padding:10px 14px;border-radius:10px}
+.dots100{display:grid;grid-template-columns:repeat(25,1fr);gap:7px}
+.dots100 i{aspect-ratio:1;border-radius:50%;background:var(--light2);border:2px solid var(--line);transition:background .2s,transform .2s}
+.dots100 i.on{background:var(--orange);border-color:var(--orange)}
+.dots100 i.now{transform:scale(1.45);background:var(--dark);border-color:var(--dark)}
+
+/* quiz */
+.quiz{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;margin-top:30px;height:200px}
+.qcard{perspective:1400px;cursor:pointer}
+.qcard .inner{position:relative;width:100%;height:100%;transition:transform .6s cubic-bezier(.3,.8,.3,1);transform-style:preserve-3d}
+.qcard.flip .inner{transform:rotateY(180deg)}
+.qcard .face{position:absolute;inset:0;backface-visibility:hidden;border-radius:20px;padding:24px 28px;display:flex;flex-direction:column;justify-content:center;gap:8px}
+.qcard .front{background:var(--white);border:2px dashed var(--orange)}
+.qcard .front .q{font:700 21px/1 var(--sans);color:var(--orange-dk);letter-spacing:2px;text-transform:uppercase}
+.qcard .front p{font:700 27px/1.3 var(--sans)}
+.qcard .back{transform:rotateY(180deg);background:var(--dark);color:var(--light)}
+.qcard .back h3{font:700 36px/1.1 var(--mono);color:var(--orange)}
+.qcard .back p{font-size:22px;color:var(--muted-dk)}
+
+/* trap */
+.outstrip{font:500 22px/1.4 var(--mono);background:var(--white);border:2px solid var(--line);border-radius:12px;padding:12px 16px;height:54px;overflow:hidden;white-space:nowrap;color:var(--dark)}
+.outstrip.err{border-color:var(--red);background:#FCEDEB;color:var(--red)}
+.outstrip.ok{border-color:var(--green);background:#EAF6F0;color:var(--green)}
+
+/* patterns table */
+#s-pola table.formal td,#s-pola table.formal th{padding:13px 20px;font-size:23px}
+#s-pola table.formal td.mono{font-size:20px}
+#s-pola td:first-child{font-weight:800}
+
+/* chips of values */
+.vchips{display:flex;gap:10px;flex-wrap:wrap;min-height:56px;align-items:center}
+.vchips span{font:700 22px/1 var(--mono);padding:12px 16px;border-radius:12px;background:var(--white);border:2px solid var(--line);animation:pop .4s cubic-bezier(.3,1.6,.5,1)}
+.vchips span.sent{background:var(--dark);color:var(--light);border-color:var(--dark)}
+.vchips .ph{font-size:22px;color:var(--muted)}
+
+/* atm */
+.atm{background:var(--dark);border-radius:24px;padding:28px;display:flex;flex-direction:column;gap:18px;color:var(--light)}
+.atm .screen{background:#0F1A2B;border:2px solid #33486A;border-radius:14px;padding:22px 24px;font:700 30px/1.3 var(--mono);color:#9ED4B5;min-height:96px;display:flex;align-items:center}
+.atm .screen.bad{color:#F2A766} .atm .screen.lock{color:#F28B7D}
+.atm .dots{display:flex;gap:12px}
+.atm .dots i{width:30px;height:30px;border-radius:50%;border:3px solid var(--muted-dk);display:inline-block;transition:all .3s}
+.atm .dots i.used{background:var(--orange);border-color:var(--orange)}
+.atm input.num{background:#0F1A2B;border-color:#33486A;color:var(--light);width:240px;letter-spacing:6px}
+
+/* array boxes */
+.arr{display:flex;gap:16px;justify-content:center}
+.box{display:flex;flex-direction:column;align-items:center;gap:10px;cursor:pointer}
+.box .v{width:150px;height:130px;border-radius:18px;background:var(--white);border:3px solid var(--line);display:flex;align-items:center;justify-content:center;font:700 54px/1 var(--serif);transition:all .3s}
+.box .ix{font:700 26px/1 var(--mono);color:var(--muted)}
+.box.sel .v{border-color:var(--orange);background:#FFF1E4;transform:translateY(-10px);box-shadow:0 14px 28px rgba(232,131,58,.25)}
+.box.sel .ix{color:var(--orange-dk)}
+.box.up .v{border-color:var(--green);background:#EAF6F0;color:var(--green)}
+.box.empty .v{color:var(--line)}
+.arr.small .v{width:104px;height:86px;font-size:36px;border-radius:14px}
+.arr.small .ix{font-size:20px}
+.arrlabel{display:flex;justify-content:center;gap:40px;font:700 22px/1 var(--mono);color:var(--muted);margin-top:14px}
+.readbig{font:700 46px/1.1 var(--mono);text-align:center;margin-top:20px}
+.readbig .tk-ar{color:var(--orange-dk)}
+
+/* phases */
+.phases{display:flex;flex-direction:column;gap:12px}
+.phasec{display:grid;grid-template-columns:56px 1fr;gap:16px;align-items:center;padding:14px 20px;border-radius:16px;border:2px solid var(--line);background:var(--white);cursor:pointer;transition:all .3s;opacity:.55}
+.phasec .n{width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;font:700 24px/1 var(--serif);color:var(--white)}
+.phasec h3{font-size:25px;margin:0} .phasec p{font-size:21px;color:var(--muted)}
+.phasec.on{opacity:1} .phasec.cur{box-shadow:0 10px 24px rgba(27,42,65,.12);transform:translateX(6px)}
+.phasec.p1 .n{background:var(--blue)} .phasec.p2 .n{background:var(--orange)} .phasec.p3 .n{background:var(--green)}
+.phasec.p1.cur{border-color:var(--blue)} .phasec.p2.cur{border-color:var(--orange)} .phasec.p3.cur{border-color:var(--green)}
+
+/* search */
+.nims{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.nim{border:3px solid var(--line);border-radius:14px;background:var(--white);padding:10px 12px;text-align:center;transition:all .3s}
+.nim b{display:block;font:700 18px/1 var(--mono);color:var(--muted);margin-bottom:6px}
+.nim span{font:700 25px/1 var(--mono)}
+.nim.cmp{border-color:var(--orange);background:#FFF1E4;transform:translateY(-6px)}
+.nim.seen{opacity:.45}
+.nim.hit{border-color:var(--green);background:#EAF6F0;transform:translateY(-6px)}
+
+/* six steps */
+.six{display:grid;grid-template-columns:repeat(6,1fr);gap:18px;position:relative;margin-top:16px}
+.six .track{position:absolute;left:46px;right:46px;top:44px;height:6px;background:var(--line);border-radius:3px}
+.six .track i{position:absolute;top:-9px;width:24px;height:24px;border-radius:50%;background:var(--orange);left:0}
+.slide.active .six .track i{animation:travel 7s ease-in-out infinite}
+@keyframes travel{from{left:0}to{left:calc(100% - 24px)}}
+.six .st{display:flex;flex-direction:column;gap:14px;position:relative}
+.six .dot{width:92px;height:92px;border-radius:50%;background:var(--white);border:3px solid var(--line);display:flex;align-items:center;justify-content:center;font:700 40px/1 var(--serif);color:var(--orange);z-index:1}
+.six .st.ab .dot{border-color:var(--blue);color:var(--blue)}
+.six .card{padding:20px 22px;flex:1}
+.six h3{font-size:26px}
+.six p{font-size:21px}
+
+/* case study */
+.problem{background:var(--dark);color:var(--light);border-radius:20px;padding:24px 32px;margin-bottom:28px}
+.problem p{font-size:25px;color:var(--light)}
+.problem .eyebrow{margin-bottom:10px}
+ol.dec{margin-left:34px;display:flex;flex-direction:column;gap:6px}
+ol.dec li{font-size:24px}
+.uji-in{display:flex;gap:12px;flex-wrap:wrap}
+.uji-in input.num{width:104px;text-align:center;font-size:27px;padding:12px 8px}
+.dark pre.code{background:var(--dark2);border:2px solid #33486A}
+
+/* checklist */
+table.check td,table.check th{padding:11px 20px;font-size:22px}
+table.check tr.item{cursor:pointer}
+table.check tr.item td{transition:background .25s}
+table.check tr.item:hover td{background:#FBF7EF}
+table.check tr.item.done td{background:#EAF6F0}
+table.check td.bx{width:64px;text-align:center}
+table.check .sq{display:inline-flex;width:30px;height:30px;border-radius:8px;border:3px solid var(--muted);align-items:center;justify-content:center;font:800 20px/1 var(--sans);color:transparent}
+table.check tr.done .sq{background:var(--green);border-color:var(--green);color:var(--white)}
+table.check td.k{color:var(--muted);font-size:20px;white-space:nowrap}
+
+/* practice / assignment */
+.tl3{display:grid;grid-template-columns:15fr 10fr 5fr;gap:16px;margin-bottom:28px}
+.tl3 .card{border-top:8px solid var(--orange)}
+.tl3 .card .min{font:700 40px/1 var(--serif);color:var(--orange-dk)}
+.cases{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+.dark .tl3 .card .min{color:var(--orange)}
+.soal{display:flex;flex-direction:column;gap:12px}
+.soal .it{display:grid;grid-template-columns:52px 1fr 120px;gap:18px;align-items:center;background:var(--white);border:2px solid var(--line);border-radius:16px;padding:14px 22px}
+.soal .it .n{font:700 34px/1 var(--serif);color:var(--orange)}
+.soal .it p{font-size:24px;font-weight:700}
+.soal .it .pt{font:700 22px/1 var(--mono);text-align:right}
+.soal .bar{grid-column:2/4;height:10px;border-radius:5px;background:var(--light2);overflow:hidden}
+.soal .bar i{display:block;height:100%;background:var(--orange);border-radius:5px}
+
+/* summary etc */
+.sum{display:grid;grid-template-columns:1fr 1fr;gap:26px}
+.sum .card p{font-size:26px;color:var(--dark)}
+.teaser{margin-top:auto;background:var(--dark);color:var(--light);border-radius:24px;padding:30px 40px;display:flex;gap:28px;align-items:center}
+.teaser .ic{font:700 64px/1 var(--serif);color:var(--orange)}
+.teaser p{font-size:28px}
+.exercises{margin-left:44px;display:flex;flex-direction:column;gap:20px}
+.exercises li{font-size:28px;line-height:1.5;padding-left:10px}
+.refs{display:flex;flex-direction:column;gap:14px}
+.refs p{font-size:26px;line-height:1.45;padding-left:48px;text-indent:-48px}
+.flowteaser{display:flex;gap:40px;align-items:center;margin-top:50px}
+.flowteaser svg{width:560px;height:330px;flex:none}
+</style>
+</head>
+<body>
+<div id="progress"></div>
+<div id="stage">
+
+<!-- 1. COVER -->
+<section class="slide dark" id="s-cover" data-notes="Minggu lalu: runtunan dan pemilihan. Hari ini dua hal baru, yaitu <b>pengulangan</b> dan <b>larik</b>, lalu kita gabungkan semuanya untuk menyelesaikan masalah yang lebih besar secara mandiri.">
+  <div class="loopvis pop" style="--d:.3s">
+    <svg viewBox="0 0 640 640" aria-hidden="true">
+      <circle cx="320" cy="320" r="270" fill="none" stroke="#33486A" stroke-width="3" stroke-dasharray="4 14"/>
+      <g class="spin">
+        <path d="M320 50 A270 270 0 1 1 74 208" fill="none" stroke="#E8833A" stroke-width="8" stroke-linecap="round"/>
+        <path d="M74 208 l-8 46 l-34 -36 z" fill="#E8833A" transform="rotate(-8 74 208)"/>
+        <circle cx="320" cy="50" r="14" fill="#F7F5F0"/>
+      </g>
+      <circle cx="320" cy="320" r="196" fill="none" stroke="#2F6FB0" stroke-width="2" opacity=".5"/>
+    </svg>
+    <pre class="code nonum">while belumSelesai do
+   kerjakan(langkah)
+endwhile</pre>
+    <div class="tick" id="coverTick">putaran 1</div>
+  </div>
+  <div class="content">
+    <p class="eyebrow rise">Logika Komputasional (INF-111-202) · Minggu ke-10</p>
+    <h1 class="rise" style="--d:.1s">Pseudocode untuk<br>Masalah Kompleks</h1>
+    <p class="lead rise" style="--d:.25s">Pengulangan, pola algoritma, larik, dan studi kasus</p>
+    <p class="rise" style="--d:.4s;margin-top:44px;font-size:26px;color:var(--muted-dk)">Izuardo Zulkarnain · Sub-CPMK 052-1</p>
+  </div>
+  <p class="src">← → navigasi · F layar penuh · N catatan pengajar</p>
+</section>
+
+<!-- 2. CPMK -->
+<section class="slide" id="s-cpmk" data-notes="Indikator hari ini: menyusun pseudocode untuk masalah kompleks secara mandiri, dinilai dari kelengkapan langkah, kebenaran logika, dan konsistensi notasi. Rumusan tujuan dan label Bloom adalah draf; sesuaikan dengan RPS.">
+  <div class="head"><p class="eyebrow rise">Capaian pembelajaran · Sub-CPMK 052-1</p><h2 class="rise" style="--d:.08s">Tujuan pertemuan ini</h2></div>
+  <p class="lead rise" style="--d:.15s;margin-bottom:24px">Setelah mengikuti perkuliahan ini, mahasiswa mampu:</p>
+  <div class="objs">
+    <div class="obj rise" style="--d:.2s"><span class="n">1</span><p>Memilih dan menuliskan bentuk pengulangan yang tepat: <b>for</b>, <b>while</b>, atau <b>repeat-until</b>.</p><span class="pill">C3 · menerapkan</span></div>
+    <div class="obj rise" style="--d:.28s"><span class="n">2</span><p>Menerapkan <b>pola algoritma</b>: akumulator, pencacah, maksimum, sentinel, validasi, dan flag.</p><span class="pill">C3 · menerapkan</span></div>
+    <div class="obj rise" style="--d:.36s"><span class="n">3</span><p>Menggunakan <b>larik</b> untuk menyimpan data dan melakukan pencarian beruntun.</p><span class="pill">C3 · menerapkan</span></div>
+    <div class="obj rise" style="--d:.44s"><span class="n">4</span><p>Menyusun pseudocode untuk <b>masalah kompleks</b> secara mandiri dengan enam langkah perancangan.</p><span class="pill o">C6 · mencipta</span></div>
+  </div>
+  <div class="crit">
+    <div class="card rise" style="--d:.55s"><h3>Kelengkapan langkah</h3><p>Masukan, proses, keluaran, dan pengujian tertulis lengkap.</p></div>
+    <div class="card rise" style="--d:.62s"><h3>Kebenaran logika</h3><p>Hasil benar untuk data uji, termasuk kasus khusus; pengulangan pasti berhenti.</p></div>
+    <div class="card rise" style="--d:.69s"><h3>Konsistensi notasi</h3><p>PROGRAM–DEKLARASI–ALGORITMA, ←, dan penutup blok dipakai secara konsisten.</p></div>
+  </div>
+  <p class="src">Rumusan tujuan mengacu pada taksonomi Bloom revisi; sesuaikan redaksinya dengan RPS mata kuliah.</p>
+</section>
+
+<!-- 3. AGENDA -->
+<section class="slide alt" id="s-agenda" data-notes="Semua algoritma, sekompleks apa pun, tersusun dari tiga struktur ini (Böhm &amp; Jacopini, 1966). Minggu 9 sudah membahas runtunan dan pemilihan; hari ini pengulangan, lalu kita pakai ketiganya bersama larik.">
+  <div class="head"><p class="eyebrow rise">Peta materi</p><h2 class="rise" style="--d:.08s">Tiga struktur dasar, dan hari ini yang ketiga</h2></div>
+  <div class="struct3">
+    <div class="card rise" style="--d:.15s"><span class="pill when">Minggu 9</span>
+      <svg viewBox="0 0 300 92"><rect x="10" y="30" width="70" height="34" rx="8" fill="#E3ECF6" stroke="#2F6FB0" stroke-width="2"/><rect x="115" y="30" width="70" height="34" rx="8" fill="#E3ECF6" stroke="#2F6FB0" stroke-width="2"/><rect x="220" y="30" width="70" height="34" rx="8" fill="#E3ECF6" stroke="#2F6FB0" stroke-width="2"/><path d="M80 47h30M185 47h30" stroke="#2F6FB0" stroke-width="3"/></svg>
+      <h3>Runtunan</h3><p>Langkah dikerjakan satu per satu, berurutan.</p></div>
+    <div class="card rise" style="--d:.25s"><span class="pill when">Minggu 9</span>
+      <svg viewBox="0 0 300 92"><path d="M150 6 L196 40 L150 74 L104 40 Z" fill="#E3ECF6" stroke="#2F6FB0" stroke-width="2"/><path d="M104 40H40v40M196 40h64v40" fill="none" stroke="#2F6FB0" stroke-width="3"/></svg>
+      <h3>Pemilihan</h3><p><code>if</code> · <code>case</code>: memilih langkah berdasarkan kondisi.</p></div>
+    <div class="card now rise" style="--d:.35s"><span class="pill o when">Hari ini</span>
+      <svg viewBox="0 0 300 92"><rect x="115" y="26" width="70" height="40" rx="8" fill="#FBE6D6" stroke="#E8833A" stroke-width="2"/><path d="M185 46h50v-38h-170v38h50" fill="none" stroke="#E8833A" stroke-width="3"/><path d="M106 40l9 6-9 6z" fill="#E8833A"/></svg>
+      <h3>Pengulangan</h3><p><code>for</code> · <code>while</code> · <code>repeat</code>: mengerjakan langkah berulang kali.</p></div>
+  </div>
+  <div class="timeline rise" style="--d:.5s">
+    <div class="seg" style="background:var(--blue)"><b>0–35′</b><span>Pengulangan: for, while, repeat-until</span></div>
+    <div class="seg" style="background:#4A84BE"><b>35–50′</b><span>Pola algoritma</span></div>
+    <div class="seg" style="background:var(--green)"><b>50–60′</b><span>Larik &amp; pencarian</span></div>
+    <div class="seg" style="background:var(--orange-dk)"><b>60–70′</b><span>Enam langkah &amp; studi kasus</span></div>
+    <div class="seg" style="background:var(--dark)"><b>70–100′</b><span>Praktik kelompok dan presentasi</span></div>
+  </div>
+  <p class="src">Teorema struktur: Böhm, C., &amp; Jacopini, G. (1966). <i>Communications of the ACM, 9</i>(5), 366–371.</p>
+</section>
+
+<!-- 4. DIVIDER 1 -->
+<section class="slide dark divider" id="s-div1" data-notes="Bagian 1: tiga bentuk pengulangan dan dua jebakannya.">
+  <div class="big rise">01</div>
+  <h2 class="rise" style="--d:.1s">Pengulangan</h2>
+  <p class="lead rise" style="--d:.2s">Setiap pengulangan punya badan dan kondisi berhenti.</p>
+  <div class="chips rise" style="--d:.3s"><span>for … endfor</span><span>while … endwhile</span><span>repeat … until</span></div>
+</section>
+
+<!-- 5. WHY -->
+<section class="slide" id="s-why" data-notes="Arahkan kursor ke tiga kartu di bawah untuk menyorot bagian pseudocode yang bersesuaian. Tanyakan: bagaimana jika banyaknya tidak diketahui? Misalnya kasir yang tidak tahu berapa barang yang akan dibeli. Inilah alasan ada tiga bentuk pengulangan.">
+  <div class="head"><p class="eyebrow rise">Bagian 1 · Mengapa pengulangan</p><h2 class="rise" style="--d:.08s">Tulis sekali, jalankan seratus kali</h2></div>
+  <div class="two" style="flex:none">
+    <div class="rise" style="--d:.15s"><p class="codelabel">Tanpa pengulangan</p>
+<pre class="code">write('Hello World')
+write('Hello World')
+write('Hello World')
+... { 100 kali? }</pre></div>
+    <div class="rise" style="--d:.25s"><p class="codelabel">Dengan pengulangan</p>
+<pre class="code" id="cWhy">for i ← 1 to 100 do
+   write('Hello World')
+endfor</pre></div>
+  </div>
+  <div class="loopdemo rise" style="--d:.3s">
+    <div><p class="codelabel">Keluaran di layar</p><div class="console" id="whyCon"></div></div>
+    <div class="col" style="gap:14px">
+      <div class="ctrl" style="justify-content:space-between"><p class="codelabel" style="margin:0">Putaran ke-</p><button class="btn" id="whyReplay">Putar ulang</button></div>
+      <div class="bigcount"><span id="whyI">0</span><small> / 100</small><em id="whyStat">i ← 1</em></div>
+      <div class="dots100" id="whyDots"></div>
+    </div>
+  </div>
+  <div class="anat" style="margin-top:22px">
+    <div class="card c1 rise" style="--d:.35s" data-hl="cWhy:1"><h3>Badan</h3><p>Langkah yang diulang: <code>write('Hello World')</code>.</p></div>
+    <div class="card c2 rise" style="--d:.45s" data-hl="cWhy:0"><h3>Kondisi berhenti</h3><p>Kapan pengulangan selesai: setelah <code>i</code> melewati 100.</p></div>
+    <div class="card c3 rise" style="--d:.55s" data-hl="cWhy:0,2"><h3>Perubahan</h3><p>Langkah yang membuat kondisi suatu saat terpenuhi: <code>i</code> naik 1 setiap putaran.</p></div>
+  </div>
+  <p class="src">Arahkan kursor ke kartu untuk menyorot bagian pseudocode. Notasi mengikuti Munir (2019).</p>
+</section>
+
+<!-- 6. FOR -->
+<section class="slide alt" id="s-for" data-notes="Telusuri bersama untuk N = 4 dengan tombol Langkah. Tanyakan apa yang terjadi jika baris jumlah ← 0 dihapus: jumlah berisi nilai tak diketahui.">
+  <div class="head"><p class="eyebrow rise">Bagian 1 · for</p><h2 class="rise" style="--d:.08s">for: banyak ulangan sudah diketahui</h2></div>
+  <div class="two" style="grid-template-columns:780px 1fr">
+    <div class="col rise" style="--d:.15s">
+<pre class="code" id="cFor">ALGORITMA:
+   read(N)
+   jumlah ← 0
+   for i ← 1 to N do
+      jumlah ← jumlah + i
+   endfor
+   write(jumlah)</pre>
+      <div class="row">
+        <div style="flex:1"><p class="codelabel">Menghitung mundur: downto</p>
+<pre class="code sm nonum">for i ← 10 downto 1 do
+   write(i)
+endfor
+write('Meluncur!')</pre></div>
+      </div>
+      <div class="card icard"><span class="ic b">!</span><div><h3>Aturan for</h3><p>Pencacah naik (atau turun) 1 secara otomatis. Jangan ubah pencacah di dalam badan.</p></div></div>
+    </div>
+    <div class="col rise" style="--d:.25s">
+      <div class="ctrl"><span class="lbl">Penelusuran untuk N = 4</span><button class="btn bPrev">‹ Mundur</button><button class="btn primary bNext">Langkah ›</button><button class="btn bReset">Ulang</button></div>
+      <div class="vars"><div class="var" data-var="N"><span class="nm">N</span><b class="vl">?</b></div><div class="var" data-var="i"><span class="nm">i</span><b class="vl">?</b></div><div class="var" data-var="jumlah"><span class="nm">jumlah</span><b class="vl">?</b></div><div class="var out" data-var="out"><span class="nm">keluaran</span><b class="vl"></b></div></div>
+      <table class="trace"><thead><tr><th>Putaran</th><th>i</th><th>jumlah</th></tr></thead><tbody class="tb"></tbody></table>
+      <div class="tnote"></div>
+    </div>
+  </div>
+</section>
+
+<!-- 7. WHILE -->
+<section class="slide" id="s-while" data-notes="Kondisi diperiksa sebelum setiap putaran, jadi badan bisa dikerjakan nol kali (coba tombol “Sudah tercapai”). Tanyakan: apa yang terjadi jika setoran = 0 dan saldo awal = 0? Pengulangan tidak pernah berhenti (coba tombol “Setoran 0”).">
+  <div class="head"><p class="eyebrow rise">Bagian 1 · while</p><h2 class="rise" style="--d:.08s">while: periksa dulu, baru kerjakan</h2></div>
+  <div class="two" style="grid-template-columns:860px 1fr">
+    <div class="col rise" style="--d:.15s">
+      <p style="font-size:25px">Berapa bulan sampai tabungan mencapai target? <span class="muted">(bunga 0,5% per bulan)</span></p>
+<pre class="code sm" id="cWhile">ALGORITMA:
+   read(saldo, setoran, target)    { setoran &gt; 0 }
+   bulan ← 0
+   while saldo &lt; target do
+      saldo ← saldo + saldo * 0.005 + setoran
+      bulan ← bulan + 1
+   endwhile
+   write(bulan, saldo)</pre>
+      <div class="row">
+        <div class="card icard" style="flex:1"><span class="ic b">?</span><div><h3>Kapan dipakai</h3><p>Banyak ulangan tidak diketahui sebelumnya, dan mungkin nol kali.</p></div></div>
+        <div class="card icard warn" style="flex:1"><span class="ic">!</span><div><h3>Pastikan berhenti</h3><p><code>saldo</code> bertambah setiap putaran, jadi <code>saldo &lt; target</code> suatu saat <b>false</b>. Karena itu <code>setoran &gt; 0</code>.</p></div></div>
+      </div>
+    </div>
+    <div class="col rise" style="--d:.25s">
+      <div class="ctrl"><label class="lbl" style="width:110px">saldo</label><input class="num" id="wSaldo" type="number" value="1000000"></div>
+      <div class="ctrl"><label class="lbl" style="width:110px">setoran</label><input class="num" id="wSetor" type="number" value="500000"></div>
+      <div class="ctrl"><label class="lbl" style="width:110px">target</label><input class="num" id="wTarget" type="number" value="10000000"><button class="btn primary" id="wRun">Jalankan</button></div>
+      <div class="ctrl"><button class="btn" data-wp="1000000,500000,10000000">Normal</button><button class="btn" data-wp="12000000,500000,10000000">Sudah tercapai</button><button class="btn" data-wp="0,0,10000000">Setoran 0</button></div>
+      <div class="card" style="padding:14px 16px"><canvas id="cvWhile" style="width:100%;height:250px;display:block"></canvas></div>
+      <div class="tnote" id="wOut"></div>
+    </div>
+  </div>
+</section>
+
+<!-- 8. REPEAT -->
+<section class="slide alt" id="s-repeat" data-notes="Validasi masukan adalah contoh paling alami: kita harus membaca dulu sebelum bisa memeriksa. Ketik nilai di kotak (atau tekan “Contoh”: 120, −5, 85). Perhatikan: until berhenti saat kondisi TRUE, kebalikan dari while.">
+  <div class="head"><p class="eyebrow rise">Bagian 1 · repeat-until</p><h2 class="rise" style="--d:.08s">repeat-until: kerjakan dulu, baru periksa</h2></div>
+  <div class="two" style="grid-template-columns:820px 1fr">
+    <div class="col rise" style="--d:.15s">
+      <p class="codelabel">Validasi: paksa nilai 0..100</p>
+<pre class="code" id="cRep">repeat
+   write('Masukkan nilai (0..100): ')
+   read(nilai)
+until (nilai ≥ 0) and (nilai ≤ 100)</pre>
+      <div class="card icard"><span class="ic">1</span><div><h3>Minimal sekali</h3><p>Badan selalu dikerjakan paling tidak satu kali.</p></div></div>
+      <div class="card icard"><span class="ic b">⇄</span><div><h3>Berhenti saat true</h3><p><code>until</code> berhenti ketika kondisi <b>true</b>. <code>while</code> berjalan selama kondisi <b>true</b>.</p></div></div>
+    </div>
+    <div class="col rise" style="--d:.25s">
+      <div class="ctrl"><input class="num" id="rIn" type="number" placeholder="nilai"><button class="btn primary" id="rSend">read(nilai)</button><button class="btn" id="rDemo">Contoh</button><button class="btn" id="rReset">Ulang</button></div>
+      <table class="trace"><thead><tr><th>Putaran</th><th>Masukan</th><th>Kondisi until</th><th>Lanjut?</th></tr></thead><tbody id="rLog"></tbody></table>
+      <div class="tnote" id="rNote"></div>
+    </div>
+  </div>
+</section>
+
+<!-- 9. MEMILIH -->
+<section class="slide" id="s-pilih" data-notes="Latihan cepat: minta mahasiswa menjawab dulu, lalu klik kartu. (1) Tabel perkalian 1–10 → for. (2) Membaca nilai sampai −1 → while (sentinel; bisa nol kali). (3) Meminta password sampai benar → repeat-until (minimal sekali).">
+  <div class="head"><p class="eyebrow rise">Bagian 1 · Memilih</p><h2 class="rise" style="--d:.08s">Memilih bentuk pengulangan yang tepat</h2></div>
+  <table class="formal rise" style="--d:.15s">
+    <tr><th style="width:19%"></th><th class="c1" style="width:27%">for</th><th class="c2" style="width:27%">while</th><th class="c3" style="width:27%">repeat-until</th></tr>
+    <tr><td><b>Kapan dipakai</b></td><td>Banyak ulangan diketahui</td><td>Tidak diketahui; mungkin nol kali</td><td>Tidak diketahui; minimal sekali</td></tr>
+    <tr><td><b>Diperiksa</b></td><td>otomatis oleh pencacah</td><td>di awal putaran</td><td>di akhir putaran</td></tr>
+    <tr><td><b>Berhenti ketika</b></td><td>pencacah melewati batas</td><td>kondisi <b>false</b></td><td>kondisi <b>true</b></td></tr>
+    <tr><td><b>Contoh</b></td><td>Jumlahkan nilai N mahasiswa</td><td>Baca belanjaan sampai harga 0</td><td>Minta PIN sampai benar</td></tr>
+  </table>
+  <div class="quiz">
+    <div class="qcard rise" style="--d:.3s"><div class="inner"><div class="face front"><span class="q">Coba tebak · 1</span><p>Menampilkan tabel perkalian 1–10</p></div><div class="face back"><h3>for</h3><p>Banyak ulangan pasti 10.</p></div></div></div>
+    <div class="qcard rise" style="--d:.38s"><div class="inner"><div class="face front"><span class="q">Coba tebak · 2</span><p>Membaca nilai sampai pengguna memasukkan −1</p></div><div class="face back"><h3>while</h3><p>Tidak diketahui; bisa nol kali jika data pertama −1.</p></div></div></div>
+    <div class="qcard rise" style="--d:.46s"><div class="inner"><div class="face front"><span class="q">Coba tebak · 3</span><p>Meminta password sampai benar</p></div><div class="face back"><h3>repeat-until</h3><p>Password harus dibaca minimal sekali sebelum diperiksa.</p></div></div></div>
+  </div>
+  <p class="src">Klik kartu untuk membuka jawaban.</p>
+</section>
+
+<!-- 10. JEBAKAN -->
+<section class="slide alt" id="s-trap" data-notes="Cara paling efektif menangkap kedua kesalahan ini adalah menelusuri dengan N kecil, misalnya N = 1 dan N = 3. Ini pengantar trace table Minggu 13. Finiteness adalah salah satu ciri algoritma menurut Knuth (1997).">
+  <div class="head"><p class="eyebrow rise">Bagian 1 · Jebakan</p><h2 class="rise" style="--d:.08s">Dua jebakan: tidak berhenti dan selisih satu</h2></div>
+  <div class="two" style="flex:none">
+    <div class="card col rise" style="--d:.15s;gap:14px">
+      <div class="ctrl" style="justify-content:space-between"><h3>Pengulangan tak berhingga</h3><button class="btn" id="infFix">Perbaiki</button></div>
+<pre class="code sm" id="cInf"></pre>
+      <div class="outstrip err" id="infOut"></div>
+      <p id="infTxt"></p>
+    </div>
+    <div class="card col rise" style="--d:.25s;gap:14px">
+      <div class="ctrl" style="justify-content:space-between"><h3>Selisih satu (off-by-one)</h3><button class="btn" id="obFix">Perbaiki</button></div>
+<pre class="code sm" id="cOb"></pre>
+      <div class="ctrl"><span class="lbl">N =</span><input type="range" id="obN" min="1" max="8" value="4" style="width:280px"><b class="mono" id="obNv" style="font-size:26px">4</b></div>
+      <div class="outstrip err" id="obOut"></div>
+    </div>
+  </div>
+  <div class="card icard rise" style="--d:.4s;margin-top:26px"><span class="ic g">✓</span><div><h3>Penangkalnya</h3><p>Telusuri dengan N kecil (N = 1 dan N = 3) dan bandingkan dengan hitungan manual.</p></div></div>
+  <p class="src">Ciri <i>finiteness</i>: Knuth, D. E. (1997). <i>The Art of Computer Programming, Vol. 1</i>, §1.1.</p>
+</section>
+
+<!-- 11. DIVIDER 2 -->
+<section class="slide dark divider" id="s-div2" data-notes="Bagian 2 menghubungkan pilar pengenalan pola (Minggu 3) dengan potongan pseudocode yang siap dipakai ulang.">
+  <div class="big rise">02</div>
+  <h2 class="rise" style="--d:.1s">Pola algoritma</h2>
+  <p class="lead rise" style="--d:.2s">Pengenalan pola (Minggu 3) dalam bentuk potongan pseudocode</p>
+  <div class="chips rise" style="--d:.3s"><span>total ← total + x</span><span>banyak ← banyak + 1</span><span>if x &gt; maks then</span><span>until sah</span></div>
+</section>
+
+<!-- 12. POLA -->
+<section class="slide" id="s-pola" data-notes="Kaitkan dengan pilar pengenalan pola. Jika mahasiswa mengenali polanya, menulis algoritma menjadi jauh lebih cepat. Tunjukkan bahwa studi kasus nanti hanyalah gabungan pola-pola ini.">
+  <div class="head"><p class="eyebrow rise">Bagian 2 · Pola</p><h2 class="rise" style="--d:.08s">Tujuh pola yang akan terus muncul</h2></div>
+  <table class="formal rise" style="--d:.15s">
+    <tr><th style="width:15%">Pola</th><th style="width:25%">Ciri</th><th style="width:25%">Sebelum pengulangan</th><th style="width:35%">Di dalam pengulangan</th></tr>
+    <tr><td>Akumulator</td><td>menjumlahkan banyak nilai</td><td class="mono">total ← 0</td><td class="mono">total ← total + x</td></tr>
+    <tr><td>Pencacah</td><td>menghitung kejadian</td><td class="mono">banyak ← 0</td><td class="mono">banyak ← banyak + 1</td></tr>
+    <tr><td>Rata-rata</td><td>akumulator ÷ pencacah</td><td class="mono">total ← 0, n ← 0</td><td class="mono">sesudahnya: rata ← total / n</td></tr>
+    <tr><td>Maksimum</td><td>nilai terbesar</td><td class="mono">maks ← data pertama</td><td class="mono">if x &gt; maks then maks ← x</td></tr>
+    <tr><td>Sentinel</td><td>baca sampai nilai penanda</td><td class="mono">read(x)</td><td class="mono">proses x, lalu read(x)</td></tr>
+    <tr><td>Validasi</td><td>memaksa masukan sah</td><td class="mono">–</td><td class="mono">repeat read(x) until sah</td></tr>
+    <tr><td>Flag</td><td>mencatat sesuatu terjadi</td><td class="mono">ketemu ← false</td><td class="mono">if … then ketemu ← true</td></tr>
+  </table>
+  <p class="src">Pola-pola ini akan digabung pada studi kasus di Bagian 4.</p>
+</section>
+
+<!-- 13. KASIR -->
+<section class="slide alt" id="s-kasir" data-notes="Perhatikan read dua kali: sebelum while (data pertama) dan di akhir badan (data berikutnya). Dengan susunan ini sentinel 0 tidak ikut dijumlahkan. Tanyakan: apa keluarannya jika kasir langsung memasukkan 0? (banyak 0, total 0, diskon 0). Simulasi memakai BATAS_DISKON = 100.000.">
+  <div class="head"><p class="eyebrow rise">Bagian 2 · Akumulator · pencacah · sentinel</p><h2 class="rise" style="--d:.08s">Tiga pola dalam satu kasir</h2></div>
+  <div class="two" style="grid-template-columns:860px 1fr">
+<pre class="code sm rise" style="--d:.15s;align-self:start" id="cKasir">ALGORITMA:
+   total ← 0                  { akumulator }
+   banyak ← 0                 { pencacah }
+   read(harga)
+   while harga ≠ 0 do         { 0 = sentinel }
+      total ← total + harga
+      banyak ← banyak + 1
+      read(harga)
+   endwhile
+   if total &gt; BATAS_DISKON then
+      diskon ← 0.1 * total
+   else
+      diskon ← 0
+   endif
+   write(banyak, total, diskon, total - diskon)</pre>
+    <div class="col rise" style="--d:.25s">
+      <div class="ctrl"><input class="num" id="kIn" type="number" placeholder="harga"><button class="btn primary" id="kAdd">read(harga)</button><button class="btn" id="kDemo">Contoh</button><button class="btn" id="kReset">Ulang</button></div>
+      <div class="vchips" id="kChips"></div>
+      <div class="vars"><div class="var" data-var="total"><span class="nm">total</span><b class="vl">0</b></div><div class="var" data-var="banyak"><span class="nm">banyak</span><b class="vl">0</b></div><div class="var" data-var="diskon"><span class="nm">diskon</span><b class="vl">–</b></div><div class="var out" data-var="bayar"><span class="nm">total − diskon</span><b class="vl"></b></div></div>
+      <div class="tnote" id="kNote"></div>
+      <div class="row" style="gap:14px">
+        <div class="card" style="flex:1;padding:16px 20px" data-hl="cKasir:1,5"><h3 style="font-size:23px">Σ Akumulator</h3><p style="font-size:20px">total ← 0, lalu total ← total + harga</p></div>
+        <div class="card" style="flex:1;padding:16px 20px" data-hl="cKasir:2,6"><h3 style="font-size:23px"># Pencacah</h3><p style="font-size:20px">banyak ← 0, lalu banyak ← banyak + 1</p></div>
+        <div class="card" style="flex:1;padding:16px 20px" data-hl="cKasir:3,4,7"><h3 style="font-size:23px">0 Sentinel</h3><p style="font-size:20px">harga 0 = tanda selesai, bukan data</p></div>
+      </div>
+    </div>
+  </div>
+  <p class="src">Simulasi: BATAS_DISKON = 100.000. Masukkan 0 untuk mengakhiri.</p>
+</section>
+
+<!-- 14. MAKSIMUM -->
+<section class="slide" id="s-maks" data-notes="Minta mahasiswa menelusuri dengan data −5, −2, −9 untuk kedua versi. Versi maks ← 0 menghasilkan 0, padahal 0 tidak ada di data. Untuk minimum polanya sama: ganti &gt; menjadi &lt;.">
+  <div class="head"><p class="eyebrow rise">Bagian 2 · Maksimum</p><h2 class="rise" style="--d:.08s">Nilai maksimum dimulai dari data pertama</h2></div>
+  <div class="two" style="grid-template-columns:800px 1fr">
+    <div class="col rise" style="--d:.15s">
+      <div class="ctrl"><button class="btn on" id="mA">maks ← data pertama</button><button class="btn" id="mB">maks ← 0</button></div>
+<pre class="code" id="cMaks"></pre>
+    </div>
+    <div class="col rise" style="--d:.25s">
+      <div class="ctrl"><span class="lbl">Data: −5, −2, −9</span><button class="btn bPrev">‹</button><button class="btn primary bNext">Langkah ›</button><button class="btn bReset">Ulang</button></div>
+      <div class="vars"><div class="var" data-var="i"><span class="nm">i</span><b class="vl">?</b></div><div class="var" data-var="x"><span class="nm">x</span><b class="vl">?</b></div><div class="var" data-var="maks"><span class="nm">maks</span><b class="vl">?</b></div><div class="var out" data-var="out"><span class="nm">keluaran</span><b class="vl"></b></div></div>
+      <table class="trace"><thead><tr><th>i</th><th>x</th><th>x &gt; maks?</th><th>maks</th></tr></thead><tbody class="tb"></tbody></table>
+      <div class="tnote"></div>
+      <div class="card icard"><span class="ic g">↓</span><div><h3>Untuk minimum</h3><p>Polanya sama: ganti <code>&gt;</code> menjadi <code>&lt;</code>.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 15. PIN -->
+<section class="slide alt" id="s-pin" data-notes="Pengulangan berhenti karena dua kemungkinan: PIN benar, atau kesempatan habis. Flag benar mencatat alasan berhentinya, sehingga setelah pengulangan kita tahu pesan mana yang ditampilkan. PIN simulasi: 2468.">
+  <div class="head"><p class="eyebrow rise">Bagian 2 · Validasi · flag</p><h2 class="rise" style="--d:.08s">Validasi dan flag: tiga kesempatan PIN</h2></div>
+  <div class="two" style="grid-template-columns:860px 1fr">
+<pre class="code xs rise" style="--d:.15s;align-self:start" id="cPin">ALGORITMA:
+   coba ← 0
+   benar ← false
+   repeat
+      read(pin)
+      coba ← coba + 1
+      if pin = PIN_BENAR then
+         benar ← true
+      else
+         write('PIN salah, sisa: ', MAKS_COBA - coba)
+      endif
+   until benar or (coba = MAKS_COBA)
+   if benar then
+      write('Silakan pilih transaksi')
+   else
+      write('Kartu diblokir')
+   endif</pre>
+    <div class="col rise" style="--d:.25s">
+      <div class="atm">
+        <div class="screen" id="pScreen">Masukkan PIN</div>
+        <div class="ctrl"><input class="num" id="pIn" type="password" maxlength="6" inputmode="numeric" placeholder="PIN"><button class="btn primary" id="pSend">read(pin)</button><button class="btn" id="pReset">Ulang</button></div>
+        <div class="ctrl" style="justify-content:space-between"><span style="font-size:22px;color:var(--muted-dk)">coba: <b id="pCoba" style="color:var(--light)">0</b> · benar: <b id="pBenar" style="color:var(--light)">false</b></span><div class="dots"><i></i><i></i><i></i></div></div>
+      </div>
+      <div class="tnote" id="pNote"></div>
+      <div class="card icard"><span class="ic">2</span><div><h3>Dua alasan berhenti</h3><p><code>until benar or (coba = MAKS_COBA)</code></p></div></div>
+      <div class="card icard"><span class="ic b">⚑</span><div><h3>Flag menjawab “mengapa”</h3><p>Setelah pengulangan, periksa <code>benar</code> untuk memilih pesan.</p></div></div>
+    </div>
+  </div>
+  <p class="src">Simulasi: MAKS_COBA = 3; PIN_BENAR tercantum pada catatan pengajar (tekan N).</p>
+</section>
+
+<!-- 16. DIVIDER 3 -->
+<section class="slide dark divider" id="s-div3" data-notes="Bagian 3: larik, kapan larik diperlukan, dan pencarian beruntun.">
+  <div class="big rise">03</div>
+  <h2 class="rise" style="--d:.1s">Larik (array)</h2>
+  <p class="lead rise" style="--d:.2s">Satu nama untuk banyak nilai bertipe sama</p>
+  <div class="chips rise" style="--d:.3s"><span>nilai : array[1..NMAKS] of real</span><span>nilai[i]</span></div>
+</section>
+
+<!-- 17. LARIK -->
+<section class="slide" id="s-larik" data-notes="Analogi: deretan loker bernomor. nilai[3] adalah isi loker nomor 3. Klik kotak untuk membaca elemennya, atau tekan Traversal. Indeks bisa berupa variabel, sehingga nilai[i] di dalam for mengunjungi semua elemen.">
+  <div class="head"><p class="eyebrow rise">Bagian 3 · Larik</p><h2 class="rise" style="--d:.08s">Larik: satu nama, banyak kotak bernomor</h2></div>
+  <div class="rise" style="--d:.15s">
+    <div class="arr" id="arrMain"></div>
+    <div class="arrlabel"><span>baris atas: nilai</span><span>baris bawah: indeks</span></div>
+    <div class="readbig" id="arrRead">nilai[3] = 90</div>
+  </div>
+  <div class="two" style="margin-top:30px;grid-template-columns:1fr 860px">
+    <div class="col rise" style="--d:.25s">
+      <div class="card icard"><span class="ic">↻</span><div><h3>Traversal</h3><p><code>for i ← 1 to N do … nilai[i] … endfor</code> mengunjungi semua elemen satu per satu.</p></div></div>
+      <div class="ctrl"><button class="btn primary" id="arrTrav">Jalankan traversal</button></div>
+    </div>
+<pre class="code xs rise" style="--d:.3s;align-self:start" id="cArr">DEKLARASI
+   const NMAKS = 100
+   nilai : array[1..NMAKS] of real
+   i, N : integer
+ALGORITMA:
+   read(N)                    { 1 ≤ N ≤ NMAKS }
+   for i ← 1 to N do
+      read(nilai[i])          { isi elemen ke-i }
+   endfor</pre>
+  </div>
+</section>
+
+<!-- 18. KAPAN LARIK -->
+<section class="slide alt" id="s-telusur" data-notes="Rata-rata saja tidak butuh larik. Tetapi “di atas rata-rata” butuh, karena rata-rata baru diketahui setelah semua data dibaca, lalu setiap data dibandingkan lagi. Klik ketiga telusur secara berurutan. Hubungkan dengan representasi data: memilih bentuk data yang tepat.">
+  <div class="head"><p class="eyebrow rise">Bagian 3 · Kapan perlu larik</p><h2 class="rise" style="--d:.08s">Larik diperlukan saat data harus dipakai lagi</h2></div>
+  <div class="two" style="grid-template-columns:740px 1fr">
+<pre class="code xs rise" style="--d:.15s;align-self:start" id="cTel">ALGORITMA:
+   read(N)
+   for i ← 1 to N do
+      read(nilai[i])
+   endfor
+   jumlah ← 0
+   for i ← 1 to N do
+      jumlah ← jumlah + nilai[i]
+   endfor
+   rata ← jumlah / N
+   banyak ← 0
+   for i ← 1 to N do
+      if nilai[i] &gt; rata then
+         banyak ← banyak + 1
+      endif
+   endfor
+   write(rata, banyak)</pre>
+    <div class="col rise" style="--d:.25s">
+      <div class="arr small" id="arrTel"></div>
+      <div class="phases">
+        <div class="phasec p1" data-ph="1"><span class="n">1</span><div><h3>Telusur 1</h3><p>baca semua nilai ke larik</p></div></div>
+        <div class="phasec p2" data-ph="2"><span class="n">2</span><div><h3>Telusur 2</h3><p>jumlahkan, lalu hitung rata-rata</p></div></div>
+        <div class="phasec p3" data-ph="3"><span class="n">3</span><div><h3>Telusur 3</h3><p>bandingkan setiap nilai dengan rata-rata</p></div></div>
+      </div>
+      <div class="tnote" id="telNote"></div>
+      <div class="card icard warn"><span class="ic">?</span><div><h3>Tanpa larik?</h3><p>Nilai yang sudah dibaca hilang sebelum rata-rata diketahui.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 19. PENCARIAN -->
+<section class="slide" id="s-cari" data-notes="Mengapa while dan bukan for? Karena pencarian sebaiknya berhenti segera begitu NIM ditemukan. Coba tiga tombol: posisi 1 (1 langkah), posisi 6 (6 langkah), tidak ada (8 langkah = N). Pertanyaan “berapa langkah yang dibutuhkan” dibahas di Minggu 14 tentang efisiensi.">
+  <div class="head"><p class="eyebrow rise">Bagian 3 · Pencarian</p><h2 class="rise" style="--d:.08s">Pencarian beruntun berhenti begitu data ditemukan</h2></div>
+  <div class="two" style="grid-template-columns:800px 1fr">
+<pre class="code xs rise" style="--d:.15s;align-self:start" id="cCari">ALGORITMA:
+   { anggap N dan nim[1..N] sudah terisi }
+   read(dicari)
+   ketemu ← false
+   i ← 1
+   while (i ≤ N) and (not ketemu) do
+      if nim[i] = dicari then
+         ketemu ← true
+      else
+         i ← i + 1
+      endif
+   endwhile
+   if ketemu then
+      write('ditemukan pada posisi ', i)
+   else
+      write('tidak ditemukan')
+   endif</pre>
+    <div class="col rise" style="--d:.25s">
+      <div class="nims" id="nims"></div>
+      <div class="ctrl"><input class="num" id="sIn" type="number" placeholder="dicari"><button class="btn primary" id="sGo">Cari</button></div>
+      <div class="ctrl"><button class="btn" data-sp="0">Posisi 1</button><button class="btn" data-sp="5">Posisi 6</button><button class="btn" data-sp="-1">Tidak ada</button></div>
+      <div class="tnote" id="sNote"></div>
+      <div class="row" style="gap:16px">
+        <div class="card icard" style="flex:1"><span class="ic b">⚑</span><div><h3 style="font-size:23px">Kondisi majemuk + flag</h3><p style="font-size:20px">Berhenti saat data habis <b>atau</b> saat ketemu.</p></div></div>
+        <div class="card icard" style="flex:1"><span class="ic g">14</span><div><h3 style="font-size:23px">Pratinjau Minggu 14</h3><p style="font-size:20px">Posisi 1: 1 langkah. Tidak ada: N langkah.</p></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 20. DIVIDER 4 -->
+<section class="slide dark divider" id="s-div4" data-notes="Bagian 4: menggabungkan semua yang sudah dipelajari menjadi satu proses perancangan.">
+  <div class="big rise">04</div>
+  <h2 class="rise" style="--d:.1s">Merancang untuk masalah kompleks</h2>
+  <p class="lead rise" style="--d:.2s">Enam langkah dan satu studi kasus lengkap</p>
+</section>
+
+<!-- 21. ENAM LANGKAH -->
+<section class="slide" id="s-enam" data-notes="Langkah 1–3 adalah dekomposisi dan abstraksi dari Minggu 6–7, topik yang paling lemah di UTS. Tekankan bahwa langkah 2 dan 6 dinilai pada kriteria kelengkapan langkah di tugas.">
+  <div class="head"><p class="eyebrow rise">Bagian 4 · Enam langkah</p><h2 class="rise" style="--d:.08s">Enam langkah merancang pseudocode</h2></div>
+  <div class="six">
+    <div class="track"><i></i></div>
+    <div class="st ab rise" style="--d:.15s"><span class="dot">1</span><div class="card"><h3>Pahami</h3><p>Apa yang diminta? Ada kasus khusus?</p></div></div>
+    <div class="st ab rise" style="--d:.22s"><span class="dot">2</span><div class="card"><h3>Masukan–keluaran</h3><p>Data apa, tipe apa, perlu larik?</p></div></div>
+    <div class="st ab rise" style="--d:.29s"><span class="dot">3</span><div class="card"><h3>Dekomposisi</h3><p>Sub-masalah apa saja?</p></div></div>
+    <div class="st rise" style="--d:.36s"><span class="dot">4</span><div class="card"><h3>Pilih pola</h3><p>Runtunan, pemilihan, pengulangan, pola?</p></div></div>
+    <div class="st rise" style="--d:.43s"><span class="dot">5</span><div class="card"><h3>Tulis</h3><p>PROGRAM–DEKLARASI–ALGORITMA</p></div></div>
+    <div class="st rise" style="--d:.5s"><span class="dot">6</span><div class="card"><h3>Uji</h3><p>Telusuri data kecil dan kasus khusus.</p></div></div>
+  </div>
+  <div class="teaser rise" style="--d:.6s;margin-top:auto"><span class="ic">1–3</span><p><b>Dekomposisi dan abstraksi (Minggu 6–7).</b> Masalah kompleks hampir tidak pernah bisa langsung ditulis. Kerjakan berurutan dan tulis hasil setiap langkah.</p></div>
+  <p class="src" style="bottom:20px">Bandingkan dengan empat fase pemecahan masalah Pólya (1945): memahami, merencanakan, melaksanakan, memeriksa kembali.</p>
+</section>
+
+<!-- 22. STUDI KASUS 1 -->
+<section class="slide alt" id="s-kasus1" data-notes="Bacakan masalahnya, lalu bangun tabel masukan–proses–keluaran bersama kelas sebelum menampilkannya. Tanyakan: perlu larik atau tidak? Mengapa?">
+  <div class="head" style="margin-bottom:24px"><p class="eyebrow rise">Studi kasus · langkah 1–4</p><h2 class="rise" style="--d:.08s">Studi kasus: rekap nilai kelas</h2></div>
+  <div class="problem rise" style="--d:.15s"><p class="eyebrow">Masalah</p><p>Baca nilai N mahasiswa (N ≤ 60, nilai 0–100, masukan tidak sah diminta ulang). Tampilkan rata-rata, nilai tertinggi, nilai terendah, banyak yang lulus (≥ 60), dan banyak yang di atas rata-rata.</p></div>
+  <div class="two" style="grid-template-columns:1fr 640px">
+    <table class="formal rise" style="--d:.25s;align-self:start">
+      <tr><th class="c1">Masukan</th><th class="c2">Proses</th><th class="c3">Keluaran</th></tr>
+      <tr><td>N, 1 ≤ N ≤ 60</td><td>validasi masukan</td><td>rata-rata</td></tr>
+      <tr><td>nilai[1..N], 0–100</td><td>jumlah, tertinggi, terendah, lulus</td><td>tertinggi, terendah</td></tr>
+      <tr><td></td><td>rata-rata, lalu banyak di atas rata-rata</td><td>lulus, di atas rata-rata</td></tr>
+    </table>
+    <div class="col rise" style="--d:.35s">
+      <div class="card"><h3>Dekomposisi</h3><ol class="dec"><li>Baca dan validasi data</li><li>Satu telusur: jumlah, tertinggi, terendah, lulus</li><li>Rata-rata</li><li>Telusur kedua: di atas rata-rata</li><li>Tampilkan</li></ol></div>
+      <div class="card icard warn"><span class="ic">[ ]</span><div><h3>Keputusan data</h3><p>“Di atas rata-rata” butuh setiap nilai dua kali → simpan di <b>larik</b>.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 23. STUDI KASUS 2 -->
+<section class="slide" id="s-kasus2" data-notes="Tunjukkan bagaimana sub-masalah 1 diterjemahkan: repeat-until untuk validasi, for untuk mengisi larik. Konstanta membuat batas mudah diubah.">
+  <div class="head" style="margin-bottom:24px"><p class="eyebrow rise">Studi kasus · langkah 5a</p><h2 class="rise" style="--d:.08s">Rekap nilai kelas: deklarasi dan validasi</h2></div>
+  <div class="two" style="grid-template-columns:1fr 1fr;gap:32px">
+<pre class="code sm rise" style="--d:.15s;align-self:start">PROGRAM RekapNilaiKelas
+{ Membaca nilai N mahasiswa, lalu
+  menampilkan rata-rata, nilai tertinggi,
+  nilai terendah, banyak yang lulus
+  (nilai ≥ 60), dan banyak yang di atas
+  rata-rata. }
+
+DEKLARASI
+   const NMAKS = 60
+   const BATAS_LULUS = 60
+   nilai : array[1..NMAKS] of real
+   N, i, lulus, diAtas : integer
+   jumlah, rata : real
+   terbesar, terkecil : real</pre>
+    <div class="col">
+<pre class="code sm rise" style="--d:.25s;counter-reset:ln 14">ALGORITMA:
+   { 1. Baca data, dengan validasi }
+   repeat
+      read(N)
+   until (N ≥ 1) and (N ≤ NMAKS)
+   for i ← 1 to N do
+      repeat
+         read(nilai[i])
+      until (nilai[i] ≥ 0) and (nilai[i] ≤ 100)
+   endfor</pre>
+      <div class="card icard rise" style="--d:.35s"><span class="ic b">↻</span><div><h3>Validasi bersarang</h3><p><code>repeat-until</code> di dalam <code>for</code>: setiap elemen diminta ulang sampai sah. Konstanta membuat batas mudah diubah.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 24. STUDI KASUS 3 -->
+<section class="slide alt" id="s-kasus3" data-notes="Sub-masalah 2 menggabungkan empat pola dalam satu for: akumulator, maksimum, minimum, pencacah bersyarat. Sub-masalah 4 butuh telusur kedua karena rata-rata baru diketahui setelah telusur pertama. Arahkan kursor ke label pola untuk menyorot barisnya.">
+  <div class="head" style="margin-bottom:20px"><p class="eyebrow rise">Studi kasus · langkah 5b</p><h2 class="rise" style="--d:.08s">Rekap nilai kelas: pemrosesan dan keluaran</h2></div>
+  <div class="ctrl rise" style="--d:.12s;margin-bottom:16px"><span class="pill" data-hl="cK3a:1,6" style="cursor:pointer">akumulator</span><span class="pill o" data-hl="cK3a:2,7,8,9" style="cursor:pointer">maksimum</span><span class="pill o" data-hl="cK3a:3,10,11,12" style="cursor:pointer">minimum</span><span class="pill g" data-hl="cK3a:4,13,14,15" style="cursor:pointer">pencacah bersyarat</span></div>
+  <div class="two" style="grid-template-columns:1fr 1fr;gap:32px">
+<pre class="code xs rise" style="--d:.15s;align-self:start;counter-reset:ln 24" id="cK3a">   { 2. Telusur pertama }
+   jumlah ← 0
+   terbesar ← nilai[1]
+   terkecil ← nilai[1]
+   lulus ← 0
+   for i ← 1 to N do
+      jumlah ← jumlah + nilai[i]
+      if nilai[i] &gt; terbesar then
+         terbesar ← nilai[i]
+      endif
+      if nilai[i] &lt; terkecil then
+         terkecil ← nilai[i]
+      endif
+      if nilai[i] ≥ BATAS_LULUS then
+         lulus ← lulus + 1
+      endif
+   endfor</pre>
+<pre class="code xs rise" style="--d:.25s;align-self:start;counter-reset:ln 41">   { 3. Rata-rata }
+   rata ← jumlah / N
+   { 4. Telusur kedua }
+   diAtas ← 0
+   for i ← 1 to N do
+      if nilai[i] &gt; rata then
+         diAtas ← diAtas + 1
+      endif
+   endfor
+   { 5. Tampilkan hasil }
+   write(rata, terbesar, terkecil, lulus, diAtas)</pre>
+  </div>
+</section>
+
+<!-- 25. STUDI KASUS 4: UJI -->
+<section class="slide" id="s-kasus4" data-notes="Data: 78, 65, 90, 55, 82. Minta mahasiswa menghitung sendiri dulu. Lalu ubah data di kotak untuk kasus khusus: N = 1 (tombol −), semua nilai sama, dan masukan tidak sah seperti 105.">
+  <div class="head"><p class="eyebrow rise">Studi kasus · langkah 6</p><h2 class="rise" style="--d:.08s">Uji dengan data yang bisa dihitung manual</h2></div>
+  <div class="two" style="grid-template-columns:620px 1fr">
+    <div class="col rise" style="--d:.15s">
+      <p class="lead" style="font-size:26px">Data uji (ubah untuk mencoba):</p>
+      <div class="uji-in" id="ujiIn"></div>
+      <div class="ctrl"><button class="btn" id="ujiMinus">− data</button><button class="btn" id="ujiPlus">+ data</button><button class="btn" id="ujiDef">Data awal</button><button class="btn" id="ujiSame">Semua sama</button></div>
+      <div class="card icard warn" style="margin-top:8px"><span class="ic">!</span><div><h3>Kasus khusus</h3><p>N = 1: terbesar = terkecil = rata<br>Semua nilai sama: diAtas = 0<br>N = 0 atau nilai 105: diminta ulang</p></div></div>
+    </div>
+    <div class="col rise" style="--d:.25s">
+      <table class="formal" id="ujiTbl"><thead><tr><th style="width:22%">Keluaran</th><th>Hitungan manual</th><th style="width:18%">Hasil</th></tr></thead><tbody></tbody></table>
+      <div class="tnote" id="ujiNote"></div>
+    </div>
+  </div>
+</section>
+
+<!-- 26. DAFTAR PERIKSA -->
+<section class="slide alt" id="s-cek" data-notes="Daftar periksa ini sama dengan Modul Bagian 10.1. Pakai saat periksa silang antarkelompok. Klik baris untuk mencentang.">
+  <div class="head" style="margin-bottom:22px"><p class="eyebrow rise">Daftar periksa · Modul Bagian 10</p><h2 class="rise" style="--d:.08s">Sebelum mengumpulkan, periksa sembilan hal ini</h2></div>
+  <table class="formal check rise" style="--d:.15s" id="ckTbl">
+    <tr><th></th><th>Periksa</th><th>Kaitan dengan penilaian</th></tr>
+    <tr class="item"><td class="bx"><span class="sq">✓</span></td><td>Ada PROGRAM, spesifikasi dalam { }, DEKLARASI, dan ALGORITMA:</td><td class="k">kelengkapan struktur</td></tr>
+    <tr class="item"><td class="bx"><span class="sq">✓</span></td><td>Setiap variabel yang dipakai sudah dideklarasikan dengan tipe yang tepat</td><td class="k">konsistensi notasi</td></tr>
+    <tr class="item"><td class="bx"><span class="sq">✓</span></td><td>Penugasan memakai ←, perbandingan memakai = ≠ &lt; ≤ &gt; ≥</td><td class="k">kejelasan notasi</td></tr>
+    <tr class="item"><td class="bx"><span class="sq">✓</span></td><td>Setiap if punya then–endif; while punya do–endwhile; for punya endfor; repeat punya until</td><td class="k">kejelasan notasi</td></tr>
+    <tr class="item"><td class="bx"><span class="sq">✓</span></td><td>Indentasi menunjukkan langkah mana yang berada di dalam struktur</td><td class="k">kejelasan notasi</td></tr>
+    <tr class="item"><td class="bx"><span class="sq">✓</span></td><td>Akumulator dan pencacah diberi nilai awal sebelum pengulangan</td><td class="k">kebenaran logika</td></tr>
+    <tr class="item"><td class="bx"><span class="sq">✓</span></td><td>Setiap pengulangan pasti berhenti</td><td class="k">kebenaran logika</td></tr>
+    <tr class="item"><td class="bx"><span class="sq">✓</span></td><td>Sudah ditelusuri dengan minimal satu data uji, termasuk kasus khusus</td><td class="k">kelengkapan langkah</td></tr>
+    <tr class="item"><td class="bx"><span class="sq">✓</span></td><td>Tidak memakai sintaks bahasa pemrograman (printf, cin, print(), ==, { } sebagai blok)</td><td class="k">konsistensi notasi</td></tr>
+  </table>
+  <p class="src" id="ckCount">0 / 9 terpenuhi · klik baris untuk mencentang</p>
+</section>
+
+<!-- 27. PRAKTIK -->
+<section class="slide dark" id="s-praktik" data-notes="Bentuk kelompok 3–4 orang. Setiap kelompok mengerjakan satu kasus memakai enam langkah. Pilih 3 kelompok untuk presentasi, kelompok lain memeriksa dengan daftar periksa di modul Bagian 10.">
+  <div class="head"><p class="eyebrow rise">Praktik · 30 menit</p><h2 class="rise" style="--d:.08s;color:var(--light)">Praktik terbimbing dan presentasi</h2></div>
+  <div class="tl3">
+    <div class="card rise" style="--d:.15s"><span class="min">15′</span><h3 style="margin-top:10px">Kerjakan dalam kelompok</h3><p>Gunakan enam langkah. Tulis di kertas besar atau papan.</p></div>
+    <div class="card rise" style="--d:.22s"><span class="min">10′</span><h3 style="margin-top:10px">Presentasi 3 kelompok</h3><p>Tabel masukan–keluaran, dekomposisi, dan pseudocode.</p></div>
+    <div class="card rise" style="--d:.29s"><span class="min">5′</span><h3 style="margin-top:10px">Periksa silang</h3><p>Daftar periksa modul Bagian 10.</p></div>
+  </div>
+  <div class="cases">
+    <div class="card icard rise" style="--d:.4s"><span class="ic" style="width:72px;height:72px;font-size:38px">A</span><div><h3>Kasus A · Parkir harian</h3><p>Baca data N kendaraan (jenis dan lama parkir). Hitung tarif tiap kendaraan, total pendapatan, dan kendaraan dengan tarif terbesar.</p></div></div>
+    <div class="card icard rise" style="--d:.5s"><span class="ic b" style="width:72px;height:72px;font-size:38px">B</span><div><h3>Kasus B · Stok barang</h3><p>Baca N barang (nama dan stok) ke larik. Tampilkan barang dengan stok di bawah 10 dan barang dengan stok terbanyak.</p></div></div>
+  </div>
+</section>
+
+<!-- 28. TUGAS -->
+<section class="slide" id="s-tugas" data-notes="Ketentuannya sama dengan Minggu 9. Bedanya: setiap soal wajib diawali tabel masukan–proses–keluaran dan daftar variabel. Soal 5 dipilih berdasarkan X genap atau ganjil.">
+  <div class="head"><p class="eyebrow rise">Tugas · tulis tangan</p><h2 class="rise" style="--d:.08s">Tugas tulis tangan Minggu 10</h2></div>
+  <div class="two" style="grid-template-columns:640px 1fr">
+    <div class="card rise" style="--d:.15s;align-self:start;display:flex;flex-direction:column;gap:16px">
+      <h3>Ketentuan</h3>
+      <p>Sama dengan Minggu 9: <b>individu</b>, <b>tulis tangan</b>, X = digit terakhir NIM.</p>
+      <p>Setiap soal diawali <b>tabel masukan–proses–keluaran</b> dan <b>daftar variabel</b>.</p>
+      <p>Satu PDF: <code>T10_NIM_Nama.pdf</code>, unggah ke LMS sebelum Minggu 11.</p>
+    </div>
+    <div class="soal rise" style="--d:.25s">
+      <div class="it"><span class="n">1</span><p>for: jumlah bilangan ganjil</p><span class="pt">15 poin</span><div class="bar"><i style="width:60%"></i></div></div>
+      <div class="it"><span class="n">2</span><p>while + sentinel: kasir diskon</p><span class="pt">20 poin</span><div class="bar"><i style="width:80%"></i></div></div>
+      <div class="it"><span class="n">3</span><p>repeat-until + flag: tebak angka</p><span class="pt">15 poin</span><div class="bar"><i style="width:60%"></i></div></div>
+      <div class="it"><span class="n">4</span><p>Larik: curah hujan</p><span class="pt">25 poin</span><div class="bar"><i style="width:100%"></i></div></div>
+      <div class="it"><span class="n">5</span><p>Studi kasus (X genap / ganjil)</p><span class="pt">25 poin</span><div class="bar"><i style="width:100%"></i></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 29. RANGKUMAN -->
+<section class="slide alt" id="s-sum" data-notes="Rangkuman mengacu kembali ke empat tujuan pertemuan. Tutup dengan pertanyaan pemantik sebagai jembatan ke flowchart.">
+  <div class="head"><p class="eyebrow rise">Rangkuman</p><h2 class="rise" style="--d:.08s">Poin-poin utama</h2></div>
+  <div class="sum">
+    <div class="card icard rise" style="--d:.15s"><span class="ic b">↻</span><p><b>for</b> bila banyak ulangan diketahui; <b>while</b> bila mungkin nol kali; <b>repeat-until</b> bila minimal sekali.</p></div>
+    <div class="card icard rise" style="--d:.25s"><span class="ic">Σ</span><p>Algoritma besar adalah gabungan <b>pola</b>: akumulator, pencacah, maksimum, sentinel, validasi, flag.</p></div>
+    <div class="card icard rise" style="--d:.35s"><span class="ic g">[ ]</span><p><b>Larik</b> diperlukan ketika data harus dipakai lebih dari sekali; pencarian beruntun berhenti saat ketemu.</p></div>
+    <div class="card icard rise" style="--d:.45s"><span class="ic r">6</span><p><b>Enam langkah</b>: pahami, masukan–keluaran, dekomposisi, pola, tulis, uji.</p></div>
+  </div>
+  <div class="teaser rise" style="--d:.6s"><span class="ic">?</span><p><b>Pertanyaan pemantik:</b> pseudocode rekap nilai punya tiga pengulangan dan empat pemilihan. Bagaimana menggambarkannya agar alurnya terlihat sekilas?</p></div>
+</section>
+
+<!-- 30. LATIHAN -->
+<section class="slide" id="s-latihan" data-notes="KUNCI SINGKAT. (1) banyak 2, total 110.000, diskon 11.000, bayar 99.000. (2) for i ← 1 to 100, kondisi (i mod 3 = 0) and (i mod 5 ≠ 0); banyaknya 33 − 6 = 27. (3) while dengan sentinel bilangan negatif; pencacah genap, akumulator + pencacah ganjil; periksa pembagian nol jika tidak ada bilangan ganjil. (4) dua larik nama[1..N] dan stok[1..N]; traversal untuk stok &lt; 10, pola maksimum yang menyimpan indeks. (5) Karena banyak putaran tidak diketahui: pencarian harus berhenti segera saat ketemu. PIN simulasi slide 15: 2468.">
+  <div class="head"><p class="eyebrow rise">Evaluasi pembelajaran</p><h2 class="rise" style="--d:.08s">Latihan soal</h2></div>
+  <ol class="exercises rise" style="--d:.15s">
+    <li>Telusuri pseudocode kasir (slide 13) untuk masukan 60.000, 50.000, 0 dengan BATAS_DISKON = 100.000. Tuliskan nilai akhir setiap variabel.</li>
+    <li>Tampilkan semua bilangan 1–100 yang habis dibagi 3 tetapi tidak habis dibagi 5, lalu tampilkan banyaknya.</li>
+    <li>Baca bilangan bulat positif sampai pengguna memasukkan bilangan negatif. Tampilkan banyak bilangan genap dan rata-rata bilangan ganjil.</li>
+    <li>Baca N nama barang dan stoknya ke dalam dua larik. Tampilkan nama barang dengan stok di bawah 10 dan nama barang dengan stok terbanyak.</li>
+    <li>Jelaskan mengapa pencarian beruntun ditulis dengan <code>while</code>, bukan <code>for</code>.</li>
+  </ol>
+  <p class="src">Soal 2–4 diambil dari Modul Bagian 10.3. Kunci singkat ada pada catatan pengajar (tekan N).</p>
+</section>
+
+<!-- 31. REFERENSI -->
+<section class="slide alt" id="s-ref" data-notes="Munir (2019) adalah rujukan notasi pseudocode yang dipakai di modul. Knuth (1997) untuk ciri-ciri algoritma, Wing (2006) dan Riley &amp; Hunt (2014) untuk kerangka berpikir komputasional.">
+  <div class="head"><p class="eyebrow rise">Referensi</p><h2 class="rise" style="--d:.08s">Daftar pustaka</h2></div>
+  <div class="refs rise" style="--d:.12s">
+    <p>Böhm, C., &amp; Jacopini, G. (1966). Flow diagrams, Turing machines and languages with only two formation rules. <i>Communications of the ACM, 9</i>(5), 366–371. https://doi.org/10.1145/355592.365646</p>
+    <p>Knuth, D. E. (1997). <i>The art of computer programming, Vol. 1: Fundamental algorithms</i> (3rd ed.). Addison-Wesley.</p>
+    <p>Munir, R. (2019). <i>Algoritma dan pemrograman dalam bahasa Pascal, C, dan C++</i> (Edisi revisi kelima). Informatika Bandung.</p>
+    <p>Pólya, G. (1945). <i>How to solve it</i>. Princeton University Press.</p>
+    <p>Riley, D. D., &amp; Hunt, K. A. (2014). <i>Computational thinking for the modern problem solver</i>. CRC Press.</p>
+    <p>Wing, J. M. (2006). Computational thinking. <i>Communications of the ACM, 49</i>(3), 33–35. https://doi.org/10.1145/1118178.1118215</p>
+  </div>
+</section>
+
+<!-- 32. PENUTUP -->
+<section class="slide dark" id="s-next" data-notes="Pratinjau Minggu 11–12: setiap struktur yang dipelajari hari ini punya simbol flowchart. Minta mahasiswa menyimpan jawaban tugas Minggu 10, karena akan dipakai sebagai bahan konversi ke flowchart.">
+  <div style="margin:auto 0">
+    <p class="eyebrow rise">Minggu depan</p>
+    <h2 class="rise" style="--d:.1s;font-size:84px;color:var(--light)">Dari pseudocode ke flowchart</h2>
+    <div class="flowteaser">
+<pre class="code rise nonum" style="--d:.25s">while harga ≠ 0 do
+   total ← total + harga
+   read(harga)
+endwhile</pre>
+      <svg viewBox="0 0 560 330" class="rise" style="--d:.4s" aria-hidden="true">
+        <path d="M30 165h70" stroke="#C9D3E0" stroke-width="3" marker-end="url(#ah)"/>
+        <path d="M180 85 L270 165 L180 245 L90 165 Z" fill="#24364F" stroke="#E8833A" stroke-width="3"/>
+        <text x="180" y="172" fill="#F7F5F0" font-family="JetBrains Mono" font-size="20" text-anchor="middle">harga ≠ 0?</text>
+        <path d="M270 165h60" stroke="#C9D3E0" stroke-width="3" marker-end="url(#ah)"/>
+        <text x="296" y="152" fill="#9ED4B5" font-family="Nunito Sans" font-weight="800" font-size="18" text-anchor="middle">ya</text>
+        <rect x="335" y="135" width="200" height="60" rx="6" fill="#24364F" stroke="#2F6FB0" stroke-width="3"/>
+        <text x="435" y="172" fill="#F7F5F0" font-family="JetBrains Mono" font-size="18" text-anchor="middle">total ← total+harga</text>
+        <path d="M435 135V40H180v40" fill="none" stroke="#C9D3E0" stroke-width="3" marker-end="url(#ah)"/>
+        <path d="M180 245v60" stroke="#C9D3E0" stroke-width="3"/>
+        <text x="196" y="285" fill="#F2A766" font-family="Nunito Sans" font-weight="800" font-size="18">tidak</text>
+        <defs><marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#C9D3E0"/></marker></defs>
+      </svg>
+    </div>
+    <p class="lead rise" style="--d:.5s;margin-top:40px">Pseudocode yang sudah Anda tulis akan digambar ulang sebagai diagram alir. Simpan jawaban tugas Minggu 10.</p>
+  </div>
+</section>
+
+<div id="counter"><button id="prevBtn" aria-label="Sebelumnya">‹</button><span id="num">1 / 32</span><button id="nextBtn" aria-label="Berikutnya">›</button></div>
+</div>
+<div id="notes"></div>
+
+<script>
+(function(){
+'use strict';
+const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>[...r.querySelectorAll(s)];
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+const fmt=n=>Math.round(n).toLocaleString('id-ID');
+const neg=v=>typeof v==='number'&&v<0?'−'+Math.abs(v):v;
+
+/* ---------- pseudocode highlighter ---------- */
+const KW=new Set('PROGRAM DEKLARASI ALGORITMA read write if then else endif for to downto do endfor while endwhile repeat until and or not const array of integer real boolean char string true false case endcase mod div'.split(' '));
+const esc=s=>s.replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+function hlLine(l){
+  return l.replace(/(\{[^}]*\}?)|('[^']*'?)|(←)|([A-Za-z_][A-Za-z_0-9]*)|(\d+(?:\.\d+)?)|([&<>])/g,(m,c,s,a,w,n,e)=>{
+    if(c)return`<span class="tk-cm">${esc(c)}</span>`;
+    if(s)return`<span class="tk-st">${esc(s)}</span>`;
+    if(a)return'<span class="tk-ar">←</span>';
+    if(w)return KW.has(w)?`<span class="tk-kw">${w}</span>`:(/^[A-Z][A-Z_]+$/.test(w)?`<span class="tk-cs">${w}</span>`:w);
+    if(n)return`<span class="tk-nu">${n}</span>`;
+    return esc(e);
+  });
+}
+function codeify(pre,text){
+  const raw=(text!=null?text:pre.textContent).replace(/^\n+/,'').replace(/\s+$/,'');
+  let inC=false;
+  pre.innerHTML=raw.split('\n').map(l=>{
+    let h;
+    if(inC){const j=l.indexOf('}');if(j<0)h=`<span class="tk-cm">${esc(l)}</span>`;else{h=`<span class="tk-cm">${esc(l.slice(0,j+1))}</span>`+hlLine(l.slice(j+1));inC=false}}
+    else{h=hlLine(l);const o=l.lastIndexOf('{');if(o>=0&&l.indexOf('}',o)<0)inC=true}
+    return`<span class="ln">${h||' '}</span>`;
+  }).join('');
+  pre.lines=$$('.ln',pre);
+}
+function mark(pre,arr,cls='cur'){(pre.lines||[]).forEach((l,i)=>l.classList.toggle(cls,arr.includes(i)))}
+function setVars(el,v,changed=[]){$$('[data-var]',el).forEach(d=>{const k=d.dataset.var;if(k in v)$('.vl',d).textContent=neg(v[k]);d.classList.toggle('chg',changed.includes(k)&&!d.classList.contains('out'))})}
+
+/* ---------- stage & navigation ---------- */
+const stage=$('#stage'), slides=$$('.slide'), S={}, inited=new Set();
+let cur=-1;
+function fit(){const s=Math.min(innerWidth/1920,innerHeight/1080);stage.style.transform=`translate(-50%,-50%) scale(${s})`}
+addEventListener('resize',fit);fit();
+function go(n){
+  n=clamp(n,0,slides.length-1); if(n===cur)return;
+  if(cur>=0){slides[cur].classList.remove('active');const h=S[slides[cur].id];h&&h.leave&&h.leave()}
+  cur=n;const el=slides[n];el.classList.add('active');
+  const h=S[el.id];
+  if(h){if(!inited.has(el.id)){inited.add(el.id);try{h.init&&h.init(el)}catch(e){console.error(e)}}try{h.enter&&h.enter(el)}catch(e){console.error(e)}}
+  stage.classList.toggle('on-dark',el.classList.contains('dark'));
+  $('#num').textContent=`${n+1} / ${slides.length}`;
+  $('#progress').style.width=((n+1)/slides.length*100)+'%';
+  $('#notes').innerHTML=el.dataset.notes?`<b>Catatan · slide ${n+1}</b><br>${el.dataset.notes}`:'';
+  history.replaceState(null,'','#'+(n+1));
+}
+addEventListener('keydown',e=>{
+  if(e.target.tagName==='INPUT')return;
+  if(['ArrowRight','PageDown',' '].includes(e.key)){e.preventDefault();go(cur+1)}
+  else if(['ArrowLeft','PageUp'].includes(e.key)){e.preventDefault();go(cur-1)}
+  else if(e.key==='Home')go(0); else if(e.key==='End')go(slides.length-1);
+  else if(e.key==='f'||e.key==='F'){document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen().catch(()=>{})}
+  else if(e.key==='n'||e.key==='N')$('#notes').classList.toggle('show');
+});
+$('#prevBtn').onclick=()=>go(cur-1); $('#nextBtn').onclick=()=>go(cur+1);
+let last=performance.now();
+function loop(now){const dt=Math.min(.05,(now-last)/1000);last=now;const h=cur>=0&&S[slides[cur].id];if(h&&h.frame){try{h.frame(dt,now/1000)}catch(e){console.error(e);h.frame=null}}requestAnimationFrame(loop)}
+function onEnter(input,fn){input.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();fn()}})}
+
+/* ---------- generic step tracer ---------- */
+function tracer(o){
+  return Object.assign({
+    init(el){this.el=el;this.pre=$('pre.code[id]',el);this.tb=$('.tb',el);this.build&&this.build();
+      $('.bNext',el).onclick=()=>this.set(this.k+1);$('.bPrev',el).onclick=()=>this.set(this.k-1);$('.bReset',el).onclick=()=>this.set(-1)},
+    set(k){const st=this.steps;k=clamp(k,-1,st.length-1);this.k=k;const v=Object.assign({},this.v0),rows=[];
+      for(let t=0;t<=k;t++){Object.assign(v,st[t].v||{});if(st[t].row)rows.push(st[t].row)}
+      mark(this.pre,k>=0?st[k].l:[]);setVars(this.el,v,k>=0?Object.keys(st[k].v||{}):[]);
+      const fresh=k>=0&&!!st[k].row;
+      this.tb.innerHTML=rows.map((r,i)=>`<tr class="${fresh&&i===rows.length-1?'new':''}">${r.map(c=>`<td class="${c==='true'?'ok':c==='false'?'no':''}">${neg(c)}</td>`).join('')}</tr>`).join('');
+      $('.tnote',this.el).innerHTML=k<0?this.idle:st[k].note;
+      $('.bNext',this.el).disabled=k>=st.length-1;$('.bPrev',this.el).disabled=k<0},
+    enter(){this.set(-1)}
+  },o);
+}
+
+/* ---------- 1. cover ---------- */
+S['s-cover']={enter(){this.t=0;this.n=1},frame(dt){this.t+=dt;if(this.t>=9){this.t-=9;this.n++;$('#coverTick').textContent='putaran '+this.n}}};
+
+/* ---------- static code blocks + hover links ---------- */
+$$('pre.code').forEach(p=>{if(p.textContent.trim())codeify(p)});
+$$('[data-hl]').forEach(el=>{const[id,ls]=el.dataset.hl.split(':');const arr=ls.split(',').map(Number);
+  const on=()=>mark($('#'+id),arr,'hov'),off=()=>mark($('#'+id),[],'hov');
+  el.addEventListener('mouseenter',on);el.addEventListener('mouseleave',off);el.addEventListener('click',on)});
+
+/* ---------- 5. loop x100 ---------- */
+S['s-why']={
+  init(el){$('#whyDots').innerHTML='<i></i>'.repeat(100);this.dots=$$('#whyDots i');this.con=$('#whyCon');$('#whyReplay').onclick=()=>this.reset()},
+  reset(){this.i=0;this.t=0;this.ph='check';this.done=false;this.con.innerHTML='';this.dots.forEach(d=>d.className='');
+    $('#whyI').textContent='0';$('#whyStat').textContent='i ← 1';mark($('#cWhy'),[0])},
+  print(html){this.con.insertAdjacentHTML('beforeend',`<div>${html}</div>`);while(this.con.children.length>5)this.con.firstChild.remove()},
+  frame(dt){this.t+=dt;
+    if(this.done){if(this.t>4)this.reset();return}
+    const sp=this.i<3?.6:this.i<10?.2:.03;if(this.t<sp)return;this.t=0;
+    if(this.ph==='check'){
+      if(this.i>=100){this.done=true;mark($('#cWhy'),[2]);this.dots.forEach(d=>d.classList.remove('now'));
+        $('#whyStat').textContent='i = 101 > 100 → selesai';this.print('<span class="end">— selesai: 100 baris dari 3 baris kode —</span>');return}
+      mark($('#cWhy'),[0]);$('#whyStat').textContent=`i = ${this.i+1} ≤ 100 ✓`;this.ph='body'}
+    else{this.i++;mark($('#cWhy'),[1]);$('#whyI').textContent=this.i;
+      this.dots.forEach((d,k)=>{d.classList.toggle('on',k<this.i);d.classList.toggle('now',k===this.i-1)});
+      this.print(`<span class="no">${this.i}</span>Hello World`);this.ph='check'}},
+  enter(){this.reset()}
+};
+
+/* ---------- 6. for ---------- */
+S['s-for']=tracer({v0:{N:'?',i:'?',jumlah:'?',out:''},idle:'Tekan <b>Langkah</b> untuk menelusuri baris demi baris.',
+  build(){const st=[{l:[1],v:{N:4},note:'<code>read(N)</code>: pengguna memasukkan 4.'},{l:[2],v:{jumlah:0},row:['awal','–',0],note:'Akumulator diberi nilai awal 0.'}];
+    let j=0;for(let i=1;i<=4;i++){st.push({l:[3],v:{i},note:`<code>i ← ${i}</code>. Karena ${i} ≤ N, badan dikerjakan.`});j+=i;st.push({l:[4],v:{jumlah:j},row:[i,i,j],note:`<code>jumlah ← ${j-i} + ${i}</code> = <b>${j}</b>.`})}
+    st.push({l:[3,5],v:{i:'–'},note:'Pencacah melewati N = 4, pengulangan selesai.'});
+    st.push({l:[6],v:{out:j},note:`<code>write(jumlah)</code> menampilkan <b>${j}</b> = 1 + 2 + 3 + 4.`});this.steps=st}});
+
+/* ---------- 7. while ---------- */
+S['s-while']={
+  init(el){this.el=el;this.cv=$('#cvWhile');$('#wRun').onclick=()=>this.run();
+    ['wSaldo','wSetor','wTarget'].forEach(id=>onEnter($('#'+id),()=>this.run()));
+    $$('[data-wp]',el).forEach(b=>b.onclick=()=>{const[a,s,t]=b.dataset.wp.split(',');$('#wSaldo').value=a;$('#wSetor').value=s;$('#wTarget').value=t;this.run()})},
+  enter(){this.run()},
+  run(){const pre=$('#cWhile');let saldo=+$('#wSaldo').value||0;const set=+$('#wSetor').value||0,target=+$('#wTarget').value||0,MAX=600;
+    const pts=[saldo];let bulan=0;while(saldo<target&&bulan<MAX){saldo=saldo+saldo*.005+set;bulan++;pts.push(saldo)}
+    this.pts=pts;this.target=target;this.inf=saldo<target;this.p=0;
+    const out=$('#wOut');
+    if(bulan===0){out.innerHTML=`<code>saldo &lt; target</code> sudah <b>false</b> sejak awal: badan dikerjakan <b>nol kali</b>. Keluaran: bulan = 0, saldo = ${fmt(saldo)}.`;mark(pre,[3,7])}
+    else if(this.inf){out.innerHTML=(set<=0&&pts[0]<=0)?'<b class="hl-r">Tidak pernah berhenti.</b> saldo tetap 0, jadi <code>saldo &lt; target</code> selalu true: <b>pengulangan tak berhingga</b>.':`<b class="hl-r">Belum berhenti setelah ${MAX} bulan (50 tahun).</b> Perubahan per putaran terlalu kecil.`;mark(pre,[3,4,5])}
+    else{out.innerHTML=`Keluaran: <b>bulan = ${bulan}</b>, saldo = ${fmt(saldo)}. Badan dikerjakan ${bulan} kali.`;mark(pre,[7])}
+    this.draw(0)},
+  frame(dt){if(this.pts&&this.p<1){this.p=Math.min(1,this.p+dt*1.2);this.draw(this.p)}},
+  draw(p){const cv=this.cv,W=cv.clientWidth,H=cv.clientHeight;if(!W)return;if(cv.width!==W*2){cv.width=W*2;cv.height=H*2}
+    const ctx=cv.getContext('2d');ctx.setTransform(2,0,0,2,0,0);ctx.clearRect(0,0,W,H);
+    const pts=this.pts,n=Math.max(pts.length-1,1),ymax=Math.max(this.target,...pts)*1.1||1,m={l:80,r:20,t:14,b:36};
+    const sx=i=>m.l+i/n*(W-m.l-m.r),sy=v=>H-m.b-v/ymax*(H-m.t-m.b);
+    ctx.font='600 16px "Nunito Sans", sans-serif';ctx.fillStyle='#4F5D6E';ctx.strokeStyle='#E7E3D9';ctx.lineWidth=1;
+    for(let k=0;k<=4;k++){const v=ymax*k/4;ctx.beginPath();ctx.moveTo(m.l,sy(v));ctx.lineTo(W-m.r,sy(v));ctx.stroke();ctx.textAlign='right';ctx.fillText((v/1e6).toFixed(1)+' jt',m.l-10,sy(v)+5)}
+    ctx.textAlign='center';ctx.fillText('bulan',(m.l+W-m.r)/2,H-8);ctx.textAlign='left';ctx.fillText('0',m.l,H-m.b+20);ctx.textAlign='right';ctx.fillText(String(pts.length-1),W-m.r,H-m.b+20);
+    ctx.setLineDash([8,6]);ctx.strokeStyle='#E8833A';ctx.lineWidth=2.5;ctx.beginPath();ctx.moveTo(m.l,sy(this.target));ctx.lineTo(W-m.r,sy(this.target));ctx.stroke();ctx.setLineDash([]);
+    ctx.fillStyle='#B4501A';ctx.textAlign='left';ctx.font='800 16px "Nunito Sans", sans-serif';ctx.fillText('target',m.l+8,sy(this.target)-8);
+    const upto=Math.round(p*(pts.length-1));ctx.strokeStyle=this.inf?'#C0392B':'#2F6FB0';ctx.lineWidth=3.5;ctx.beginPath();
+    for(let i=0;i<=upto;i++){const x=sx(i),y=sy(pts[i]);i?ctx.lineTo(x,y):ctx.moveTo(x,y)}ctx.stroke();
+    ctx.beginPath();ctx.arc(sx(upto),sy(pts[upto]),6,0,7);ctx.fillStyle=this.inf?'#C0392B':'#2F6FB0';ctx.fill()}
+};
+
+/* ---------- 8. repeat ---------- */
+S['s-repeat']={
+  init(el){this.el=el;$('#rSend').onclick=()=>this.send();onEnter($('#rIn'),()=>this.send());$('#rReset').onclick=()=>this.reset();
+    $('#rDemo').onclick=()=>{this.reset();[120,-5,85].forEach((v,i)=>this.timers.push(setTimeout(()=>{$('#rIn').value=v;this.send()},500+i*900)))};this.timers=[]},
+  reset(){this.timers.forEach(clearTimeout);this.timers=[];this.n=0;this.done=false;$('#rLog').innerHTML='';$('#rIn').value='';$('#rIn').disabled=false;
+    mark($('#cRep'),[1,2]);$('#rNote').innerHTML='Badan langsung dikerjakan: program menampilkan pesan dan menunggu <code>read(nilai)</code>.'},
+  send(){if(this.done)return;const s=$('#rIn').value.trim();if(s==='')return;const v=+s;this.n++;const ok=v>=0&&v<=100;
+    $$('#rLog tr').forEach(r=>r.classList.remove('new'));
+    $('#rLog').insertAdjacentHTML('beforeend',`<tr class="new"><td>${this.n}</td><td>${neg(v)}</td><td class="${ok?'ok':'no'}">${ok}</td><td>${ok?'berhenti':'ulang'}</td></tr>`);
+    $('#rIn').value='';
+    if(ok){this.done=true;$('#rIn').disabled=true;mark($('#cRep'),[3]);$('#rNote').innerHTML=`Kondisi <b>true</b> → berhenti. Nilai <b>${v}</b> diterima setelah ${this.n} putaran.`}
+    else{mark($('#cRep'),[3,1,2]);$('#rNote').innerHTML=`${neg(v)} di luar 0..100 → kondisi <b>false</b> → badan diulang.`}},
+  enter(){this.reset()},leave(){this.timers.forEach(clearTimeout)}
+};
+
+/* ---------- 9. quiz ---------- */
+$$('.qcard').forEach(c=>c.onclick=()=>c.classList.toggle('flip'));
+S['s-pilih']={enter(el){$$('.qcard',el).forEach(c=>c.classList.remove('flip'))}};
+
+/* ---------- 10. traps ---------- */
+S['s-trap']={
+  init(el){this.inf=$('#cInf');this.ob=$('#cOb');
+    $('#infFix').onclick=()=>{this.fixI=!this.fixI;this.renderI()};
+    $('#obFix').onclick=()=>{this.fixO=!this.fixO;this.renderO()};
+    $('#obN').oninput=()=>this.renderO()},
+  enter(){this.fixI=false;this.fixO=false;$('#obN').value=4;this.renderI();this.renderO()},
+  renderI(){const f=this.fixI;codeify(this.inf,`i ← 1\nwhile i ≤ 10 do\n   write(i)\n   ${f?'i ← i + 1':'{ lupa: i ← i + 1 }'}\nendwhile`);
+    mark(this.inf,[3],f?'fix':'bug');$('#infFix').textContent=f?'Kembalikan':'Perbaiki';$('#infFix').classList.toggle('on',f);
+    this.cnt=0;this.acc=0;const o=$('#infOut');o.className='outstrip '+(f?'ok':'err');
+    o.textContent=f?'1 2 3 4 5 6 7 8 9 10  → selesai setelah 10 putaran':'';
+    $('#infTxt').innerHTML=f?'<code>i</code> bertambah setiap putaran, jadi <code>i ≤ 10</code> suatu saat <b>false</b>.':'<code>i</code> tidak pernah berubah, jadi <code>i ≤ 10</code> selalu <b>true</b>. Melanggar ciri <i>finiteness</i>.'},
+  renderO(){const f=this.fixO,N=+$('#obN').value;$('#obNv').textContent=N;
+    codeify(this.ob,`jumlah ← 0\nfor i ← 1 to ${f?'N':'N - 1'} do\n   jumlah ← jumlah + i\nendfor`);mark(this.ob,[1],f?'fix':'bug');
+    $('#obFix').textContent=f?'Kembalikan':'Perbaiki';$('#obFix').classList.toggle('on',f);
+    const want=N*(N+1)/2,got=f?want:(N-1)*N/2,o=$('#obOut');o.className='outstrip '+(got===want?'ok':'err');
+    o.textContent=got===want?`N = ${N}: hasil ${got} ✓ sesuai hitungan manual`:`N = ${N}: hasil ${got}, seharusnya ${want} ✗ (angka ${N} tidak ikut)`},
+  frame(dt){if(this.fixI)return;this.acc+=dt;if(this.acc<.06)return;this.acc=0;this.cnt++;$('#infOut').textContent=`putaran ${this.cnt}:  `+'1 '.repeat(Math.min(this.cnt,40))+'…'}
+};
+
+/* ---------- 13. kasir ---------- */
+S['s-kasir']={
+  init(el){this.el=el;this.pre=$('#cKasir');$('#kAdd').onclick=()=>this.add();onEnter($('#kIn'),()=>this.add());$('#kReset').onclick=()=>this.reset();
+    $('#kDemo').onclick=()=>{this.reset();[25000,40000,50000,0].forEach((v,i)=>this.timers.push(setTimeout(()=>{$('#kIn').value=v;this.add()},500+i*1000)))};this.timers=[]},
+  reset(){this.timers.forEach(clearTimeout);this.timers=[];this.total=0;this.banyak=0;this.done=false;$('#kChips').innerHTML='<span class="ph" style="animation:none;border:0;background:none;padding:0">belum ada masukan</span>';
+    setVars(this.el,{total:0,banyak:0,diskon:'–',bayar:''});mark(this.pre,[1,2,3]);$('#kIn').value='';$('#kIn').disabled=false;
+    $('#kNote').innerHTML='Nilai awal: <code>total ← 0</code>, <code>banyak ← 0</code>. Program menunggu harga pertama.'},
+  add(){if(this.done)return;const s=$('#kIn').value.trim();if(s==='')return;const p=Math.round(+s);$('#kIn').value='';
+    if(!this.banyak&&$('.ph',this.el))$('#kChips').innerHTML='';
+    $('#kChips').insertAdjacentHTML('beforeend',`<span class="${p===0?'sent':''}">${p===0?'0 (sentinel)':fmt(p)}</span>`);
+    if(p!==0){this.total+=p;this.banyak++;setVars(this.el,{total:fmt(this.total),banyak:this.banyak},['total','banyak']);mark(this.pre,[4,5,6,7]);
+      $('#kNote').innerHTML=`<code>harga ≠ 0</code> → badan dikerjakan: total = ${fmt(this.total)}, banyak = ${this.banyak}. Baca harga berikutnya.`}
+    else{this.done=true;$('#kIn').disabled=true;const d=this.total>100000?.1*this.total:0;
+      setVars(this.el,{diskon:fmt(d),bayar:fmt(this.total-d)},['diskon']);mark(this.pre,this.total>100000?[4,9,10,14]:[4,9,12,14]);
+      $('#kNote').innerHTML=`Sentinel 0 → keluar dari while (0 tidak dijumlahkan). total ${this.total>100000?'&gt;':'≤'} 100.000 → diskon ${d?'10%':'0'}. Keluaran: <b>${this.banyak}, ${fmt(this.total)}, ${fmt(d)}, ${fmt(this.total-d)}</b>.`}},
+  enter(){this.reset()},leave(){this.timers.forEach(clearTimeout)}
+};
+
+/* ---------- 14. maksimum ---------- */
+const MAKS_A=`ALGORITMA:
+   read(N)
+   read(x)
+   maks ← x          { mulai dari data pertama }
+   for i ← 2 to N do
+      read(x)
+      if x > maks then
+         maks ← x
+      endif
+   endfor
+   write(maks)`;
+const MAKS_B=`ALGORITMA:
+   read(N)
+   maks ← 0          { 0 belum tentu ada di data }
+   for i ← 1 to N do
+      read(x)
+      if x > maks then
+         maks ← x
+      endif
+   endfor
+   write(maks)`;
+S['s-maks']=tracer({v0:{i:'?',x:'?',maks:'?',out:''},idle:'Tekan <b>Langkah</b>. Data: N = 3, nilai −5, −2, −9.',
+  build(){this.ver='A';$('#mA').onclick=()=>this.use('A');$('#mB').onclick=()=>this.use('B');this.use('A')},
+  use(ver){this.ver=ver;$('#mA').classList.toggle('on',ver==='A');$('#mB').classList.toggle('on',ver==='B');codeify(this.pre,ver==='A'?MAKS_A:MAKS_B);
+    const D=[-5,-2,-9],st=[];
+    if(ver==='A'){st.push({l:[1],v:{},note:'<code>read(N)</code>: N = 3.'},{l:[2],v:{x:-5},note:'Data pertama dibaca: x = −5.'},{l:[3],v:{maks:-5},row:['awal',-5,'–',-5],note:'<code>maks ← x</code>: maks dimulai dari data pertama, −5.'});
+      let m=-5;for(let i=2;i<=3;i++){const x=D[i-1];st.push({l:[4,5],v:{i,x},note:`i = ${i}: baca x = ${neg(x)}.`});const b=x>m;if(b)m=x;st.push({l:b?[6,7]:[6],v:b?{maks:m}:{},row:[i,x,String(b),m],note:`${neg(x)} &gt; maks? <b>${b}</b>${b?` → maks ← ${neg(x)}`:' → maks tetap'}.`})}
+      st.push({l:[10],v:{out:m},note:`Keluaran <b>${neg(m)}</b> ✓ benar, nilai terbesar dari −5, −2, −9.`})}
+    else{st.push({l:[1],v:{},note:'<code>read(N)</code>: N = 3.'},{l:[2],v:{maks:0},row:['awal','–','–',0],note:'<code>maks ← 0</code>: nilai awal yang tidak berasal dari data.'});
+      let m=0;for(let i=1;i<=3;i++){const x=D[i-1];st.push({l:[3,4],v:{i,x},note:`i = ${i}: baca x = ${neg(x)}.`});const b=x>m;if(b)m=x;st.push({l:b?[5,6]:[5],v:b?{maks:m}:{},row:[i,x,String(b),m],note:`${neg(x)} &gt; ${neg(m)}? <b>${b}</b> → maks tetap ${neg(m)}.`})}
+      st.push({l:[9],v:{out:m},note:'Keluaran <b class="hl-r">0 ✗ salah</b>: 0 tidak ada di data. Semua data negatif tidak pernah mengalahkan nilai awal.'})}
+    this.steps=st;if(this.el)this.set(-1)},
+  enter(){this.use('A')}});
+
+/* ---------- 15. PIN ---------- */
+S['s-pin']={PIN:'2468',MAX:3,
+  init(el){this.el=el;this.pre=$('#cPin');$('#pSend').onclick=()=>this.send();onEnter($('#pIn'),()=>this.send());$('#pReset').onclick=()=>this.reset()},
+  reset(){this.coba=0;this.benar=false;this.done=false;$('#pIn').value='';$('#pIn').disabled=false;$('#pScreen').className='screen';$('#pScreen').textContent='Masukkan PIN';
+    this.upd();mark(this.pre,[1,2]);$('#pNote').innerHTML='Nilai awal: <code>coba ← 0</code>, flag <code>benar ← false</code>.'},
+  upd(){$('#pCoba').textContent=this.coba;$('#pBenar').textContent=this.benar;$$('.atm .dots i',this.el).forEach((d,i)=>d.classList.toggle('used',i<this.coba))},
+  send(){if(this.done)return;const s=$('#pIn').value.trim();if(!s)return;$('#pIn').value='';this.coba++;const sc=$('#pScreen');
+    if(s===this.PIN){this.benar=true;this.done=true;sc.className='screen';sc.textContent='Silakan pilih transaksi';mark(this.pre,[6,7,11,12,13]);
+      $('#pNote').innerHTML=`Berhenti karena <b>benar = true</b> (percobaan ke-${this.coba}). Flag memilih pesan sukses.`}
+    else if(this.coba<this.MAX){sc.className='screen bad';sc.textContent=`PIN salah, sisa: ${this.MAX-this.coba}`;mark(this.pre,[6,8,9,11]);
+      $('#pNote').innerHTML=`<code>benar or (coba = MAKS_COBA)</code> = false or (${this.coba} = 3) = <b>false</b> → ulang.`}
+    else{this.done=true;sc.className='screen lock';sc.textContent='Kartu diblokir';mark(this.pre,[11,14,15]);
+      $('#pNote').innerHTML='Berhenti karena <b>coba = MAKS_COBA</b>, bukan karena benar. Flag <code>benar</code> masih false → pesan blokir.'}
+    if(this.done)$('#pIn').disabled=true;this.upd()},
+  enter(){this.reset()}
+};
+
+/* ---------- 17. larik ---------- */
+const DATA=[78,65,90,55,82];
+function boxes(host,vals,small){host.innerHTML=vals.map((v,i)=>`<div class="box" data-i="${i}"><div class="v">${v}</div><span class="ix">${i+1}</span></div>`).join('');return $$('.box',host)}
+S['s-larik']={
+  init(el){this.bx=boxes($('#arrMain'),DATA);this.bx.forEach((b,i)=>b.onclick=()=>{this.run=false;this.sel(i)});$('#arrTrav').onclick=()=>{this.run=true;this.t=0;this.i=0;this.sel(0)}},
+  sel(i){this.bx.forEach((b,k)=>b.classList.toggle('sel',k===i));$('#arrRead').innerHTML=(this.run?`i = ${i+1} → `:'')+`nilai[${i+1}] = ${DATA[i]}`;mark($('#cArr'),this.run?[6,7]:[])},
+  enter(){this.run=false;this.sel(2)},
+  frame(dt){if(!this.run)return;this.t+=dt;if(this.t<.8)return;this.t=0;this.i++;if(this.i>=DATA.length){this.run=false;this.bx.forEach(b=>b.classList.remove('sel'));$('#arrRead').textContent='traversal selesai: 5 elemen dikunjungi';mark($('#cArr'),[8]);return}this.sel(this.i)}
+};
+
+/* ---------- 18. tiga telusur ---------- */
+S['s-telusur']={
+  init(el){this.el=el;this.bx=boxes($('#arrTel'),DATA.map(()=>'?'));$$('.phasec',el).forEach(p=>p.onclick=()=>this.set(+p.dataset.ph))},
+  set(ph){this.ph=ph;const pre=$('#cTel'),R={1:[1,2,3,4],2:[5,6,7,8,9],3:[10,11,12,13,14,15,16]};
+    ['p1','p2','p3'].forEach((c,k)=>mark(pre,ph>=k+1?R[k+1]:[],c));
+    $$('.phasec',this.el).forEach(p=>{const k=+p.dataset.ph;p.classList.toggle('on',k<=ph||k===ph+1);p.classList.toggle('cur',k===ph)});
+    this.bx.forEach((b,i)=>{$('.v',b).textContent=ph>=1?DATA[i]:'?';b.classList.toggle('empty',ph<1);b.classList.toggle('up',ph>=3&&DATA[i]>74)});
+    const n=$('#telNote');
+    n.innerHTML=ph===0?'Klik <b>Telusur 1</b> untuk mulai. Data uji: 78, 65, 90, 55, 82.':ph===1?'Kelima nilai tersimpan di <code>nilai[1..5]</code>.':ph===2?'jumlah = 370, <b>rata = 370 / 5 = 74</b>. Baru sekarang rata-rata diketahui.':'Nilai &gt; 74: 78, 90, 82 → <b>banyak = 3</b>. Telusur ini membaca larik sekali lagi.'},
+  enter(){this.set(0)}
+};
+
+/* ---------- 19. pencarian ---------- */
+const NIMS=[2405011,2405024,2405037,2405042,2405058,2405063,2405079,2405085];
+S['s-cari']={
+  init(el){this.el=el;$('#nims').innerHTML=NIMS.map((n,i)=>`<div class="nim"><b>nim[${i+1}]</b><span>${n}</span></div>`).join('');this.cells=$$('.nim',el);
+    $('#sGo').onclick=()=>this.start(+$('#sIn').value);onEnter($('#sIn'),()=>this.start(+$('#sIn').value));
+    $$('[data-sp]',el).forEach(b=>b.onclick=()=>{const k=+b.dataset.sp,v=k<0?2405050:NIMS[k];$('#sIn').value=v;this.start(v)})},
+  start(v){if(!v)return;this.target=v;this.i=0;this.t=0;this.run=true;this.cells.forEach(c=>c.className='nim');this.show()},
+  show(){const i=this.i;this.cells.forEach((c,k)=>{c.classList.toggle('cmp',k===i);c.classList.toggle('seen',k<i)});mark($('#cCari'),[5,6]);
+    $('#sNote').innerHTML=`i = ${i+1}: nim[${i+1}] = ${NIMS[i]} ${NIMS[i]===this.target?'=':'≠'} ${this.target} · langkah ${i+1}`},
+  frame(dt){if(!this.run)return;this.t+=dt;if(this.t<.7)return;this.t=0;const i=this.i;
+    if(NIMS[i]===this.target){this.run=false;this.cells[i].className='nim hit';mark($('#cCari'),[7,12,13]);$('#sNote').innerHTML=`<b class="hl-g">Ditemukan pada posisi ${i+1}</b> setelah <b>${i+1}</b> perbandingan. Pengulangan berhenti karena <code>ketemu = true</code>.`;return}
+    this.i++;if(this.i>=NIMS.length){this.run=false;this.cells.forEach(c=>c.className='nim seen');mark($('#cCari'),[5,14,15]);$('#sNote').innerHTML=`<b class="hl-r">Tidak ditemukan</b> setelah <b>${NIMS.length}</b> perbandingan (= N). Berhenti karena <code>i ≤ N</code> false.`;return}
+    this.show()},
+  enter(){this.run=false;this.cells.forEach(c=>c.className='nim');mark($('#cCari'),[]);$('#sIn').value='';$('#sNote').innerHTML='Ketik NIM lalu tekan <b>Cari</b>, atau pilih salah satu tombol.'},
+  leave(){this.run=false}
+};
+
+/* ---------- 25. uji ---------- */
+S['s-kasus4']={
+  init(el){this.vals=[...DATA];$('#ujiMinus').onclick=()=>{if(this.vals.length>1){this.vals.pop();this.build()}};$('#ujiPlus').onclick=()=>{if(this.vals.length<8){this.vals.push(70);this.build()}};
+    $('#ujiDef').onclick=()=>{this.vals=[...DATA];this.build()};$('#ujiSame').onclick=()=>{this.vals=this.vals.map(()=>70);this.build()}},
+  build(){$('#ujiIn').innerHTML=this.vals.map((v,i)=>`<input class="num" type="number" data-i="${i}" value="${v}">`).join('');
+    $$('#ujiIn input').forEach(inp=>inp.oninput=()=>{this.vals[+inp.dataset.i]=inp.value===''?NaN:+inp.value;this.calc()});this.calc()},
+  calc(){const ins=$$('#ujiIn input');const ok=[];let bad=0;
+    this.vals.forEach((v,i)=>{const good=!isNaN(v)&&v>=0&&v<=100;ins[i].classList.toggle('bad',!good);if(good)ok.push(v);else bad++});
+    const f=x=>Number.isInteger(x)?String(x):x.toFixed(2).replace('.',','),tb=$('#ujiTbl tbody');
+    if(!ok.length){tb.innerHTML='<tr><td colspan="3">Belum ada data sah.</td></tr>';$('#ujiNote').innerHTML='Semua masukan tidak sah: setiap nilai akan <b>diminta ulang</b>.';return}
+    const n=ok.length,sum=ok.reduce((a,b)=>a+b,0),rata=sum/n,mx=Math.max(...ok),mn=Math.min(...ok),lul=ok.filter(v=>v>=60),up=ok.filter(v=>v>rata);
+    const list=a=>a.length?a.join(', '):'tidak ada';
+    tb.innerHTML=[['rata',`${sum} / ${n}`,f(rata)],['terbesar','nilai terbesar',mx],['terkecil','nilai terkecil',mn],['lulus',`${list(lul)} (≥ 60)`,lul.length],['diAtas',`${list(up)} (&gt; ${f(rata)})`,up.length]]
+      .map(r=>`<tr><td class="mono">${r[0]}</td><td>${r[1]}</td><td class="mono" style="font-weight:700">${r[2]}</td></tr>`).join('');
+    const notes=[];if(bad)notes.push(`<b class="hl-r">${bad} masukan tidak sah</b> akan diminta ulang oleh repeat-until, jadi tidak ikut dihitung.`);
+    if(n===1)notes.push('N = 1: terbesar = terkecil = rata.');if(n>1&&mx===mn)notes.push('Semua nilai sama: diAtas = 0.');
+    $('#ujiNote').innerHTML=notes.join(' ')||`N = ${n}. Bandingkan setiap hasil dengan hitungan manual Anda.`},
+  enter(){this.vals=[...DATA];this.build()}
+};
+
+/* ---------- 26. checklist ---------- */
+S['s-cek']={init(el){$$('tr.item',el).forEach(r=>r.onclick=()=>{r.classList.toggle('done');this.count(el)})},
+  count(el){const d=$$('tr.item.done',el).length;$('#ckCount').textContent=`${d} / 9 terpenuhi`+(d===9?' · siap dikumpulkan':' · klik baris untuk mencentang')}};
+
+/* ---------- start ---------- */
+const start=parseInt((location.hash||'').slice(1))||1;
+go(start-1);requestAnimationFrame(loop);
+})();
+</script>
+</body>
+</html>

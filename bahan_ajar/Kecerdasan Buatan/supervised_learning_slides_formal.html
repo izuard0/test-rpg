@@ -1,0 +1,1593 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Supervised Learning · Kuliah</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Domine:wght@500;700&family=Nunito+Sans:wght@400;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+<style>
+:root{
+  --dark:#1B2A41; --dark2:#24364F; --light:#F7F5F0; --light2:#EDEAE2; --white:#FFFFFF;
+  --blue:#2F6FB0; --orange:#E8833A; --orange-dk:#B4501A; --green:#3E9C7A;
+  --muted:#4F5D6E; --muted-dk:#C9D3E0; --line:#D9D4C7;
+  --serif:'Domine', Georgia, serif; --sans:'Nunito Sans', 'Segoe UI', Arial, sans-serif; --mono:'JetBrains Mono', Consolas, monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;background:#0E1522;overflow:hidden;font-family:var(--sans);color:var(--dark)}
+#stage{position:absolute;left:50%;top:50%;width:1920px;height:1080px;transform-origin:center center;overflow:hidden;background:var(--light)}
+.slide{position:absolute;inset:0;padding:100px 128px 120px;background:var(--light);opacity:0;visibility:hidden;transition:opacity .45s ease, visibility 0s linear .45s;display:flex;flex-direction:column}
+.slide.active{opacity:1;visibility:visible;transition:opacity .45s ease}
+.slide.alt{background:var(--light2)}
+.slide.dark{background:var(--dark);color:var(--light)}
+.slide.accent{background:var(--orange)}
+
+/* type */
+h1{font:700 128px/1.02 var(--serif);letter-spacing:-1px}
+h2{font:700 64px/1.12 var(--serif);letter-spacing:-.5px}
+h3{font:800 34px/1.25 var(--sans)}
+p,li{font-size:28px;line-height:1.45}
+.eyebrow{font:800 22px/1 var(--sans);letter-spacing:3px;text-transform:uppercase;color:var(--orange-dk);margin-bottom:16px}
+.dark .eyebrow{color:var(--orange)}
+.lead{font-size:32px;line-height:1.45;color:var(--muted)}
+.dark .lead{color:var(--muted-dk)}
+.muted{color:var(--muted)} .dark .muted{color:var(--muted-dk)}
+.head{margin-bottom:40px}
+code,.mono{font-family:var(--mono);font-size:22px}
+b{font-weight:800}
+.hl-b{color:var(--blue)} .hl-o{color:var(--orange-dk)} .hl-g{color:var(--green)}
+.dark .hl-o{color:var(--orange)}
+
+/* layout */
+.row{display:flex;gap:32px}
+.col{display:flex;flex-direction:column;gap:20px}
+.grow{flex:1;min-height:0}
+.card{background:var(--white);border:2px solid var(--line);border-radius:22px;padding:30px 32px}
+.dark .card{background:var(--dark2);border-color:#33486A}
+.pill{display:inline-block;font:800 20px/1 var(--sans);letter-spacing:1px;text-transform:uppercase;padding:9px 16px;border-radius:999px}
+.pill.cls{background:#E3ECF6;color:var(--blue)} .pill.reg{background:#FBE6D6;color:var(--orange-dk)}
+.btn{font:800 22px/1 var(--sans);padding:14px 24px;border-radius:999px;border:2px solid var(--dark);background:transparent;color:var(--dark);cursor:pointer;transition:all .2s}
+.btn:hover{transform:translateY(-2px)}
+.btn.on{background:var(--dark);color:var(--light)}
+.dark .btn{border-color:var(--light);color:var(--light)} .dark .btn.on{background:var(--light);color:var(--dark)}
+.btn.primary{background:var(--orange);border-color:var(--orange);color:var(--dark)}
+.three{position:relative;overflow:hidden}
+.three canvas{display:block;width:100%!important;height:100%!important}
+.nothree{display:flex;align-items:center;justify-content:center;text-align:center;border:2px dashed var(--line);border-radius:22px}
+.nothree p{font-size:26px;color:var(--muted);max-width:600px}
+canvas.plot{display:block}
+.legend{display:flex;gap:28px;flex-wrap:wrap}
+.legend span{display:flex;align-items:center;gap:10px;font-size:24px;font-weight:700}
+.legend i{width:20px;height:20px;border-radius:50%;display:inline-block}
+
+/* entry animation */
+.slide.active .rise{animation:rise .7s cubic-bezier(.2,.7,.2,1) both;animation-delay:var(--d,0s)}
+@keyframes rise{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:none}}
+.slide.active .pop{animation:pop .55s cubic-bezier(.3,1.6,.5,1) both;animation-delay:var(--d,0s)}
+@keyframes pop{from{opacity:0;transform:scale(.6)}to{opacity:1;transform:none}}
+
+/* chrome */
+#progress{position:fixed;left:0;top:0;height:5px;background:var(--orange);transition:width .4s;z-index:10}
+#counter{position:absolute;right:56px;bottom:40px;font:700 22px/1 var(--sans);color:var(--muted);z-index:5;display:flex;gap:14px;align-items:center}
+#counter button{width:52px;height:52px;border-radius:50%;border:2px solid currentColor;background:transparent;color:inherit;font-size:24px;cursor:pointer}
+#stage.on-dark #counter{color:var(--muted-dk)}
+#hint{position:absolute;left:128px;bottom:44px;font-size:20px;color:var(--muted);z-index:5;opacity:.8}
+#stage.on-dark #hint{color:var(--muted-dk)}
+#notes{position:fixed;left:50%;bottom:16px;transform:translateX(-50%);width:min(1100px,94vw);background:rgba(14,21,34,.94);color:#F2F0EA;border-radius:14px;padding:18px 24px;font-size:17px;line-height:1.5;z-index:20;display:none;box-shadow:0 10px 40px rgba(0,0,0,.4)}
+#notes.show{display:block}
+#notes b{color:var(--orange)}
+
+/* ---------- slide specific ---------- */
+/* cover */
+#s-cover .three{position:absolute;inset:0}
+#s-cover .shade{position:absolute;inset:0;background:linear-gradient(90deg,rgba(27,42,65,.96) 0%,rgba(27,42,65,.82) 38%,rgba(27,42,65,0) 70%);pointer-events:none}
+#s-cover .content{position:relative;z-index:2;margin-top:auto;margin-bottom:auto;max-width:1000px}
+#s-cover h1{color:var(--light);margin:10px 0 36px}
+#s-cover .lead{font-size:38px;max-width:900px}
+
+/* flashcards */
+.flash{display:flex;gap:22px}
+.fc{width:200px;height:230px;border-radius:22px;background:var(--white);border:2px solid var(--line);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;box-shadow:0 8px 24px rgba(27,42,65,.08)}
+.fc .em{font-size:96px;line-height:1}
+.fc .lb{font:800 26px/1 var(--sans);padding:8px 16px;border-radius:999px;background:#E3ECF6;color:var(--blue)}
+.fc .lb.dog{background:#FBE6D6;color:var(--orange-dk)}
+.fc.q{border:3px dashed var(--orange);cursor:pointer;background:#FFF8F1}
+.fc.q .lb{background:var(--dark);color:var(--light)}
+.steps3{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+.steps3 .n{font:700 52px/1 var(--serif);color:var(--orange)}
+.bigline{font:700 44px/1.3 var(--serif)}
+
+/* everywhere */
+.uses{display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
+.use{display:flex;flex-direction:column;gap:12px}
+.use .top{display:flex;align-items:center;justify-content:space-between}
+.use .em{font-size:60px;line-height:1}
+.use h3{font-size:31px}
+.use p{font-size:23px;line-height:1.4;color:var(--muted)}
+.use p b{color:var(--dark)}
+
+/* recipe */
+.recipe{display:grid;grid-template-columns:600px 140px 340px 140px 1fr;align-items:center;gap:0}
+.chips{display:flex;flex-direction:column;gap:14px}
+.chip{display:flex;align-items:center;gap:16px;background:var(--white);border:2px solid var(--line);border-radius:16px;padding:14px 20px;font-size:25px}
+.chip .x{font-family:var(--mono);font-size:22px;color:var(--muted)}
+.chip .arrow{color:var(--muted)}
+.chip .y{font-weight:800;color:var(--blue);margin-left:auto}
+.slide.active .chips .chip{animation:chipglow 6s infinite;animation-delay:calc(var(--i) * .5s)}
+@keyframes chipglow{0%,8%{border-color:var(--orange);transform:translateX(10px)}16%,100%{border-color:var(--line);transform:none}}
+.flow{position:relative;height:6px;margin:0 18px;background:repeating-linear-gradient(90deg,var(--line) 0 14px,transparent 14px 24px);border-radius:3px}
+.flow::after{content:"";position:absolute;top:-9px;left:0;width:24px;height:24px;border-radius:50%;background:var(--orange)}
+.slide.active .flow::after{animation:travel 1.6s ease-in-out infinite}
+@keyframes travel{from{left:0;opacity:0}15%{opacity:1}85%{opacity:1}to{left:calc(100% - 24px);opacity:0}}
+.modelbox{background:var(--dark);color:var(--light);border-radius:28px;padding:40px 30px;text-align:center;display:flex;flex-direction:column;gap:14px;align-items:center}
+.gear{font-size:80px;line-height:1;display:inline-block}
+.slide.active .gear{animation:spin 6s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.modelbox p{font-size:24px;color:var(--muted-dk)}
+.outbox{display:flex;flex-direction:column;gap:14px}
+.outbox .newx{background:#FFF8F1;border:3px dashed var(--orange);border-radius:16px;padding:16px 20px;font-size:25px}
+.answer{position:relative;height:84px}
+.answer span{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;border-radius:16px;font:800 32px/1 var(--sans)}
+.answer .qm{background:var(--light2);color:var(--muted)}
+.answer .ok{background:var(--green);color:var(--white);opacity:0}
+.slide.active .answer .qm{animation:qm 6s infinite}
+.slide.active .answer .ok{animation:ok 6s infinite}
+@keyframes qm{0%,55%{opacity:1}62%,96%{opacity:0}100%{opacity:1}}
+@keyframes ok{0%,55%{opacity:0;transform:scale(.8)}62%,96%{opacity:1;transform:none}100%{opacity:0}}
+.analogy{display:grid;grid-template-columns:1fr 1fr 1fr;gap:28px;margin-top:auto}
+.analogy .card{display:flex;gap:20px;align-items:flex-start}
+.analogy .em{font-size:52px;line-height:1}
+.analogy p{font-size:25px}
+
+/* sup vs unsup */
+#s-banding .wrap{display:grid;grid-template-columns:640px 1fr;gap:40px;flex:1;min-height:0}
+#s-banding .three{height:100%}
+#s-banding .modecard{transition:all .4s}
+#s-banding .modecard.dim{opacity:.4;transform:scale(.97)}
+#s-banding .badge{position:absolute;right:24px;top:20px;font:800 24px/1 var(--sans);padding:12px 20px;border-radius:999px;background:var(--dark2);color:var(--light);border:2px solid #33486A;z-index:2}
+
+/* class vs reg */
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:40px;flex:1;min-height:0}
+.duo .card{display:flex;flex-direction:column;gap:14px}
+.duo canvas{width:100%;height:440px;border-radius:14px;background:#FBFAF6}
+.duo .ex{font-size:24px;color:var(--muted)}
+
+/* quiz */
+.quiz{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;flex:1}
+.qcard{perspective:1400px;cursor:pointer}
+.qcard .inner{position:relative;width:100%;height:100%;transition:transform .6s cubic-bezier(.3,.8,.3,1);transform-style:preserve-3d}
+.qcard.flip .inner{transform:rotateY(180deg)}
+.qcard .face{position:absolute;inset:0;backface-visibility:hidden;border-radius:22px;padding:32px;display:flex;flex-direction:column;justify-content:center;gap:14px}
+.qcard .front{background:var(--white);border:2px solid var(--line)}
+.qcard .front .em{font-size:60px;line-height:1}
+.qcard .front p{font:700 30px/1.3 var(--sans)}
+.qcard .back{transform:rotateY(180deg);color:var(--white)}
+.qcard .back.cls{background:var(--blue)} .qcard .back.reg{background:var(--orange);color:var(--dark)}
+.qcard .back h3{font-size:44px;font-family:var(--serif)}
+.qcard .back p{font-size:25px}
+
+/* iris intro */
+#s-iris .wrap{display:grid;grid-template-columns:720px 1fr;gap:56px;flex:1;min-height:0}
+.species{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.species .card{display:flex;flex-direction:column;align-items:center;gap:8px;padding:24px 18px;text-align:center}
+.species svg{width:200px;height:200px}
+.species h3{font-family:var(--serif);font-size:32px}
+.species p{font-size:22px;color:var(--muted);line-height:1.35}
+.anatomy{display:flex;gap:28px;align-items:center}
+.anatomy svg{width:260px;height:260px;flex:none}
+
+/* table */
+table.data{border-collapse:separate;border-spacing:0;width:100%;font-size:28px}
+table.data th,table.data td{padding:16px 22px;text-align:left;border-bottom:2px solid var(--line);transition:background .3s,color .3s}
+table.data th{font-family:var(--mono);font-size:24px;background:var(--dark);color:var(--light)}
+table.data th:first-child{border-radius:14px 0 0 0} table.data th:last-child{border-radius:0 14px 0 0}
+table.data td{font-family:var(--mono);font-size:26px;background:var(--white)}
+table.data.showX .cx{background:#E3ECF6}
+table.data.showX th.cx{background:var(--blue)}
+table.data.showY .cy{background:#FBE6D6}
+table.data.showY th.cy{background:var(--orange);color:var(--dark)}
+table.data.showR tr.r2 td{background:#FFF1C9}
+.terms{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:36px}
+.term{cursor:pointer;transition:all .3s;border-left:10px solid var(--line)}
+.term.on.tx{border-left-color:var(--blue);background:#F2F6FB}
+.term.on.ty{border-left-color:var(--orange);background:#FFF6EE}
+.term.on.tr{border-left-color:#E6B422;background:#FFFBEF}
+.term h3{font-size:30px} .term p{font-size:24px;color:var(--muted)}
+
+/* iris 3d */
+#s-iris3d .wrap{display:grid;grid-template-columns:600px 1fr;gap:40px;flex:1;min-height:0}
+#s-iris3d .three{height:100%;cursor:grab;border-radius:22px;background:radial-gradient(ellipse at 50% 45%,#2A3F5E 0%,#1B2A41 70%)}
+#s-iris3d .three:active{cursor:grabbing}
+.axlabel{position:absolute;font:700 22px/1 var(--mono);color:var(--muted-dk);white-space:nowrap;transform:translate(-50%,-50%);pointer-events:none}
+.obs li{font-size:26px;margin-left:28px;margin-bottom:12px;color:var(--muted-dk)}
+
+/* pipeline */
+.pipe{position:relative;display:grid;grid-template-columns:repeat(5,1fr);gap:22px;margin-top:20px}
+.pipe .track{position:absolute;left:40px;right:40px;top:44px;height:6px;background:var(--line);border-radius:3px}
+.pipe .runner{position:absolute;top:-9px;width:24px;height:24px;border-radius:50%;background:var(--orange);left:0;transition:left .8s cubic-bezier(.5,0,.3,1)}
+.stp{position:relative;display:flex;flex-direction:column;gap:14px;align-items:flex-start}
+.stp .dot{width:92px;height:92px;border-radius:50%;background:var(--white);border:3px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:44px;transition:all .4s;z-index:1}
+.stp .card{width:100%;transition:all .4s;padding:24px}
+.stp h3{font-size:30px}
+.stp p{font-size:23px;color:var(--muted);line-height:1.4}
+.stp code{display:block;margin-top:12px;background:var(--dark);color:#F2D7BF;padding:12px 14px;border-radius:10px;font-size:19px;word-break:break-all}
+.stp.on .dot{border-color:var(--orange);background:#FFF1E4;transform:scale(1.08)}
+.stp.on .card{border-color:var(--orange);box-shadow:0 12px 30px rgba(232,131,58,.18);transform:translateY(-6px)}
+.swapline{margin-top:auto;display:flex;align-items:center;gap:22px;font-size:28px}
+.swapline code{font-size:24px;background:var(--white);border:2px solid var(--line);border-radius:10px;padding:10px 16px}
+
+/* split */
+#s-split .three{flex:1;min-height:0}
+.blocklabel{position:absolute;transform:translate(-50%,-100%);text-align:center;pointer-events:none;transition:opacity .4s}
+.blocklabel b{display:block;font:800 30px/1.2 var(--sans)}
+.blocklabel span{font-size:22px;color:var(--muted)}
+
+/* overfit */
+#s-overfit .wrap{display:grid;grid-template-columns:600px 1fr;gap:44px;flex:1;min-height:0}
+.student{display:flex;gap:20px;align-items:center;cursor:pointer;transition:all .3s;padding:22px 26px}
+.student .em{font-size:56px;line-height:1}
+.student h3{font-size:28px}
+.student p{font-size:22px;color:var(--muted);line-height:1.35}
+.student .tag{margin-left:auto;text-align:right;font:800 20px/1.3 var(--sans);color:var(--muted);white-space:nowrap}
+.student.on{border-color:var(--dark);box-shadow:0 10px 28px rgba(27,42,65,.14);transform:translateX(8px)}
+.errbars{display:flex;flex-direction:column;gap:12px;margin-top:8px}
+.eb{display:grid;grid-template-columns:270px 1fr 90px;align-items:center;gap:14px;font-size:22px;font-weight:700}
+.eb .bar{height:26px;background:var(--light2);border-radius:13px;overflow:hidden}
+.eb .bar i{display:block;height:100%;border-radius:13px;transition:width .6s}
+
+/* knn */
+#s-knn .wrap,#s-tree2 .wrap{display:grid;grid-template-columns:560px 1fr;gap:44px;flex:1;min-height:0}
+.ctrl{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+.ctrl .lbl{font-size:24px;font-weight:800;margin-right:6px}
+.readout{background:var(--dark);color:var(--light);border-radius:20px;padding:26px 30px}
+.readout p{font-size:24px;color:var(--muted-dk)}
+.readout .pred{font:700 46px/1.15 var(--serif);margin-top:6px}
+.plotwrap{position:relative;background:var(--white);border:2px solid var(--line);border-radius:22px;overflow:hidden}
+.plotwrap canvas{width:100%;height:100%;cursor:crosshair}
+.plotwrap .tip{position:absolute;right:20px;top:16px;font-size:22px;font-weight:700;color:var(--muted);background:rgba(255,255,255,.9);padding:8px 14px;border-radius:10px;pointer-events:none}
+
+/* knn manual */
+#s-knn2 .wrap{display:grid;grid-template-columns:1fr 600px;gap:48px;flex:1;min-height:0}
+table.dist{border-collapse:collapse;width:100%}
+table.dist th,table.dist td{padding:13px 18px;text-align:left;font-size:25px;border-bottom:2px solid var(--line)}
+table.dist th{font-size:21px;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);font-weight:800}
+table.dist td.m{font-family:var(--mono);font-size:24px}
+table.dist tr{transition:background .35s,opacity .35s}
+table.dist tr.in td{background:#FFF1E4}
+table.dist tr.in td:first-child{box-shadow:inset 8px 0 0 var(--orange)}
+table.dist tr.out{opacity:.45}
+.formula{background:var(--dark);color:var(--light);border-radius:20px;padding:28px 30px}
+.formula .mono{font-size:24px;color:#F2D7BF;line-height:1.7}
+.vote{display:flex;gap:14px;flex-wrap:wrap;margin-top:6px}
+.vote span{font:800 24px/1 var(--sans);padding:12px 18px;border-radius:999px}
+
+/* tree game */
+#s-tree1 .wrap{display:grid;grid-template-columns:1fr 1fr;gap:44px;flex:1;min-height:0}
+.game{display:flex;flex-direction:column;gap:22px;align-items:center;justify-content:center;text-align:center;background:var(--dark);color:var(--light);border-radius:26px;padding:40px}
+.game .em{font-size:130px;line-height:1;transition:transform .4s}
+.game .q{font:700 40px/1.25 var(--serif);min-height:100px;display:flex;align-items:center}
+.game .crumbs{font-size:22px;color:var(--muted-dk);min-height:32px}
+.game .btns{display:flex;gap:16px}
+.split2{display:flex;flex-direction:column;gap:18px}
+.cand{display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:start}
+.cand .qq{grid-column:1/3;font:800 25px/1.3 var(--sans)}
+.bucket{border:2px solid var(--line);border-radius:16px;padding:14px;display:flex;flex-wrap:wrap;gap:8px;min-height:64px;background:#FBFAF6}
+.bucket i{width:30px;height:30px;border-radius:50%;display:inline-block}
+.verdict{grid-column:1/3;font-size:23px;font-weight:700}
+
+/* tree iris */
+.treebox{position:relative;height:430px}
+.treebox svg{position:absolute;inset:0;width:100%;height:100%}
+.node{position:absolute;transform:translate(-50%,-50%);padding:14px 20px;border-radius:14px;font:800 23px/1.2 var(--sans);text-align:center;background:var(--white);border:2px solid var(--line);color:var(--muted);transition:all .35s;white-space:nowrap}
+.node.q{font-family:var(--mono);font-weight:500;font-size:21px}
+.node.on{background:var(--dark);color:var(--light);border-color:var(--dark);transform:translate(-50%,-50%) scale(1.06)}
+.node.leaf.on.s0{background:var(--blue);border-color:var(--blue)}
+.node.leaf.on.s1{background:var(--orange);border-color:var(--orange);color:var(--dark)}
+.node.leaf.on.s2{background:var(--green);border-color:var(--green)}
+.edge{stroke:var(--line);stroke-width:4;fill:none;transition:stroke .35s}
+.edge.on{stroke:var(--dark);stroke-width:6}
+.elabel{font:700 20px var(--sans);fill:var(--muted)}
+.slider{display:grid;grid-template-columns:200px 1fr 80px;gap:16px;align-items:center;font-size:23px;font-weight:700}
+.slider .mono{font-size:22px}
+input[type=range]{width:100%;accent-color:var(--orange);height:28px}
+
+/* naive bayes */
+#s-nb .wrap{display:grid;grid-template-columns:640px 1fr;gap:48px;flex:1;min-height:0}
+.email{background:var(--white);border:2px solid var(--line);border-radius:22px;overflow:hidden;box-shadow:0 14px 34px rgba(27,42,65,.1)}
+.email .bar{background:var(--light2);padding:16px 24px;font-size:21px;color:var(--muted);display:flex;gap:10px}
+.email .bar i{width:14px;height:14px;border-radius:50%;background:#D0C9BA;display:inline-block}
+.email .body{padding:26px 28px;display:flex;flex-direction:column;gap:12px}
+.email .from{font-size:21px;color:var(--muted)}
+.email .subj{font:700 30px/1.3 var(--serif)}
+.email .txt{font-size:23px;color:var(--muted)}
+mark{background:transparent;color:inherit;border-radius:6px;padding:0 4px;transition:background .4s}
+mark.on{background:#FFD9B8}
+.nbsteps{display:flex;flex-direction:column;gap:12px}
+.nbstep{display:grid;grid-template-columns:52px 1fr;gap:16px;align-items:start;padding:16px 20px;border-radius:16px;border:2px solid transparent;opacity:.35;transition:all .4s}
+.nbstep.on{opacity:1;border-color:var(--line);background:var(--white)}
+.nbstep.cur{border-color:var(--orange)}
+.nbstep .n{font:700 34px/1 var(--serif);color:var(--orange)}
+.nbstep p{font-size:23px;line-height:1.4}
+.nbstep .mono{font-size:21px;color:var(--muted)}
+.probbars{display:flex;flex-direction:column;gap:12px}
+.pb{display:grid;grid-template-columns:170px 1fr 110px;gap:14px;align-items:center;font-size:24px;font-weight:800}
+.pb .bar{height:40px;background:var(--light2);border-radius:12px;overflow:hidden}
+.pb .bar i{display:block;height:100%;transition:width .8s cubic-bezier(.3,.8,.3,1)}
+
+/* eval */
+#s-eval .wrap{display:grid;grid-template-columns:720px 1fr;gap:48px;flex:1;min-height:0}
+.cm{display:grid;grid-template-columns:150px 1fr 1fr;grid-template-rows:auto 150px 150px;gap:10px}
+.cm .h{font:800 22px/1.2 var(--sans);display:flex;align-items:center;justify-content:center;text-align:center;color:var(--muted)}
+.cell{border-radius:16px;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;transition:all .3s;border:3px solid transparent}
+.cell b{font:700 54px/1 var(--serif)}
+.cell span{font-size:20px;font-weight:800;margin-top:4px}
+.cell.good{background:var(--blue);color:var(--white)}
+.cell.bad{background:#FFF1E4;border-color:var(--orange);color:var(--dark)}
+.cell.sel{outline:5px solid var(--dark);outline-offset:3px}
+.metrics{display:flex;flex-direction:column;gap:12px;margin-top:24px}
+.metric{cursor:pointer;padding:16px 22px;border-radius:16px;border:2px solid var(--line);background:var(--white);transition:all .3s}
+.metric.sel{border-color:var(--dark);box-shadow:0 8px 22px rgba(27,42,65,.12)}
+.metric h3{font-size:28px}
+.metric p{font-size:22px;color:var(--muted)}
+.people{display:grid;grid-template-columns:repeat(10,1fr);gap:12px}
+.person{aspect-ratio:1;border-radius:50%;display:flex;align-items:center;justify-content:center;font:800 19px/1 var(--sans);transition:all .3s}
+.person.TP{background:var(--blue);color:#fff} .person.TN{background:#CFE0F2;color:var(--dark)}
+.person.FP{background:#fff;border:4px solid var(--orange);color:var(--orange-dk)} .person.FN{background:var(--orange);color:var(--dark)}
+.person.dim{opacity:.15;transform:scale(.85)}
+.explain{font-size:25px;line-height:1.45;min-height:110px}
+
+/* praktikum / summary */
+.prak{display:grid;grid-template-columns:1fr 1fr;gap:40px;flex:1}
+.prak .card{display:flex;flex-direction:column;gap:18px;padding:40px}
+.prak ul{margin-left:30px} .prak li{font-size:28px;color:var(--muted-dk);margin-bottom:6px}
+.sum{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+.sum .card{display:flex;gap:24px;align-items:flex-start}
+.sum .em{font-size:54px;line-height:1}
+.sum p{font-size:28px}
+.teaser{margin-top:auto;background:var(--dark);color:var(--light);border-radius:24px;padding:34px 40px;display:flex;gap:28px;align-items:center}
+.teaser .em{font-size:60px}
+.teaser p{font-size:29px}
+
+/* ---------- formal additions ---------- */
+.src{position:absolute;left:128px;bottom:44px;max-width:1350px;font-size:19px;line-height:1.35;color:var(--muted)}
+.dark .src{color:var(--muted-dk)}
+.src i{font-style:italic}
+.quote{background:var(--white);border-left:8px solid var(--orange);border-radius:0 18px 18px 0;padding:24px 28px;display:flex;flex-direction:column;gap:10px}
+.dark .quote{background:var(--dark2)}
+.quote .en{font:italic 400 24px/1.5 Georgia,'Times New Roman',serif;color:var(--dark)}
+.quote.big .en{font-size:31px}
+.quote .id{font-size:22px;line-height:1.45;color:var(--muted)}
+.quote.big .id{font-size:25px}
+.quote .cite{font:800 20px/1.2 var(--sans);color:var(--orange-dk)}
+.quotes3{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;margin-bottom:30px}
+.defbox{background:var(--dark);color:var(--light);border-radius:22px;padding:30px 38px}
+.defbox .katex{color:#F2D7BF}
+.math{font-size:28px;color:var(--dark)}
+.dark .math,.defbox .math{color:var(--light)}
+.katex{font-size:1.08em}
+.objs{display:flex;flex-direction:column;gap:18px}
+.obj{display:grid;grid-template-columns:70px 1fr 260px;align-items:center;gap:24px;background:var(--white);border:2px solid var(--line);border-radius:20px;padding:24px 30px}
+.obj .n{font:700 46px/1 var(--serif);color:var(--orange)}
+.obj p{font-size:29px}
+.obj .pill{justify-self:end}
+.outline{display:grid;grid-template-columns:repeat(4,1fr);gap:28px;flex:1}
+.outline .card{display:flex;flex-direction:column;gap:16px;padding:36px}
+.outline .n{font:700 72px/1 var(--serif);color:var(--orange)}
+.outline h3{font-family:var(--serif);font-size:36px}
+.outline ul{margin-left:26px}.outline li{font-size:26px;color:var(--muted);margin-bottom:8px}
+.tep{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:36px}
+.tep .card{display:flex;gap:22px;align-items:flex-start}
+.tep .tl{font:700 72px/1 var(--serif);color:var(--orange)}
+.tep p{font-size:25px;color:var(--muted)}
+table.formal{border-collapse:separate;border-spacing:0;width:100%}
+table.formal th,table.formal td{padding:18px 24px;text-align:left;font-size:26px;border-bottom:2px solid var(--line);background:var(--white);vertical-align:top}
+table.formal th{background:var(--dark);color:var(--light);font-size:24px;font-weight:800}
+table.formal th:first-child{border-radius:14px 0 0 0}table.formal th:last-child{border-radius:0 14px 0 0}
+table.formal th.hlcol{background:var(--blue)} table.formal td.hlcol{background:#EEF4FA}
+table.formal td.mono{font-family:var(--mono);font-size:21px}
+.symbols{display:flex;gap:36px;margin-top:auto;padding-top:20px;flex-wrap:wrap}
+.symbols p{font-size:24px;color:var(--muted);display:flex;align-items:center;gap:12px}
+.symbols .sym{display:inline-flex;min-width:56px;height:56px;align-items:center;justify-content:center;background:var(--white);border:2px solid var(--line);border-radius:12px;font-size:26px;color:var(--dark)}
+.phases{display:flex;gap:22px;margin-bottom:24px}
+.phase{background:#E3ECF6;border-radius:14px;padding:16px 24px;font-size:24px;color:var(--blue)}
+.phase.p2{background:#FBE6D6;color:var(--orange-dk)}
+.phase span{color:var(--muted);font-size:22px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:44px;flex:1;min-height:0}
+.pseudo{background:var(--white);border:2px solid var(--line);border-left:8px solid var(--blue);border-radius:0 18px 18px 0;padding:22px 28px}
+.pseudo .ph{font:800 22px/1 var(--sans);letter-spacing:2px;text-transform:uppercase;color:var(--blue);margin-bottom:12px}
+.pseudo p,.pseudo li{font-size:25px;line-height:1.5}
+.pseudo ol{margin-left:32px}
+.pseudo code{font-size:21px;background:var(--light2);padding:2px 8px;border-radius:6px}
+ul.plain{margin-left:28px}ul.plain li{font-size:25px;color:var(--muted);margin-bottom:8px}
+.anat3{display:flex;flex-direction:column;gap:12px}
+.anat3 p{font-size:25px;display:flex;align-items:center;gap:16px}
+.anat3 .pill{min-width:200px;text-align:center}
+#s-impurity .cand{grid-template-columns:1fr 1fr}
+.calc{margin-top:22px;background:var(--dark);color:var(--light);border-radius:16px;padding:20px 28px;font-size:26px}
+.calc .mono{color:#F2D7BF}
+.exercises{margin-left:44px;display:flex;flex-direction:column;gap:22px}
+.exercises li{font-size:29px;line-height:1.5;padding-left:10px}
+.refs{display:flex;flex-direction:column;gap:9px}
+.refs p{font-size:21px;line-height:1.4;padding-left:44px;text-indent:-44px}
+.metric h3{font-size:26px}
+.metric .katex{font-size:1.3em}
+.game .btn{border-color:var(--light);color:var(--light)}
+.game .btn.primary{border-color:var(--orange);color:var(--dark)}
+.species{align-items:start}
+.prak{align-items:start}
+.refs p{font-size:23px}
+</style>
+</head>
+<body>
+<div id="progress"></div>
+<div id="stage">
+<!-- 1. COVER -->
+<section class="slide dark" id="s-cover" data-notes="Pembukaan. Sampaikan judul dan posisi materi dalam mata kuliah. Isi nomor pertemuan sesuai RPS.">
+  <div class="three"></div>
+  <div class="shade"></div>
+  <div class="content">
+    <p class="eyebrow rise">Kecerdasan Buatan · Pertemuan ke-10</p>
+    <h1 class="rise" style="--d:.1s">Supervised<br>Learning</h1>
+    <p class="lead rise" style="--d:.25s">Konsep, formulasi, algoritma klasifikasi dasar, dan evaluasi model</p>
+    <p class="rise" style="--d:.4s;margin-top:48px;font-size:26px;color:var(--muted-dk)">Izuardo Zulkarnain · Kelas B &amp; D</p>
+  </div>
+  <p class="src">← → navigasi · F layar penuh · N catatan pengajar</p>
+</section>
+
+<!-- 2. CPMK -->
+<section class="slide" id="s-cpmk" data-notes="Rumusan Sub-CPMK ini adalah draf. Sesuaikan nomor dan redaksinya dengan RPS mata kuliah yang berlaku. Label C2–C5 mengacu pada taksonomi Bloom revisi (Anderson &amp; Krathwohl, 2001).">
+  <div class="head"><p class="eyebrow rise">Capaian pembelajaran</p><h2 class="rise" style="--d:.08s">Sub-CPMK pertemuan ini</h2></div>
+  <p class="lead rise" style="--d:.15s;margin-bottom:28px">Setelah mengikuti perkuliahan ini, mahasiswa mampu:</p>
+  <div class="objs">
+    <div class="obj rise" style="--d:.2s"><span class="n">1</span><p>Menjelaskan konsep dan formulasi <b>supervised learning</b> serta membedakannya dari paradigma pembelajaran mesin lainnya.</p><span class="pill cls">C2 · memahami</span></div>
+    <div class="obj rise" style="--d:.3s"><span class="n">2</span><p>Membedakan permasalahan <b>klasifikasi</b> dan <b>regresi</b> beserta contoh penerapannya.</p><span class="pill cls">C4 · menganalisis</span></div>
+    <div class="obj rise" style="--d:.4s"><span class="n">3</span><p>Menerapkan algoritma <b>KNN</b>, <b>Decision Tree</b>, dan <b>Naive Bayes</b> secara manual maupun dengan scikit-learn.</p><span class="pill reg">C3 · menerapkan</span></div>
+    <div class="obj rise" style="--d:.5s"><span class="n">4</span><p>Mengevaluasi kinerja model klasifikasi menggunakan <b>confusion matrix</b>, akurasi, precision, recall, dan F1-score.</p><span class="pill reg">C5 · mengevaluasi</span></div>
+  </div>
+  <p class="src">Rumusan mengacu pada taksonomi Bloom revisi; sesuaikan dengan RPS mata kuliah.</p>
+</section>
+
+<!-- 3. OUTLINE -->
+<section class="slide alt" id="s-outline" data-notes="Gambaran alur perkuliahan: konsep (±25 menit), data dan alur kerja (±20 menit), algoritma (±40 menit), evaluasi dan praktikum (sisa waktu). Sesuaikan dengan durasi sesi.">
+  <div class="head"><p class="eyebrow rise">Pokok bahasan</p><h2 class="rise" style="--d:.08s">Peta materi</h2></div>
+  <div class="outline">
+    <div class="card rise" style="--d:.15s"><span class="n">01</span><h3>Konsep dasar</h3><ul><li>Definisi machine learning</li><li>Paradigma pembelajaran</li><li>Formulasi supervised learning</li><li>Klasifikasi dan regresi</li></ul></div>
+    <div class="card rise" style="--d:.25s"><span class="n">02</span><h3>Data &amp; alur kerja</h3><ul><li>Dataset Iris</li><li>Tahapan pemodelan</li><li>Pembagian data latih/uji</li><li>Generalisasi &amp; overfitting</li></ul></div>
+    <div class="card rise" style="--d:.35s"><span class="n">03</span><h3>Algoritma</h3><ul><li>K-Nearest Neighbors</li><li>Decision Tree</li><li>Naive Bayes</li><li>Perbandingan algoritma</li></ul></div>
+    <div class="card rise" style="--d:.45s"><span class="n">04</span><h3>Evaluasi</h3><ul><li>Confusion matrix</li><li>Akurasi, precision, recall, F1</li><li>Praktikum</li><li>Latihan soal</li></ul></div>
+  </div>
+</section>
+
+<!-- 4. MITCHELL -->
+<section class="slide" id="s-mitchell" data-notes="Definisi Mitchell adalah definisi operasional yang paling sering dikutip. Ajak mahasiswa memetakan T, E, P untuk kasus lain, misalnya filter spam: T = memilah email, E = email berlabel spam/bukan, P = persentase email yang terklasifikasi benar.">
+  <div class="head"><p class="eyebrow rise">Bagian 1 · Konsep dasar</p><h2 class="rise" style="--d:.08s">Apa yang dimaksud mesin “belajar”?</h2></div>
+  <div class="quote big rise" style="--d:.15s">
+    <p class="en">“A computer program is said to learn from experience <b>E</b> with respect to some class of tasks <b>T</b> and performance measure <b>P</b>, if its performance at tasks in T, as measured by P, improves with experience E.”</p>
+    <p class="id">Sebuah program komputer dikatakan belajar dari pengalaman E terhadap sekelompok tugas T dan ukuran kinerja P, apabila kinerjanya pada tugas T, yang diukur dengan P, meningkat seiring pengalaman E.</p>
+    <p class="cite">— Mitchell (1997, hlm. 2)</p>
+  </div>
+  <div class="tep">
+    <div class="card rise" style="--d:.3s"><span class="tl">T</span><div><h3>Task</h3><p>Mengklasifikasikan spesies bunga iris dari ukuran kelopak dan mahkotanya.</p></div></div>
+    <div class="card rise" style="--d:.4s"><span class="tl">E</span><div><h3>Experience</h3><p>120 bunga yang ukuran dan spesiesnya sudah diketahui.</p></div></div>
+    <div class="card rise" style="--d:.5s"><span class="tl">P</span><div><h3>Performance</h3><p>Akurasi pada 30 bunga yang tidak dipakai saat belajar.</p></div></div>
+  </div>
+  <p class="src">Sumber: Mitchell, T. M. (1997). <i>Machine Learning</i>. McGraw-Hill.</p>
+</section>
+
+<!-- 5. PARADIGMA -->
+<section class="slide alt" id="s-paradigma" data-notes="Tiga paradigma utama dibedakan berdasarkan jenis umpan balik (feedback) yang diterima agen saat belajar, sebagaimana disusun Russell &amp; Norvig. Hubungkan dengan materi K-Means (unsupervised) dan Reinforcement Learning dalam mata kuliah ini.">
+  <div class="head"><p class="eyebrow rise">Bagian 1 · Konsep dasar</p><h2 class="rise" style="--d:.08s">Tiga paradigma pembelajaran mesin</h2></div>
+  <table class="formal rise" style="--d:.15s">
+    <tr><th style="width:20%">Aspek</th><th style="width:27%" class="hlcol">Supervised</th><th style="width:27%">Unsupervised</th><th style="width:26%">Reinforcement</th></tr>
+    <tr><td><b>Umpan balik</b></td><td class="hlcol">Label/jawaban benar untuk setiap contoh</td><td>Tidak ada label</td><td>Hadiah (reward) atau hukuman</td></tr>
+    <tr><td><b>Data</b></td><td class="hlcol">Pasangan (input, output)</td><td>Input saja</td><td>Interaksi agen dengan lingkungan</td></tr>
+    <tr><td><b>Tujuan</b></td><td class="hlcol">Memprediksi output untuk input baru</td><td>Menemukan struktur atau pola</td><td>Menemukan kebijakan aksi terbaik</td></tr>
+    <tr><td><b>Contoh tugas</b></td><td class="hlcol">Klasifikasi, regresi</td><td>Clustering, reduksi dimensi</td><td>Permainan, robotika</td></tr>
+    <tr><td><b>Contoh metode</b></td><td class="hlcol">KNN, Decision Tree, Naive Bayes</td><td>K-Means, PCA</td><td>Q-learning</td></tr>
+  </table>
+  <p class="src">Sumber: Russell, S., &amp; Norvig, P. (2021). <i>Artificial Intelligence: A Modern Approach</i> (4th ed.), Bab 19; Géron (2022), Bab 1.</p>
+</section>
+
+<!-- 6. DEFINISI -->
+<section class="slide" id="s-definisi" data-notes="Tiga buku teks memberi definisi dengan penekanan berbeda: Russell &amp; Norvig menekankan pemetaan fungsi, Bishop menekankan pasangan vektor input dan target, Géron menekankan label sebagai 'jawaban yang diinginkan'. Kotak bawah adalah sintesis yang bisa dicatat mahasiswa.">
+  <div class="head"><p class="eyebrow rise">Bagian 1 · Konsep dasar</p><h2 class="rise" style="--d:.08s">Definisi supervised learning</h2></div>
+  <div class="quotes3">
+    <div class="quote rise" style="--d:.15s"><p class="en">“In supervised learning the agent observes input–output pairs and learns a function that maps from input to output.”</p><p class="id">Agen mengamati pasangan input–output dan mempelajari fungsi yang memetakan input ke output.</p><p class="cite">— Russell &amp; Norvig (2021, Bab 19)</p></div>
+    <div class="quote rise" style="--d:.25s"><p class="en">“Applications in which the training data comprises examples of the input vectors along with their corresponding target vectors are known as supervised learning problems.”</p><p class="id">Data latih berisi vektor input beserta vektor target yang bersesuaian.</p><p class="cite">— Bishop (2006, Bab 1)</p></div>
+    <div class="quote rise" style="--d:.35s"><p class="en">“In supervised learning, the training set you feed to the algorithm includes the desired solutions, called labels.”</p><p class="id">Data latih yang diberikan ke algoritma memuat solusi yang diinginkan, yang disebut label.</p><p class="cite">— Géron (2022, Bab 1)</p></div>
+  </div>
+  <div class="defbox rise" style="--d:.5s"><p class="eyebrow" style="margin-bottom:10px">Sintesis</p><p style="font-size:30px;line-height:1.45"><b>Supervised learning</b> adalah paradigma pembelajaran mesin yang membangun model dari sekumpulan contoh berpasangan <b>(input, label)</b>, sehingga model mampu memprediksi label untuk input baru yang belum pernah diamati.</p></div>
+  <p class="src">Sumber: Russell &amp; Norvig (2021); Bishop (2006); Géron (2022). Lihat juga Suyanto (2018) untuk pembahasan berbahasa Indonesia.</p>
+</section>
+
+<!-- 7. ANALOGI -->
+<section class="slide alt" id="s-hook" data-notes="Analogi intuitif: anak belajar konsep 'kucing' dari contoh berlabel yang diberikan orang tua, lalu dapat mengenali kucing yang belum pernah dilihat. Klik kartu bertanda tanya. Tekankan istilah generalisasi.">
+  <div class="head"><p class="eyebrow rise">Bagian 1 · Ilustrasi</p><h2 class="rise" style="--d:.08s">Analogi: manusia belajar konsep dari contoh</h2></div>
+  <div class="flash">
+    <div class="fc pop" style="--d:.2s"><div class="em">🐱</div><div class="lb">kucing</div></div>
+    <div class="fc pop" style="--d:.3s"><div class="em">🐶</div><div class="lb dog">anjing</div></div>
+    <div class="fc pop" style="--d:.4s"><div class="em">🐈</div><div class="lb">kucing</div></div>
+    <div class="fc pop" style="--d:.5s"><div class="em">🐕</div><div class="lb dog">anjing</div></div>
+    <div class="fc pop" style="--d:.6s"><div class="em">🐩</div><div class="lb dog">anjing</div></div>
+    <div class="fc q pop" style="--d:.8s" id="hookQ"><div class="em">🐈‍⬛</div><div class="lb">?</div></div>
+  </div>
+  <div class="steps3" style="margin-top:56px">
+    <div class="col rise" style="--d:1s"><span class="n">1</span><p><b>Contoh berlabel.</b> Setiap contoh disertai nama yang benar — setara dengan <i>data latih</i>.</p></div>
+    <div class="col rise" style="--d:1.1s"><span class="n">2</span><p><b>Ekstraksi pola.</b> Ciri pembeda dikenali: bentuk telinga, kumis, ukuran — setara dengan <i>proses pelatihan</i>.</p></div>
+    <div class="col rise" style="--d:1.2s"><span class="n">3</span><p><b>Generalisasi.</b> Contoh baru yang belum pernah dilihat tetap dapat dikenali — setara dengan <i>prediksi</i>.</p></div>
+  </div>
+  <p class="bigline rise" style="--d:1.4s;margin-top:auto">Supervised learning meniru proses ini secara komputasional.</p>
+</section>
+
+<!-- 8. FORMULASI -->
+<section class="slide" id="s-def" data-notes="Formulasi formal dari Russell &amp; Norvig. Tekankan bahwa f tidak diketahui; yang kita miliki hanya sampel pasangan (x, y). Model yang dihasilkan disebut hipotesis h, dipilih dari ruang hipotesis H (misalnya semua pohon keputusan yang mungkin). Animasi di bawah memperlihatkan data latih masuk ke proses belajar dan hipotesis dipakai untuk input baru.">
+  <div class="head"><p class="eyebrow rise">Bagian 1 · Konsep dasar</p><h2 class="rise" style="--d:.08s">Formulasi masalah</h2></div>
+  <div class="defbox rise" style="--d:.12s"><p style="font-size:29px;line-height:1.6">Diberikan himpunan data latih \( D = \{(\mathbf{x}_1, y_1), (\mathbf{x}_2, y_2), \dots, (\mathbf{x}_N, y_N)\} \), dengan setiap pasangan dibangkitkan oleh fungsi yang tidak diketahui \( y = f(\mathbf{x}) \). Tugasnya adalah menemukan <b>hipotesis</b> \( h \in \mathcal{H} \) yang mengaproksimasi \( f \), yaitu \( h(\mathbf{x}) \approx f(\mathbf{x}) \), <b>termasuk untuk \( \mathbf{x} \) yang tidak ada di \( D \)</b>.</p></div>
+  <div class="recipe rise" style="--d:.25s;margin-top:36px">
+    <div class="chips">
+      <p style="font-size:22px;font-weight:800;color:var(--muted);letter-spacing:2px">DATA LATIH D</p>
+      <div class="chip" style="--i:0">🌸 <span class="x">x = (1.4, 0.2)</span><span class="arrow">→</span><span class="y">setosa</span></div>
+      <div class="chip" style="--i:1">🌸 <span class="x">x = (4.7, 1.4)</span><span class="arrow">→</span><span class="y" style="color:var(--orange-dk)">versicolor</span></div>
+      <div class="chip" style="--i:2">🌸 <span class="x">x = (6.0, 2.5)</span><span class="arrow">→</span><span class="y" style="color:var(--green)">virginica</span></div>
+    </div>
+    <div class="flow"></div>
+    <div class="modelbox"><span class="gear">⚙️</span><h3>Algoritma belajar</h3><p>memilih \( h \in \mathcal{H} \)</p></div>
+    <div class="flow"></div>
+    <div class="outbox">
+      <p style="font-size:22px;font-weight:800;color:var(--muted);letter-spacing:2px">INPUT BARU</p>
+      <div class="newx">🌸 <span class="mono">x = (5.1, 1.9)</span></div>
+      <div class="answer"><span class="qm">h(x) = ?</span><span class="ok">h(x) = virginica</span></div>
+    </div>
+  </div>
+  <div class="symbols rise" style="--d:.4s">
+    <p><span class="sym">\( \mathbf{x} \)</span> vektor fitur (input)</p>
+    <p><span class="sym">\( y \)</span> label / target (output)</p>
+    <p><span class="sym">\( h \)</span> hipotesis (model terlatih)</p>
+    <p><span class="sym">\( \mathcal{H} \)</span> ruang hipotesis</p>
+  </div>
+  <p class="src">Sumber: Russell &amp; Norvig (2021), Subbab 19.2 “Supervised Learning”.</p>
+</section>
+
+<!-- 9. NOTASI -->
+<section class="slide alt" id="s-terms" data-notes="Sorotan berganti otomatis; klik kartu untuk memilih. Satu baris = satu sampel; empat kolom pertama membentuk matriks fitur X berukuran N × d = 150 × 4; kolom species adalah vektor label y. Sebutkan juga istilah sinonim yang akan ditemui di literatur.">
+  <div class="head"><p class="eyebrow rise">Bagian 1 · Notasi · data asli dari IRIS.csv</p><h2 class="rise" style="--d:.08s">Fitur, label, dan sampel</h2></div>
+  <table class="data rise showX" id="termTable" style="--d:.15s">
+    <tr><th class="cx">sepal_length</th><th class="cx">sepal_width</th><th class="cx">petal_length</th><th class="cx">petal_width</th><th class="cy">species</th></tr>
+    <tr><td class="cx">5.1</td><td class="cx">3.5</td><td class="cx">1.4</td><td class="cx">0.2</td><td class="cy">Iris-setosa</td></tr>
+    <tr class="r2"><td class="cx">7.0</td><td class="cx">3.2</td><td class="cx">4.7</td><td class="cx">1.4</td><td class="cy">Iris-versicolor</td></tr>
+    <tr><td class="cx">6.4</td><td class="cx">3.2</td><td class="cx">4.5</td><td class="cx">1.5</td><td class="cy">Iris-versicolor</td></tr>
+    <tr><td class="cx">6.3</td><td class="cx">3.3</td><td class="cx">6.0</td><td class="cx">2.5</td><td class="cy">Iris-virginica</td></tr>
+  </table>
+  <div class="terms">
+    <div class="card term tx on rise" data-t="X" style="--d:.3s"><h3>Fitur · \( \mathbf{X} \in \mathbb{R}^{N \times d} \)</h3><p>Disebut juga atribut, prediktor, atau variabel independen. Di sini \( d = 4 \).</p></div>
+    <div class="card term ty rise" data-t="Y" style="--d:.4s"><h3>Label · \( \mathbf{y} \)</h3><p>Disebut juga target, kelas, atau variabel dependen. Di sini 3 kelas.</p></div>
+    <div class="card term tr rise" data-t="R" style="--d:.5s"><h3>Sampel · \( (\mathbf{x}_i, y_i) \)</h3><p>Disebut juga instans, observasi, atau record. Di sini \( N = 150 \).</p></div>
+  </div>
+  <p class="src">Sumber: James, Witten, Hastie, &amp; Tibshirani (2021), Bab 2; Han, Kamber, &amp; Pei (2012), Bab 2.</p>
+</section>
+
+<!-- 10. BERLABEL VS TIDAK -->
+<section class="slide dark" id="s-banding" data-notes="Ilustrasi perbedaan data berlabel dan tidak berlabel; berganti otomatis, klik tombol untuk mengunci. Data yang sama dapat dipakai untuk dua paradigma — yang berbeda adalah ketersediaan label dan pertanyaan yang diajukan.">
+  <div class="head"><p class="eyebrow rise">Bagian 1 · Ilustrasi</p><h2 class="rise" style="--d:.08s">Data berlabel dan data tidak berlabel</h2></div>
+  <div class="wrap">
+    <div class="col">
+      <div class="card modecard rise" id="mcSup" style="--d:.2s"><h3><span class="hl-o">●</span> Supervised</h3><p class="muted">Label setiap sampel (warna) diketahui. Model mempelajari batas keputusan untuk memprediksi label sampel baru.</p></div>
+      <div class="card modecard rise" id="mcUns" style="--d:.3s"><h3><span style="color:#9AA5B4">●</span> Unsupervised</h3><p class="muted">Label tidak tersedia. Model mencari struktur, misalnya kelompok (cluster), dari kemiripan antarsampel.</p></div>
+      <div class="ctrl rise" style="--d:.4s;margin-top:10px">
+        <button class="btn on" data-mode="0">Dengan label</button>
+        <button class="btn" data-mode="1">Tanpa label</button>
+      </div>
+    </div>
+    <div class="three rise" style="--d:.15s"><span class="badge" id="bandBadge">Supervised · berlabel</span></div>
+  </div>
+  <p class="src">Data sintetis untuk ilustrasi.</p>
+</section>
+
+<!-- 11. KLASIFIKASI VS REGRESI -->
+<section class="slide" id="s-jenis" data-notes="Definisi formal dari Bishop dan Russell &amp; Norvig: pembedanya adalah tipe output. Kiri: garis batas berputar mencari posisi yang memisahkan dua kelas. Kanan: garis regresi mencari posisi dengan galat kuadrat terkecil; garis tipis vertikal adalah residual. Fokus pertemuan ini adalah klasifikasi.">
+  <div class="head"><p class="eyebrow rise">Bagian 1 · Konsep dasar</p><h2 class="rise" style="--d:.08s">Klasifikasi dan regresi</h2></div>
+  <div class="duo">
+    <div class="card rise" style="--d:.2s">
+      <div class="row" style="align-items:center;justify-content:space-between"><h3 style="font-family:var(--serif);font-size:40px">Klasifikasi</h3><span class="pill cls">\( y \in \{C_1, \dots, C_K\} \)</span></div>
+      <p class="ex">Output berupa salah satu dari sejumlah <b style="color:var(--dark)">kategori diskret</b> yang berhingga.</p>
+      <canvas id="cvCls"></canvas>
+      <p class="ex">Contoh: spam/bukan, spesies bunga, layak/tidak layak UKT.</p>
+    </div>
+    <div class="card rise" style="--d:.35s">
+      <div class="row" style="align-items:center;justify-content:space-between"><h3 style="font-family:var(--serif);font-size:40px">Regresi</h3><span class="pill reg">\( y \in \mathbb{R} \)</span></div>
+      <p class="ex">Output berupa satu atau lebih <b style="color:var(--dark)">variabel kontinu</b>.</p>
+      <canvas id="cvReg"></canvas>
+      <p class="ex">Contoh: harga rumah, suhu esok hari, waktu tempuh perjalanan.</p>
+    </div>
+  </div>
+  <p class="src">Sumber: Bishop (2006), Bab 1; Russell &amp; Norvig (2021), Subbab 19.2.</p>
+</section>
+
+<!-- 12. LATIHAN IDENTIFIKASI -->
+<section class="slide alt" id="s-quiz" data-notes="Latihan singkat di kelas: mahasiswa menjawab lebih dulu, lalu kartu dibuka. Kartu terakhir sengaja ambigu: rating 1–5 bisa dimodelkan sebagai klasifikasi (5 kelas) atau regresi (ordinal sebagai angka) — formulasi masalah adalah keputusan perancang.">
+  <div class="head"><p class="eyebrow rise">Latihan identifikasi · klik kartu untuk membuka jawaban</p><h2 class="rise" style="--d:.08s">Klasifikasi atau regresi?</h2></div>
+  <div class="quiz">
+    <div class="qcard pop" style="--d:.15s"><div class="inner"><div class="face front"><span class="em">🌡️</span><p>Memprediksi suhu udara esok hari</p></div><div class="face back reg"><h3>Regresi</h3><p>Output berupa nilai kontinu (°C).</p></div></div></div>
+    <div class="qcard pop" style="--d:.25s"><div class="inner"><div class="face front"><span class="em">🎓</span><p>Memprediksi kelulusan tepat waktu seorang mahasiswa</p></div><div class="face back cls"><h3>Klasifikasi</h3><p>Dua kelas: ya atau tidak (biner).</p></div></div></div>
+    <div class="qcard pop" style="--d:.35s"><div class="inner"><div class="face front"><span class="em">♻️</span><p>Menentukan jenis sampah dari citra: organik, anorganik, atau B3</p></div><div class="face back cls"><h3>Klasifikasi</h3><p>Tiga kelas (multikelas).</p></div></div></div>
+    <div class="qcard pop" style="--d:.45s"><div class="inner"><div class="face front"><span class="em">🌶️</span><p>Memprediksi harga cabai rawit pekan depan</p></div><div class="face back reg"><h3>Regresi</h3><p>Output berupa rupiah per kilogram.</p></div></div></div>
+    <div class="qcard pop" style="--d:.55s"><div class="inner"><div class="face front"><span class="em">💬</span><p>Menentukan sentimen komentar: positif atau negatif</p></div><div class="face back cls"><h3>Klasifikasi</h3><p>Analisis sentimen (biner).</p></div></div></div>
+    <div class="qcard pop" style="--d:.65s"><div class="inner"><div class="face front"><span class="em">⭐</span><p>Memprediksi rating ulasan (1–5) dari teks ulasan</p></div><div class="face back reg" style="background:var(--dark);color:var(--light)"><h3>Keduanya mungkin</h3><p>Lima kelas (klasifikasi) atau nilai numerik (regresi), bergantung pada formulasi.</p></div></div></div>
+  </div>
+</section>
+
+<!-- 13. PENERAPAN -->
+<section class="slide" id="s-uses" data-notes="Contoh penerapan nyata. Untuk setiap kasus, minta mahasiswa menyebutkan fitur (X) dan label (y) sebelum dibahas.">
+  <div class="head"><p class="eyebrow rise">Bagian 1 · Penerapan</p><h2 class="rise" style="--d:.08s">Contoh penerapan supervised learning</h2></div>
+  <div class="uses">
+    <div class="card use rise" style="--d:.15s"><div class="top"><span class="em">📧</span><span class="pill cls">Klasifikasi</span></div><h3>Penyaringan spam</h3><p><b>X:</b> isi email, pengirim, tautan<br><b>y:</b> spam / bukan spam</p></div>
+    <div class="card use rise" style="--d:.25s"><div class="top"><span class="em">🔓</span><span class="pill cls">Klasifikasi</span></div><h3>Verifikasi wajah</h3><p><b>X:</b> piksel citra wajah<br><b>y:</b> pemilik / bukan pemilik</p></div>
+    <div class="card use rise" style="--d:.35s"><div class="top"><span class="em">🛵</span><span class="pill reg">Regresi</span></div><h3>Estimasi waktu tiba</h3><p><b>X:</b> jarak, waktu, kepadatan lalu lintas<br><b>y:</b> waktu tempuh (menit)</p></div>
+    <div class="card use rise" style="--d:.45s"><div class="top"><span class="em">🏦</span><span class="pill cls">Klasifikasi</span></div><h3>Deteksi penipuan transaksi</h3><p><b>X:</b> nominal, lokasi, waktu transaksi<br><b>y:</b> normal / mencurigakan</p></div>
+    <div class="card use rise" style="--d:.55s"><div class="top"><span class="em">🩻</span><span class="pill cls">Klasifikasi</span></div><h3>Diagnosis citra medis</h3><p><b>X:</b> citra rontgen dada<br><b>y:</b> normal / pneumonia</p></div>
+    <div class="card use rise" style="--d:.65s"><div class="top"><span class="em">🏠</span><span class="pill reg">Regresi</span></div><h3>Penaksiran harga properti</h3><p><b>X:</b> luas, lokasi, jumlah kamar<br><b>y:</b> harga (rupiah)</p></div>
+  </div>
+</section>
+
+<!-- 14. IRIS -->
+<section class="slide alt" id="s-iris" data-notes="Dataset Iris dipublikasikan oleh R. A. Fisher (1936) dalam makalah tentang analisis diskriminan; pengukurannya dilakukan oleh ahli botani Edgar Anderson. Gambar bunga di kanan digambar proporsional terhadap rata-rata ukuran petal dari IRIS.csv.">
+  <div class="head"><p class="eyebrow rise">Bagian 2 · Data &amp; alur kerja</p><h2 class="rise" style="--d:.08s">Dataset Iris (Fisher, 1936)</h2></div>
+  <div class="wrap">
+    <div class="col">
+      <p class="lead rise" style="--d:.15s">Diperkenalkan R. A. Fisher dalam makalah <i>The use of multiple measurements in taxonomic problems</i>; pengukuran dilakukan oleh Edgar Anderson. Dataset ini menjadi tolok ukur klasik untuk metode klasifikasi.</p>
+      <div class="card anatomy rise" style="--d:.3s">
+        <svg viewBox="-110 -110 220 220" id="anatomySvg" aria-label="Diagram bunga iris: sepal adalah kelopak lebar di bawah, petal adalah mahkota yang tegak"></svg>
+        <div class="col" style="gap:14px">
+          <p><b class="hl-o">Petal</b> (mahkota) — helai yang tegak.</p>
+          <p><b class="hl-b">Sepal</b> (kelopak) — helai lebar di bawahnya.</p>
+          <p class="muted" style="font-size:24px">150 sampel · 4 fitur numerik (cm) · 3 kelas seimbang (50 per kelas).</p>
+        </div>
+      </div>
+    </div>
+    <div class="species">
+      <div class="card pop" style="--d:.35s"><svg viewBox="-110 -110 220 220" data-sp="0" aria-label="Iris setosa, petal kecil"></svg><h3 class="hl-b">Setosa</h3><p>rata-rata petal<br><b>1,46 × 0,24 cm</b></p></div>
+      <div class="card pop" style="--d:.5s"><svg viewBox="-110 -110 220 220" data-sp="1" aria-label="Iris versicolor, petal sedang"></svg><h3 class="hl-o">Versicolor</h3><p>rata-rata petal<br><b>4,26 × 1,33 cm</b></p></div>
+      <div class="card pop" style="--d:.65s"><svg viewBox="-110 -110 220 220" data-sp="2" aria-label="Iris virginica, petal besar"></svg><h3 class="hl-g">Virginica</h3><p>rata-rata petal<br><b>5,55 × 2,03 cm</b></p></div>
+    </div>
+  </div>
+  <p class="src">Sumber: Fisher, R. A. (1936). <i>Annals of Eugenics, 7</i>(2), 179–188. Statistik dihitung dari IRIS.csv.</p>
+</section>
+
+<!-- 15. IRIS 3D -->
+<section class="slide dark" id="s-iris3d" data-notes="Visualisasi 150 sampel asli dengan tiga fitur. Seret untuk memutar. Amati: kelas setosa terpisah secara linear dari dua kelas lainnya, sedangkan versicolor dan virginica sedikit tumpang-tindih. Daerah tumpang-tindih inilah yang membuat akurasi model jarang mencapai 100%.">
+  <div class="head"><p class="eyebrow rise">Bagian 2 · Eksplorasi data</p><h2 class="rise" style="--d:.08s">Sebaran 150 sampel dalam ruang fitur</h2></div>
+  <div class="wrap">
+    <div class="col">
+      <p class="lead rise" style="--d:.15s">Setiap titik mewakili satu sampel dari IRIS.csv, diposisikan menurut tiga fiturnya.</p>
+      <ul class="obs rise" style="--d:.3s">
+        <li><b class="hl-b">Setosa</b> terpisah jelas dari kelas lain (<i>linearly separable</i>).</li>
+        <li><b class="hl-o">Versicolor</b> dan <b class="hl-g">virginica</b> tumpang-tindih sebagian.</li>
+        <li>Tugas model: menentukan <b style="color:var(--light)">batas keputusan</b> di antara kelas.</li>
+      </ul>
+      <div class="legend rise" style="--d:.45s;margin-top:auto"><span><i style="background:var(--blue)"></i>Setosa</span><span><i style="background:var(--orange)"></i>Versicolor</span><span><i style="background:var(--green)"></i>Virginica</span></div>
+      <p class="muted rise" style="--d:.5s;font-size:22px">Seret untuk memutar</p>
+    </div>
+    <div class="three rise" id="iris3d" style="--d:.1s"></div>
+  </div>
+  <p class="src">Data: IRIS.csv (150 sampel).</p>
+</section>
+
+<!-- 16. TAHAPAN -->
+<section class="slide" id="s-alur" data-notes="Han, Kamber, &amp; Pei membagi klasifikasi menjadi dua tahap: tahap pembelajaran (membangun model dari data latih) dan tahap klasifikasi (memakai model untuk data baru, diawali dengan mengukur akurasinya pada data uji). Lima langkah di bawah adalah rincian praktisnya di scikit-learn.">
+  <div class="head"><p class="eyebrow rise">Bagian 2 · Alur kerja</p><h2 class="rise" style="--d:.08s">Tahapan membangun model klasifikasi</h2></div>
+  <div class="phases rise" style="--d:.12s">
+    <div class="phase" style="flex:3"><b>Tahap pembelajaran</b> <span>(learning step) — model dibangun dari data latih</span></div>
+    <div class="phase p2" style="flex:2"><b>Tahap klasifikasi</b> <span>(classification step) — model diuji, lalu dipakai</span></div>
+  </div>
+  <div class="pipe rise" style="--d:.2s" id="pipe">
+    <div class="track"><div class="runner"></div></div>
+    <div class="stp"><div class="dot">📂</div><div class="card"><h3>1 · Persiapan</h3><p>Membaca data, memeriksa nilai kosong dan duplikat, encoding.</p><code>pd.read_csv()</code></div></div>
+    <div class="stp"><div class="dot">✂️</div><div class="card"><h3>2 · Pembagian</h3><p>Memisahkan data latih (80%) dan data uji (20%).</p><code>train_test_split()</code></div></div>
+    <div class="stp"><div class="dot">🧠</div><div class="card"><h3>3 · Pelatihan</h3><p>Algoritma mempelajari hipotesis dari data latih.</p><code>model.fit(X_train, y_train)</code></div></div>
+    <div class="stp"><div class="dot">🔮</div><div class="card"><h3>4 · Prediksi</h3><p>Model memprediksi label data uji <b>tanpa</b> akses ke label aslinya.</p><code>model.predict(X_test)</code></div></div>
+    <div class="stp"><div class="dot">📊</div><div class="card"><h3>5 · Evaluasi</h3><p>Prediksi dibandingkan dengan label sebenarnya.</p><code>accuracy_score()</code></div></div>
+  </div>
+  <p class="src">Sumber: Han, Kamber, &amp; Pei (2012), Subbab 8.1; Pedregosa et al. (2011).</p>
+</section>
+
+<!-- 17. SPLIT -->
+<section class="slide alt" id="s-split" data-notes="Metode hold-out: data dibagi sekali menjadi data latih dan uji. Animasi memperlihatkan pembagian berstrata (stratify=y): proporsi tiap kelas tetap 40/40/40 dan 10/10/10. Alternatif yang lebih andal untuk data kecil adalah k-fold cross-validation, yang akan dibahas pada pertemuan lanjutan.">
+  <div class="head"><p class="eyebrow rise">Bagian 2 · Validasi</p><h2 class="rise" style="--d:.08s">Pembagian data latih dan data uji</h2></div>
+  <p class="lead rise" style="--d:.1s;margin-top:-16px">Model harus dievaluasi pada data yang <b style="color:var(--dark)">tidak digunakan saat pelatihan</b> agar estimasi kinerjanya tidak bias (metode <i>hold-out</i>).</p>
+  <div class="three rise" id="split3d" style="--d:.15s">
+    <div class="blocklabel" id="lblTrain"><b class="hl-b">Data latih · 120 sampel (80%)</b><span>untuk membangun model</span></div>
+    <div class="blocklabel" id="lblTest"><b class="hl-o">Data uji · 30 sampel (20%)</b><span>untuk mengukur kinerja</span></div>
+  </div>
+  <div class="row rise" style="--d:.3s;align-items:center;justify-content:space-between;margin-top:16px">
+    <code style="font-size:25px;background:var(--dark);color:#F2D7BF;padding:16px 24px;border-radius:12px">train_test_split(X, y, test_size=0.2, stratify=y, random_state=42)</code>
+    <div class="legend"><span><i style="background:var(--blue)"></i>Setosa</span><span><i style="background:var(--orange)"></i>Versicolor</span><span><i style="background:var(--green)"></i>Virginica</span></div>
+  </div>
+  <p class="src">Sumber: James et al. (2021), Bab 5; Han et al. (2012), Subbab 8.5.</p>
+</section>
+
+<!-- 18. OVERFIT -->
+<section class="slide" id="s-overfit" data-notes="Definisi overfitting menurut James et al. (ISLR). Grafik memperlihatkan tiga model polinomial berderajat 1, 3, dan 11 pada data yang sama; nilai MSE dihitung langsung dari titik di grafik. Model berderajat 11 memiliki MSE latih ≈ 0 tetapi MSE uji paling besar. Analogi tiga tipe mahasiswa membantu: underfit (belajar terlalu sedikit), pas (memahami konsep), overfit (menghafal).">
+  <div class="head"><p class="eyebrow rise">Bagian 2 · Generalisasi</p><h2 class="rise" style="--d:.08s">Overfitting dan underfitting</h2></div>
+  <div class="wrap">
+    <div class="col" style="gap:14px">
+      <div class="quote rise" style="--d:.12s;padding:20px 26px"><p class="en" style="font-size:23px">“When a given method yields a small training MSE but a large test MSE, we are said to be overfitting the data.”</p><p class="cite">— James et al. (2021, Subbab 2.2)</p></div>
+      <p class="rise math" style="--d:.18s;text-align:center">\( \mathrm{MSE} = \frac{1}{n} \sum_{i=1}^{n} \big(y_i - \hat{f}(x_i)\big)^2 \)</p>
+      <div class="card student rise" data-m="0" style="--d:.22s"><span class="em">😴</span><div><h3>Underfitting</h3><p>Model terlalu sederhana; galat tinggi di data latih dan uji.</p></div><div class="tag">derajat 1</div></div>
+      <div class="card student rise" data-m="1" style="--d:.28s"><span class="em">🧠</span><div><h3>Kompleksitas sesuai</h3><p>Pola umum tertangkap; galat uji terendah.</p></div><div class="tag">derajat 3</div></div>
+      <div class="card student rise" data-m="2" style="--d:.34s"><span class="em">📖</span><div><h3>Overfitting</h3><p>Model “menghafal” derau data latih.</p></div><div class="tag">derajat 11</div></div>
+    </div>
+    <div class="col">
+      <div class="plotwrap rise" style="--d:.2s;height:500px"><canvas id="cvOver" style="cursor:default"></canvas></div>
+      <div class="errbars rise" style="--d:.3s">
+        <div class="eb"><span>MSE data latih</span><div class="bar"><i id="ebTr" style="background:var(--dark)"></i></div><span class="mono" id="evTr">–</span></div>
+        <div class="eb"><span>MSE data uji</span><div class="bar"><i id="ebTe" style="background:var(--orange)"></i></div><span class="mono" id="evTe">–</span></div>
+      </div>
+    </div>
+  </div>
+  <p class="src">Sumber: James, Witten, Hastie, &amp; Tibshirani (2021). <i>An Introduction to Statistical Learning</i> (2nd ed.). Data grafik sintetis.</p>
+</section>
+
+<!-- 19. KNN TEORI -->
+<section class="slide alt" id="s-knn0" data-notes="KNN diperkenalkan secara formal oleh Cover &amp; Hart (1967). Termasuk lazy learner: tidak ada proses pelatihan selain menyimpan data; seluruh komputasi terjadi saat prediksi, sehingga biaya prediksi O(N·d) per sampel. Karena berbasis jarak, fitur dengan skala besar mendominasi — normalisasi (mis. StandardScaler atau min-max) diperlukan.">
+  <div class="head"><p class="eyebrow rise">Bagian 3 · Algoritma 1</p><h2 class="rise" style="--d:.08s">K-Nearest Neighbors (KNN)</h2></div>
+  <div class="two">
+    <div class="col">
+      <p class="lead rise" style="--d:.12s">Sampel baru diberi label <b style="color:var(--dark)">mayoritas dari K tetangga terdekatnya</b> di ruang fitur.</p>
+      <div class="pseudo rise" style="--d:.2s">
+        <p class="ph">Algoritma KNN (klasifikasi)</p>
+        <p><b>Input:</b> data latih \( D \), sampel uji \( \mathbf{x}_q \), bilangan \( K \)</p>
+        <ol>
+          <li>Untuk setiap \( (\mathbf{x}_i, y_i) \in D \), hitung jarak \( d(\mathbf{x}_q, \mathbf{x}_i) \)</li>
+          <li>Urutkan sampel berdasarkan jarak terkecil</li>
+          <li>Ambil \( K \) sampel teratas sebagai \( N_K(\mathbf{x}_q) \)</li>
+          <li>Tetapkan label dengan voting mayoritas</li>
+        </ol>
+      </div>
+      <p class="math rise" style="--d:.3s">\[ \hat{y} = \arg\max_{c} \sum_{i \in N_K(\mathbf{x}_q)} \mathbb{1}(y_i = c) \]</p>
+    </div>
+    <div class="col">
+      <div class="card rise" style="--d:.25s"><h3 style="font-size:28px">Ukuran jarak</h3>
+        <p class="math">\[ d_{\text{Euclidean}}(\mathbf{a},\mathbf{b}) = \sqrt{\sum_{j=1}^{d} (a_j - b_j)^2} \]</p>
+        <p class="math">\[ d_{\text{Manhattan}}(\mathbf{a},\mathbf{b}) = \sum_{j=1}^{d} \lvert a_j - b_j \rvert \]</p>
+      </div>
+      <div class="card rise" style="--d:.35s"><h3 style="font-size:28px">Karakteristik</h3>
+        <ul class="plain"><li><b>Lazy learner</b> — tidak membangun model eksplisit.</li><li>Sensitif terhadap <b>skala fitur</b> → perlu normalisasi.</li><li>K kecil rawan derau; K besar terlalu “halus”. K ganjil menghindari seri pada kasus biner.</li></ul>
+      </div>
+    </div>
+  </div>
+  <p class="src">Sumber: Cover, T. M., &amp; Hart, P. E. (1967). <i>IEEE Trans. Information Theory, 13</i>(1), 21–27; Han et al. (2012), Subbab 9.5.</p>
+</section>
+
+<!-- 20. KNN INTERAKTIF -->
+<section class="slide" id="s-knn" data-notes="Demo interaktif dengan 150 sampel asli (petal_length vs petal_width). Klik grafik untuk menempatkan sampel uji. Ubah K dan aktifkan 'Tampilkan wilayah' untuk melihat batas keputusan. Bandingkan K=1 dan K=15 di daerah perbatasan versicolor–virginica untuk mendiskusikan pengaruh K terhadap kompleksitas model.">
+  <div class="head"><p class="eyebrow rise">Bagian 3 · Simulasi KNN</p><h2 class="rise" style="--d:.08s">Pengaruh nilai K terhadap prediksi</h2></div>
+  <div class="wrap">
+    <div class="col" style="gap:22px">
+      <p class="rise" style="--d:.12s">Lingkaran putus-putus menandai jarak ke tetangga ke-K. Garis menghubungkan sampel uji dengan K tetangga terdekat.</p>
+      <div class="ctrl rise" style="--d:.25s"><span class="lbl">K =</span><button class="btn" data-k="1">1</button><button class="btn on" data-k="3">3</button><button class="btn" data-k="5">5</button><button class="btn" data-k="7">7</button><button class="btn" data-k="15">15</button></div>
+      <div class="ctrl rise" style="--d:.3s"><button class="btn" id="knnRegion">Tampilkan wilayah</button><button class="btn on" id="knnAuto">Gerak otomatis</button></div>
+      <div class="readout rise" style="--d:.35s"><p id="knnVotes">–</p><div class="pred" id="knnPred">–</div></div>
+    </div>
+    <div class="plotwrap rise" style="--d:.15s"><canvas id="cvKnn"></canvas><div class="tip">klik untuk menempatkan sampel uji</div></div>
+  </div>
+  <p class="src">Data: IRIS.csv, jarak Euclidean pada dua fitur petal.</p>
+</section>
+
+<!-- 21. KNN MANUAL -->
+<section class="slide alt" id="s-knn2" data-notes="Contoh perhitungan manual dengan sampel asli dari IRIS.csv. Hitung satu baris bersama di papan. Untuk K=1, 3, dan 5 hasilnya tetap versicolor, namun komposisi suaranya berbeda. Perhatikan ada dua sampel berjarak sama (0.141) — dalam implementasi, urutan seri ditentukan oleh urutan data.">
+  <div class="head"><p class="eyebrow rise">Bagian 3 · Contoh perhitungan</p><h2 class="rise" style="--d:.08s">Prediksi untuk \( \mathbf{x}_q = (4.9,\ 1.6) \)</h2></div>
+  <div class="wrap">
+    <div class="col">
+      <table class="dist rise" id="distTable" style="--d:.15s">
+        <tr><th>#</th><th>petal_length</th><th>petal_width</th><th>kelas</th><th>jarak</th></tr>
+        <tr><td>1</td><td class="m">4.9</td><td class="m">1.5</td><td class="hl-o"><b>Versicolor</b></td><td class="m">0.100</td></tr>
+        <tr><td>2</td><td class="m">5.0</td><td class="m">1.7</td><td class="hl-o"><b>Versicolor</b></td><td class="m">0.141</td></tr>
+        <tr><td>3</td><td class="m">5.0</td><td class="m">1.5</td><td class="hl-g"><b>Virginica</b></td><td class="m">0.141</td></tr>
+        <tr><td>4</td><td class="m">5.1</td><td class="m">1.6</td><td class="hl-o"><b>Versicolor</b></td><td class="m">0.200</td></tr>
+        <tr><td>5</td><td class="m">4.9</td><td class="m">1.8</td><td class="hl-g"><b>Virginica</b></td><td class="m">0.200</td></tr>
+        <tr><td>…</td><td class="m">1.4</td><td class="m">0.2</td><td class="hl-b"><b>Setosa</b></td><td class="m">3.770</td></tr>
+      </table>
+      <div class="ctrl rise" style="--d:.3s;margin-top:8px"><span class="lbl">Pakai K =</span><button class="btn" data-k2="1">1</button><button class="btn on" data-k2="3">3</button><button class="btn" data-k2="5">5</button></div>
+    </div>
+    <div class="col">
+      <div class="formula rise" style="--d:.2s">
+        <p style="font-size:22px;color:var(--muted-dk);margin-bottom:8px">Jarak Euclidean ke sampel #2:</p>
+        <p class="mono">√((4.9 − 5.0)² + (1.6 − 1.7)²)<br>= √(0.01 + 0.01)<br>= <span style="color:var(--orange);font-weight:700">0.141</span></p>
+      </div>
+      <div class="card rise" style="--d:.35s">
+        <h3 style="font-size:28px">Hasil voting</h3>
+        <div class="vote" id="voteBox"></div>
+        <p class="bigline" style="font-size:38px;margin-top:14px" id="voteRes">–</p>
+      </div>
+    </div>
+  </div>
+  <p class="src">Data: sampel dari IRIS.csv.</p>
+</section>
+
+<!-- 22. DT TEORI -->
+<section class="slide" id="s-tree1" data-notes="Decision tree memodelkan keputusan sebagai rangkaian pengujian atribut. Algoritma klasik: ID3 (Quinlan, 1986) dengan information gain, dan CART (Breiman et al., 1984) dengan indeks Gini — CART adalah dasar DecisionTreeClassifier di scikit-learn. Permainan tebak hewan di kiri adalah analogi pohon keputusan sederhana; mainkan bersama kelas.">
+  <div class="head"><p class="eyebrow rise">Bagian 3 · Algoritma 2</p><h2 class="rise" style="--d:.08s">Decision Tree</h2></div>
+  <div class="wrap">
+    <div class="game rise" style="--d:.15s">
+      <p style="font-size:22px;color:var(--muted-dk)">Analogi: pilih satu — burung, kelelawar, ikan, atau kucing</p>
+      <div class="em" id="gEm">🤔</div>
+      <div class="q" id="gQ">–</div>
+      <div class="btns" id="gBtns"><button class="btn primary" data-a="1">Ya</button><button class="btn" data-a="0">Tidak</button></div>
+      <div class="crumbs" id="gCrumbs"></div>
+    </div>
+    <div class="col rise" style="--d:.3s;gap:22px">
+      <p class="lead">Decision tree merepresentasikan fungsi sebagai <b style="color:var(--dark)">rangkaian pengujian atribut</b> yang tersusun hierarkis.</p>
+      <div class="anat3">
+        <p><span class="pill cls">Simpul internal</span> pengujian terhadap satu atribut</p>
+        <p><span class="pill cls">Cabang</span> hasil dari pengujian tersebut</p>
+        <p><span class="pill reg">Simpul daun</span> label kelas (prediksi)</p>
+      </div>
+      <div class="pseudo">
+        <p class="ph">Induksi pohon (greedy, top-down)</p>
+        <ol><li>Pilih atribut dan ambang yang paling mengurangi <i>impurity</i></li><li>Bagi data menurut hasil pengujian</li><li>Ulangi secara rekursif pada setiap cabang</li><li>Berhenti bila simpul murni atau kriteria henti tercapai (mis. <code>max_depth</code>)</li></ol>
+      </div>
+    </div>
+  </div>
+  <p class="src">Sumber: Quinlan (1986), <i>Machine Learning, 1</i>, 81–106; Breiman et al. (1984); Russell &amp; Norvig (2021), Subbab 19.3.</p>
+</section>
+
+<!-- 23. IMPURITY -->
+<section class="slide alt" id="s-impurity" data-notes="Ukuran impurity menilai seberapa tercampur kelas dalam satu simpul. Contoh kiri-bawah: dua kandidat pertanyaan pada 8 sampel (4 setosa, 4 versicolor) — ilustrasi. Baris paling bawah adalah perhitungan nyata pada 150 sampel IRIS: entropi akar log2(3) ≈ 1,585 bit; setelah pemisahan petal_length ≤ 2,45, simpul kiri murni (50 setosa) dan simpul kanan 50/50 (entropi 1), sehingga IG = 1,585 − (100/150)(1) ≈ 0,918 bit.">
+  <div class="head"><p class="eyebrow rise">Bagian 3 · Decision Tree</p><h2 class="rise" style="--d:.08s">Memilih pertanyaan terbaik: ukuran impurity</h2></div>
+  <div class="two">
+    <div class="card rise" style="--d:.12s;display:flex;flex-direction:column;gap:6px">
+      <p class="math">\[ \mathrm{Entropy}(S) = -\sum_{k=1}^{K} p_k \log_2 p_k \]</p>
+      <p class="math">\[ \mathrm{Gini}(S) = 1 - \sum_{k=1}^{K} p_k^2 \]</p>
+      <p class="math">\[ \mathrm{IG}(S, A) = \mathrm{Entropy}(S) - \sum_{v} \frac{|S_v|}{|S|}\,\mathrm{Entropy}(S_v) \]</p>
+      <p class="muted" style="font-size:22px">\( p_k \): proporsi kelas \( k \) di simpul \( S \); \( S_v \): subset hasil pemisahan dengan atribut \( A \).</p>
+    </div>
+    <div class="col" style="gap:16px">
+      <div class="card cand rise" style="--d:.2s">
+        <p class="qq mono">sepal_width ≥ 3.0 ?</p>
+        <div><div class="bucket"><i style="background:var(--blue)"></i><i style="background:var(--blue)"></i><i style="background:var(--orange)"></i><i style="background:var(--orange)"></i></div></div>
+        <div><div class="bucket"><i style="background:var(--blue)"></i><i style="background:var(--blue)"></i><i style="background:var(--orange)"></i><i style="background:var(--orange)"></i></div></div>
+        <p class="verdict hl-o">Gini anak = 0.5 dan 0.5 → IG = 0 (tidak informatif)</p>
+      </div>
+      <div class="card cand rise" style="--d:.3s;border-color:var(--green)">
+        <p class="qq mono">petal_length ≤ 2.45 ?</p>
+        <div><div class="bucket"><i style="background:var(--blue)"></i><i style="background:var(--blue)"></i><i style="background:var(--blue)"></i><i style="background:var(--blue)"></i></div></div>
+        <div><div class="bucket"><i style="background:var(--orange)"></i><i style="background:var(--orange)"></i><i style="background:var(--orange)"></i><i style="background:var(--orange)"></i></div></div>
+        <p class="verdict hl-g">Gini anak = 0 dan 0 → IG = 1 bit (dipilih)</p>
+      </div>
+    </div>
+  </div>
+  <div class="calc rise" style="--d:.4s"><b>Pada 150 sampel IRIS:</b> Entropy(akar) = log₂3 ≈ 1.585 bit → setelah <span class="mono">petal_length ≤ 2.45</span>: IG = 1.585 − (100/150)·1 ≈ <b>0.918 bit</b></div>
+  <p class="src">Sumber: Quinlan (1986); Breiman et al. (1984); Han et al. (2012), Subbab 8.2. Contoh 8 sampel bersifat ilustrasi.</p>
+</section>
+
+<!-- 24. DT IRIS -->
+<section class="slide" id="s-tree2" data-notes="Pohon dua tingkat untuk IRIS; aturan ini benar untuk 144 dari 150 sampel (dihitung dari IRIS.csv). Geser slider atau klik grafik: jalur di pohon menyala. Setiap pengujian atribut berkorespondensi dengan satu garis potong sejajar sumbu, sehingga batas keputusan decision tree berbentuk persegi panjang. Pohon yang terlalu dalam membentuk partisi sangat kecil (overfitting) — dikendalikan dengan max_depth atau pruning.">
+  <div class="head"><p class="eyebrow rise">Bagian 3 · Simulasi Decision Tree</p><h2 class="rise" style="--d:.08s">Setiap pengujian memartisi ruang fitur</h2></div>
+  <div class="wrap">
+    <div class="col">
+      <div class="card treebox rise" style="--d:.15s;padding:0" id="treeBox">
+        <svg viewBox="0 0 560 430" preserveAspectRatio="none">
+          <path class="edge" id="e1" d="M280 70 L120 210"/><path class="edge" id="e2" d="M280 70 L410 210"/>
+          <path class="edge" id="e3" d="M410 210 L300 350"/><path class="edge" id="e4" d="M410 210 L500 350"/>
+          <text class="elabel" x="170" y="130">ya</text><text class="elabel" x="370" y="130">tidak</text>
+          <text class="elabel" x="315" y="280">ya</text><text class="elabel" x="470" y="280">tidak</text>
+        </svg>
+        <div class="node q" id="n0" style="left:50%;top:16%">petal_length ≤ 2.45?</div>
+        <div class="node leaf s0" id="n1" style="left:21%;top:49%">Setosa</div>
+        <div class="node q" id="n2" style="left:73%;top:49%">petal_width ≤ 1.75?</div>
+        <div class="node leaf s1" id="n3" style="left:54%;top:81%">Versicolor</div>
+        <div class="node leaf s2" id="n4" style="left:86%;top:81%">Virginica</div>
+      </div>
+      <div class="slider rise" style="--d:.25s"><span>petal_length</span><input type="range" id="slPL" min="1" max="7" step="0.1" value="4.5"><span class="mono" id="vPL">4.5</span></div>
+      <div class="slider rise" style="--d:.3s"><span>petal_width</span><input type="range" id="slPW" min="0.1" max="2.6" step="0.05" value="1.4"><span class="mono" id="vPW">1.40</span></div>
+      <p class="muted rise" style="--d:.35s;font-size:23px">Akurasi pada seluruh data: <b style="color:var(--dark)">144 / 150 = 96%</b>.</p>
+    </div>
+    <div class="plotwrap rise" style="--d:.15s"><canvas id="cvTree"></canvas><div class="tip">klik atau geser slider</div></div>
+  </div>
+  <p class="src">Data: IRIS.csv. Ambang 2.45 dan 1.75 merupakan pemisahan yang umum dihasilkan CART pada data ini.</p>
+</section>
+
+<!-- 25. NB TEORI -->
+<section class="slide alt" id="s-nbtheory" data-notes="Naive Bayes menerapkan teorema Bayes dengan asumsi independensi bersyarat antarfitur jika kelas diketahui. Karena P(x) sama untuk semua kelas, keputusan cukup memaksimalkan pembilang (aturan MAP). Untuk fitur numerik seperti IRIS dipakai Gaussian Naive Bayes; untuk data teks/hitungan dipakai Multinomial NB dengan Laplace smoothing agar peluang nol tidak menghapus seluruh hasil kali.">
+  <div class="head"><p class="eyebrow rise">Bagian 3 · Algoritma 3</p><h2 class="rise" style="--d:.08s">Naive Bayes</h2></div>
+  <div class="two">
+    <div class="col">
+      <div class="card rise" style="--d:.12s">
+        <h3 style="font-size:28px">Teorema Bayes</h3>
+        <p class="math">\[ \underbrace{P(c \mid \mathbf{x})}_{\text{posterior}} = \frac{\overbrace{P(\mathbf{x} \mid c)}^{\text{likelihood}}\;\overbrace{P(c)}^{\text{prior}}}{\underbrace{P(\mathbf{x})}_{\text{evidence}}} \]</p>
+      </div>
+      <div class="card rise" style="--d:.22s">
+        <h3 style="font-size:28px">Asumsi “naive”: independensi bersyarat</h3>
+        <p class="math">\[ P(\mathbf{x} \mid c) = \prod_{j=1}^{d} P(x_j \mid c) \]</p>
+      </div>
+    </div>
+    <div class="col">
+      <div class="defbox rise" style="--d:.3s">
+        <h3 style="font-size:28px">Aturan keputusan (MAP)</h3>
+        <p class="math">\[ \hat{y} = \arg\max_{c} \; P(c) \prod_{j=1}^{d} P(x_j \mid c) \]</p>
+      </div>
+      <div class="card rise" style="--d:.4s">
+        <h3 style="font-size:28px">Fitur numerik: Gaussian NB</h3>
+        <p class="math">\[ P(x_j \mid c) = \frac{1}{\sqrt{2\pi\sigma_{jc}^{2}}} \exp\!\left(-\frac{(x_j-\mu_{jc})^2}{2\sigma_{jc}^{2}}\right) \]</p>
+      </div>
+    </div>
+  </div>
+  <p class="src">Sumber: Han et al. (2012), Subbab 8.3; Bishop (2006), Bab 4; Russell &amp; Norvig (2021), Bab 12 &amp; 20.</p>
+</section>
+
+<!-- 26. NB CONTOH -->
+<section class="slide" id="s-nb" data-notes="Contoh perhitungan bertahap; angka frekuensi kata bersifat ilustrasi. Klik 'Langkah berikutnya'. Prior awal condong ke 'bukan spam', tetapi setiap kata mencurigakan menggeser posterior. Nilai akhir dinormalkan: 0,12 / (0,12 + 0,003) ≈ 97,6%.">
+  <div class="head"><p class="eyebrow rise">Bagian 3 · Contoh perhitungan · angka ilustrasi</p><h2 class="rise" style="--d:.08s">Klasifikasi email dengan Naive Bayes</h2></div>
+  <div class="wrap">
+    <div class="col" style="gap:24px">
+      <div class="email rise" style="--d:.15s">
+        <div class="bar"><i></i><i></i><i></i><span style="margin-left:12px">Kotak masuk</span></div>
+        <div class="body">
+          <p class="from">dari: promo-heboh@contoh.xyz</p>
+          <p class="subj">SELAMAT! Anda mendapat <mark id="mk1">hadiah</mark> <mark id="mk2">GRATIS</mark> 🎁</p>
+          <p class="txt">Klik tautan berikut untuk mengklaim <mark id="mk3">hadiah</mark> Anda sebelum tengah malam…</p>
+        </div>
+      </div>
+      <div class="probbars rise" style="--d:.3s">
+        <div class="pb"><span>Spam</span><div class="bar"><i id="pbS" style="background:var(--orange)"></i></div><span class="mono" id="pvS">–</span></div>
+        <div class="pb"><span>Bukan spam</span><div class="bar"><i id="pbN" style="background:var(--blue)"></i></div><span class="mono" id="pvN">–</span></div>
+      </div>
+      <div class="ctrl rise" style="--d:.35s"><button class="btn primary" id="nbNext">Langkah berikutnya ▶</button><button class="btn" id="nbReset">Ulang</button></div>
+    </div>
+    <div class="nbsteps rise" style="--d:.2s">
+      <div class="nbstep" data-s="0"><span class="n">1</span><div><p><b>Prior.</b> Dari 100 email latih: 40 spam, 60 bukan spam.</p><p class="mono">P(spam) = 0.40 · P(bukan) = 0.60</p></div></div>
+      <div class="nbstep" data-s="1"><span class="n">2</span><div><p><b>Likelihood kata “gratis”.</b> Muncul pada 60% email spam dan 5% email bukan spam.</p><p class="mono">0.40 × 0.60 = 0.24 · 0.60 × 0.05 = 0.03</p></div></div>
+      <div class="nbstep" data-s="2"><span class="n">3</span><div><p><b>Likelihood kata “hadiah”.</b> Muncul pada 50% spam dan 10% bukan spam.</p><p class="mono">0.24 × 0.50 = 0.12 · 0.03 × 0.10 = 0.003</p></div></div>
+      <div class="nbstep" data-s="3"><span class="n">4</span><div><p><b>Keputusan MAP.</b> 0.12 &gt; 0.003; setelah normalisasi, P(spam | x) ≈ <b class="hl-o">97.6%</b>.</p><p class="mono">ŷ = spam</p></div></div>
+    </div>
+  </div>
+  <p class="src">Angka frekuensi bersifat ilustrasi.</p>
+</section>
+
+<!-- 27. PERBANDINGAN -->
+<section class="slide alt" id="s-compare" data-notes="Tabel ringkasan untuk dicatat mahasiswa. Tidak ada algoritma yang selalu unggul untuk semua masalah (no free lunch); pemilihan bergantung pada karakteristik data, kebutuhan interpretabilitas, dan sumber daya komputasi.">
+  <div class="head"><p class="eyebrow rise">Bagian 3 · Ringkasan algoritma</p><h2 class="rise" style="--d:.08s">Perbandingan ketiga algoritma</h2></div>
+  <table class="formal rise" style="--d:.15s">
+    <tr><th style="width:19%">Aspek</th><th style="width:27%">KNN</th><th style="width:27%">Decision Tree</th><th style="width:27%">Naive Bayes</th></tr>
+    <tr><td><b>Prinsip</b></td><td>Kemiripan (jarak)</td><td>Aturan if–then hierarkis</td><td>Probabilitas (teorema Bayes)</td></tr>
+    <tr><td><b>Pelatihan</b></td><td>Menyimpan data (lazy)</td><td>Membangun pohon</td><td>Mengestimasi prior &amp; likelihood</td></tr>
+    <tr><td><b>Kelebihan</b></td><td>Sederhana, tanpa asumsi distribusi</td><td>Mudah diinterpretasi</td><td>Sangat cepat, cukup data sedikit</td></tr>
+    <tr><td><b>Kekurangan</b></td><td>Prediksi lambat, sensitif skala</td><td>Rawan overfitting</td><td>Asumsi independensi</td></tr>
+    <tr><td><b>Hiperparameter</b></td><td class="mono">n_neighbors, metric</td><td class="mono">max_depth, criterion</td><td class="mono">var_smoothing</td></tr>
+    <tr><td><b>scikit-learn</b></td><td class="mono">KNeighborsClassifier</td><td class="mono">DecisionTreeClassifier</td><td class="mono">GaussianNB</td></tr>
+  </table>
+  <p class="src">Sumber: Han et al. (2012), Bab 8–9; Géron (2022); Pedregosa et al. (2011).</p>
+</section>
+
+<!-- 28. EVALUASI -->
+<section class="slide" id="s-eval" data-notes="Angka ilustrasi: 20 mahasiswa pada data uji kasus keringanan UKT, kelas positif = 'layak'. Klik sel atau metrik untuk menyorot sampel yang dihitung. Diskusikan biaya kesalahan: FN (layak tetapi ditolak) vs FP (tidak layak tetapi diberi). Jika FN lebih merugikan, recall lebih diprioritaskan. F1 = 2·0,889·0,8 / (0,889 + 0,8) ≈ 0,842.">
+  <div class="head"><p class="eyebrow rise">Bagian 4 · Evaluasi · contoh ilustrasi (kelas positif: layak UKT)</p><h2 class="rise" style="--d:.08s">Confusion matrix dan metrik evaluasi</h2></div>
+  <div class="wrap">
+    <div class="col" style="gap:0">
+      <div class="cm rise" style="--d:.15s">
+        <div class="h" style="font-size:19px">aktual ↓<br>prediksi →</div><div class="h">Layak</div><div class="h">Tidak layak</div>
+        <div class="h">Layak</div>
+        <div class="cell good" data-c="TP"><b>8</b><span>TP</span></div>
+        <div class="cell bad" data-c="FN"><b>2</b><span>FN</span></div>
+        <div class="h">Tidak layak</div>
+        <div class="cell bad" data-c="FP"><b>1</b><span>FP</span></div>
+        <div class="cell good" data-c="TN" style="background:#CFE0F2;color:var(--dark)"><b>9</b><span>TN</span></div>
+      </div>
+      <div class="metrics rise" style="--d:.3s">
+        <div class="metric" data-m="acc"><h3>Akurasi \( = \frac{TP+TN}{TP+TN+FP+FN} = \frac{17}{20} = 0.85 \)</h3></div>
+        <div class="metric" data-m="prec"><h3>Precision \( = \frac{TP}{TP+FP} = \frac{8}{9} \approx 0.89 \)</h3></div>
+        <div class="metric" data-m="rec"><h3>Recall \( = \frac{TP}{TP+FN} = \frac{8}{10} = 0.80 \)</h3></div>
+        <div class="metric" data-m="f1"><h3>F1 \( = \frac{2 \cdot P \cdot R}{P + R} \approx 0.84 \)</h3></div>
+      </div>
+    </div>
+    <div class="col" style="gap:26px">
+      <div class="people rise" id="people" style="--d:.2s"></div>
+      <p class="explain rise" id="evalExplain" style="--d:.25s">Klik sel matriks atau metrik untuk melihat sampel yang dihitung.</p>
+      <div class="card rise" style="--d:.4s;display:flex;gap:22px;margin-top:auto">
+        <span style="font-size:56px;line-height:1">🔥</span>
+        <div class="col" style="gap:8px"><h3 style="font-size:28px">Interpretasi (analogi alarm kebakaran)</h3>
+        <p style="font-size:24px"><b>Precision:</b> ketika alarm berbunyi, seberapa sering benar-benar ada api?</p>
+        <p style="font-size:24px"><b>Recall:</b> ketika ada api, seberapa sering alarm berbunyi?</p></div>
+      </div>
+    </div>
+  </div>
+  <p class="src">Sumber: Han et al. (2012), Subbab 8.5; Géron (2022), Bab 3.</p>
+</section>
+
+<!-- 29. PRAKTIKUM -->
+<section class="slide dark" id="s-prak" data-notes="Praktikum memakai supervised_learning.ipynb. Bagian A dikerjakan bersama (live coding), Bagian B mandiri. Ingatkan temuan di Bagian B: data UKT banyak duplikat sehingga akurasi uji terlalu optimis (data leakage).">
+  <div class="head"><p class="eyebrow rise">Praktikum · supervised_learning.ipynb</p><h2 class="rise" style="--d:.08s;color:var(--light)">Kegiatan praktikum</h2></div>
+  <div class="prak">
+    <div class="card rise" style="--d:.2s"><span style="font-size:64px">🌸</span><p class="eyebrow" style="margin:0">Bagian A · IRIS.csv · terbimbing</p>
+      <ul><li>Eksplorasi dan visualisasi data</li><li>Pembagian 80 : 20 berstrata</li><li>Pelatihan KNN, Decision Tree, Naive Bayes</li><li>Perbandingan akurasi ketiga model</li></ul></div>
+    <div class="card rise" style="--d:.35s"><span style="font-size:64px">🎓</span><p class="eyebrow" style="margin:0">Bagian B · klasifikasimhs.csv · mandiri</p>
+      <ul><li>One-hot encoding atribut kategorikal</li><li>Prediksi kelayakan keringanan UKT</li><li>Analisis confusion matrix</li><li>Pemeriksaan kualitas data (duplikat)</li></ul></div>
+  </div>
+  <p class="src">Pustaka: pandas, scikit-learn (Pedregosa et al., 2011), matplotlib.</p>
+</section>
+
+<!-- 30. RANGKUMAN -->
+<section class="slide" id="s-sum" data-notes="Rangkuman mengacu kembali ke empat Sub-CPMK. Tutup dengan pertanyaan pemantik tentang data tidak seimbang (imbalanced data) sebagai jembatan ke pertemuan berikutnya.">
+  <div class="head"><p class="eyebrow rise">Rangkuman</p><h2 class="rise" style="--d:.08s">Poin-poin utama</h2></div>
+  <div class="sum">
+    <div class="card rise" style="--d:.15s"><span class="em">🏷️</span><p>Supervised learning mempelajari hipotesis \( h \approx f \) dari pasangan berlabel \( (\mathbf{x}_i, y_i) \).</p></div>
+    <div class="card rise" style="--d:.25s"><span class="em">🔀</span><p>Output kategori diskret → <b>klasifikasi</b>; output kontinu → <b>regresi</b>.</p></div>
+    <div class="card rise" style="--d:.35s"><span class="em">🧩</span><p>KNN (jarak), Decision Tree (impurity), dan Naive Bayes (probabilitas) adalah tiga pendekatan klasifikasi dasar.</p></div>
+    <div class="card rise" style="--d:.45s"><span class="em">🎯</span><p>Kinerja diukur pada data uji; akurasi perlu dilengkapi <b>precision</b>, <b>recall</b>, dan <b>F1</b>.</p></div>
+  </div>
+  <div class="teaser rise" style="--d:.6s"><span class="em">🤔</span><p><b>Pertanyaan pemantik:</b> bila 95% data berkelas “tidak layak”, model yang selalu memprediksi “tidak layak” memperoleh akurasi 95%. Apakah model tersebut baik? Metrik apa yang lebih tepat?</p></div>
+</section>
+
+<!-- 31. LATIHAN -->
+<section class="slide alt" id="s-latihan" data-notes="KUNCI JAWABAN. (1) T = memilah email, E = email berlabel spam/bukan, P = proporsi email terklasifikasi benar. (2) a regresi, b klasifikasi, c regresi. (3) Jarak ke (3,3): A 2,83; B 2,24; C 1,00; D 3,16; E 2,00. K=1 → Q (C); K=3 → {C:Q, E:P, B:P} → P. (4) Gini = 1 − (0,75² + 0,25²) = 0,375; Entropy = −0,75·log2(0,75) − 0,25·log2(0,25) ≈ 0,811 bit. (5) Akurasi 0,70; Precision 0,80; Recall ≈ 0,667; F1 ≈ 0,727.">
+  <div class="head"><p class="eyebrow rise">Evaluasi pembelajaran</p><h2 class="rise" style="--d:.08s">Latihan soal</h2></div>
+  <ol class="exercises rise" style="--d:.15s">
+    <li>Tentukan <b>T</b>, <b>E</b>, dan <b>P</b> (Mitchell, 1997) untuk sistem penyaring email spam.</li>
+    <li>Klasifikasi atau regresi? (a) prediksi curah hujan harian (mm); (b) deteksi jenis penyakit daun padi dari citra; (c) estimasi lama studi mahasiswa (semester).</li>
+    <li>Data latih: A(1,1)→P, B(2,1)→P, C(4,3)→Q, D(6,4)→Q, E(3,1)→P. Dengan jarak Euclidean, tentukan kelas untuk titik (3,3) bila K = 1 dan K = 3.</li>
+    <li>Sebuah simpul berisi 6 sampel kelas A dan 2 sampel kelas B. Hitung nilai Gini dan Entropy-nya.</li>
+    <li>Diketahui TP = 40, FP = 10, FN = 20, TN = 30. Hitung akurasi, precision, recall, dan F1-score.</li>
+  </ol>
+  <p class="src">Kunci jawaban tersedia pada catatan pengajar (tekan N).</p>
+</section>
+
+<!-- 32. REFERENSI -->
+<section class="slide" id="s-ref" data-notes="Referensi utama untuk mata kuliah Kecerdasan Buatan adalah Russell &amp; Norvig. Untuk pembahasan berbahasa Indonesia, rekomendasikan Suyanto (2018); edisi kedua terbit 2024. James et al. (ISLR) tersedia gratis secara legal di statlearning.com.">
+  <div class="head"><p class="eyebrow rise">Referensi</p><h2 class="rise" style="--d:.08s">Daftar pustaka</h2></div>
+  <div class="refs rise" style="--d:.12s">
+    <p>Bishop, C. M. (2006). <i>Pattern recognition and machine learning</i>. Springer.</p>
+    <p>Breiman, L., Friedman, J. H., Olshen, R. A., &amp; Stone, C. J. (1984). <i>Classification and regression trees</i>. Wadsworth.</p>
+    <p>Cover, T. M., &amp; Hart, P. E. (1967). Nearest neighbor pattern classification. <i>IEEE Transactions on Information Theory, 13</i>(1), 21–27. https://doi.org/10.1109/TIT.1967.1053964</p>
+    <p>Fisher, R. A. (1936). The use of multiple measurements in taxonomic problems. <i>Annals of Eugenics, 7</i>(2), 179–188. https://doi.org/10.1111/j.1469-1809.1936.tb02137.x</p>
+    <p>Géron, A. (2022). <i>Hands-on machine learning with Scikit-Learn, Keras, and TensorFlow</i> (3rd ed.). O’Reilly Media.</p>
+    <p>Han, J., Kamber, M., &amp; Pei, J. (2012). <i>Data mining: Concepts and techniques</i> (3rd ed.). Morgan Kaufmann.</p>
+    <p>James, G., Witten, D., Hastie, T., &amp; Tibshirani, R. (2021). <i>An introduction to statistical learning: With applications in R</i> (2nd ed.). Springer.</p>
+    <p>Mitchell, T. M. (1997). <i>Machine learning</i>. McGraw-Hill.</p>
+    <p>Pedregosa, F., Varoquaux, G., Gramfort, A., Michel, V., Thirion, B., Grisel, O., … Duchesnay, É. (2011). Scikit-learn: Machine learning in Python. <i>Journal of Machine Learning Research, 12</i>, 2825–2830.</p>
+    <p>Quinlan, J. R. (1986). Induction of decision trees. <i>Machine Learning, 1</i>(1), 81–106. https://doi.org/10.1007/BF00116251</p>
+    <p>Russell, S., &amp; Norvig, P. (2021). <i>Artificial intelligence: A modern approach</i> (4th ed.). Pearson.</p>
+    <p>Suyanto. (2018). <i>Machine learning tingkat dasar dan lanjut</i>. Informatika Bandung.</p>
+  </div>
+</section>
+
+<div id="counter"><button id="prevBtn" aria-label="Sebelumnya">‹</button><span id="num">1 / 21</span><button id="nextBtn" aria-label="Berikutnya">›</button></div>
+</div>
+<div id="notes"></div>
+
+<script>
+const IRIS_CSV = `sepal_length,sepal_width,petal_length,petal_width,species
+5.1,3.5,1.4,0.2,Iris-setosa
+4.9,3,1.4,0.2,Iris-setosa
+4.7,3.2,1.3,0.2,Iris-setosa
+4.6,3.1,1.5,0.2,Iris-setosa
+5,3.6,1.4,0.2,Iris-setosa
+5.4,3.9,1.7,0.4,Iris-setosa
+4.6,3.4,1.4,0.3,Iris-setosa
+5,3.4,1.5,0.2,Iris-setosa
+4.4,2.9,1.4,0.2,Iris-setosa
+4.9,3.1,1.5,0.1,Iris-setosa
+5.4,3.7,1.5,0.2,Iris-setosa
+4.8,3.4,1.6,0.2,Iris-setosa
+4.8,3,1.4,0.1,Iris-setosa
+4.3,3,1.1,0.1,Iris-setosa
+5.8,4,1.2,0.2,Iris-setosa
+5.7,4.4,1.5,0.4,Iris-setosa
+5.4,3.9,1.3,0.4,Iris-setosa
+5.1,3.5,1.4,0.3,Iris-setosa
+5.7,3.8,1.7,0.3,Iris-setosa
+5.1,3.8,1.5,0.3,Iris-setosa
+5.4,3.4,1.7,0.2,Iris-setosa
+5.1,3.7,1.5,0.4,Iris-setosa
+4.6,3.6,1,0.2,Iris-setosa
+5.1,3.3,1.7,0.5,Iris-setosa
+4.8,3.4,1.9,0.2,Iris-setosa
+5,3,1.6,0.2,Iris-setosa
+5,3.4,1.6,0.4,Iris-setosa
+5.2,3.5,1.5,0.2,Iris-setosa
+5.2,3.4,1.4,0.2,Iris-setosa
+4.7,3.2,1.6,0.2,Iris-setosa
+4.8,3.1,1.6,0.2,Iris-setosa
+5.4,3.4,1.5,0.4,Iris-setosa
+5.2,4.1,1.5,0.1,Iris-setosa
+5.5,4.2,1.4,0.2,Iris-setosa
+4.9,3.1,1.5,0.1,Iris-setosa
+5,3.2,1.2,0.2,Iris-setosa
+5.5,3.5,1.3,0.2,Iris-setosa
+4.9,3.1,1.5,0.1,Iris-setosa
+4.4,3,1.3,0.2,Iris-setosa
+5.1,3.4,1.5,0.2,Iris-setosa
+5,3.5,1.3,0.3,Iris-setosa
+4.5,2.3,1.3,0.3,Iris-setosa
+4.4,3.2,1.3,0.2,Iris-setosa
+5,3.5,1.6,0.6,Iris-setosa
+5.1,3.8,1.9,0.4,Iris-setosa
+4.8,3,1.4,0.3,Iris-setosa
+5.1,3.8,1.6,0.2,Iris-setosa
+4.6,3.2,1.4,0.2,Iris-setosa
+5.3,3.7,1.5,0.2,Iris-setosa
+5,3.3,1.4,0.2,Iris-setosa
+7,3.2,4.7,1.4,Iris-versicolor
+6.4,3.2,4.5,1.5,Iris-versicolor
+6.9,3.1,4.9,1.5,Iris-versicolor
+5.5,2.3,4,1.3,Iris-versicolor
+6.5,2.8,4.6,1.5,Iris-versicolor
+5.7,2.8,4.5,1.3,Iris-versicolor
+6.3,3.3,4.7,1.6,Iris-versicolor
+4.9,2.4,3.3,1,Iris-versicolor
+6.6,2.9,4.6,1.3,Iris-versicolor
+5.2,2.7,3.9,1.4,Iris-versicolor
+5,2,3.5,1,Iris-versicolor
+5.9,3,4.2,1.5,Iris-versicolor
+6,2.2,4,1,Iris-versicolor
+6.1,2.9,4.7,1.4,Iris-versicolor
+5.6,2.9,3.6,1.3,Iris-versicolor
+6.7,3.1,4.4,1.4,Iris-versicolor
+5.6,3,4.5,1.5,Iris-versicolor
+5.8,2.7,4.1,1,Iris-versicolor
+6.2,2.2,4.5,1.5,Iris-versicolor
+5.6,2.5,3.9,1.1,Iris-versicolor
+5.9,3.2,4.8,1.8,Iris-versicolor
+6.1,2.8,4,1.3,Iris-versicolor
+6.3,2.5,4.9,1.5,Iris-versicolor
+6.1,2.8,4.7,1.2,Iris-versicolor
+6.4,2.9,4.3,1.3,Iris-versicolor
+6.6,3,4.4,1.4,Iris-versicolor
+6.8,2.8,4.8,1.4,Iris-versicolor
+6.7,3,5,1.7,Iris-versicolor
+6,2.9,4.5,1.5,Iris-versicolor
+5.7,2.6,3.5,1,Iris-versicolor
+5.5,2.4,3.8,1.1,Iris-versicolor
+5.5,2.4,3.7,1,Iris-versicolor
+5.8,2.7,3.9,1.2,Iris-versicolor
+6,2.7,5.1,1.6,Iris-versicolor
+5.4,3,4.5,1.5,Iris-versicolor
+6,3.4,4.5,1.6,Iris-versicolor
+6.7,3.1,4.7,1.5,Iris-versicolor
+6.3,2.3,4.4,1.3,Iris-versicolor
+5.6,3,4.1,1.3,Iris-versicolor
+5.5,2.5,4,1.3,Iris-versicolor
+5.5,2.6,4.4,1.2,Iris-versicolor
+6.1,3,4.6,1.4,Iris-versicolor
+5.8,2.6,4,1.2,Iris-versicolor
+5,2.3,3.3,1,Iris-versicolor
+5.6,2.7,4.2,1.3,Iris-versicolor
+5.7,3,4.2,1.2,Iris-versicolor
+5.7,2.9,4.2,1.3,Iris-versicolor
+6.2,2.9,4.3,1.3,Iris-versicolor
+5.1,2.5,3,1.1,Iris-versicolor
+5.7,2.8,4.1,1.3,Iris-versicolor
+6.3,3.3,6,2.5,Iris-virginica
+5.8,2.7,5.1,1.9,Iris-virginica
+7.1,3,5.9,2.1,Iris-virginica
+6.3,2.9,5.6,1.8,Iris-virginica
+6.5,3,5.8,2.2,Iris-virginica
+7.6,3,6.6,2.1,Iris-virginica
+4.9,2.5,4.5,1.7,Iris-virginica
+7.3,2.9,6.3,1.8,Iris-virginica
+6.7,2.5,5.8,1.8,Iris-virginica
+7.2,3.6,6.1,2.5,Iris-virginica
+6.5,3.2,5.1,2,Iris-virginica
+6.4,2.7,5.3,1.9,Iris-virginica
+6.8,3,5.5,2.1,Iris-virginica
+5.7,2.5,5,2,Iris-virginica
+5.8,2.8,5.1,2.4,Iris-virginica
+6.4,3.2,5.3,2.3,Iris-virginica
+6.5,3,5.5,1.8,Iris-virginica
+7.7,3.8,6.7,2.2,Iris-virginica
+7.7,2.6,6.9,2.3,Iris-virginica
+6,2.2,5,1.5,Iris-virginica
+6.9,3.2,5.7,2.3,Iris-virginica
+5.6,2.8,4.9,2,Iris-virginica
+7.7,2.8,6.7,2,Iris-virginica
+6.3,2.7,4.9,1.8,Iris-virginica
+6.7,3.3,5.7,2.1,Iris-virginica
+7.2,3.2,6,1.8,Iris-virginica
+6.2,2.8,4.8,1.8,Iris-virginica
+6.1,3,4.9,1.8,Iris-virginica
+6.4,2.8,5.6,2.1,Iris-virginica
+7.2,3,5.8,1.6,Iris-virginica
+7.4,2.8,6.1,1.9,Iris-virginica
+7.9,3.8,6.4,2,Iris-virginica
+6.4,2.8,5.6,2.2,Iris-virginica
+6.3,2.8,5.1,1.5,Iris-virginica
+6.1,2.6,5.6,1.4,Iris-virginica
+7.7,3,6.1,2.3,Iris-virginica
+6.3,3.4,5.6,2.4,Iris-virginica
+6.4,3.1,5.5,1.8,Iris-virginica
+6,3,4.8,1.8,Iris-virginica
+6.9,3.1,5.4,2.1,Iris-virginica
+6.7,3.1,5.6,2.4,Iris-virginica
+6.9,3.1,5.1,2.3,Iris-virginica
+5.8,2.7,5.1,1.9,Iris-virginica
+6.8,3.2,5.9,2.3,Iris-virginica
+6.7,3.3,5.7,2.5,Iris-virginica
+6.7,3,5.2,2.3,Iris-virginica
+6.3,2.5,5,1.9,Iris-virginica
+6.5,3,5.2,2,Iris-virginica
+6.2,3.4,5.4,2.3,Iris-virginica
+5.9,3,5.1,1.8,Iris-virginica`;
+</script>
+<script>
+(function(){
+'use strict';
+const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>[...r.querySelectorAll(s)];
+const COL={blue:'#2F6FB0',orange:'#E8833A',green:'#3E9C7A',dark:'#1B2A41',light:'#F7F5F0',muted:'#4F5D6E',grey:'#9AA5B4',line:'#D9D4C7'};
+const SPC=[COL.blue,COL.orange,COL.green];
+const SPNAME=['Setosa','Versicolor','Virginica'];
+const SPIDX={'Iris-setosa':0,'Iris-versicolor':1,'Iris-virginica':2};
+const IRIS=IRIS_CSV.trim().split(/\r?\n/).slice(1).map(l=>{const a=l.split(',');return{sl:+a[0],sw:+a[1],pl:+a[2],pw:+a[3],s:SPIDX[a[4].trim()]}}).filter(d=>d.s!==undefined);
+function rng(seed){let s=seed>>>0;return()=>{s=(s*1664525+1013904223)>>>0;return s/4294967296}}
+function gauss(r){let u=0,v=0;while(!u)u=r();while(!v)v=r();return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*v)}
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v)), lerp=(a,b,t)=>a+(b-a)*t;
+const ease=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;
+function hexA(h,a){const n=parseInt(h.slice(1),16);return`rgba(${n>>16&255},${n>>8&255},${n&255},${a})`}
+
+/* ---------- stage & navigation ---------- */
+const stage=$('#stage'), slides=$$('.slide'), S={}, inited=new Set();
+let cur=-1;
+function fit(){const s=Math.min(innerWidth/1920,innerHeight/1080);stage.style.transform=`translate(-50%,-50%) scale(${s})`}
+addEventListener('resize',fit);fit();
+function go(n){
+  n=clamp(n,0,slides.length-1); if(n===cur)return;
+  if(cur>=0){slides[cur].classList.remove('active');const h=S[slides[cur].id];h&&h.leave&&h.leave()}
+  cur=n;const el=slides[n];el.classList.add('active');
+  const h=S[el.id];
+  if(h){if(!inited.has(el.id)){inited.add(el.id);try{h.init&&h.init(el)}catch(e){console.error(e)}}h.enter&&h.enter(el)}
+  stage.classList.toggle('on-dark',el.classList.contains('dark'));
+  $('#num').textContent=`${n+1} / ${slides.length}`;
+  $('#progress').style.width=((n+1)/slides.length*100)+'%';
+  $('#notes').innerHTML=el.dataset.notes?`<b>Catatan · slide ${n+1}</b><br>${el.dataset.notes}`:'';
+  history.replaceState(null,'','#'+(n+1));
+}
+addEventListener('keydown',e=>{
+  if(e.target.tagName==='INPUT')return;
+  if(['ArrowRight','PageDown',' '].includes(e.key)){e.preventDefault();go(cur+1)}
+  else if(['ArrowLeft','PageUp'].includes(e.key)){e.preventDefault();go(cur-1)}
+  else if(e.key==='Home')go(0); else if(e.key==='End')go(slides.length-1);
+  else if(e.key==='f'||e.key==='F'){document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen().catch(()=>{})}
+  else if(e.key==='n'||e.key==='N')$('#notes').classList.toggle('show');
+});
+$('#prevBtn').onclick=()=>go(cur-1); $('#nextBtn').onclick=()=>go(cur+1);
+let last=performance.now();
+function loop(now){const dt=Math.min(.05,(now-last)/1000);last=now;const h=cur>=0&&S[slides[cur].id];if(h&&h.frame){try{h.frame(dt,now/1000)}catch(e){console.error(e);h.frame=null}}requestAnimationFrame(loop)}
+
+/* ---------- helpers ---------- */
+function makeThree(el,o={}){
+  if(!window.THREE){el.classList.add('nothree');el.insertAdjacentHTML('beforeend','<p>Animasi 3D membutuhkan koneksi internet untuk memuat three.js.</p>');return null}
+  const W=el.clientWidth,H=el.clientHeight;
+  const renderer=new THREE.WebGLRenderer({antialias:true,alpha:true});
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,2));renderer.setSize(W,H,false);
+  el.prepend(renderer.domElement);
+  const scene=new THREE.Scene();
+  let camera;
+  if(o.ortho){const hw=o.ortho,hh=hw*H/W;camera=new THREE.OrthographicCamera(-hw,hw,hh,-hh,.1,100)}
+  else camera=new THREE.PerspectiveCamera(o.fov||45,W/H,.1,200);
+  camera.position.set(...(o.pos||[0,0,12]));camera.lookAt(0,0,0);
+  scene.add(new THREE.AmbientLight(0xffffff,.62));
+  const dl=new THREE.DirectionalLight(0xffffff,.7);dl.position.set(4,8,10);scene.add(dl);
+  return{scene,camera,renderer,W,H,render(){renderer.render(scene,camera)}};
+}
+function balls(n,r){
+  const m=new THREE.InstancedMesh(new THREE.SphereGeometry(r,18,14),new THREE.MeshStandardMaterial({roughness:.45,metalness:.05}),n);
+  m.instanceMatrix.setUsage(THREE.DynamicDrawUsage);
+  const c=new THREE.Color();for(let i=0;i<n;i++)m.setColorAt(i,c.set('#ffffff'));
+  return m;
+}
+let _M=null;function setBall(mesh,i,x,y,z,s){if(!_M)_M=new THREE.Matrix4();_M.makeScale(s,s,s);_M.setPosition(x,y,z);mesh.setMatrixAt(i,_M)}
+function project(t,obj,x,y,z){const v=new THREE.Vector3(x,y,z);if(obj)v.applyMatrix4(obj.matrixWorld);v.project(t.camera);return[(v.x+1)/2*t.W,(1-v.y)/2*t.H]}
+function setupCanvas(cv){const W=cv.clientWidth,H=cv.clientHeight,d=2;cv.width=W*d;cv.height=H*d;const ctx=cv.getContext('2d');ctx.setTransform(d,0,0,d,0,0);return{ctx,W,H}}
+function canvasPoint(cv,e){const r=cv.getBoundingClientRect();return[(e.clientX-r.left)/r.width*cv.clientWidth,(e.clientY-r.top)/r.height*cv.clientHeight]}
+function dot(ctx,x,y,r,fill,stroke,lw){ctx.beginPath();ctx.arc(x,y,r,0,Math.PI*2);if(fill){ctx.fillStyle=fill;ctx.fill()}if(stroke){ctx.lineWidth=lw||2;ctx.strokeStyle=stroke;ctx.stroke()}}
+function star(ctx,x,y,r,fill){ctx.beginPath();for(let i=0;i<10;i++){const a=-Math.PI/2+i*Math.PI/5,rr=i%2?r*.45:r;ctx.lineTo(x+Math.cos(a)*rr,y+Math.sin(a)*rr)}ctx.closePath();ctx.fillStyle=fill;ctx.fill();ctx.lineWidth=3;ctx.strokeStyle='#fff';ctx.stroke()}
+/* 2D plot frame for IRIS petal space */
+function petalAxes(W,H){
+  const m={l:90,r:30,t:30,b:80},x0=.5,x1=7.3,y0=0,y1=2.75;
+  const sx=v=>m.l+(v-x0)/(x1-x0)*(W-m.l-m.r), sy=v=>H-m.b-(v-y0)/(y1-y0)*(H-m.t-m.b);
+  const ix=px=>x0+(px-m.l)/(W-m.l-m.r)*(x1-x0), iy=py=>y0+(H-m.b-py)/(H-m.t-m.b)*(y1-y0);
+  function draw(ctx){
+    ctx.strokeStyle='#E7E3D9';ctx.lineWidth=1.5;ctx.fillStyle=COL.muted;ctx.font='600 20px "Nunito Sans", sans-serif';
+    for(let v=1;v<=7;v++){ctx.beginPath();ctx.moveTo(sx(v),sy(y0));ctx.lineTo(sx(v),sy(y1));ctx.stroke();ctx.textAlign='center';ctx.fillText(v,sx(v),H-m.b+30)}
+    for(let v=0;v<=2.5;v+=.5){ctx.beginPath();ctx.moveTo(sx(x0),sy(v));ctx.lineTo(sx(x1),sy(v));ctx.stroke();ctx.textAlign='right';ctx.fillText(v.toFixed(1),m.l-14,sy(v)+7)}
+    ctx.font='800 22px "Nunito Sans", sans-serif';ctx.fillStyle=COL.dark;ctx.textAlign='center';ctx.fillText('petal_length (cm)',(m.l+W-m.r)/2,H-18);
+    ctx.save();ctx.translate(26,(m.t+H-m.b)/2);ctx.rotate(-Math.PI/2);ctx.fillText('petal_width (cm)',0,0);ctx.restore();
+  }
+  return{sx,sy,ix,iy,draw,m,x0,x1,y0,y1};
+}
+const J=rng(11);const IRISJ=IRIS.map(d=>({...d,jx:d.pl+(J()-.5)*.07,jy:d.pw+(J()-.5)*.07}));
+
+/* ---------- 1. cover ---------- */
+S['s-cover']={
+  init(el){const t=makeThree($('.three',el),{fov:40,pos:[0,0,17]});if(!t)return;this.t=t;
+    const N=330,R=rng(7),mesh=balls(N,.14),c=new THREE.Color();
+    const centers=[[-2.6,1.7,0],[2.6,1.1,-1],[0.2,-2.3,1]];this.p=[];
+    for(let i=0;i<N;i++){const k=i%3;this.p.push({a:[(R()-.5)*15,(R()-.5)*10,(R()-.5)*8],b:centers[k].map(v=>v+gauss(R)*.8),ph:R()*6.3,d:R()*.15});mesh.setColorAt(i,c.set(SPC[k]))}
+    mesh.instanceColor.needsUpdate=true;this.g=new THREE.Group();this.g.add(mesh);this.g.position.x=4;t.scene.add(this.g);this.mesh=mesh;this.time=0},
+  frame(dt){if(!this.t)return;this.time+=dt;const T=this.time;
+    for(let i=0;i<this.p.length;i++){const p=this.p[i];const cyc=((T/12)+p.d)%1;
+      const s=cyc<.15?0:cyc<.4?ease((cyc-.15)/.25):cyc<.75?1:cyc<.95?1-ease((cyc-.75)/.2):0;
+      setBall(this.mesh,i,lerp(p.a[0],p.b[0],s)+Math.sin(T*.8+p.ph)*.1,lerp(p.a[1],p.b[1],s)+Math.cos(T*.7+p.ph)*.1,lerp(p.a[2],p.b[2],s),1)}
+    this.mesh.instanceMatrix.needsUpdate=true;this.g.rotation.y=Math.sin(T*.15)*.6;this.t.render()}
+};
+
+/* ---------- 2. hook ---------- */
+S['s-hook']={
+  init(el){const q=$('#hookQ');q.onclick=()=>this.reveal()},
+  reveal(){const lb=$('#hookQ .lb');lb.textContent='kucing!';lb.style.background=COL.green;lb.style.color='#fff'},
+  enter(){const lb=$('#hookQ .lb');lb.textContent='?';lb.style.background='';lb.style.color='';clearTimeout(this.to);this.to=setTimeout(()=>this.reveal(),5200)},
+  leave(){clearTimeout(this.to)}
+};
+
+/* ---------- 5. sup vs unsup ---------- */
+S['s-banding']={
+  init(el){const t=makeThree($('.three',el),{fov:40,pos:[0,1.5,14]});
+    this.mode=0;this.auto=true;this.timer=0;this.m=0;
+    $$('[data-mode]',el).forEach(b=>b.onclick=()=>{this.auto=false;this.set(+b.dataset.mode)});
+    if(!t)return;this.t=t;const N=150,R=rng(3),mesh=balls(N,.17);
+    const centers=[[-3,1.4,0],[2.8,1.8,-.5],[.2,-2,.5]];this.p=[];
+    for(let i=0;i<N;i++){const k=i%3;this.p.push({k,x:centers[k][0]+gauss(R)*.9,y:centers[k][1]+gauss(R)*.75,z:centers[k][2]+gauss(R)*.8,ph:R()*6.3})}
+    this.mesh=mesh;this.g=new THREE.Group();this.g.add(mesh);t.scene.add(this.g);this.c=new THREE.Color();this.grey=new THREE.Color(COL.grey);this.time=0},
+  set(m){this.mode=m;const el=$('#s-banding');$$('[data-mode]',el).forEach(b=>b.classList.toggle('on',+b.dataset.mode===m));
+    $('#mcSup').classList.toggle('dim',m===1);$('#mcUns').classList.toggle('dim',m===0);
+    $('#bandBadge').textContent=m?'Unsupervised · tanpa label':'Supervised · berlabel'},
+  enter(){this.auto=true;this.timer=0;this.set(0)},
+  frame(dt){this.timer+=dt;if(this.auto&&this.timer>3.8){this.timer=0;this.set(1-this.mode)}
+    if(!this.t)return;this.time+=dt;const T=this.time;this.m+=(this.mode-this.m)*Math.min(1,dt*4);
+    for(let i=0;i<this.p.length;i++){const p=this.p[i];setBall(this.mesh,i,p.x,p.y+Math.sin(T*1.2+p.ph)*.07,p.z,1);this.c.set(SPC[p.k]).lerp(this.grey,this.m);this.mesh.setColorAt(i,this.c)}
+    this.mesh.instanceMatrix.needsUpdate=true;this.mesh.instanceColor.needsUpdate=true;this.g.rotation.y=Math.sin(T*.25)*.5;this.t.render()}
+};
+
+/* ---------- 6. classification vs regression ---------- */
+S['s-jenis']={
+  init(){this.a=setupCanvas($('#cvCls'));this.b=setupCanvas($('#cvReg'));const R=rng(5);
+    this.cp=[];for(let i=0;i<44;i++){const k=i%2;this.cp.push({k,x:(k?.68:.32)+gauss(R)*.11,y:(k?.36:.64)+gauss(R)*.12})}
+    this.rp=[];for(let i=0;i<26;i++){const x=.06+R()*.88;this.rp.push({x,y:.15+.65*x+gauss(R)*.07})}
+    let sx=0,sy=0,sxx=0,sxy=0;this.rp.forEach(p=>{sx+=p.x;sy+=p.y;sxx+=p.x*p.x;sxy+=p.x*p.y});const n=this.rp.length;
+    this.slope=(n*sxy-sx*sy)/(n*sxx-sx*sx);this.icpt=(sy-this.slope*sx)/n;this.time=0},
+  enter(){this.time=0},
+  frame(dt){this.time+=dt;const T=this.time%7,s=ease(clamp((T-.5)/3,0,1));
+    {const{ctx,W,H}=this.a;ctx.clearRect(0,0,W,H);
+      const tgt=Math.atan2(-.28*H,.36*W),ang=lerp(tgt+2.3,tgt,s)+Math.sin(T*3)*.05*(1-s),cx=W/2,cy=H/2,nx=Math.cos(ang),ny=Math.sin(ang);
+      // shaded half-planes: blue everywhere, orange where (p-c)·n > 0
+      ctx.fillStyle=hexA(COL.blue,.10);ctx.fillRect(0,0,W,H);
+      ctx.save();ctx.translate(cx,cy);ctx.rotate(ang);ctx.fillStyle=hexA(COL.orange,.13);ctx.fillRect(0,-3000,3000,6000);ctx.restore();
+      let wrong=0;
+      this.cp.forEach(p=>{const px=p.x*W,py=p.y*H,side=(px-cx)*nx+(py-cy)*ny>0?1:0;if(side!==p.k)wrong++;dot(ctx,px,py,11,p.k?COL.orange:COL.blue,side!==p.k?COL.dark:'#fff',side!==p.k?3:2)});
+      ctx.beginPath();ctx.moveTo(cx+ny*1000,cy-nx*1000);ctx.lineTo(cx-ny*1000,cy+nx*1000);ctx.lineWidth=5;ctx.strokeStyle=COL.dark;ctx.setLineDash([16,10]);ctx.stroke();ctx.setLineDash([]);
+      ctx.font='800 22px "Nunito Sans", sans-serif';ctx.fillStyle=COL.dark;ctx.textAlign='left';ctx.fillText(`salah tebak: ${wrong}`,20,36)}
+    {const{ctx,W,H}=this.b;ctx.clearRect(0,0,W,H);const m={l:60,r:20,t:20,b:50};
+      const X=v=>m.l+v*(W-m.l-m.r),Y=v=>H-m.b-v*(H-m.t-m.b);
+      ctx.strokeStyle='#CFC9BB';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(m.l,m.t);ctx.lineTo(m.l,H-m.b);ctx.lineTo(W-m.r,H-m.b);ctx.stroke();
+      ctx.fillStyle=COL.muted;ctx.font='700 20px "Nunito Sans", sans-serif';ctx.textAlign='center';ctx.fillText('luas rumah (m²) →',W/2,H-14);
+      ctx.save();ctx.translate(22,H/2);ctx.rotate(-Math.PI/2);ctx.fillText('harga →',0,0);ctx.restore();
+      const sl=lerp(0,this.slope,s),ic=lerp(.5,this.icpt,s);let sse=0;
+      this.rp.forEach(p=>{const yh=ic+sl*p.x;sse+=(p.y-yh)**2;ctx.beginPath();ctx.moveTo(X(p.x),Y(p.y));ctx.lineTo(X(p.x),Y(yh));ctx.strokeStyle=hexA(COL.orange,.7);ctx.lineWidth=2.5;ctx.stroke()});
+      this.rp.forEach(p=>dot(ctx,X(p.x),Y(p.y),9,COL.blue,'#fff',2));
+      ctx.beginPath();ctx.moveTo(X(0),Y(ic));ctx.lineTo(X(1),Y(ic+sl));ctx.lineWidth=5;ctx.strokeStyle=COL.dark;ctx.stroke();
+      ctx.font='800 22px "Nunito Sans", sans-serif';ctx.fillStyle=COL.dark;ctx.textAlign='left';ctx.fillText(`total error: ${(sse*100).toFixed(1)}`,m.l+16,m.t+20)}
+  }
+};
+
+/* ---------- 7. quiz ---------- */
+S['s-quiz']={init(el){$$('.qcard',el).forEach(c=>c.onclick=()=>c.classList.toggle('flip'))},enter(el){$$('.qcard',el).forEach(c=>c.classList.remove('flip'))}};
+
+/* ---------- 8. iris flowers ---------- */
+function flowerSVG(svg,pl,pw,color,labels){
+  const sc=15,petL=pl*sc*.9+18,petW=pw*sc*1.1+10,sepL=Math.min(95,petL*.55+52),sepW=petW*.6+22;let h='';
+  for(let i=0;i<3;i++){const a=90+i*120;h+=`<ellipse cx="0" cy="${sepL/2}" rx="${sepW/2}" ry="${sepL/2}" transform="rotate(${a+180})" fill="${color}" opacity=".35"/>`}
+  for(let i=0;i<3;i++){const a=30+i*120;h+=`<ellipse cx="0" cy="${-petL/2}" rx="${petW/2}" ry="${petL/2}" transform="rotate(${a})" fill="${color}"/>`}
+  h+=`<circle r="9" fill="#F2C14E"/>`;
+  svg.innerHTML=h;
+}
+S['s-iris']={init(el){
+  const m=[[1.46,.24],[4.26,1.33],[5.55,2.03]];
+  $$('svg[data-sp]',el).forEach(s=>{const k=+s.dataset.sp;flowerSVG(s,m[k][0],m[k][1],SPC[k])});
+  const a=$('#anatomySvg');let h='';
+  for(let i=0;i<3;i++){const ang=90+i*120;h+=`<ellipse cx="0" cy="44" rx="30" ry="44" transform="rotate(${ang+180})" fill="${COL.blue}" opacity=".45"/>`}
+  for(let i=0;i<3;i++){const ang=30+i*120;h+=`<ellipse cx="0" cy="-42" rx="18" ry="42" transform="rotate(${ang})" fill="${COL.orange}"/>`}
+  h+=`<circle r="9" fill="#F2C14E"/>`;
+  a.innerHTML=h;
+}};
+
+/* ---------- 9. terms ---------- */
+S['s-terms']={init(el){this.el=el;this.order=['X','Y','R'];this.i=0;$$('.term',el).forEach(c=>c.onclick=()=>{this.auto=false;this.set(c.dataset.t)})},
+  set(t){const tb=$('#termTable');tb.classList.toggle('showX',t==='X');tb.classList.toggle('showY',t==='Y');tb.classList.toggle('showR',t==='R');$$('.term',this.el).forEach(c=>c.classList.toggle('on',c.dataset.t===t))},
+  enter(){this.auto=true;this.timer=0;this.i=0;this.set('X')},
+  frame(dt){if(!this.auto)return;this.timer+=dt;if(this.timer>2.8){this.timer=0;this.i=(this.i+1)%3;this.set(this.order[this.i])}}};
+
+/* ---------- 10. iris 3d ---------- */
+S['s-iris3d']={
+  init(el){const box=$('#iris3d');const t=makeThree(box,{fov:38,pos:[0,1.2,16]});if(!t)return;this.t=t;
+    const N=IRIS.length,mesh=balls(N,.15),c=new THREE.Color();this.mesh=mesh;
+    const mx=v=>(v-3.95)/2.95*3,my=v=>(v-1.3)/1.2*3,mz=v=>(v-6.1)/1.8*3;
+    this.p=IRIS.map((d,i)=>{mesh.setColorAt(i,c.set(SPC[d.s]));return[mx(d.pl),my(d.pw),mz(d.sl)]});mesh.instanceColor.needsUpdate=true;
+    this.g=new THREE.Group();this.g.add(mesh);
+    const box3=new THREE.LineSegments(new THREE.EdgesGeometry(new THREE.BoxGeometry(6.6,6.6,6.6)),new THREE.LineBasicMaterial({color:0x4A5C75}));this.g.add(box3);
+    const ax=(a,b,col)=>{const g=new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(...a),new THREE.Vector3(...b)]);this.g.add(new THREE.Line(g,new THREE.LineBasicMaterial({color:col})))};
+    const o=-3.3;ax([o,o,o],[3.6,o,o],0xF2D7BF);ax([o,o,o],[o,3.6,o],0xF2D7BF);ax([o,o,o],[o,o,3.6],0xF2D7BF);
+    t.scene.add(this.g);this.rx=.35;this.ry=-.6;this.drag=null;
+    this.labels=[['petal_length',[4.3,o,o]],['petal_width',[o,4.0,o]],['sepal_length',[o,o,4.3]]].map(([txt,pos])=>{const s=document.createElement('span');s.className='axlabel';s.textContent=txt;box.appendChild(s);return{s,pos}});
+    box.addEventListener('pointerdown',e=>{this.drag=[e.clientX,e.clientY];box.setPointerCapture(e.pointerId)});
+    box.addEventListener('pointermove',e=>{if(!this.drag)return;const k=1/Math.min(innerWidth/1920,innerHeight/1080);this.ry+=(e.clientX-this.drag[0])*.008*k;this.rx=clamp(this.rx+(e.clientY-this.drag[1])*.008*k,-1.2,1.2);this.drag=[e.clientX,e.clientY];this.idle=0});
+    box.addEventListener('pointerup',()=>{this.drag=null});this.idle=5},
+  enter(){this.time=0},
+  frame(dt){if(!this.t)return;this.time+=dt;this.idle+=dt;if(!this.drag&&this.idle>2.5)this.ry+=dt*.3;
+    this.g.rotation.set(this.rx,this.ry,0);
+    for(let i=0;i<this.p.length;i++){const s=ease(clamp((this.time-.2-i*.006)*2.5,0,1));const p=this.p[i];setBall(this.mesh,i,p[0],p[1]+(1-s)*4,p[2],s)}
+    this.mesh.instanceMatrix.needsUpdate=true;this.g.updateMatrixWorld();
+    this.labels.forEach(l=>{const[x,y]=project(this.t,this.g,...l.pos);l.s.style.left=x+'px';l.s.style.top=y+'px'});this.t.render()}
+};
+
+/* ---------- 11. pipeline ---------- */
+S['s-alur']={init(el){this.st=$$('.stp',el);this.run=$('.runner',el)},
+  set(i){this.st.forEach((s,j)=>s.classList.toggle('on',j===i));const tr=$('.track',$('#pipe'));const w=tr.clientWidth;this.run.style.left=(i/4*(w-24))+'px'},
+  enter(){this.i=0;this.timer=0;this.set(0)},
+  frame(dt){this.timer+=dt;if(this.timer>2.2){this.timer=0;this.i=(this.i+1)%5;this.set(this.i)}}};
+
+/* ---------- 12. split ---------- */
+S['s-split']={
+  init(el){const box=$('#split3d');const t=makeThree(box,{fov:35,pos:[0,5.6,7.2]});if(!t)return;this.t=t;t.camera.lookAt(0,0,.4);
+    const N=IRIS.length,R=rng(42),mesh=balls(N,.17),c=new THREE.Color();this.mesh=mesh;
+    const idx=[...Array(N).keys()];for(let i=N-1;i>0;i--){const j=Math.floor(R()*(i+1));[idx[i],idx[j]]=[idx[j],idx[i]]}
+    // balls lie on the floor (x,z); second coordinate is z, rows run from back (-1.9) to front
+    const sp=.42,grid=(k,cols,cx,cz)=>[cx+(k%cols-(cols-1)/2)*sp,cz+(Math.floor(k/cols))*sp];
+    // stratified: per species first 40 shuffled -> train
+    const cnt=[0,0,0],train=[],test=[];idx.forEach(i=>{const s=IRIS[i].s;(cnt[s]++<40?train:test).push(i)});
+    train.sort((a,b)=>IRIS[a].s-IRIS[b].s);test.sort((a,b)=>IRIS[a].s-IRIS[b].s);
+    this.p=new Array(N);
+    idx.forEach((i,k)=>{this.p[i]={a:grid(k,15,0,-1.9)}});
+    train.forEach((i,k)=>{this.p[i].b=grid(k,12,-2.6,-1.9)});test.forEach((i,k)=>{this.p[i].b=grid(k,5,3.6,-1.9)});
+    idx.forEach(i=>{mesh.setColorAt(i,c.set(SPC[IRIS[i].s]));this.p[i].d=R()*.9});mesh.instanceColor.needsUpdate=true;
+    t.scene.add(mesh);
+    const plate=(w,d,x,rows,col)=>{const m=new THREE.Mesh(new THREE.PlaneGeometry(w,d),new THREE.MeshBasicMaterial({color:col,transparent:true,opacity:0}));m.rotation.x=-Math.PI/2;m.position.set(x,-.2,-1.9+(rows-1)*sp/2);t.scene.add(m);return m};
+    this.pl1=plate(12*sp+.4,10*sp+.4,-2.6,10,0x2F6FB0);this.pl2=plate(5*sp+.4,6*sp+.4,3.6,6,0xE8833A);
+    this.anch=[[-2.6,.3,-2.4],[3.6,.3,-2.4]];this.lbl=[$('#lblTrain'),$('#lblTest')];this.time=0},
+  enter(){this.time=0},
+  frame(dt){if(!this.t)return;this.time+=dt;const T=this.time%10;let any=0;
+    for(let i=0;i<this.p.length;i++){const p=this.p[i];let s;
+      if(T<1.6)s=0;else if(T<7.6)s=ease(clamp((T-1.6-p.d)/1.1,0,1));else s=1-ease(clamp((T-7.6-p.d*.6)/1,0,1));
+      any+=s;const hop=Math.sin(s*Math.PI)*1.1;setBall(this.mesh,i,lerp(p.a[0],p.b[0],s),hop,lerp(p.a[1],p.b[1],s),1)}
+    const prog=any/this.p.length;this.mesh.instanceMatrix.needsUpdate=true;this.pl1.material.opacity=prog*.16;this.pl2.material.opacity=prog*.2;
+    this.lbl.forEach((l,k)=>{const[x,y]=project(this.t,null,...this.anch[k]);l.style.left=x+'px';l.style.top=(y-10)+'px';l.style.opacity=clamp((prog-.6)/.4,0,1)});
+    this.t.render()}
+};
+
+/* ---------- 13. overfitting ---------- */
+const XT=[0.017,0.113,0.196,0.274,0.39,0.442,0.519,0.651,0.723,0.798,0.908,0.965],YT=[0.036,0.372,0.777,1.138,0.695,0.378,0.413,0.3,-0.301,-0.21,-0.037,-0.143];
+const XS=[0.088,0.159,0.222,0.29,0.371,0.435,0.543,0.6,0.688,0.8,0.852,0.93],YS=[0.745,0.628,0.695,1.098,0.779,0.752,0.291,0.382,0.007,0.002,-0.372,-0.45];
+function cheb(u,deg){const T=[1,u];for(let k=2;k<=deg;k++)T.push(2*u*T[k-1]-T[k-2]);return T.slice(0,deg+1)}
+function chebfit(xs,ys,deg){const n=deg+1,A=[...Array(n)].map(()=>new Array(n+1).fill(0));
+  xs.forEach((x,i)=>{const t=cheb(2*x-1,deg);for(let r=0;r<n;r++){for(let c=0;c<n;c++)A[r][c]+=t[r]*t[c];A[r][n]+=t[r]*ys[i]}});
+  for(let c=0;c<n;c++){let p=c;for(let r=c+1;r<n;r++)if(Math.abs(A[r][c])>Math.abs(A[p][c]))p=r;[A[c],A[p]]=[A[p],A[c]];
+    for(let r=0;r<n;r++){if(r===c)continue;const f=A[r][c]/A[c][c];for(let k=c;k<=n;k++)A[r][k]-=f*A[c][k]}}
+  const co=A.map((r,i)=>r[n]/r[i]);return x=>{const t=cheb(2*x-1,deg);let s=0;for(let i=0;i<=deg;i++)s+=co[i]*t[i];return s}}
+S['s-overfit']={
+  init(el){this.el=el;this.c=setupCanvas($('#cvOver'));this.fits=[1,3,11].map(d=>chebfit(XT,YT,d));
+    const mse=(f,xs,ys)=>xs.reduce((s,x,i)=>s+(f(x)-ys[i])**2,0)/xs.length;
+    this.err=this.fits.map(f=>[mse(f,XT,YT),mse(f,XS,YS)]);this.maxE=Math.max(...this.err.flat());
+    this.NS=240;this.samples=this.fits.map(f=>Array.from({length:this.NS},(_,i)=>f(i/(this.NS-1))));this.curve=this.samples[1].slice();
+    $$('.student',el).forEach(s=>s.onclick=()=>{this.auto=false;this.set(+s.dataset.m)})},
+  set(m){this.mode=m;$$('.student',this.el).forEach(s=>s.classList.toggle('on',+s.dataset.m===m));const[e1,e2]=this.err[m];
+    $('#ebTr').style.width=(e1/this.maxE*100)+'%';$('#ebTe').style.width=(e2/this.maxE*100)+'%';$('#evTr').textContent=e1.toFixed(3);$('#evTe').textContent=e2.toFixed(3)},
+  enter(){this.auto=true;this.timer=0;this.set(0)},
+  frame(dt){this.timer+=dt;if(this.auto&&this.timer>4.2){this.timer=0;this.set((this.mode+1)%3)}
+    const tgt=this.samples[this.mode],k=Math.min(1,dt*5);for(let i=0;i<this.NS;i++)this.curve[i]+=(tgt[i]-this.curve[i])*k;
+    const{ctx,W,H}=this.c;ctx.clearRect(0,0,W,H);const m={l:40,r:30,t:30,b:70},y0=-.85,y1=1.5;
+    const X=v=>m.l+v*(W-m.l-m.r),Y=v=>H-m.b-(v-y0)/(y1-y0)*(H-m.t-m.b);
+    ctx.strokeStyle='#E7E3D9';ctx.lineWidth=1.5;for(let v=-.5;v<=1.5;v+=.5){ctx.beginPath();ctx.moveTo(m.l,Y(v));ctx.lineTo(W-m.r,Y(v));ctx.stroke()}
+    ctx.save();ctx.beginPath();ctx.rect(m.l,m.t,W-m.l-m.r,H-m.t-m.b);ctx.clip();
+    ctx.beginPath();this.curve.forEach((v,i)=>{const x=X(i/(this.NS-1)),y=Y(v);i?ctx.lineTo(x,y):ctx.moveTo(x,y)});ctx.lineWidth=6;ctx.strokeStyle=this.mode===1?COL.green:COL.dark;ctx.lineJoin='round';ctx.stroke();ctx.restore();
+    XS.forEach((x,i)=>dot(ctx,X(x),Y(YS[i]),10,'#fff',COL.orange,4));
+    XT.forEach((x,i)=>dot(ctx,X(x),Y(YT[i]),10,COL.dark,'#fff',2));
+    ctx.font='700 22px "Nunito Sans", sans-serif';ctx.textAlign='left';
+    dot(ctx,m.l+16,H-32,9,COL.dark);ctx.fillStyle=COL.dark;ctx.fillText('data latih (dilihat model)',m.l+34,H-24);
+    dot(ctx,m.l+360,H-32,9,'#fff',COL.orange,4);ctx.fillStyle=COL.dark;ctx.fillText('data uji (tidak pernah dilihat)',m.l+378,H-24)}
+};
+
+/* ---------- 14. knn ---------- */
+S['s-knn']={
+  init(el){this.el=el;const cv=$('#cvKnn');this.c=setupCanvas(cv);this.ax=petalAxes(this.c.W,this.c.H);this.K=3;this.auto=true;this.q=[4.9,1.6];this.region=null;this.showR=false;this.t=0;
+    cv.addEventListener('click',e=>{const[px,py]=canvasPoint(cv,e);this.q=[clamp(this.ax.ix(px),.6,7.2),clamp(this.ax.iy(py),.02,2.7)];this.setAuto(false)});
+    $$('[data-k]',el).forEach(b=>b.onclick=()=>{this.K=+b.dataset.k;$$('[data-k]',el).forEach(x=>x.classList.toggle('on',x===b));this.region=null});
+    $('#knnRegion').onclick=()=>{this.showR=!this.showR;$('#knnRegion').classList.toggle('on',this.showR)};
+    $('#knnAuto').onclick=()=>this.setAuto(!this.auto)},
+  setAuto(v){this.auto=v;$('#knnAuto').classList.toggle('on',v)},
+  nearest(x,y,K){return IRISJ.map(d=>({d,dist:Math.hypot(d.pl-x,d.pw-y)})).sort((a,b)=>a.dist-b.dist).slice(0,K)},
+  vote(nb){const v=[0,0,0];nb.forEach(n=>v[n.d.s]++);let best=0;for(let i=1;i<3;i++)if(v[i]>v[best])best=i;
+    if(v.filter(c=>c===v[best]).length>1)best=nb[0].d.s;return{v,best}},
+  buildRegion(){const{W,H}=this.c,ax=this.ax,step=12,cells=[];
+    for(let px=ax.m.l;px<W-ax.m.r;px+=step)for(let py=ax.m.t;py<H-ax.m.b;py+=step){const r=this.vote(this.nearest(ax.ix(px+step/2),ax.iy(py+step/2),this.K));cells.push([px,py,r.best])}
+    this.region={cells,step}},
+  frame(dt){this.t+=dt;if(this.auto){const T=this.t;this.q=[3.9+2.5*Math.sin(T*.37),1.3+.95*Math.sin(T*.61+1)]}
+    const{ctx,W,H}=this.c,ax=this.ax;ctx.clearRect(0,0,W,H);
+    if(this.showR){if(!this.region)this.buildRegion();const s=this.region.step;this.region.cells.forEach(([x,y,k])=>{ctx.fillStyle=hexA(SPC[k],.16);ctx.fillRect(x,y,s,s)})}
+    ax.draw(ctx);
+    const nb=this.nearest(this.q[0],this.q[1],this.K),r=this.vote(nb),qx=ax.sx(this.q[0]),qy=ax.sy(this.q[1]);
+    const rad=nb[nb.length-1].dist;
+    ctx.beginPath();ctx.ellipse(qx,qy,Math.max(4,rad*(ax.sx(1)-ax.sx(0))),Math.max(4,rad*(ax.sy(0)-ax.sy(1))),0,0,Math.PI*2);ctx.fillStyle=hexA(COL.dark,.06);ctx.fill();ctx.setLineDash([10,8]);ctx.lineWidth=2.5;ctx.strokeStyle=COL.dark;ctx.stroke();ctx.setLineDash([]);
+    IRISJ.forEach(d=>dot(ctx,ax.sx(d.jx),ax.sy(d.jy),7.5,SPC[d.s],'#fff',1.5));
+    nb.forEach(n=>{ctx.beginPath();ctx.moveTo(qx,qy);ctx.lineTo(ax.sx(n.d.jx),ax.sy(n.d.jy));ctx.lineWidth=2.5;ctx.strokeStyle=COL.dark;ctx.stroke();dot(ctx,ax.sx(n.d.jx),ax.sy(n.d.jy),11,SPC[n.d.s],COL.dark,3)});
+    star(ctx,qx,qy,22,COL.dark);
+    const parts=r.v.map((c,i)=>c?`${c} ${SPNAME[i]}`:null).filter(Boolean).join(' · ');
+    $('#knnVotes').textContent=`Bunga baru (${this.q[0].toFixed(1)}, ${this.q[1].toFixed(1)}) → tetangga: ${parts}`;
+    const pe=$('#knnPred');pe.textContent='Prediksi: '+SPNAME[r.best];pe.style.color=r.best===0?'#8FB8E3':r.best===1?COL.orange:'#7FCFB0'}
+};
+
+/* ---------- 15. knn by hand ---------- */
+S['s-knn2']={init(el){this.el=el;$$('[data-k2]',el).forEach(b=>b.onclick=()=>this.set(+b.dataset.k2))},
+  set(K){$$('[data-k2]',this.el).forEach(b=>b.classList.toggle('on',+b.dataset.k2===K));
+    const sp=[1,1,2,1,2,0];const rows=$$('#distTable tr').slice(1);rows.forEach((r,i)=>{r.classList.toggle('in',i<K);r.classList.toggle('out',i>=K)});
+    const v=[0,0,0];sp.slice(0,K).forEach(s=>v[s]++);
+    $('#voteBox').innerHTML=v.map((c,i)=>c?`<span style="background:${hexA(SPC[i],.18)};color:${i===0?COL.blue:i===1?'#B4501A':'#2E7A5F'}">${c} × ${SPNAME[i]}</span>`:'').join('');
+    $('#voteRes').innerHTML=`K = ${K} → <span style="color:#B4501A">Versicolor</span>`},
+  enter(){this.set(3)}};
+
+/* ---------- 16. tree game ---------- */
+const GT={q:'Apakah hewan ini bisa terbang?',y:{q:'Apakah ia punya bulu?',y:{a:'🐦',n:'Burung'},n:{a:'🦇',n:'Kelelawar'}},n:{q:'Apakah ia hidup di air?',y:{a:'🐟',n:'Ikan'},n:{a:'🐈',n:'Kucing'}}};
+S['s-tree1']={init(el){$$('#gBtns button').forEach(b=>b.onclick=()=>this.ans(b.dataset.a==='1'))},
+  enter(){this.reset()},
+  reset(){this.node=GT;this.path=[];this.show()},
+  ans(yes){if(this.node.a){this.reset();return}this.path.push((yes?'Ya':'Tidak'));this.node=yes?this.node.y:this.node.n;this.show()},
+  show(){const n=this.node,em=$('#gEm');
+    if(n.a){em.textContent=n.a;$('#gQ').textContent=`Pasti ${n.n.toLowerCase()}!`;$('#gBtns').innerHTML='<button class="btn primary" data-a="1">Main lagi ↺</button>'}
+    else{em.textContent=this.path.length?'🧐':'🤔';$('#gQ').textContent=n.q;$('#gBtns').innerHTML='<button class="btn primary" data-a="1">Ya</button><button class="btn" data-a="0">Tidak</button>'}
+    $$('#gBtns button').forEach(b=>b.onclick=()=>this.ans(b.dataset.a==='1'));
+    em.style.transform='scale(1.15)';setTimeout(()=>em.style.transform='',200);
+    $('#gCrumbs').textContent=this.path.length?'Jawabanmu: '+this.path.join(' → '):''}};
+
+/* ---------- 17. tree iris ---------- */
+S['s-tree2']={
+  init(el){const cv=$('#cvTree');this.c=setupCanvas(cv);this.ax=petalAxes(this.c.W,this.c.H);this.pl=4.5;this.pw=1.4;
+    const upd=()=>{this.pl=+$('#slPL').value;this.pw=+$('#slPW').value;this.draw()};$('#slPL').oninput=upd;$('#slPW').oninput=upd;
+    cv.addEventListener('click',e=>{const[px,py]=canvasPoint(cv,e);this.pl=Math.round(clamp(this.ax.ix(px),1,7)*10)/10;this.pw=Math.round(clamp(this.ax.iy(py),.1,2.6)*20)/20;$('#slPL').value=this.pl;$('#slPW').value=this.pw;this.draw()});
+    this.draw()},
+  enter(){this.draw()},
+  draw(){const pl=this.pl,pw=this.pw;$('#vPL').textContent=pl.toFixed(1);$('#vPW').textContent=pw.toFixed(2);
+    const left=pl<=2.45,mid=!left&&pw<=1.75,leaf=left?0:mid?1:2;
+    const on={n0:1,n1:left,n2:!left,n3:!left&&mid,n4:!left&&!mid,e1:left,e2:!left,e3:!left&&mid,e4:!left&&!mid};
+    Object.entries(on).forEach(([id,v])=>$('#'+id).classList.toggle('on',!!v));
+    const{ctx,W,H}=this.c,ax=this.ax;ctx.clearRect(0,0,W,H);
+    const reg=(x0,x1,y0,y1,k)=>{ctx.fillStyle=hexA(SPC[k],k===leaf?.22:.08);ctx.fillRect(ax.sx(x0),ax.sy(y1),ax.sx(x1)-ax.sx(x0),ax.sy(y0)-ax.sy(y1))};
+    reg(ax.x0,2.45,ax.y0,ax.y1,0);reg(2.45,ax.x1,ax.y0,1.75,1);reg(2.45,ax.x1,1.75,ax.y1,2);
+    ax.draw(ctx);
+    IRISJ.forEach(d=>dot(ctx,ax.sx(d.jx),ax.sy(d.jy),7,SPC[d.s],'#fff',1.5));
+    ctx.lineWidth=4;ctx.strokeStyle=COL.dark;ctx.beginPath();ctx.moveTo(ax.sx(2.45),ax.sy(ax.y0));ctx.lineTo(ax.sx(2.45),ax.sy(ax.y1));ctx.stroke();
+    ctx.beginPath();ctx.moveTo(ax.sx(2.45),ax.sy(1.75));ctx.lineTo(ax.sx(ax.x1),ax.sy(1.75));ctx.stroke();
+    ctx.font='700 20px "JetBrains Mono", monospace';ctx.fillStyle=COL.dark;ctx.textAlign='left';ctx.fillText('2.45',ax.sx(2.45)+8,ax.sy(ax.y1)+24);ctx.textAlign='right';ctx.fillText('1.75',ax.sx(ax.x1)-8,ax.sy(1.75)-10);
+    star(ctx,ax.sx(pl),ax.sy(pw),22,COL.dark)}
+};
+
+/* ---------- 18. naive bayes ---------- */
+S['s-nb']={init(el){this.el=el;$('#nbNext').onclick=()=>this.set(Math.min(3,this.step+1));$('#nbReset').onclick=()=>this.set(0)},
+  set(s){this.step=s;const P=[[.4,.6],[.24,.03],[.12,.003],[.12,.003]][s],tot=P[0]+P[1],ps=P[0]/tot*100,pn=P[1]/tot*100;
+    $('#pbS').style.width=ps+'%';$('#pbN').style.width=pn+'%';$('#pvS').textContent=ps.toFixed(1)+'%';$('#pvN').textContent=pn.toFixed(1)+'%';
+    $$('.nbstep',this.el).forEach(n=>{const k=+n.dataset.s;n.classList.toggle('on',k<=s);n.classList.toggle('cur',k===s)});
+    $('#mk2').classList.toggle('on',s>=1);$('#mk1').classList.toggle('on',s>=2);$('#mk3').classList.toggle('on',s>=2);
+    $('#nbNext').disabled=s>=3;$('#nbNext').style.opacity=s>=3?.4:1},
+  enter(){this.set(0)}};
+
+/* ---------- 19. eval ---------- */
+S['s-eval']={init(el){this.el=el;const order=[...'TTTTTTTT'].map(()=>'TP').concat(['FN','FN'],['FP'],Array(9).fill('TN'));
+    const R=rng(9);for(let i=order.length-1;i>0;i--){const j=Math.floor(R()*(i+1));[order[i],order[j]]=[order[j],order[i]]}
+    $('#people').innerHTML=order.map(c=>`<div class="person ${c}">${c}</div>`).join('');
+    $$('.cell',el).forEach(c=>c.onclick=()=>this.sel('cell',c.dataset.c));$$('.metric',el).forEach(m=>m.onclick=()=>this.sel('metric',m.dataset.m))},
+  sel(kind,key){const txt={TP:'<b>TP (True Positive) — 8 mahasiswa</b>: benar-benar layak, dan model menebak layak. ✓',TN:'<b>TN (True Negative) — 9 mahasiswa</b>: memang tidak layak, dan model menebak tidak layak. ✓',
+      FP:'<b>FP (False Positive) — 1 mahasiswa</b>: sebenarnya tidak layak, tapi model memberi keringanan. ✗',FN:'<b>FN (False Negative) — 2 mahasiswa</b>: sebenarnya layak, tapi model menolak. Ini yang paling menyakitkan bagi mahasiswa! ✗',
+      acc:'<b>Akurasi</b>: yang tersorot (TP + TN = 17) dibagi semua 20 mahasiswa.',f1:'<b>F1-score</b>: rata-rata harmonik precision (0.89) dan recall (0.80) ≈ 0.84 — melibatkan TP, FP, dan FN; TN tidak dihitung.',prec:'<b>Precision</b>: dari 9 yang <i>ditebak</i> layak (TP + FP), 8 benar-benar layak.',rec:'<b>Recall</b>: dari 10 yang <i>benar-benar</i> layak (TP + FN), 8 berhasil ditemukan model.'};
+    const hl={TP:['TP'],TN:['TN'],FP:['FP'],FN:['FN'],acc:['TP','TN'],prec:['TP','FP'],rec:['TP','FN'],f1:['TP','FP','FN']}[key];
+    $$('.person',this.el).forEach(p=>p.classList.toggle('dim',!hl.some(c=>p.classList.contains(c))));
+    $$('.cell',this.el).forEach(c=>c.classList.toggle('sel',kind==='cell'&&c.dataset.c===key));$$('.metric',this.el).forEach(m=>m.classList.toggle('sel',kind==='metric'&&m.dataset.m===key));
+    $('#evalExplain').innerHTML=txt[key];this.auto=false},
+  enter(){$$('.person',this.el).forEach(p=>p.classList.remove('dim'));$$('.cell,.metric',this.el).forEach(c=>c.classList.remove('sel'));$('#evalExplain').textContent='Klik sel matriks atau metrik untuk melihat sampel yang dihitung.'}};
+
+/* ---------- start ---------- */
+if(window.renderMathInElement){try{renderMathInElement(stage,{delimiters:[{left:'\\[',right:'\\]',display:true},{left:'\\(',right:'\\)',display:false}],throwOnError:false})}catch(e){console.error(e)}}
+const start=parseInt((location.hash||'').slice(1))||1;
+go(start-1);requestAnimationFrame(loop);
+})();
+</script>
+</body>
+</html>
