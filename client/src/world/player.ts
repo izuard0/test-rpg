@@ -46,6 +46,8 @@ export class Avatar {
 
   /** Ketajaman teks mengikuti zoom kamera (teks digambar ulang pada resolusi layar). */
   setTextResolution(zoom: number): void {
+    // Huruf di layar minimal ± 11 px: pada zoom 1× teks dunia 8 px terlalu kecil dibaca.
+    this.tag.setFontSize(Math.max(8, Math.round(11 / zoom)));
     this.tag.setResolution(zoom * (window.devicePixelRatio || 1));
   }
 
