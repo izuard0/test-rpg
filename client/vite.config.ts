@@ -7,5 +7,7 @@ export default defineConfig({
   build: {
     target: "es2022",
     chunkSizeWarningLimit: 1600, // Phaser sendiri ± 1,2 MB
+    // Dua halaman: game (index.html) dan panel admin (panel.html, disajikan server di /panel).
+    rollupOptions: { input: { main: "index.html", panel: "panel.html" } },
   },
 });

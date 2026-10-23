@@ -494,6 +494,5 @@ body:not(.in-game) #bahan { display: none; }
 .kelas-panel .actions-row { display: flex; flex-wrap: wrap; gap: 8px; }
 .kelas-panel .share { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
 .kelas-panel .share label { display: flex; align-items: center; gap: 6px; font-size: 13px; }
-.kelas-panel .share .kodein { width: 140px; }
 .kelas-panel .up-status { margin: 6px 0 0; font-size: 13px; color: #2f8f63; min-height: 1em; }
 .kelas-panel .up-status.bad { color: #b8382c; }

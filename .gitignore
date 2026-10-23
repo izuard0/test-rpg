@@ -21,3 +21,5 @@ asset-prompts/karakter-hemat/Gemini_Generated_Image_*.jpg
 
 # Salinan aset untuk klien (dibuat ulang oleh client/scripts/sync-assets.mjs)
 client/public/game/
+# Klien Prisma hasil `prisma generate` (postinstall server)
+server/src/generated/

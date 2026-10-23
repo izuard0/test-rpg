@@ -1,0 +1,92 @@
+/* Panel admin: palet sama dengan game (docs/RANCANGAN.md bagian 2), tampilan alat kerja. */
+:root {
+  --navy: #1b2a41;
+  --stone: #4f5d6e;
+  --cream: #f7f5f0;
+  --paper: #ffffff;
+  --line: #d9d4c7;
+  --orange: #e8833a;
+  --green: #2f8f63;
+  --red: #b8382c;
+  --mono: ui-monospace, "Cascadia Code", "JetBrains Mono", Consolas, monospace;
+  --sans: system-ui, "Segoe UI", Roboto, sans-serif;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--cream); color: var(--navy); font: 15px/1.5 var(--sans); }
+.top { display: flex; align-items: center; gap: 10px; padding: 10px 20px; background: var(--navy); color: var(--cream); }
+.top b { font: 700 17px var(--mono); letter-spacing: 2px; }
+.top span { font-size: 14px; opacity: 0.85; }
+.top .spacer { flex: 1; }
+.top .who { font: 13px var(--mono); }
+.top .logout { background: transparent; color: var(--cream); border-color: rgba(247, 245, 240, 0.4); }
+main { max-width: 1180px; margin: 0 auto; padding: 20px 16px 40px; }
+h1 { font-size: 20px; margin: 0 0 12px; }
+h2 { font-size: 17px; margin: 0 0 10px; }
+code, .mono { font-family: var(--mono); font-size: 0.92em; }
+.muted { color: var(--stone); }
+.small { font-size: 13px; }
+
+button {
+  font: 600 13px var(--sans); padding: 6px 12px; border-radius: 8px; cursor: pointer;
+  border: 2px solid var(--line); background: var(--paper); color: var(--navy); white-space: nowrap;
+}
+button:hover { border-color: var(--stone); }
+button:focus-visible, input:focus-visible { outline: 3px solid rgba(232, 131, 58, 0.45); outline-offset: 1px; }
+button:disabled { opacity: 0.6; cursor: default; }
+button.primary { background: var(--orange); border-color: var(--orange); color: var(--navy); }
+button.danger { color: var(--red); border-color: #e3a49c; }
+button.ghost { background: transparent; }
+button.danger.ghost { border-color: transparent; }
+
+.card { background: var(--paper); border: 2px solid var(--navy); border-radius: 12px; padding: 20px 22px; }
+.card.narrow { max-width: 420px; margin: 40px auto; }
+form label { display: flex; flex-direction: column; gap: 4px; font-weight: 600; font-size: 13px; margin-bottom: 12px; }
+input[type="search"], form input {
+  font: 15px var(--sans); padding: 8px 10px; border-radius: 8px; border: 2px solid var(--line); background: var(--paper); color: var(--navy);
+}
+form button { width: 100%; padding: 10px; font-size: 15px; }
+.error { color: var(--red); font-weight: 600; margin: 0 0 10px; }
+
+.warn { background: #fff4e0; border: 1px solid #f0c27a; padding: 8px 12px; border-radius: 8px; }
+.flash { background: #e8f4ee; border: 1px solid #a9d6bf; padding: 8px 12px; border-radius: 8px; }
+
+.tabs { display: flex; gap: 4px; flex-wrap: wrap; border-bottom: 2px solid var(--line); margin-bottom: 12px; }
+.tabs button { border: 0; border-bottom: 3px solid transparent; border-radius: 0; background: none; padding: 8px 12px; margin-bottom: -2px; font-size: 14px; }
+.tabs button[aria-selected="true"] { border-bottom-color: var(--orange); }
+.count { display: inline-block; min-width: 22px; margin-left: 6px; padding: 0 6px; border-radius: 10px; background: #ece7db; font-size: 12px; text-align: center; }
+.count.hot { background: var(--orange); }
+
+.toolbar { display: flex; gap: 8px; margin-bottom: 10px; }
+.toolbar .search { flex: 1; max-width: 360px; }
+.bulk { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; padding: 8px 12px; margin-bottom: 10px; border-radius: 8px; background: #fff4ea; border: 1px solid #f3c9a6; }
+.bulk[hidden] { display: none; }
+.bulk span { margin-right: 6px; }
+
+.table-wrap { overflow-x: auto; background: var(--paper); border: 1px solid var(--line); border-radius: 10px; }
+table { width: 100%; border-collapse: collapse; font-size: 14px; }
+th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid #ece7db; vertical-align: middle; }
+th { font-size: 12px; text-transform: uppercase; letter-spacing: 0.6px; color: var(--stone); background: #faf8f3; }
+tbody tr:hover { background: #fcfaf6; }
+td.ck, th.ck { width: 36px; }
+td.act { white-space: nowrap; }
+td.act button { margin: 2px 4px 2px 0; }
+.tag { display: inline-block; font-size: 11px; padding: 0 6px; border-radius: 6px; background: #ece7db; color: var(--stone); font-weight: 600; }
+.warn-tag { background: #fff0c9; color: #8a5a00; }
+.role, .status { display: inline-block; font-size: 12px; font-weight: 700; padding: 1px 8px; border-radius: 10px; }
+.role.mahasiswa { background: #e6eef8; color: #24467a; }
+.role.dosen { background: #fde7d3; color: #9a4310; }
+.status.menunggu { background: #fff0c9; color: #8a5a00; }
+.status.disetujui { background: #dff1e8; color: var(--green); }
+.status.ditolak, .status.nonaktif { background: #f8e1de; color: var(--red); }
+.empty { padding: 30px; text-align: center; background: var(--paper); border: 1px dashed var(--line); border-radius: 10px; color: var(--stone); }
+
+.backdrop { position: fixed; inset: 0; display: grid; place-items: center; padding: 16px; background: rgba(14, 21, 34, 0.45); }
+.dialog { max-width: 440px; width: 100%; }
+.secret { display: flex; align-items: center; gap: 10px; }
+.secret code { font-size: 22px; letter-spacing: 2px; padding: 6px 12px; background: #f2efe7; border-radius: 8px; }
+.row { display: flex; justify-content: flex-end; margin-top: 8px; }
+
+@media (max-width: 640px) {
+  .top { padding: 10px 16px; }
+  .toolbar .search { max-width: none; }
+}

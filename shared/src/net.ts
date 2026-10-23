@@ -32,11 +32,8 @@ export const FLAG_MOVING = 1;
 export const FLAG_SITTING = 2;
 
 export interface JoinOptions {
-  /** NIM/NIP (mode uji: dari akun di browser). */
-  id: string;
-  name: string;
-  role: Role;
-  choice: CharacterChoice;
+  /** Token sesi login (POST /api/auth/login). Identitas, peran, dan avatar diambil server dari database. */
+  token: string;
   /** Titik muncul di peta tujuan. */
   spawn?: string;
   /** Kode peta kelas untuk ROOM_KELAS ("kelas-a", ...). */

@@ -19,6 +19,7 @@ export class GameNet {
   private room?: Room;
   private lastSent = "";
   private lastSentAt = 0;
+  private authToken = "";
 
   get connected(): boolean {
     return !!this.room;
@@ -29,8 +30,14 @@ export class GameNet {
     return this.room?.sessionId;
   }
 
+  /** Header untuk rute HTTP yang terikat sesi game (token login pemilik sesi). */
+  authHeaders(): Record<string, string> {
+    return { authorization: `Bearer ${this.authToken}` };
+  }
+
   async join(map: string, opts: Omit<JoinOptions, "kelas">, on: Handlers): Promise<void> {
     await this.leave();
+    this.authToken = opts.token;
     const client = new Client(serverUrl());
     const name = map === "kampus" ? ROOM_KAMPUS : ROOM_KELAS;
     const room = await client.joinOrCreate(name, map === "kampus" ? opts : { ...opts, kelas: map });

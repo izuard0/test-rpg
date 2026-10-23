@@ -2,6 +2,8 @@
 // (docs/RANCANGAN.md, "Login dengan NIM"). Dipakai formulir klien sekarang dan
 // API server kelak, supaya pesan galatnya sama.
 
+import type { CharacterChoice } from "./character.js";
+
 export type Role = "mahasiswa" | "dosen";
 
 export interface Registration {
@@ -52,3 +54,28 @@ export function validateRegistration(r: Registration & { password2?: string }): 
   if (r.password2 !== undefined && r.password2 !== r.password) e.password2 = "Kata sandi tidak sama.";
   return e;
 }
+
+// ----- API akun (tahap 5): akun di server, disetujui admin di /panel -----
+
+export type AccountStatus = "menunggu" | "disetujui" | "ditolak" | "nonaktif";
+
+/** Data akun yang dikirim ke pemiliknya (tanpa hash kata sandi). */
+export interface AccountView {
+  role: Role;
+  /** NIM/NIP. */
+  id: string;
+  fullName: string;
+  character: CharacterChoice | null;
+  /** Admin me-reset kata sandi: wajib ganti sebelum main. */
+  mustChangePassword: boolean;
+}
+
+/** Pesan untuk akun yang belum bisa masuk (login dengan sandi benar, tetapi belum disetujui). */
+export const STATUS_MESSAGE: Record<Exclude<AccountStatus, "disetujui">, string> = {
+  menunggu: "Akunmu sedang menunggu persetujuan admin. Coba masuk lagi nanti.",
+  ditolak: "Pendaftaran akunmu ditolak admin. Hubungi admin prodi bila ini keliru.",
+  nonaktif: "Akunmu dinonaktifkan admin. Hubungi admin prodi.",
+};
+
+/** Kode tutup WebSocket saat akun dinonaktifkan / sesi dicabut di tengah permainan. */
+export const CLOSE_ACCOUNT_REVOKED = 4401;

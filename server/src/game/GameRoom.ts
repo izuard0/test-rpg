@@ -19,10 +19,7 @@ import {
   distanceToRect,
   footBox,
   maskProfanity,
-  normalizeId,
-  normalizeName,
   sanitizeChoice,
-  validateId,
   zoneAt,
   type C2S,
   type CharacterConfig,
@@ -34,6 +31,8 @@ import {
 import type { FileStore } from "./files.js";
 import { hub, send, type Session } from "./hub.js";
 import type { World, WorldRoom } from "./world.js";
+import type { Accounts } from "../auth/index.js";
+import type { AccountRecord } from "../auth/store.js";
 
 export interface GameContext {
   world: World;
@@ -42,6 +41,7 @@ export interface GameContext {
   files: FileStore;
   /** Materi yang sah (file -> materi) dari katalog klien; kosong = cek bentuk jalur saja. */
   catalog: Map<string, Materi>;
+  accounts: Accounts;
 }
 
 let ctx: GameContext;
@@ -111,25 +111,26 @@ export class GameRoom extends Room {
     if (this.code === "kampus") this.clock.setInterval(() => hub.sweep(Date.now()), 5000);
   }
 
-  onAuth(_client: Client, options: JoinOptions): JoinOptions {
-    // Mode uji: identitas dari akun di browser. Tahap 5 menggantinya dengan sesi login.
-    if (validateId(options?.role === "dosen" ? "dosen" : "mahasiswa", String(options?.id ?? ""))) throw new Error("NIM/NIP tidak sah.");
-    if (normalizeName(String(options?.name ?? "")).length < 2) throw new Error("Nama tidak sah.");
-    return options;
+  async onAuth(_client: Client, options: JoinOptions): Promise<AccountRecord> {
+    // Identitas dari sesi login: peran dan nama tidak pernah dipercaya dari klien.
+    const acc = await ctx.accounts.fromToken(options?.token);
+    if (!acc) throw new Error("Sesi berakhir. Silakan masuk lagi.");
+    if (acc.mustChangePassword) throw new Error("Ganti kata sandi dulu sebelum bermain.");
+    return acc;
   }
 
-  onJoin(client: Client, options: JoinOptions): void {
-    const role = options.role === "dosen" ? "dosen" : "mahasiswa";
-    const accountId = normalizeId(options.id);
+  onJoin(client: Client, options: JoinOptions, acc: AccountRecord): void {
+    const role = acc.role;
+    const accountId = acc.id;
     const base = this.map.data.spawns[options.spawn ?? ""] ?? this.map.data.spawns.awal ?? this.map.data.spawns.dari_lobi ?? Object.values(this.map.data.spawns)[0];
     const spawn = this.scatter(base);
     const s: Session = {
       sid: hub.allocSid(),
       uid: hub.uidFor(accountId),
       accountId,
-      name: normalizeName(options.name).slice(0, 60),
+      name: acc.fullName,
       role,
-      choice: options.choice ? sanitizeChoice(ctx.cfg, options.choice) : defaultChoice(ctx.cfg, "L"),
+      choice: acc.character ? sanitizeChoice(ctx.cfg, acc.character) : defaultChoice(ctx.cfg, "L"),
       client,
       room: { code: this.code, title: this.map.data.title },
       x: spawn.x,

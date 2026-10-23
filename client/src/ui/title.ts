@@ -1,23 +1,25 @@
 // Halaman awal: judul, lalu Masuk atau Daftar. Selesai saat pemain berhasil masuk.
+// Daftar tidak langsung masuk: akun menunggu persetujuan admin di /panel.
 
-import { PASSWORD_MIN, ROLE_ID_LABEL, type FieldErrors, type Role } from "@mita/shared";
+import { PASSWORD_MIN, ROLE_ID_LABEL, type Role } from "@mita/shared";
 import { AuthError, type Account, type AuthService } from "../auth";
 
-type Screen = "home" | "login" | "register";
+type Screen = "home" | "login" | "register" | "sent" | "change";
 
-export function showTitle(auth: AuthService): Promise<Account> {
+/** `start: "change"` = sesi dipulihkan tetapi admin baru me-reset kata sandi. */
+export function showTitle(auth: AuthService, start: Screen = "home"): Promise<Account> {
   const el = document.getElementById("title")!;
   el.hidden = false;
 
   return new Promise((resolve) => {
     const done = (acc: Account) => resolve(acc);
 
-    const testBadge = auth.testMode
-      ? `<p class="test-mode" role="note"><b>Mode uji.</b> Akun hanya tersimpan di browser ini dan belum diverifikasi ke daftar kelas.</p>`
-      : "";
+    const testBadge = auth.persistent
+      ? ""
+      : `<p class="test-mode" role="note"><b>Mode uji.</b> Server belum tersambung ke database: akun hilang saat server dimulai ulang.</p>`;
 
     function render(screen: Screen) {
-      const card = screen === "home" ? home() : screen === "login" ? login() : register();
+      const card = { home, login, register, sent, change }[screen]();
       el.dataset.screen = screen;
       el.replaceChildren(card);
       card.querySelector<HTMLElement>("[autofocus]")?.focus();
@@ -68,9 +70,9 @@ export function showTitle(auth: AuthService): Promise<Account> {
     }
 
     function showErrors(card: HTMLElement, err: unknown) {
-      const fields: FieldErrors = err instanceof AuthError ? err.fields : {};
+      const fields: Record<string, string | undefined> = err instanceof AuthError ? err.fields : {};
       card.querySelectorAll<HTMLElement>("[data-field]").forEach((f) => {
-        const msg = fields[f.dataset.field as keyof FieldErrors];
+        const msg = fields[f.dataset.field ?? ""];
         const small = f.querySelector<HTMLElement>(".err")!;
         small.textContent = msg ?? "";
         small.hidden = !msg;
@@ -82,11 +84,11 @@ export function showTitle(auth: AuthService): Promise<Account> {
       card.querySelector<HTMLElement>(".invalid input")?.focus();
     }
 
-    async function submitting(card: HTMLElement, run: () => Promise<Account>) {
+    async function submitting<T>(card: HTMLElement, run: () => Promise<T>, then: (v: T) => void) {
       const btn = card.querySelector<HTMLButtonElement>("button[type=submit]")!;
       btn.disabled = true;
       try {
-        done(await run());
+        then(await run());
       } catch (e) {
         showErrors(card, e);
         btn.disabled = false;
@@ -105,7 +107,9 @@ export function showTitle(auth: AuthService): Promise<Account> {
       f.onsubmit = (e) => {
         e.preventDefault();
         const d = new FormData(f);
-        void submitting(card, () => auth.login(String(d.get("id")), String(d.get("password"))));
+        void submitting(card, () => auth.login(String(d.get("id")), String(d.get("password"))), (acc) =>
+          acc.mustChangePassword ? render("change") : done(acc),
+        );
       };
       return card;
     }
@@ -122,7 +126,7 @@ export function showTitle(auth: AuthService): Promise<Account> {
           field("fullName", "Nama lengkap", `autocomplete="name" maxlength="60" required`, "Sesuai daftar kelas. Nama ini tampil di atas kepala avatar.") +
           field("password", "Kata sandi", `type="password" autocomplete="new-password" required`, `Minimal ${PASSWORD_MIN} karakter.`) +
           field("password2", "Ulangi kata sandi", `type="password" autocomplete="new-password" required`),
-        "Lanjut: buat avatar →",
+        "Daftar",
         `Sudah punya akun? <button class="link" type="button" data-go="login">Masuk</button>`,
       );
       card.querySelectorAll<HTMLButtonElement>("[data-role]").forEach((b) => {
@@ -137,14 +141,50 @@ export function showTitle(auth: AuthService): Promise<Account> {
         e.preventDefault();
         const d = new FormData(f);
         const s = (k: string) => String(d.get(k) ?? "");
-        void submitting(card, () =>
-          auth.register({ role, id: s("id"), fullName: s("fullName"), password: s("password"), password2: s("password2") }),
+        void submitting(
+          card,
+          () => auth.register({ role, id: s("id"), fullName: s("fullName"), password: s("password"), password2: s("password2") }),
+          () => render("sent"),
         );
       };
       return card;
     }
 
-    render("home");
+    function sent(): HTMLElement {
+      const card = document.createElement("section");
+      card.className = "title-card";
+      card.innerHTML = `${brand()}
+        <div class="sent" role="status">
+          <h2>Pendaftaran terkirim</h2>
+          <p>Admin prodi akan memeriksa NIM/NIP dan namamu. Setelah disetujui, masuk dengan NIM/NIP dan kata sandi yang baru kamu buat, lalu buat avatar.</p>
+        </div>
+        <div class="actions"><button class="primary" data-go="login" autofocus>Ke halaman masuk</button></div>${testBadge}`;
+      card.querySelectorAll<HTMLButtonElement>("[data-go]").forEach((b) => (b.onclick = () => render(b.dataset.go as Screen)));
+      return card;
+    }
+
+    function change(): HTMLElement {
+      const card = form(
+        "Ganti kata sandi",
+        `<p class="note">Kata sandimu baru di-reset admin. Buat kata sandi baru sebelum bermain.</p>` +
+          field("current", "Kata sandi sementara dari admin", `type="password" autocomplete="current-password" autofocus required`) +
+          field("password", "Kata sandi baru", `type="password" autocomplete="new-password" required`, `Minimal ${PASSWORD_MIN} karakter.`) +
+          field("password2", "Ulangi kata sandi baru", `type="password" autocomplete="new-password" required`),
+        "Simpan kata sandi",
+        "",
+      );
+      card.querySelector<HTMLButtonElement>(".back")!.onclick = () => void auth.logout().then(() => render("home"));
+      const f = card.querySelector("form")!;
+      f.onsubmit = (e) => {
+        e.preventDefault();
+        const d = new FormData(f);
+        const s = (k: string) => String(d.get(k) ?? "");
+        void submitting(card, () => auth.changePassword(s("current"), s("password"), s("password2")), done);
+      };
+      return card;
+    }
+
+    render(start);
   });
 }
 

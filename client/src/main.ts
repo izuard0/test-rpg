@@ -1,6 +1,6 @@
 import Phaser from "phaser";
 import "./style.css";
-import { LocalAuth, type Account, type AuthService } from "./auth";
+import { AuthService, type Account } from "./auth";
 import { loadAssembler } from "./char/load";
 import { setAssembler } from "./char/textures";
 import { WorldScene } from "./scenes/WorldScene";
@@ -9,15 +9,16 @@ import { showError, showLoading } from "./ui/hud";
 import { hideTitle, showTitle } from "./ui/title";
 import { mountTouchPad } from "./ui/touch";
 
-// Alur: halaman awal -> masuk/daftar -> buat avatar (bila belum) -> kampus.
-// Sesi yang masih aktif di tab ini langsung masuk ke kampus.
+// Alur: halaman awal -> masuk (daftar menunggu persetujuan admin) -> ganti sandi (bila
+// di-reset admin) -> buat avatar (bila belum) -> kampus. Sesi yang masih aktif di tab ini
+// langsung masuk ke kampus.
 async function boot(): Promise<void> {
-  const auth: AuthService = new LocalAuth();
-  const asm = await loadAssembler();
+  const auth = new AuthService();
+  const [asm, restored] = await Promise.all([loadAssembler(), auth.init().then(() => auth.restore())]);
   setAssembler(asm);
   showLoading(false);
 
-  let account = auth.current() ?? (await showTitle(auth));
+  let account = restored && !restored.mustChangePassword ? restored : await showTitle(auth, restored ? "change" : "home");
   if (!account.character) {
     hideTitle(true);
     account = await new Promise<Account>((resolve) =>
@@ -39,10 +40,7 @@ function startGame(auth: AuthService, account: Account): void {
   const bar = document.getElementById("account")!;
   bar.hidden = false;
   bar.querySelector(".acc-name")!.textContent = account.fullName;
-  bar.querySelector<HTMLButtonElement>(".logout")!.onclick = () => {
-    auth.logout();
-    location.reload();
-  };
+  bar.querySelector<HTMLButtonElement>(".logout")!.onclick = () => void auth.logout().then(() => location.reload());
 
   showLoading(true);
   const game = new Phaser.Game({
