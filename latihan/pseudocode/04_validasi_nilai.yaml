@@ -1,0 +1,25 @@
+judul: Validasi nilai 0..100
+mataKuliah: Logika Komputasional
+deskripsi: |
+  Baca nilai berulang kali sampai nilainya berada di rentang 0..100,
+  lalu tulis nilai yang sah itu. Gunakan `repeat ... until`.
+  Contoh: masukan `150 -5 80` menghasilkan `80`.
+kodeAwal: |
+  ALGORITMA:
+     repeat
+        read(nilai)
+     until
+     write(nilai)
+uji:
+  - masukan: "150 -5 80"
+    keluaran: "80"
+  - masukan: "100"
+    keluaran: "100"
+  - masukan: "-1 0"
+    keluaran: "0"
+kunci: |
+  ALGORITMA:
+     repeat
+        read(nilai)
+     until (nilai ≥ 0) and (nilai ≤ 100)
+     write(nilai)

@@ -1,0 +1,46 @@
+judul: Banyak nilai di atas rata-rata
+mataKuliah: Logika Komputasional
+deskripsi: |
+  Baca N, lalu N nilai ke dalam larik. Tulis rata-rata dan banyak nilai
+  yang lebih besar dari rata-rata, dipisah spasi.
+  Contoh: `4 70 80 90 65` menghasilkan `76.25 2`.
+kodeAwal: |
+  DEKLARASI
+     const NMAKS = 100
+     nilai : array[1..NMAKS] of real
+     i, N : integer
+  ALGORITMA:
+     read(N)
+     for i ← 1 to N do
+        read(nilai[i])
+     endfor
+uji:
+  - masukan: "4 70 80 90 65"
+    keluaran: "76.25 2"
+  - masukan: "3 60 60 60"
+    keluaran: "60 0"
+  - masukan: "5 10 20 30 40 50"
+    keluaran: "30 2"
+kunci: |
+  DEKLARASI
+     const NMAKS = 100
+     nilai : array[1..NMAKS] of real
+     i, N, banyak : integer
+     jumlah, rata : real
+  ALGORITMA:
+     read(N)
+     for i ← 1 to N do
+        read(nilai[i])
+     endfor
+     jumlah ← 0
+     for i ← 1 to N do
+        jumlah ← jumlah + nilai[i]
+     endfor
+     rata ← jumlah / N
+     banyak ← 0
+     for i ← 1 to N do
+        if nilai[i] > rata then
+           banyak ← banyak + 1
+        endif
+     endfor
+     write(rata, banyak)

@@ -16,7 +16,7 @@ import {
 } from "@mita/shared";
 import { getAssembler } from "../char/textures";
 import type { Account, AuthService } from "../auth";
-import { actionLabel, openCatalog, openInfo, openTerminalPlaceholder, type MateriCatalog } from "../ui/content";
+import { actionLabel, openCatalog, openInfo, openTerminal, type MateriCatalog } from "../ui/content";
 import { openCreator } from "../ui/creator";
 import { setHud, setLoadingProgress, setPrompt, showError, showLoading } from "../ui/hud";
 import { closePanel, isPanelOpen } from "../ui/panel";
@@ -311,7 +311,7 @@ export class WorldScene extends Phaser.Scene {
         openCatalog(this.catalog);
         break;
       case "terminal":
-        openTerminalPlaceholder();
+        openTerminal();
         break;
       case "seat":
         this.sit(it);

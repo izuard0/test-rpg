@@ -113,12 +113,9 @@ function openMaterial(courseTitle: string, item: MateriItem): void {
   openPanel({ title: item.file.split("/").pop() ?? item.file, body: wrap, wide: true });
 }
 
-export function openTerminalPlaceholder(): void {
-  openPanel({
-    title: "terminal — praktik",
-    body: `<pre class="term"><span class="ok">mita@perpustakaan</span>:<span class="path">~</span>$ mulai-praktik
-Terminal praktik (SQL, Python, pseudocode) sedang dibangun pada tahap 2.
-Kode akan dijalankan di browser ini, bukan di server.
-<span class="cursor">▌</span></pre>`,
-  });
+/** Terminal praktik dimuat terpisah (CodeMirror, worker) saat pertama kali dibuka. */
+export function openTerminal(): void {
+  import("../terminal/terminal")
+    .then((m) => m.openTerminal())
+    .catch((e: unknown) => openPanel({ title: "terminal — praktik", body: `<p class="term-error">Gagal memuat terminal: ${esc(String(e))}</p>` }));
 }

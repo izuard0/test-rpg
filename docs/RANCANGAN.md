@@ -390,8 +390,9 @@ sekitar 1 menit). Set baru otomatis mendapat versi badan ramping.
 1. **Prototipe satu pemain** *(sebagian)*: gerak, kamera, dan kreator karakter
    sudah jadi (bagian 6). Masih tersisa peta dari Tiled dengan tileset asli dan
    rak buku yang membuka materi (spesifikasi peta: `docs/PETA.md`). Belum memakai server.
-2. **Terminal perpustakaan**: editor, mode SQL, Python, dan pseudocode,
-   sandbox, beberapa latihan contoh. Masih satu pemain, tanpa server.
+2. **Terminal perpustakaan** *(sebagian, 23 Okt 2026)*: editor CodeMirror, mode SQL (sql.js) dan
+   pseudocode (langkah demi langkah + tabel jejak), sandbox, 10 latihan contoh di `latihan/`.
+   Python (Pyodide) belum. Masih satu pemain, tanpa server.
 3. **Multipemain lobi**: saling melihat, pindah ruangan, empat mode chat, emote.
 4. **Kuis di kelas**: kursi, panel kuis, halaman dosen untuk memulai kuis
    dan mengunduh nilai; kuis praktik memakai terminal di Lab Komputer.

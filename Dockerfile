@@ -17,6 +17,7 @@ COPY server server
 COPY maps maps
 COPY export export
 COPY bahan_ajar bahan_ajar
+COPY latihan latihan
 COPY assets/backgrounds assets/backgrounds
 RUN npm run build
 

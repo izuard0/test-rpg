@@ -1,0 +1,9 @@
+judul: Tampilkan semua mahasiswa
+mataKuliah: Perancangan Basis Data
+dataset: akademik
+deskripsi: |
+  Tampilkan NIM dan nama semua mahasiswa dari tabel `mahasiswa`.
+kodeAwal: |
+  SELECT
+  FROM mahasiswa;
+kunci: SELECT nim, nama FROM mahasiswa;

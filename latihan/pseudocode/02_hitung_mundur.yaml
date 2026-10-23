@@ -1,0 +1,26 @@
+judul: Hitung mundur peluncuran
+mataKuliah: Logika Komputasional
+deskripsi: |
+  Baca N, lalu tulis N, N-1, ..., 1 (satu bilangan per baris),
+  kemudian tulis Meluncur! di baris terakhir. Gunakan `for ... downto`.
+kodeAwal: |
+  ALGORITMA:
+     read(N)
+uji:
+  - masukan: "3"
+    keluaran: |
+      3
+      2
+      1
+      Meluncur!
+  - masukan: "1"
+    keluaran: |
+      1
+      Meluncur!
+kunci: |
+  ALGORITMA:
+     read(N)
+     for i ← N downto 1 do
+        write(i)
+     endfor
+     write('Meluncur!')
