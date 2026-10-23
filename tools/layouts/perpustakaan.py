@@ -1,20 +1,22 @@
 """Tata letak Perpustakaan Al-Khawarizmi (docs/PETA.md bagian 4), 36 x 28 petak. Satuan: petak.
 
-Aturan skala: rak, terminal, tanaman, pustakawan 2x (dekorasi/besar); meja baca, bilik belajar, troli,
-sofa 1x (benda yang dipakai/diduduki). Di peta `kampus` tata letak ini digeser (lihat kampus.py)."""
+Enam rak buku dibagi menjadi dua sayap (kiri x=2,6,10 dan kanan x=20,24,28) mengapit gerbang tengah dari koridor
+(x=15..18) yang lurus dengan lorong tengah di antara dua kolom meja baca. Terminal di dinding kanan dicerminkan
+(flip=True) agar layarnya menghadap ke dalam ruangan."""
 
 LF = "library_floor_wall"
 BS = "library_bookshelves"
 FU = "library_furniture"
 TE = "library_terminals"
+LOF = "lobby_furniture"
 
-SHELVES = [  # (x, sprite, kode mata kuliah, warna, judul)
+SHELVES = [  # (x, sprite, kode mata kuliah, warna, judul) — 3 di sayap kiri, 3 di sayap kanan
     (2, "rak_biru", "logika-komputasional", "biru", "Logika Komputasional"),
-    (7, "rak_biru_2", "logika-komputasional", "biru", "Logika Komputasional"),
-    (12, "rak_oranye", "kecerdasan-buatan", "oranye", "Kecerdasan Buatan"),
-    (17, "rak_oranye", "kecerdasan-buatan", "oranye", "Kecerdasan Buatan"),
-    (22, "rak_hijau", "", "hijau", "Segera hadir"),
-    (27, "rak_hijau_2", "", "hijau", "Segera hadir"),
+    (6, "rak_biru_2", "logika-komputasional", "biru", "Logika Komputasional"),
+    (10, "rak_oranye", "kecerdasan-buatan", "oranye", "Kecerdasan Buatan"),
+    (20, "rak_oranye", "kecerdasan-buatan", "oranye", "Kecerdasan Buatan"),
+    (24, "rak_hijau", "", "hijau", "Segera hadir"),
+    (28, "rak_hijau_2", "", "hijau", "Segera hadir"),
 ]
 
 objects = []
@@ -24,38 +26,51 @@ def put(spr, foot, scale=2, **kw):
     objects.append({"sprite": spr, "foot": foot, "scale": scale, **kw})
 
 
-for x in [5, 10, 15, 20, 25]:                                   # jendela di sela rak
-    put((LF, "jendela_kayu"), [x, 2, 2, 1], collide=False)
+# jendela kayu mengapit gerbang tengah di dinding atas
+for x in [13, 19]:
+    put((LF, "jendela_kayu"), [x, 2, 2, 1], scale=1.8, collide=False)
+
+# 6 rak buku utama (3 kiri, 3 kanan)
 for i, (x, spr, course, color, title) in enumerate(SHELVES, 1):
-    put((BS, spr), [x, 5, 3, 1], type="shelf", name=f"rak_{i}",
-        props={"shelfId": i, "course": course, "color": color, "title": title}, interact=[x, 6, 3, 1])
+    put((BS, spr), [x, 4, 3, 1], scale=1.85, type="shelf", name=f"rak_{i}",
+        props={"shelfId": i, "course": course, "color": color, "title": title}, interact=[x, 5, 3, 1])
+
+# 4 terminal di sisi kanan: dicerminkan (flip=True) supaya layar menghadap KIRI (ke arah pemain di x=30)
 for i, y in enumerate([7, 11, 15, 19], 1):
-    put((TE, "kios_nyala_a"), [33, y, 2, 1], type="terminal", name=f"terminal_{i}",
-        props={"terminalId": i, "mode": "terminal"}, interact=[31, y, 2, 1])
-for x in (9, 16, 23):                                           # 9 meja baca 1x (3 kolom x 3 baris)
-    for y in (10, 15, 20):
-        put((FU, "meja_baca_panjang"), [x, y, 4, 3], scale=1)
-put((FU, "meja_pustakawan"), [2, 21, 5, 3])
+    put((TE, "kios_nyala_a"), [32, y, 2, 1], scale=2, flip=True, type="terminal", name=f"terminal_{i}",
+        props={"terminalId": i, "mode": "terminal"}, interact=[30, y, 2, 1])
+
+# 6 meja baca besar (2 kolom x 3 baris, mengapit lorong tengah x=15..18)
+for x in (8, 20):
+    for y in (8, 13, 18):
+        put((FU, "meja_baca_panjang"), [x, y, 6, 4], scale=1.55, collide_rect=[x, y + 1, 6, 2])
+
+# meja pustakawan & NPC di kiri bawah
+put((FU, "meja_pustakawan"), [2, 21, 5, 3], scale=2)
 objects.append({"type": "npc", "name": "pustakawan", "foot": [3, 20, 1, 1], "interact": [3, 24, 2, 1],
-                "props": {"npc": "pustakawan", "dialog": "tutorial-perpustakaan"}})   # sprite NPC belum ada
-put((TE, "bilik_belajar_tiga"), [14, 24, 3, 2], scale=1)
-put((FU, "troli_buku"), [21, 24, 2, 1], scale=1)
-put((FU, "sofa_tunggal_biru_1"), [26, 24, 1, 1], scale=1)
-put((FU, "sofa_tunggal_biru_2"), [28, 24, 1, 1], scale=1)
-put((FU, "papan_tulis_beroda"), [2, 16, 2, 1])
-for (x, y) in [(33, 4), (1, 26), (33, 26)]:
-    put((FU, "tanaman_pakis"), [x, y, 2, 1])
+                "props": {"npc": "pustakawan", "dialog": "tutorial-perpustakaan"}})
+put((FU, "papan_tulis_beroda"), [2, 15, 3, 1], scale=1.8)
+
+# area belajar mandiri & pojok baca di baris bawah
+put((TE, "bilik_belajar_tiga"), [9, 24, 5, 2], scale=1.75)
+put((FU, "troli_buku"), [16, 24, 3, 2], scale=1.75)
+put((FU, "sofa_tunggal_biru_1"), [21, 24, 2, 2], scale=1.85)
+put((LOF, "meja_bulat"), [24, 25, 2, 1], scale=1.85)
+put((FU, "sofa_tunggal_biru_2"), [27, 24, 2, 2], scale=1.85)
+
+for (x, y) in [(32, 4), (1, 25), (32, 25)]:
+    put((FU, "tanaman_pakis"), [x, y, 2, 1], scale=2)
 
 LAYOUT = {
     "id": "perpustakaan", "title": "Perpustakaan Al-Khawarizmi", "w": 36, "h": 28, "capacity": 40,
     "floor": {
         "base": [(f"lantai_parket_{c}", (LF, f"lantai_parket_{c}")) for c in "abcd"],
-        "carpet": {"rect": [8, 9, 29, 25],
+        "carpet": {"rect": [7, 7, 28, 22],
                    "tiles": [("karpet_navy_a", (LF, "karpet_navy_a")), ("karpet_navy_b", (LF, "karpet_navy_b"))]},
     },
     "wall": {"dark": ("panel_navy_gelap", (LF, "panel_navy_gelap")),
              "face": [("dinding_krem_a", (LF, "dinding_krem_a")), ("dinding_krem_b", (LF, "dinding_krem_b"))],
-             "top_rows": 3, "face_rows": 2, "openings": [[0, 10, 1, 3]]},
+             "top_rows": 4, "face_rows": 3, "openings": [[0, 10, 1, 3]]},
     "objects": objects,
     "doors": [{"rect": [0, 10, 1, 3], "target": "kampus", "spawn": "dari_perpustakaan", "label": "Ke Lobi"}],
     "spawns": [{"name": "dari_lobi", "tile": [2.5, 11.5]}],

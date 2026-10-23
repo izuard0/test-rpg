@@ -8,7 +8,7 @@
  "margin": 0,
  "name": "kelas-b-objects",
  "spacing": 0,
- "tilecount": 8,
+ "tilecount": 10,
  "tiledversion": "1.10.2",
  "tileheight": 76,
  "tilewidth": 90,
@@ -35,14 +35,14 @@
   },
   {
    "id": 1,
-   "image": "../../export/tiles/classroom_front/sprites/05_tv_nyala.png",
-   "imageheight": 40,
-   "imagewidth": 65,
+   "image": "../../export/tiles/classroom_front/sprites/06_layar_proyektor.png",
+   "imageheight": 68,
+   "imagewidth": 87,
    "properties": [
     {
      "name": "name",
      "type": "string",
-     "value": "tv_nyala"
+     "value": "layar_proyektor"
     },
     {
      "name": "lembar",
@@ -53,14 +53,14 @@
   },
   {
    "id": 2,
-   "image": "../../export/tiles/classroom_front/sprites/06_layar_proyektor.png",
-   "imageheight": 68,
-   "imagewidth": 87,
+   "image": "../../export/tiles/classroom_front/sprites/05_tv_nyala.png",
+   "imageheight": 40,
+   "imagewidth": 65,
    "properties": [
     {
      "name": "name",
      "type": "string",
-     "value": "layar_proyektor"
+     "value": "tv_nyala"
     },
     {
      "name": "lembar",
@@ -107,6 +107,42 @@
   },
   {
    "id": 5,
+   "image": "../../export/tiles/classroom_front/sprites/13_podium.png",
+   "imageheight": 42,
+   "imagewidth": 26,
+   "properties": [
+    {
+     "name": "name",
+     "type": "string",
+     "value": "podium"
+    },
+    {
+     "name": "lembar",
+     "type": "string",
+     "value": "classroom_front"
+    }
+   ]
+  },
+  {
+   "id": 6,
+   "image": "../../export/tiles/smart_class_pods/sprites/12_papan_tulis_kecil.png",
+   "imageheight": 32,
+   "imagewidth": 33,
+   "properties": [
+    {
+     "name": "name",
+     "type": "string",
+     "value": "papan_tulis_kecil"
+    },
+    {
+     "name": "lembar",
+     "type": "string",
+     "value": "smart_class_pods"
+    }
+   ]
+  },
+  {
+   "id": 7,
    "image": "../../export/tiles/classroom_floor_wall/sprites/20_pintu_kelas.png",
    "imageheight": 48,
    "imagewidth": 27,
@@ -124,25 +160,25 @@
    ]
   },
   {
-   "id": 6,
-   "image": "../../export/tiles/lobby_furniture/sprites/13_tanaman_a.png",
-   "imageheight": 16,
-   "imagewidth": 11,
+   "id": 8,
+   "image": "../../export/tiles/library_furniture/sprites/10_tanaman_pakis.png",
+   "imageheight": 36,
+   "imagewidth": 30,
    "properties": [
     {
      "name": "name",
      "type": "string",
-     "value": "tanaman_a"
+     "value": "tanaman_pakis"
     },
     {
      "name": "lembar",
      "type": "string",
-     "value": "lobby_furniture"
+     "value": "library_furniture"
     }
    ]
   },
   {
-   "id": 7,
+   "id": 9,
    "image": "../../export/tiles/smart_class_pods/sprites/08_meja_heksagon_nyala.png",
    "imageheight": 76,
    "imagewidth": 90,

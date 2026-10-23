@@ -1,7 +1,8 @@
-"""Tata letak Lobi, 40x28 petak, kapasitas 100 (docs/PETA.md). Satuan: petak.
+"""Tata letak Lobi Utama, 40x24 petak, kapasitas 100 (docs/PETA.md). Satuan: petak.
 
-Aturan skala: dekorasi/pameran/tanaman 2x; benda yang diduduki/dipakai (sofa, bean bag, bangku, meja) 1x.
-Lantai sementara memakai lantai kelas; karpet memakai karpet perpustakaan."""
+Semua perabot duduk (sofa, bean bag, meja bulat, bangku bar) diskalakan ~1.85x-2x agar serasi dengan meja
+resepsionis, bar kopi, kios, dan tanaman besar. Arah hadap sofa dan kios sudah diperbaiki (memakai flip=True bila perlu).
+Bukaan ke koridor berada di tengah-kiri (x=15..18) sehingga tidak memotong poster maupun papan layar pengumuman."""
 
 CF = "classroom_floor_wall"
 LB = "library_floor_wall"
@@ -13,104 +14,97 @@ DR = "lobby_doors"
 objects = []
 
 
-def wall(s, foot, **kw):
-    objects.append({"sprite": s, "foot": foot, "collide": False, "scale": 2, **kw})
+def wall(s, foot, scale=1.6, **kw):
+    objects.append({"sprite": s, "foot": foot, "collide": False, "scale": scale, **kw})
 
 
-def solid(s, foot, **kw):
-    objects.append({"sprite": s, "foot": foot, "scale": 2, **kw})
+def solid(s, foot, scale=2, **kw):
+    objects.append({"sprite": s, "foot": foot, "scale": scale, **kw})
 
 
-# dinding atas (5 baris: 2 gelap, 3 biru)
-wall((LD, "poster_chip_biru"), [6, 4, 4, 1])
-wall((LD, "poster_chip_emas"), [11, 4, 2, 1])
-objects.append({"sprite": (LT, "papan_info_layar"), "foot": [16, 4, 7, 1], "collide": False, "scale": 2,
+# dinding atas (4 baris: 1 gelap + 3 biru; sela x=15..18 bebas untuk gerbang ke koridor)
+wall((LD, "poster_chip_biru"), [4, 3, 3, 1], scale=1.5)
+wall((LD, "poster_chip_emas"), [9, 3, 2, 1], scale=1.5)
+objects.append({"sprite": (LT, "papan_info_layar"), "foot": [20, 3, 6, 1], "collide": False, "scale": 1.75,
                 "type": "board", "name": "papan_pengumuman", "props": {"board": "pengumuman"},
-                "interact": [16, 5, 7, 1]})
-wall((LD, "poster_chip_abu"), [25, 4, 2, 1])
-wall((LD, "poster_chip_biru"), [30, 4, 4, 1])
+                "interact": [20, 4, 6, 1]})
+wall((LD, "poster_chip_abu"), [28, 3, 2, 1], scale=1.5)
+wall((LD, "poster_chip_biru"), [33, 3, 3, 1], scale=1.5)
 
-# pintu: kiri = kelas, kanan = perpustakaan (bukaan 3 petak, pintu 2x)
+# pintu: kiri = kelas, kanan = perpustakaan (dipakai bila lobi berdiri sendiri; di kampus.py digeser ke koridor)
 DOORS = [
-    ([0, 8, 1, 3], "kelas-a", "dari_lobi", "Lab Lovelace"),
-    ([0, 14, 1, 3], "kelas-b", "dari_lobi", "Ruang Kolaborasi"),
-    ([0, 20, 1, 3], "kelas-c", "dari_lobi", "Auditorium Turing"),
-    ([39, 14, 1, 3], "perpustakaan", "dari_lobi", "Perpustakaan Al-Khawarizmi"),
+    ([0, 7, 1, 3], "kelas-a", "dari_lobi", "Lab Lovelace"),
+    ([0, 12, 1, 3], "kelas-b", "dari_lobi", "Ruang Kolaborasi"),
+    ([0, 17, 1, 3], "kelas-c", "dari_lobi", "Auditorium Turing"),
+    ([39, 12, 1, 3], "perpustakaan", "dari_lobi", "Perpustakaan Al-Khawarizmi"),
 ]
 doors = []
 for rect, tgt, sp, label in DOORS:
-    wall((DR, "pintu_kayu"), [rect[0], rect[1] + 2, 1, 1])
+    wall((DR, "pintu_kayu"), [rect[0], rect[1] + 2, 1, 1], scale=2)
     doors.append({"rect": rect, "target": tgt, "spawn": sp, "label": label})
 
-# arkade dan piala (kiri atas)
-solid((LT, "arkade_cokelat"), [4, 7, 3, 1])
-solid((LT, "arkade_biru"), [8, 7, 3, 1])
-solid((LD, "lemari_piala"), [12, 6, 3, 1], type="exhibit", name="lemari_piala", props={"exhibit": "prestasi"},
-      interact=[12, 7, 3, 1])
+# pojok arkade & piala (kiri atas)
+solid((LT, "arkade_cokelat"), [4, 6, 3, 1], scale=2)
+solid((LT, "arkade_biru"), [7, 6, 3, 1], scale=2)
+solid((LD, "lemari_piala"), [11, 5, 3, 1], scale=2, type="exhibit", name="lemari_piala", props={"exhibit": "prestasi"},
+      interact=[11, 6, 3, 1])
+
 # pameran teknologi (kanan atas)
-solid((LT, "lengan_robot"), [22, 8, 3, 1])
-solid((LT, "etalase_robot"), [26, 8, 4, 1], type="exhibit", name="etalase_robot", props={"exhibit": "robot"},
-      interact=[26, 9, 4, 1])
-solid((LT, "printer3d_meja"), [31, 8, 3, 1])
-solid((LT, "rak_server_meja"), [35, 8, 3, 1])
+solid((LT, "lengan_robot"), [24, 6, 3, 1], scale=2)
+solid((LT, "etalase_robot"), [28, 6, 4, 1], scale=2, type="exhibit", name="etalase_robot", props={"exhibit": "robot"},
+      interact=[28, 7, 4, 1])
+solid((LT, "printer3d_meja"), [33, 6, 3, 1], scale=2)
+solid((LT, "rak_server_meja"), [36, 6, 3, 1], scale=2)
 
-# resepsionis tengah, di atas karpet
-solid((LF, "meja_kerja_putih"), [16, 13, 4, 1], type="info", name="resepsionis", props={"info": "bantuan"},
-      interact=[16, 14, 4, 1])
-solid((LT, "kios_nyala"), [22, 13, 3, 1], type="info", name="kios_info", props={"info": "peta"},
-      interact=[22, 14, 3, 1])
-solid((LF, "bean_oranye"), [27, 16, 1, 1], scale=1)
-solid((LF, "bean_abu"), [25, 16, 1, 1], scale=1)
-solid((LF, "sofa_panjang"), [12, 15, 2, 1], scale=1)
-solid((LF, "meja_bulat"), [15, 16, 1, 1], scale=1)
-solid((LF, "tanaman_c"), [14, 14, 1, 1])
-solid((LF, "tanaman_d"), [26, 13, 1, 1])
+# resepsionis & kios info di tengah lobi (kios dicerminkan agar menghadap ke area tengah)
+solid((LF, "meja_kerja_putih"), [16, 11, 4, 1], scale=2, type="info", name="resepsionis", props={"info": "bantuan"},
+      interact=[16, 12, 4, 1])
+solid((LT, "kios_nyala"), [22, 11, 3, 1], scale=2, flip=True, type="info", name="kios_info", props={"info": "peta"},
+      interact=[22, 12, 3, 1])
+solid((LF, "tanaman_d"), [14, 11, 1, 1], scale=2)
+solid((LF, "tanaman_d"), [26, 11, 1, 1], scale=2)
 
-# lounge kiri bawah
-solid((LF, "sofa_sudut"), [6, 23, 3, 1], scale=1)
-solid((LF, "meja_bulat"), [12, 25, 1, 1], scale=1)
-solid((LF, "sofa_panjang"), [15, 24, 2, 1], scale=1)
-solid((LF, "bean_abu"), [8, 26, 1, 1], scale=1)
-solid((LF, "bean_navy"), [16, 26, 1, 1], scale=1)
-solid((LF, "tanaman_e"), [20, 24, 1, 1])
-solid((LD, "gantungan_jaket"), [2, 25, 2, 1])
+# area duduk tengah di bawah resepsionis (sofa samping saling berhadapan mengapit meja bulat + bean bag 1.85x)
+solid((LF, "sofa_samping"), [14, 15, 2, 2], scale=1.85, flip=True)
+solid((LF, "meja_bulat"), [18, 16, 2, 1], scale=1.85)
+solid((LF, "sofa_samping"), [22, 15, 2, 2], scale=1.85)
+solid((LF, "bean_oranye"), [16, 18, 2, 1], scale=1.85)
+solid((LF, "bean_navy"), [20, 18, 2, 1], scale=1.85)
 
-# kafe kanan bawah
-solid((LF, "bar_panjang"), [29, 19, 7, 1])
+# lounge barat (sofa sudut dicerminkan di pojok kiri-atas karpet, sofa panjang di bawah menghadap utara ke meja)
+solid((LF, "sofa_sudut"), [4, 14, 5, 3], scale=1.85, flip=True, collide_rect=[4, 14, 5, 2])
+solid((LF, "meja_bulat"), [7, 17, 2, 1], scale=1.85)
+solid((LF, "bean_abu"), [10, 16, 2, 1], scale=1.85)
+solid((LF, "sofa_panjang"), [5, 20, 4, 1], scale=1.85)
+solid((LD, "gantungan_jaket"), [2, 19, 2, 1], scale=1.85)
+
+# kafe & bar kopi di sisi timur (bangku bulat 1.85x tepat di depan meja bar)
+solid((LF, "bar_panjang"), [29, 14, 7, 1], scale=2)
 for x in [30, 32, 34]:
-    solid((LF, "bangku_bulat"), [x, 21, 1, 1], scale=1)
-solid((LF, "meja_kopi"), [31, 25, 3, 1], type="info", name="meja_kopi", props={"info": "kafe"},
-      interact=[31, 26, 3, 1])
-solid((LF, "dispenser_air"), [36, 25, 1, 1])
-solid((LF, "tempat_sampah_a"), [28, 25, 1, 1])
-solid((LF, "tempat_sampah_b"), [38, 25, 1, 1])
+    solid((LF, "bangku_bulat"), [x, 16, 1, 1], scale=1.85)
+solid((LF, "meja_kopi"), [30, 20, 3, 1], scale=2, type="info", name="meja_kopi", props={"info": "kafe"},
+      interact=[30, 21, 3, 1])
+solid((LF, "dispenser_air"), [35, 20, 1, 1], scale=2)
+solid((LF, "tempat_sampah_a"), [28, 20, 1, 1], scale=1.85)
 
-# dua pulau duduk di sisi barat dan timur tengah lobi (benda duduk 1x)
-for cx, cy in [(6, 13), (34, 13)]:
-    solid((LF, "meja_bulat"), [cx, cy, 1, 1], scale=1)
-    for dx, dy, b in [(-2, 0, "bean_navy"), (2, 0, "bean_oranye"), (0, -2, "bean_abu"), (0, 2, "bean_navy")]:
-        solid((LF, b), [cx + dx, cy + dy, 1, 1], scale=1)
-solid((LF, "tanaman_besar"), [17, 25, 2, 1])
-solid((LF, "tanaman_besar"), [23, 25, 2, 1])
-
-# tanaman besar di sudut
-for x, y in [(1, 6), (37, 6), (1, 26), (37, 26)]:
-    solid((LF, "tanaman_besar"), [x, y, 2, 1])
+# tanaman besar di sudut ruangan dan pengapit gerbang selatan (x=21..24 bebas untuk gerbang utama)
+for x, y in [(1, 5), (37, 5), (2, 22), (18, 21), (26, 21), (37, 22)]:
+    solid((LF, "tanaman_besar"), [x, y, 2, 1], scale=2)
 
 KARPET = [("karpet_navy_a", (LB, "karpet_navy_a")), ("karpet_navy_b", (LB, "karpet_navy_b"))]
 LAYOUT = {
-    "id": "lobi", "title": "Lobi", "w": 40, "h": 28, "capacity": 100,
+    "id": "lobi", "title": "Lobi", "w": 40, "h": 24, "capacity": 100,
     "floor": {
         "base": [(f"lantai_{s}", (CF, f"lantai_{s}")) for s in "abcd"],
-        "carpet": {"rect": [[11, 11, 29, 17], [4, 22, 22, 26], [28, 18, 37, 22]], "tiles": KARPET},
+        "carpet": {"rect": [[13, 10, 26, 19], [3, 13, 11, 21], [28, 13, 37, 21]], "tiles": KARPET},
     },
     "wall": {"dark": ("panel_gelap_a", (CF, "panel_gelap_a")),
              "face": [("dinding_biru_a", (CF, "dinding_biru_a")), ("dinding_biru_b", (CF, "dinding_biru_b"))],
-             "top_rows": 5, "face_rows": 3, "openings": [d["rect"] for d in doors]},
+             "top_rows": 4, "face_rows": 3, "openings": [d["rect"] for d in doors]},
     "objects": objects,
     "doors": doors,
-    "spawns": [{"name": "awal", "tile": [20, 20]}, {"name": "dari_perpustakaan", "tile": [37.5, 15.5]},
-               {"name": "dari_lab_lovelace", "tile": [2.5, 9.5]}, {"name": "dari_kelas_b", "tile": [2.5, 15.5]},
-               {"name": "dari_kelas_c", "tile": [2.5, 21.5]}],
-    "zones": [{"name": "lobi", "rect": [0, 0, 40, 28], "chatRadius": 3, "chatPublic": True}],
+    "spawns": [{"name": "awal", "tile": [22, 19]}, {"name": "dari_perpustakaan", "tile": [37.5, 13.5]},
+               {"name": "dari_lab_lovelace", "tile": [2.5, 8.5]}, {"name": "dari_kelas_b", "tile": [2.5, 13.5]},
+               {"name": "dari_kelas_c", "tile": [2.5, 18.5]}],
+    "zones": [{"name": "lobi", "rect": [0, 0, 40, 24], "chatRadius": 3, "chatPublic": True}],
 }
