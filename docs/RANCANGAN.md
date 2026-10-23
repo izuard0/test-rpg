@@ -113,12 +113,12 @@ test-rpg/
   belum-dibuat/    (ada) daftar aset yang belum dibuat + gambar acuan
   prototype/       (ada) prototipe yang sudah jadi: karakter/index.html
   export/          (ada) paket siap pakai untuk klien: character/, tiles/
+  maps/            (ada) peta Tiled, set tile, pratinjau (perpustakaan.tmj)
   tools/           (ada) skrip pemroses aset & pembuat simulasi
   docs/            (ada) dokumen rancangan (file ini)
   client/          Phaser + UI HTML
   server/          Colyseus + Fastify
   shared/          tipe data bersama klien & server
-  maps/            peta Tiled (.tmj)
   materi/          file materi HTML + materi.json
   latihan/         soal latihan terminal (SQL, Python, pseudocode) + dataset
 ```

@@ -246,10 +246,34 @@ terpisah untuk set ini (belum ada; lihat bagian 9).
 | Penanda interaksi (panah oranye) | Belum dibuat (`items/` belum ada); pakai gambar sementara dari kode |
 | Papan kategori dan papan nomor ruangan | Diganti label HTML |
 
-## 9. Urutan pengerjaan
+## 9. Status dan urutan pengerjaan
 
-1. Normalisasi petak lantai perpustakaan ke 28 × 28 dan ekspor tiap sprite sebagai PNG.
-2. Skrip pembuat peta: dari daftar benda pada bagian 4 menghasilkan `maps/perpustakaan.tmj`
-   dan gambar pratinjau.
-3. Periksa pratinjau bersama; sunting di Tiled bila perlu.
-4. Beri nama sprite kelas dan lobi, lalu ulangi untuk lobi dan satu kelas (Lab Lovelace).
+**Selesai (perpustakaan):**
+
+- Petak lantai dinormalisasi ke 28 × 28 (nearest). Garis tepi bawaan yang membentuk kisi
+  dibuang: petak karpet (garis cokelat dekat tepi atas dan bawah) dan petak dinding gelap
+  (baris atas dan kolom kanan yang terang).
+- Tiap sprite diekspor sebagai PNG: `export/tiles/<lembar>/sprites/NN_nama.png`.
+- Pembuat peta: `tools/mapgen.py` (umum), `tools/layouts/perpustakaan.py` (tata letak),
+  `tools/make_map.py` (perintah).
+- Hasil: `maps/perpustakaan.tmj`, set tile di `maps/tilesets/`, dan pratinjau di
+  `maps/preview/` (`perpustakaan.png` bersih; `perpustakaan-debug.png` menampilkan
+  tabrakan, interaksi, pintu, dan titik muncul).
+
+```bash
+python tools/make_map.py perpustakaan
+```
+
+**Catatan keandalan.** Berkas `.tmj` divalidasi skrip (gid, gambar, id objek ganda) dan
+pratinjau digambar ulang **dari berkas itu**, bukan dari spesifikasi. Namun berkas ini
+**belum pernah dibuka di aplikasi Tiled** maupun dimuat di Phaser. Objek memakai kunci
+`type` (bukan `class`) agar terbaca Phaser; Tiled 1.9+ masih membacanya, tetapi belum
+diverifikasi. Perlakukan uji buka di Tiled dan Phaser sebagai langkah wajib berikutnya.
+
+**Belum:**
+
+1. Lobi dan Lab Lovelace (kelas A), lalu kelas B dan C.
+2. Memberi nama sprite kelas dan lobi (`tools/tile_names.json`).
+3. Mengganti `lobby_floor_wall` dan `lobby_doors` yang akan dibuat ulang.
+4. NPC pustakawan (belum ada sprite; di peta hanya titik interaksi).
+5. Uji buka di Tiled dan muat di Phaser.

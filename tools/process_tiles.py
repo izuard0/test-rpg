@@ -213,6 +213,14 @@ def process(path):
     d.mkdir(parents=True, exist_ok=True)
     Image.fromarray(atlas).save(d / "atlas.png", optimize=True)
     Image.fromarray(sheet).save(d / "sheet.png", optimize=True)
+    # satu PNG per sprite (untuk set "kumpulan gambar" di Tiled): sprites/NN[_nama].png
+    sd = d / "sprites"
+    sd.mkdir(exist_ok=True)
+    for old in sd.glob("*.png"):
+        old.unlink()
+    for i, spr in enumerate(sprites):
+        nm = NAMES.get(name, {}).get(str(i + 1))
+        Image.fromarray(spr).save(sd / (f"{i + 1:02d}_{nm}.png" if nm else f"{i + 1:02d}.png"), optimize=True)
     preview(sheet, boxes).save(d / "preview.png", optimize=True)
     info = {
         "sumber": str(path.relative_to(ROOT)).replace("\\", "/"),

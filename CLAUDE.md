@@ -78,6 +78,18 @@ karakter; efek semi-transparan menjadi balok buram. Ukuran petak game adalah
 keputusan terbuka no. 9 di `docs/RANCANGAN.md`; jangan menetapkannya diam-diam.
 `nama` sprite di `atlas.json` masih kosong; isi dengan melihat `preview.png`.
 
+## Alur peta
+
+```
+tools/layouts/<kode>.py  (tata letak, satuan petak)  -> python tools/make_map.py <kode>
+  -> maps/<kode>.tmj + maps/tilesets/*.tsj + maps/preview/<kode>[-debug].png
+```
+
+Peta **dihasilkan skrip**; ubah tata letaknya di `tools/layouts/`, jangan menyunting `.tmj`
+dengan tangan (akan tertimpa). Pratinjau digambar dari berkas `.tmj`, jadi lihat
+`maps/preview/<kode>-debug.png` setelah mengubah tata letak. Berkas belum diuji di Tiled/Phaser.
+Spesifikasi: `docs/PETA.md`.
+
 ## Jebakan yang sudah ditemui (hemat waktu)
 
 - Gambar Gemini selalu **JPEG** walau dinamai `.png`; latarnya magenta `#FF00FF`
