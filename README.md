@@ -19,7 +19,8 @@ Rancangan lengkap dan keputusan yang sudah disepakati ada di
 | Peta `kampus` (denah gedung) dan `kelas-a/b/c` | Dibuat dan divalidasi lewat skrip; **belum dibuka di Tiled/Phaser** |
 | Klien Phaser satu pemain (`client/`) | **Berjalan**: halaman awal, daftar/masuk (mode uji, akun di browser), kreator avatar, peta Tiled asli, gerak + tabrakan, interaksi `E` (rak, terminal penampung, NPC, pintu ke kelas, kursi) |
 | Server (`server/`) | Fastify menyajikan klien + `/health`; Colyseus, API login, dan PostgreSQL belum |
-| Terminal, kuis | Belum dimulai |
+| Terminal perpustakaan (tahap 2) | **Berjalan** di bilik komputer: mode SQL (sql.js, sintaks MySQL umum diterima) dan pseudocode (penerjemah sendiri + langkah demi langkah + tabel jejak), sandbox, 10 latihan contoh dengan pemeriksaan otomatis (`latihan/`). Python menyusul |
+| Kuis | Belum dimulai |
 
 Pengembangan dilanjutkan di repositori ini, dimulai dari tahap 1 pada
 `docs/RANCANGAN.md` bagian 7.
@@ -69,10 +70,11 @@ assets/
   backgrounds/      layar judul
 asset-prompts/      prompt pembuatan aset; karakter-hemat/ = kotak masuk gambar baru
 belum-dibuat/       daftar aset yang belum dibuat + gambar acuan
-client/             klien Phaser + UI HTML (Vite, TypeScript)
+client/             klien Phaser + UI HTML (Vite, TypeScript); terminal di client/src/terminal/
+latihan/            soal latihan terminal (YAML) + database contoh; lihat latihan/README.md
 server/             server Fastify (kelak + Colyseus dan API)
 shared/             logika bersama klien & server (tabrakan, peta, aturan karakter & akun)
-materi/             materi.json + file materi HTML untuk rak perpustakaan
+bahan_ajar/         slide HTML per mata kuliah untuk meja baca perpustakaan (katalog otomatis)
 docs/               RANCANGAN.md dan dokumen teknis
 export/character/   paket karakter siap pakai untuk klien (dihasilkan; docs/KARAKTER.md)
 export/tiles/       sprite tile transparan hasil olahan (dihasilkan; docs/TILES.md)

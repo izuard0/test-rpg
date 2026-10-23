@@ -1,0 +1,30 @@
+judul: Total belanja dengan sentinel
+mataKuliah: Logika Komputasional
+deskripsi: |
+  Baca harga barang satu per satu sampai bertemu 0 (sentinel).
+  Tulis banyak barang dan total harga, dipisah spasi.
+  Contoh masukan `5000 7500 0` menghasilkan `2 12500`.
+  Gunakan `while`.
+kodeAwal: |
+  ALGORITMA:
+     total ← 0
+     banyak ← 0
+     read(harga)
+uji:
+  - masukan: "5000 7500 0"
+    keluaran: "2 12500"
+  - masukan: "0"
+    keluaran: "0 0"
+  - masukan: "1000 2000 3000 4000 0"
+    keluaran: "4 10000"
+kunci: |
+  ALGORITMA:
+     total ← 0
+     banyak ← 0
+     read(harga)
+     while harga ≠ 0 do
+        total ← total + harga
+        banyak ← banyak + 1
+        read(harga)
+     endwhile
+     write(banyak, total)

@@ -2,3 +2,7 @@ export * from "./tiled.js";
 export * from "./collision.js";
 export * from "./character.js";
 export * from "./account.js";
+export * from "./pseudocode/index.js";
+export * from "./sql.js";
+export * from "./latihan.js";
+export * from "./sql-alter.js";

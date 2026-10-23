@@ -1,0 +1,25 @@
+judul: "DDL: tabel Instruktur"
+mataKuliah: Perancangan Basis Data
+dataset: kosong
+deskripsi: |
+  Buat tabel `Instruktur` dengan kolom:
+  - `instruktur_id` bilangan bulat, PRIMARY KEY, bertambah otomatis
+  - `nama_instruktur` teks maks. 100 karakter, wajib diisi (NOT NULL)
+  - `email` teks maks. 100 karakter, tidak boleh kembar (UNIQUE)
+  Sintaks MySQL seperti di slide (AUTO_INCREMENT) boleh dipakai.
+kodeAwal: |
+  CREATE TABLE Instruktur (
+
+  );
+kunci: |
+  CREATE TABLE Instruktur (
+    instruktur_id INT AUTO_INCREMENT PRIMARY KEY,
+    nama_instruktur VARCHAR(100) NOT NULL,
+    email VARCHAR(100) UNIQUE
+  );
+# Hasil query ini (dijalankan sesudah kode mahasiswa) yang dibandingkan.
+periksa: |
+  SELECT name, "notnull", pk FROM pragma_table_info('Instruktur') ORDER BY cid;
+  -- UNIQUE pada email
+  SELECT COUNT(*) FROM pragma_index_list('Instruktur') il
+  JOIN pragma_index_info(il.name) ii WHERE il."unique" = 1 AND ii.name = 'email';

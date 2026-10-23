@@ -45,12 +45,12 @@ describe("peta hasil skrip", () => {
     });
   }
 
-  it("kampus: rak buku terjangkau dari titik interaksinya", () => {
+  it("kampus: meja baca terjangkau dari depannya", () => {
     const room = readRoom(loadMap("kampus"));
-    const shelf = room.interactables.find((i) => i.name === "rak_1")!;
-    const fx = shelf.rect.x + shelf.rect.w / 2;
-    const fy = shelf.rect.y + shelf.rect.h + 20;
-    expect(nearestInteractable(room.interactables, fx, fy, room.tile)?.name).toBe("rak_1");
+    const meja = room.interactables.find((i) => i.name === "meja_baca_1")!;
+    const fx = meja.rect.x + meja.rect.w / 2;
+    const fy = meja.rect.y + meja.rect.h + 20;
+    expect(nearestInteractable(room.interactables, fx, fy, room.tile)?.name).toBe("meja_baca_1");
   });
 
   it("kampus: zona terkecil yang menang", () => {

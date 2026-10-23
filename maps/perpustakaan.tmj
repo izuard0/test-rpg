@@ -12,7 +12,7 @@
  "tiledversion": "1.10.2",
  "backgroundcolor": "#1b2a41",
  "nextlayerid": 10,
- "nextobjectid": 74,
+ "nextobjectid": 71,
  "properties": [
   {
    "name": "roomId",
@@ -2139,382 +2139,248 @@
      "id": 3,
      "gid": 11,
      "name": "rak_biru",
-     "type": "shelf",
+     "type": "decor",
      "width": 81,
      "height": 126,
      "rotation": 0,
      "visible": true,
      "x": 58,
      "y": 140,
-     "properties": [
-      {
-       "name": "shelfId",
-       "type": "int",
-       "value": 1
-      },
-      {
-       "name": "course",
-       "type": "string",
-       "value": "logika-komputasional"
-      },
-      {
-       "name": "color",
-       "type": "string",
-       "value": "biru"
-      },
-      {
-       "name": "title",
-       "type": "string",
-       "value": "Logika Komputasional"
-      }
-     ]
+     "properties": []
     },
     {
-     "id": 6,
+     "id": 5,
      "gid": 12,
      "name": "rak_biru_2",
-     "type": "shelf",
+     "type": "decor",
      "width": 81,
      "height": 128,
      "rotation": 0,
      "visible": true,
      "x": 170,
      "y": 140,
-     "properties": [
-      {
-       "name": "shelfId",
-       "type": "int",
-       "value": 2
-      },
-      {
-       "name": "course",
-       "type": "string",
-       "value": "logika-komputasional"
-      },
-      {
-       "name": "color",
-       "type": "string",
-       "value": "biru"
-      },
-      {
-       "name": "title",
-       "type": "string",
-       "value": "Logika Komputasional"
-      }
-     ]
+     "properties": []
     },
     {
-     "id": 9,
+     "id": 7,
      "gid": 13,
      "name": "rak_oranye",
-     "type": "shelf",
+     "type": "decor",
      "width": 83,
      "height": 126,
      "rotation": 0,
      "visible": true,
      "x": 280,
      "y": 140,
-     "properties": [
-      {
-       "name": "shelfId",
-       "type": "int",
-       "value": 3
-      },
-      {
-       "name": "course",
-       "type": "string",
-       "value": "kecerdasan-buatan"
-      },
-      {
-       "name": "color",
-       "type": "string",
-       "value": "oranye"
-      },
-      {
-       "name": "title",
-       "type": "string",
-       "value": "Kecerdasan Buatan"
-      }
-     ]
+     "properties": []
     },
     {
-     "id": 12,
+     "id": 9,
      "gid": 13,
      "name": "rak_oranye",
-     "type": "shelf",
+     "type": "decor",
      "width": 83,
      "height": 126,
      "rotation": 0,
      "visible": true,
      "x": 560,
      "y": 140,
-     "properties": [
-      {
-       "name": "shelfId",
-       "type": "int",
-       "value": 4
-      },
-      {
-       "name": "course",
-       "type": "string",
-       "value": "kecerdasan-buatan"
-      },
-      {
-       "name": "color",
-       "type": "string",
-       "value": "oranye"
-      },
-      {
-       "name": "title",
-       "type": "string",
-       "value": "Kecerdasan Buatan"
-      }
-     ]
+     "properties": []
     },
     {
-     "id": 15,
+     "id": 11,
      "gid": 14,
      "name": "rak_hijau",
-     "type": "shelf",
+     "type": "decor",
      "width": 81,
      "height": 126,
      "rotation": 0,
      "visible": true,
      "x": 674,
      "y": 140,
-     "properties": [
-      {
-       "name": "shelfId",
-       "type": "int",
-       "value": 5
-      },
-      {
-       "name": "course",
-       "type": "string",
-       "value": ""
-      },
-      {
-       "name": "color",
-       "type": "string",
-       "value": "hijau"
-      },
-      {
-       "name": "title",
-       "type": "string",
-       "value": "Segera hadir"
-      }
-     ]
+     "properties": []
     },
     {
-     "id": 18,
+     "id": 13,
      "gid": 15,
      "name": "rak_hijau_2",
-     "type": "shelf",
+     "type": "decor",
      "width": 81,
      "height": 128,
      "rotation": 0,
      "visible": true,
      "x": 786,
      "y": 140,
-     "properties": [
-      {
-       "name": "shelfId",
-       "type": "int",
-       "value": 6
-      },
-      {
-       "name": "course",
-       "type": "string",
-       "value": ""
-      },
-      {
-       "name": "color",
-       "type": "string",
-       "value": "hijau"
-      },
-      {
-       "name": "title",
-       "type": "string",
-       "value": "Segera hadir"
-      }
-     ]
+     "properties": []
     },
     {
-     "id": 21,
+     "id": 15,
      "gid": 16,
      "name": "kios_nyala_a",
-     "type": "terminal",
+     "type": "decor",
      "width": 46,
      "height": 90,
      "rotation": 0,
      "visible": true,
      "x": 901,
      "y": 224,
-     "properties": [
-      {
-       "name": "terminalId",
-       "type": "int",
-       "value": 1
-      },
-      {
-       "name": "mode",
-       "type": "string",
-       "value": "terminal"
-      }
-     ]
+     "properties": []
     },
     {
-     "id": 24,
+     "id": 17,
      "gid": 16,
      "name": "kios_nyala_a",
-     "type": "terminal",
+     "type": "decor",
      "width": 46,
      "height": 90,
      "rotation": 0,
      "visible": true,
      "x": 901,
      "y": 336,
-     "properties": [
-      {
-       "name": "terminalId",
-       "type": "int",
-       "value": 2
-      },
-      {
-       "name": "mode",
-       "type": "string",
-       "value": "terminal"
-      }
-     ]
+     "properties": []
     },
     {
-     "id": 27,
+     "id": 19,
      "gid": 16,
      "name": "kios_nyala_a",
-     "type": "terminal",
+     "type": "decor",
      "width": 46,
      "height": 90,
      "rotation": 0,
      "visible": true,
      "x": 901,
      "y": 448,
-     "properties": [
-      {
-       "name": "terminalId",
-       "type": "int",
-       "value": 3
-      },
-      {
-       "name": "mode",
-       "type": "string",
-       "value": "terminal"
-      }
-     ]
+     "properties": []
     },
     {
-     "id": 30,
+     "id": 21,
      "gid": 16,
      "name": "kios_nyala_a",
-     "type": "terminal",
+     "type": "decor",
      "width": 46,
      "height": 90,
      "rotation": 0,
      "visible": true,
      "x": 901,
      "y": 560,
-     "properties": [
-      {
-       "name": "terminalId",
-       "type": "int",
-       "value": 4
-      },
-      {
-       "name": "mode",
-       "type": "string",
-       "value": "terminal"
-      }
-     ]
+     "properties": []
     },
     {
-     "id": 33,
+     "id": 23,
      "gid": 17,
      "name": "meja_baca_panjang",
-     "type": "decor",
+     "type": "materi",
      "width": 170,
      "height": 115,
      "rotation": 0,
      "visible": true,
      "x": 223,
      "y": 336,
-     "properties": []
+     "properties": [
+      {
+       "name": "tableId",
+       "type": "int",
+       "value": 1
+      }
+     ]
+    },
+    {
+     "id": 26,
+     "gid": 17,
+     "name": "meja_baca_panjang",
+     "type": "materi",
+     "width": 170,
+     "height": 115,
+     "rotation": 0,
+     "visible": true,
+     "x": 223,
+     "y": 476,
+     "properties": [
+      {
+       "name": "tableId",
+       "type": "int",
+       "value": 2
+      }
+     ]
+    },
+    {
+     "id": 29,
+     "gid": 17,
+     "name": "meja_baca_panjang",
+     "type": "materi",
+     "width": 170,
+     "height": 115,
+     "rotation": 0,
+     "visible": true,
+     "x": 223,
+     "y": 616,
+     "properties": [
+      {
+       "name": "tableId",
+       "type": "int",
+       "value": 3
+      }
+     ]
+    },
+    {
+     "id": 32,
+     "gid": 17,
+     "name": "meja_baca_panjang",
+     "type": "materi",
+     "width": 170,
+     "height": 115,
+     "rotation": 0,
+     "visible": true,
+     "x": 559,
+     "y": 336,
+     "properties": [
+      {
+       "name": "tableId",
+       "type": "int",
+       "value": 4
+      }
+     ]
     },
     {
      "id": 35,
      "gid": 17,
      "name": "meja_baca_panjang",
-     "type": "decor",
-     "width": 170,
-     "height": 115,
-     "rotation": 0,
-     "visible": true,
-     "x": 223,
-     "y": 476,
-     "properties": []
-    },
-    {
-     "id": 37,
-     "gid": 17,
-     "name": "meja_baca_panjang",
-     "type": "decor",
-     "width": 170,
-     "height": 115,
-     "rotation": 0,
-     "visible": true,
-     "x": 223,
-     "y": 616,
-     "properties": []
-    },
-    {
-     "id": 39,
-     "gid": 17,
-     "name": "meja_baca_panjang",
-     "type": "decor",
+     "type": "materi",
      "width": 170,
      "height": 115,
      "rotation": 0,
      "visible": true,
      "x": 559,
-     "y": 336,
-     "properties": []
+     "y": 476,
+     "properties": [
+      {
+       "name": "tableId",
+       "type": "int",
+       "value": 5
+      }
+     ]
+    },
+    {
+     "id": 38,
+     "gid": 17,
+     "name": "meja_baca_panjang",
+     "type": "materi",
+     "width": 170,
+     "height": 115,
+     "rotation": 0,
+     "visible": true,
+     "x": 559,
+     "y": 616,
+     "properties": [
+      {
+       "name": "tableId",
+       "type": "int",
+       "value": 6
+      }
+     ]
     },
     {
      "id": 41,
-     "gid": 17,
-     "name": "meja_baca_panjang",
-     "type": "decor",
-     "width": 170,
-     "height": 115,
-     "rotation": 0,
-     "visible": true,
-     "x": 559,
-     "y": 476,
-     "properties": []
-    },
-    {
-     "id": 43,
-     "gid": 17,
-     "name": "meja_baca_panjang",
-     "type": "decor",
-     "width": 170,
-     "height": 115,
-     "rotation": 0,
-     "visible": true,
-     "x": 559,
-     "y": 616,
-     "properties": []
-    },
-    {
-     "id": 45,
      "gid": 18,
      "name": "meja_pustakawan",
      "type": "decor",
@@ -2527,7 +2393,7 @@
      "properties": []
     },
     {
-     "id": 48,
+     "id": 44,
      "gid": 19,
      "name": "papan_tulis_beroda",
      "type": "decor",
@@ -2540,20 +2406,26 @@
      "properties": []
     },
     {
-     "id": 50,
+     "id": 46,
      "gid": 20,
      "name": "bilik_belajar_tiga",
-     "type": "decor",
+     "type": "terminal",
      "width": 147,
      "height": 91,
      "rotation": 0,
      "visible": true,
      "x": 248,
      "y": 728,
-     "properties": []
+     "properties": [
+      {
+       "name": "mode",
+       "type": "string",
+       "value": "terminal"
+      }
+     ]
     },
     {
-     "id": 52,
+     "id": 49,
      "gid": 21,
      "name": "troli_buku",
      "type": "decor",
@@ -2566,7 +2438,7 @@
      "properties": []
     },
     {
-     "id": 54,
+     "id": 51,
      "gid": 22,
      "name": "sofa_tunggal_biru_1",
      "type": "decor",
@@ -2579,7 +2451,7 @@
      "properties": []
     },
     {
-     "id": 56,
+     "id": 53,
      "gid": 23,
      "name": "meja_bulat",
      "type": "decor",
@@ -2592,7 +2464,7 @@
      "properties": []
     },
     {
-     "id": 58,
+     "id": 55,
      "gid": 24,
      "name": "sofa_tunggal_biru_2",
      "type": "decor",
@@ -2605,7 +2477,7 @@
      "properties": []
     },
     {
-     "id": 60,
+     "id": 57,
      "gid": 25,
      "name": "tanaman_pakis",
      "type": "decor",
@@ -2618,7 +2490,7 @@
      "properties": []
     },
     {
-     "id": 62,
+     "id": 59,
      "gid": 25,
      "name": "tanaman_pakis",
      "type": "decor",
@@ -2631,7 +2503,7 @@
      "properties": []
     },
     {
-     "id": 64,
+     "id": 61,
      "gid": 25,
      "name": "tanaman_pakis",
      "type": "decor",
@@ -2678,7 +2550,7 @@
      "visible": true
     },
     {
-     "id": 7,
+     "id": 6,
      "name": "rak_biru_2",
      "type": "collision",
      "x": 168,
@@ -2689,7 +2561,7 @@
      "visible": true
     },
     {
-     "id": 10,
+     "id": 8,
      "name": "rak_oranye",
      "type": "collision",
      "x": 280,
@@ -2700,7 +2572,7 @@
      "visible": true
     },
     {
-     "id": 13,
+     "id": 10,
      "name": "rak_oranye",
      "type": "collision",
      "x": 560,
@@ -2711,7 +2583,7 @@
      "visible": true
     },
     {
-     "id": 16,
+     "id": 12,
      "name": "rak_hijau",
      "type": "collision",
      "x": 672,
@@ -2722,7 +2594,7 @@
      "visible": true
     },
     {
-     "id": 19,
+     "id": 14,
      "name": "rak_hijau_2",
      "type": "collision",
      "x": 784,
@@ -2733,7 +2605,7 @@
      "visible": true
     },
     {
-     "id": 22,
+     "id": 16,
      "name": "kios_nyala_a",
      "type": "collision",
      "x": 896,
@@ -2744,7 +2616,7 @@
      "visible": true
     },
     {
-     "id": 25,
+     "id": 18,
      "name": "kios_nyala_a",
      "type": "collision",
      "x": 896,
@@ -2755,7 +2627,7 @@
      "visible": true
     },
     {
-     "id": 28,
+     "id": 20,
      "name": "kios_nyala_a",
      "type": "collision",
      "x": 896,
@@ -2766,7 +2638,7 @@
      "visible": true
     },
     {
-     "id": 31,
+     "id": 22,
      "name": "kios_nyala_a",
      "type": "collision",
      "x": 896,
@@ -2777,10 +2649,43 @@
      "visible": true
     },
     {
-     "id": 34,
+     "id": 24,
      "name": "meja_baca_panjang",
      "type": "collision",
      "x": 224,
+     "y": 252,
+     "width": 168,
+     "height": 56,
+     "rotation": 0,
+     "visible": true
+    },
+    {
+     "id": 27,
+     "name": "meja_baca_panjang",
+     "type": "collision",
+     "x": 224,
+     "y": 392,
+     "width": 168,
+     "height": 56,
+     "rotation": 0,
+     "visible": true
+    },
+    {
+     "id": 30,
+     "name": "meja_baca_panjang",
+     "type": "collision",
+     "x": 224,
+     "y": 532,
+     "width": 168,
+     "height": 56,
+     "rotation": 0,
+     "visible": true
+    },
+    {
+     "id": 33,
+     "name": "meja_baca_panjang",
+     "type": "collision",
+     "x": 560,
      "y": 252,
      "width": 168,
      "height": 56,
@@ -2791,7 +2696,7 @@
      "id": 36,
      "name": "meja_baca_panjang",
      "type": "collision",
-     "x": 224,
+     "x": 560,
      "y": 392,
      "width": 168,
      "height": 56,
@@ -2799,22 +2704,11 @@
      "visible": true
     },
     {
-     "id": 38,
-     "name": "meja_baca_panjang",
-     "type": "collision",
-     "x": 224,
-     "y": 532,
-     "width": 168,
-     "height": 56,
-     "rotation": 0,
-     "visible": true
-    },
-    {
-     "id": 40,
+     "id": 39,
      "name": "meja_baca_panjang",
      "type": "collision",
      "x": 560,
-     "y": 252,
+     "y": 532,
      "width": 168,
      "height": 56,
      "rotation": 0,
@@ -2822,28 +2716,6 @@
     },
     {
      "id": 42,
-     "name": "meja_baca_panjang",
-     "type": "collision",
-     "x": 560,
-     "y": 392,
-     "width": 168,
-     "height": 56,
-     "rotation": 0,
-     "visible": true
-    },
-    {
-     "id": 44,
-     "name": "meja_baca_panjang",
-     "type": "collision",
-     "x": 560,
-     "y": 532,
-     "width": 168,
-     "height": 56,
-     "rotation": 0,
-     "visible": true
-    },
-    {
-     "id": 46,
      "name": "meja_pustakawan",
      "type": "collision",
      "x": 56,
@@ -2854,7 +2726,7 @@
      "visible": true
     },
     {
-     "id": 49,
+     "id": 45,
      "name": "papan_tulis_beroda",
      "type": "collision",
      "x": 56,
@@ -2865,7 +2737,7 @@
      "visible": true
     },
     {
-     "id": 51,
+     "id": 47,
      "name": "bilik_belajar_tiga",
      "type": "collision",
      "x": 252,
@@ -2876,7 +2748,7 @@
      "visible": true
     },
     {
-     "id": 53,
+     "id": 50,
      "name": "troli_buku",
      "type": "collision",
      "x": 448,
@@ -2887,7 +2759,7 @@
      "visible": true
     },
     {
-     "id": 55,
+     "id": 52,
      "name": "sofa_tunggal_biru_1",
      "type": "collision",
      "x": 588,
@@ -2898,7 +2770,7 @@
      "visible": true
     },
     {
-     "id": 57,
+     "id": 54,
      "name": "meja_bulat",
      "type": "collision",
      "x": 672,
@@ -2909,7 +2781,7 @@
      "visible": true
     },
     {
-     "id": 59,
+     "id": 56,
      "name": "sofa_tunggal_biru_2",
      "type": "collision",
      "x": 756,
@@ -2920,7 +2792,7 @@
      "visible": true
     },
     {
-     "id": 61,
+     "id": 58,
      "name": "tanaman_pakis",
      "type": "collision",
      "x": 896,
@@ -2931,7 +2803,7 @@
      "visible": true
     },
     {
-     "id": 63,
+     "id": 60,
      "name": "tanaman_pakis",
      "type": "collision",
      "x": 28,
@@ -2942,7 +2814,7 @@
      "visible": true
     },
     {
-     "id": 65,
+     "id": 62,
      "name": "tanaman_pakis",
      "type": "collision",
      "x": 896,
@@ -2953,7 +2825,7 @@
      "visible": true
     },
     {
-     "id": 66,
+     "id": 63,
      "name": "dinding",
      "type": "collision",
      "x": 0,
@@ -2964,7 +2836,7 @@
      "visible": true
     },
     {
-     "id": 67,
+     "id": 64,
      "name": "dinding",
      "type": "collision",
      "x": 0,
@@ -2975,7 +2847,7 @@
      "visible": true
     },
     {
-     "id": 68,
+     "id": 65,
      "name": "dinding",
      "type": "collision",
      "x": 0,
@@ -2986,7 +2858,7 @@
      "visible": true
     },
     {
-     "id": 69,
+     "id": 66,
      "name": "dinding",
      "type": "collision",
      "x": 980,
@@ -2997,7 +2869,7 @@
      "visible": true
     },
     {
-     "id": 70,
+     "id": 67,
      "name": "dinding",
      "type": "collision",
      "x": 0,
@@ -3020,297 +2892,115 @@
    "draworder": "topdown",
    "objects": [
     {
-     "id": 5,
-     "name": "rak_1",
-     "type": "shelf",
-     "x": 56,
-     "y": 140,
-     "width": 84,
-     "height": 28,
+     "id": 25,
+     "name": "meja_baca_1",
+     "type": "materi",
+     "x": 224,
+     "y": 252,
+     "width": 168,
+     "height": 56,
      "rotation": 0,
      "visible": true,
      "properties": [
       {
-       "name": "shelfId",
+       "name": "tableId",
        "type": "int",
        "value": 1
-      },
-      {
-       "name": "course",
-       "type": "string",
-       "value": "logika-komputasional"
-      },
-      {
-       "name": "color",
-       "type": "string",
-       "value": "biru"
-      },
-      {
-       "name": "title",
-       "type": "string",
-       "value": "Logika Komputasional"
       }
      ]
     },
     {
-     "id": 8,
-     "name": "rak_2",
-     "type": "shelf",
-     "x": 168,
-     "y": 140,
-     "width": 84,
-     "height": 28,
+     "id": 28,
+     "name": "meja_baca_2",
+     "type": "materi",
+     "x": 224,
+     "y": 392,
+     "width": 168,
+     "height": 56,
      "rotation": 0,
      "visible": true,
      "properties": [
       {
-       "name": "shelfId",
+       "name": "tableId",
        "type": "int",
        "value": 2
-      },
-      {
-       "name": "course",
-       "type": "string",
-       "value": "logika-komputasional"
-      },
-      {
-       "name": "color",
-       "type": "string",
-       "value": "biru"
-      },
-      {
-       "name": "title",
-       "type": "string",
-       "value": "Logika Komputasional"
       }
      ]
     },
     {
-     "id": 11,
-     "name": "rak_3",
-     "type": "shelf",
-     "x": 280,
-     "y": 140,
-     "width": 84,
-     "height": 28,
+     "id": 31,
+     "name": "meja_baca_3",
+     "type": "materi",
+     "x": 224,
+     "y": 532,
+     "width": 168,
+     "height": 56,
      "rotation": 0,
      "visible": true,
      "properties": [
       {
-       "name": "shelfId",
+       "name": "tableId",
        "type": "int",
        "value": 3
-      },
-      {
-       "name": "course",
-       "type": "string",
-       "value": "kecerdasan-buatan"
-      },
-      {
-       "name": "color",
-       "type": "string",
-       "value": "oranye"
-      },
-      {
-       "name": "title",
-       "type": "string",
-       "value": "Kecerdasan Buatan"
       }
      ]
     },
     {
-     "id": 14,
-     "name": "rak_4",
-     "type": "shelf",
+     "id": 34,
+     "name": "meja_baca_4",
+     "type": "materi",
      "x": 560,
-     "y": 140,
-     "width": 84,
-     "height": 28,
+     "y": 252,
+     "width": 168,
+     "height": 56,
      "rotation": 0,
      "visible": true,
      "properties": [
       {
-       "name": "shelfId",
+       "name": "tableId",
        "type": "int",
        "value": 4
-      },
-      {
-       "name": "course",
-       "type": "string",
-       "value": "kecerdasan-buatan"
-      },
-      {
-       "name": "color",
-       "type": "string",
-       "value": "oranye"
-      },
-      {
-       "name": "title",
-       "type": "string",
-       "value": "Kecerdasan Buatan"
       }
      ]
     },
     {
-     "id": 17,
-     "name": "rak_5",
-     "type": "shelf",
-     "x": 672,
-     "y": 140,
-     "width": 84,
-     "height": 28,
+     "id": 37,
+     "name": "meja_baca_5",
+     "type": "materi",
+     "x": 560,
+     "y": 392,
+     "width": 168,
+     "height": 56,
      "rotation": 0,
      "visible": true,
      "properties": [
       {
-       "name": "shelfId",
+       "name": "tableId",
        "type": "int",
        "value": 5
-      },
-      {
-       "name": "course",
-       "type": "string",
-       "value": ""
-      },
-      {
-       "name": "color",
-       "type": "string",
-       "value": "hijau"
-      },
-      {
-       "name": "title",
-       "type": "string",
-       "value": "Segera hadir"
       }
      ]
     },
     {
-     "id": 20,
-     "name": "rak_6",
-     "type": "shelf",
-     "x": 784,
-     "y": 140,
-     "width": 84,
-     "height": 28,
+     "id": 40,
+     "name": "meja_baca_6",
+     "type": "materi",
+     "x": 560,
+     "y": 532,
+     "width": 168,
+     "height": 56,
      "rotation": 0,
      "visible": true,
      "properties": [
       {
-       "name": "shelfId",
+       "name": "tableId",
        "type": "int",
        "value": 6
-      },
-      {
-       "name": "course",
-       "type": "string",
-       "value": ""
-      },
-      {
-       "name": "color",
-       "type": "string",
-       "value": "hijau"
-      },
-      {
-       "name": "title",
-       "type": "string",
-       "value": "Segera hadir"
       }
      ]
     },
     {
-     "id": 23,
-     "name": "terminal_1",
-     "type": "terminal",
-     "x": 840,
-     "y": 196,
-     "width": 56,
-     "height": 28,
-     "rotation": 0,
-     "visible": true,
-     "properties": [
-      {
-       "name": "terminalId",
-       "type": "int",
-       "value": 1
-      },
-      {
-       "name": "mode",
-       "type": "string",
-       "value": "terminal"
-      }
-     ]
-    },
-    {
-     "id": 26,
-     "name": "terminal_2",
-     "type": "terminal",
-     "x": 840,
-     "y": 308,
-     "width": 56,
-     "height": 28,
-     "rotation": 0,
-     "visible": true,
-     "properties": [
-      {
-       "name": "terminalId",
-       "type": "int",
-       "value": 2
-      },
-      {
-       "name": "mode",
-       "type": "string",
-       "value": "terminal"
-      }
-     ]
-    },
-    {
-     "id": 29,
-     "name": "terminal_3",
-     "type": "terminal",
-     "x": 840,
-     "y": 420,
-     "width": 56,
-     "height": 28,
-     "rotation": 0,
-     "visible": true,
-     "properties": [
-      {
-       "name": "terminalId",
-       "type": "int",
-       "value": 3
-      },
-      {
-       "name": "mode",
-       "type": "string",
-       "value": "terminal"
-      }
-     ]
-    },
-    {
-     "id": 32,
-     "name": "terminal_4",
-     "type": "terminal",
-     "x": 840,
-     "y": 532,
-     "width": 56,
-     "height": 28,
-     "rotation": 0,
-     "visible": true,
-     "properties": [
-      {
-       "name": "terminalId",
-       "type": "int",
-       "value": 4
-      },
-      {
-       "name": "mode",
-       "type": "string",
-       "value": "terminal"
-      }
-     ]
-    },
-    {
-     "id": 47,
+     "id": 43,
      "name": "pustakawan",
      "type": "npc",
      "x": 84,
@@ -3333,7 +3023,25 @@
      ]
     },
     {
-     "id": 71,
+     "id": 48,
+     "name": "komputer_praktik",
+     "type": "terminal",
+     "x": 252,
+     "y": 672,
+     "width": 140,
+     "height": 56,
+     "rotation": 0,
+     "visible": true,
+     "properties": [
+      {
+       "name": "mode",
+       "type": "string",
+       "value": "terminal"
+      }
+     ]
+    },
+    {
+     "id": 68,
      "name": "Ke Lobi",
      "type": "door",
      "x": 0,
@@ -3373,7 +3081,7 @@
    "draworder": "topdown",
    "objects": [
     {
-     "id": 72,
+     "id": 69,
      "name": "dari_lobi",
      "type": "spawn",
      "point": true,
@@ -3404,7 +3112,7 @@
    "draworder": "topdown",
    "objects": [
     {
-     "id": 73,
+     "id": 70,
      "name": "perpustakaan",
      "type": "zone",
      "x": 0,

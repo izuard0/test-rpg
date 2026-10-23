@@ -29,7 +29,7 @@ export function setHud(roomTitle: string, zone: Zone | undefined): void {
 export function setPrompt(label: string | null): void {
   const p = el("prompt");
   p.hidden = !label;
-  if (label) p.innerHTML = `<kbd>E</kbd> ${label.replace(/[&<>]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;" })[c]!)}`;
+  if (label) p.innerHTML = `<kbd>Space</kbd> ${label.replace(/[&<>]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;" })[c]!)}`;
 }
 
 /** Layar muat (bg_loading) dengan bar kemajuan di dalam bingkai gambar. */

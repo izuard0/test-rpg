@@ -1,0 +1,25 @@
+judul: "DDL: tabel Kursus dengan FOREIGN KEY"
+mataKuliah: Perancangan Basis Data
+dataset: kosong
+deskripsi: |
+  Tabel `Instruktur(instruktur_id, nama_instruktur, email)` sudah ada.
+  Buat tabel `Kursus` dengan kolom `kursus_id` (PK otomatis), `nama_kursus`
+  (teks 150, NOT NULL), `jumlah_modul` (bilangan bulat), dan `instruktur_id`
+  (bilangan bulat, NOT NULL) yang merujuk `Instruktur(instruktur_id)`.
+persiapan: |
+  CREATE TABLE Instruktur (
+    instruktur_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    nama_instruktur VARCHAR(100) NOT NULL,
+    email VARCHAR(100) UNIQUE
+  );
+kunci: |
+  CREATE TABLE Kursus (
+    kursus_id INT AUTO_INCREMENT PRIMARY KEY,
+    nama_kursus VARCHAR(150) NOT NULL,
+    jumlah_modul INT,
+    instruktur_id INT NOT NULL,
+    FOREIGN KEY (instruktur_id) REFERENCES Instruktur(instruktur_id)
+  );
+periksa: |
+  SELECT name, "notnull", pk FROM pragma_table_info('Kursus') ORDER BY cid;
+  SELECT "table", "from", "to" FROM pragma_foreign_key_list('Kursus');

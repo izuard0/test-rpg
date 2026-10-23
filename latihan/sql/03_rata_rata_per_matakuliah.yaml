@@ -1,0 +1,12 @@
+judul: Rata-rata nilai per mata kuliah
+mataKuliah: Perancangan Basis Data
+dataset: akademik
+deskripsi: |
+  Tampilkan nama mata kuliah dan rata-rata `nilai_angka`-nya,
+  hanya untuk mata kuliah yang diikuti lebih dari 3 mahasiswa.
+  Petunjuk: JOIN, GROUP BY, HAVING.
+kunci: |
+  SELECT mk.nama, AVG(n.nilai_angka)
+  FROM nilai n JOIN matakuliah mk ON mk.kode = n.kode
+  GROUP BY mk.kode, mk.nama
+  HAVING COUNT(*) > 3;

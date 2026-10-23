@@ -1,0 +1,6 @@
+judul: Mahasiswa angkatan 2023
+mataKuliah: Perancangan Basis Data
+dataset: akademik
+deskripsi: |
+  Tampilkan nama mahasiswa angkatan 2023, urut abjad nama (A ke Z).
+kunci: SELECT nama FROM mahasiswa WHERE angkatan = 2023 ORDER BY nama;

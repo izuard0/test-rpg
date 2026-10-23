@@ -16,7 +16,7 @@ import {
 } from "@mita/shared";
 import { getAssembler } from "../char/textures";
 import type { Account, AuthService } from "../auth";
-import { actionLabel, openInfo, openShelf, openTerminalPlaceholder, type MateriCatalog } from "../ui/content";
+import { actionLabel, openCatalog, openInfo, openTerminal, type MateriCatalog } from "../ui/content";
 import { openCreator } from "../ui/creator";
 import { setHud, setLoadingProgress, setPrompt, showError, showLoading } from "../ui/hud";
 import { closePanel, isPanelOpen } from "../ui/panel";
@@ -307,11 +307,11 @@ export class WorldScene extends Phaser.Scene {
       case "door":
         this.goTo(String(it.props.target), String(it.props.spawn));
         break;
-      case "shelf":
-        openShelf(it, this.catalog);
+      case "materi":
+        openCatalog(this.catalog);
         break;
       case "terminal":
-        openTerminalPlaceholder();
+        openTerminal();
         break;
       case "seat":
         this.sit(it);

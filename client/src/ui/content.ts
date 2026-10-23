@@ -8,13 +8,13 @@ import { esc, openPanel } from "./panel";
 export interface MateriItem { title: string; file: string; week?: number }
 export interface MateriCatalog { courses: { code: string; title: string; items: MateriItem[] }[] }
 
-/** Label tombol aksi yang tampil di penanda "[E] ...". */
+/** Label aksi yang tampil di penanda "[Space] ...". */
 export function actionLabel(it: Interactable): string {
   const p = it.props;
   switch (it.kind) {
     case "door": return `Masuk · ${p.label ?? it.name}`;
-    case "shelf": return `Lihat rak · ${p.title ?? ""}`;
-    case "terminal": return "Buka terminal praktik";
+    case "materi": return "Baca materi";
+    case "terminal": return "Pakai komputer praktik";
     case "seat": return `Duduk · kursi ${p.seatId ?? ""}`;
     case "npc": return "Bicara";
     case "board": return "Baca papan";
@@ -31,8 +31,8 @@ const TEXT: Record<string, { title: string; body: string }> = {
     body: `<p class="who">Pustakawan</p>
       <p>Selamat datang di <b>Perpustakaan Al-Khawarizmi</b>. Ini ruang tenang: obrolan hanya terdengar dalam radius 3 petak.</p>
       <ul>
-        <li><b>Rak buku</b>: biru untuk Logika Komputasional, oranye untuk Kecerdasan Buatan.</li>
-        <li><b>Terminal</b> di dinding kanan untuk praktik SQL, Python, dan pseudocode.</li>
+        <li><b>Meja baca</b>: duduk di meja mana saja untuk membuka semua materi kuliah.</li>
+        <li><b>Bilik komputer</b> di dekat pintu bawah untuk praktik SQL dan pseudocode.</li>
       </ul>`,
   },
   "board:pengumuman": {
@@ -49,7 +49,7 @@ const TEXT: Record<string, { title: string; body: string }> = {
   },
   "info:bantuan": {
     title: "resepsionis.sh",
-    body: `<p class="who">Resepsionis</p><p>Butuh bantuan? Gerak dengan panah/WASD, tekan <kbd>E</kbd> di dekat benda yang menyala, <kbd>Esc</kbd> untuk menutup jendela, <kbd>C</kbd> untuk mengubah karakter.</p>`,
+    body: `<p class="who">Resepsionis</p><p>Butuh bantuan? Gerak dengan panah/WASD, tekan <kbd>Space</kbd> (atau <kbd>E</kbd>) di dekat benda yang ditandai panah, <kbd>Esc</kbd> untuk menutup jendela, <kbd>C</kbd> untuk mengubah karakter.</p>`,
   },
   "info:peta": {
     title: "peta_gedung.txt",
@@ -76,46 +76,46 @@ export function openInfo(it: Interactable): void {
   openPanel({ title: t.title, body: t.body });
 }
 
-export function openShelf(it: Interactable, catalog: MateriCatalog | undefined): void {
-  const code = String(it.props.course ?? "");
-  const course = catalog?.courses.find((c) => c.code === code);
-  const title = String(it.props.title ?? "Rak buku");
-  if (!code || !course) {
-    openPanel({ title: "rak/", body: `<p class="who">${esc(title)}</p><p>Rak ini masih kosong. <b>Segera hadir.</b></p>` });
-    return;
-  }
+/** Katalog materi (sama di keenam meja baca): folder per mata kuliah, berkas per pertemuan. */
+export function openCatalog(catalog: MateriCatalog | undefined): void {
   const list = document.createElement("div");
   list.className = "files";
-  if (!course.items.length) {
-    list.innerHTML = `<p class="muted">Belum ada materi untuk <b>${esc(course.title)}</b>. Dosen dapat menambahkan file HTML ke <code>materi/${esc(code)}/</code> lalu mendaftarkannya di <code>materi/materi.json</code>.</p>`;
+  const courses = catalog?.courses.filter((c) => c.items.length) ?? [];
+  if (!courses.length) {
+    list.innerHTML = `<p class="muted">Belum ada materi. Dosen dapat menaruh slide HTML di <code>bahan_ajar/&lt;Mata Kuliah&gt;/</code>.</p>`;
   }
-  for (const item of course.items) {
-    const b = document.createElement("button");
-    b.type = "button";
-    b.className = "file";
-    b.innerHTML = `<span class="ico">▤</span><span>${esc(item.title)}</span>`;
-    b.onclick = () => openMaterial(course.title, item);
-    list.append(b);
+  for (const course of courses) {
+    const h = document.createElement("p");
+    h.className = "folder";
+    h.innerHTML = `<span class="ico">▸</span> ${esc(course.title)}/ <span class="muted">${course.items.length} berkas</span>`;
+    list.append(h);
+    for (const item of course.items) {
+      const b = document.createElement("button");
+      b.type = "button";
+      b.className = "file";
+      const week = item.week ? `<span class="muted">${String(item.week).padStart(2, "0")}</span>` : "";
+      b.innerHTML = `<span class="ico">▤</span>${week}<span>${esc(item.title)}</span>`;
+      b.onclick = () => openMaterial(course.title, item);
+      list.append(b);
+    }
   }
-  openPanel({ title: `~/rak/${code}/`, body: list });
+  openPanel({ title: "~/perpustakaan/materi/", body: list });
+  list.querySelector<HTMLButtonElement>(".file")?.focus();
 }
 
 function openMaterial(courseTitle: string, item: MateriItem): void {
-  const url = GAME_BASE + "materi/" + item.file;
+  const url = GAME_BASE + item.file.split("/").map(encodeURIComponent).join("/");
   const wrap = document.createElement("div");
   wrap.className = "materi";
   wrap.innerHTML = `<div class="bar"><span>${esc(courseTitle)} · ${esc(item.title)}</span><a target="_blank" rel="noopener">Buka di tab baru ↗</a></div><iframe title="Materi"></iframe>`;
   wrap.querySelector("a")!.href = url;
   wrap.querySelector("iframe")!.src = url;
-  openPanel({ title: item.file, body: wrap, wide: true });
+  openPanel({ title: item.file.split("/").pop() ?? item.file, body: wrap, wide: true });
 }
 
-export function openTerminalPlaceholder(): void {
-  openPanel({
-    title: "terminal — praktik",
-    body: `<pre class="term"><span class="ok">mita@perpustakaan</span>:<span class="path">~</span>$ mulai-praktik
-Terminal praktik (SQL, Python, pseudocode) sedang dibangun pada tahap 2.
-Kode akan dijalankan di browser ini, bukan di server.
-<span class="cursor">▌</span></pre>`,
-  });
+/** Terminal praktik dimuat terpisah (CodeMirror, worker) saat pertama kali dibuka. */
+export function openTerminal(): void {
+  import("../terminal/terminal")
+    .then((m) => m.openTerminal())
+    .catch((e: unknown) => openPanel({ title: "terminal — praktik", body: `<p class="term-error">Gagal memuat terminal: ${esc(String(e))}</p>` }));
 }
