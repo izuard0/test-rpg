@@ -13,6 +13,7 @@ import initSqlJs, { type Database } from "sql.js";
 import { parse as parseYaml } from "yaml";
 import {
   compareOutput,
+  execScript,
   keyIsOrdered,
   mysqlToSqlite,
   runPseudocode,
@@ -37,7 +38,7 @@ const text = (v: unknown, file: string, field: string, required = true): string 
 
 /** Semua hasil SELECT dari sekumpulan perintah, satu ResultSet per pernyataan yang mengembalikan baris. */
 function resultSets(db: Database, sql: string): ResultSet[] {
-  return db.exec(mysqlToSqlite(sql)).map((r) => ({ columns: r.columns, rows: r.values as ResultSet["rows"] }));
+  return execScript(db, mysqlToSqlite(sql)).map((r) => ({ columns: r.columns, rows: r.values as ResultSet["rows"] }));
 }
 
 async function main(): Promise<void> {
@@ -103,7 +104,7 @@ async function main(): Promise<void> {
       const db = freshDb(dataset, file);
       let harapan: ResultSet[];
       try {
-        if (persiapan) db.exec(mysqlToSqlite(persiapan));
+        if (persiapan) execScript(db, mysqlToSqlite(persiapan));
         const fromKey = resultSets(db, kunci);
         harapan = periksa ? resultSets(db, periksa) : fromKey.slice(-1);
       } catch (e) {

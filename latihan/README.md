@@ -64,7 +64,12 @@ kunci: SELECT nama FROM mahasiswa WHERE angkatan = 2023 ORDER BY nama;
   Contoh: `sql/04_ddl_instruktur.yaml`, `sql/05_ddl_kursus_fk.yaml`.
 - Mesin SQL adalah SQLite (sql.js). Sintaks MySQL yang umum di kuliah diterjemahkan otomatis:
   `INT AUTO_INCREMENT PRIMARY KEY`, `UNSIGNED`, `TRUNCATE TABLE`, `ENGINE=...`, `SHOW TABLES`,
-  `DESCRIBE tabel`. `FOREIGN KEY` aktif. `ALTER TABLE ... MODIFY/CHANGE` belum didukung SQLite.
+  `DESCRIBE tabel`. `FOREIGN KEY` aktif.
+- `ALTER TABLE` gaya MySQL didukung penuh untuk materi P09: `ADD COLUMN ... AFTER/FIRST`,
+  `MODIFY COLUMN`, `CHANGE COLUMN`, `RENAME COLUMN`, `DROP COLUMN`, `ADD CONSTRAINT`
+  (UNIQUE/CHECK/FOREIGN KEY), `DROP CONSTRAINT`, `ALTER COLUMN ... SET/DROP DEFAULT`.
+  Bentuk yang tidak didukung SQLite dijalankan dengan membangun ulang tabel (prosedur resmi
+  SQLite); data lama ikut disalin, dan perubahan dibatalkan bila data melanggar constraint baru.
 
 ## Keamanan dan batas
 

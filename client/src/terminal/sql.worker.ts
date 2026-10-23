@@ -4,7 +4,7 @@
 
 import initSqlJs, { type Database, type SqlJsStatic } from "sql.js";
 import wasmUrl from "sql.js/dist/sql-wasm.wasm?url";
-import { explainSqlError, mysqlToSqlite, type ResultSet } from "@mita/shared";
+import { emulateAlter, execScript, explainSqlError, mysqlToSqlite, needsAlterEmulation, splitStatements, type ResultSet } from "@mita/shared";
 
 export interface SqlRequest {
   op: "run" | "reset";
@@ -51,33 +51,41 @@ function create(S: SqlJsStatic, datasetSql: string): Database {
 
 function execute(db: Database, code: string): SqlStatementResult[] {
   const out: SqlStatementResult[] = [];
-  const sql = mysqlToSqlite(code);
-  try {
-    for (const stmt of db.iterateStatements(sql)) {
-      // Komentar di depan pernyataan tidak perlu ikut ditampilkan di atas hasilnya.
-      const raw = stmt.getSQL();
-      const text = raw.match(/\/\*asli:(.*?)\*\//)?.[1] ?? raw.replace(/^(\s*(--[^\n]*\n?|\/\*[\s\S]*?\*\/))+/, "").trim();
-      const columns = stmt.getColumnNames();
-      const rows: ResultSet["rows"] = [];
-      let truncated = false;
-      try {
-        while (stmt.step()) {
-          if (rows.length < MAX_ROWS) rows.push(stmt.get() as ResultSet["rows"][number]);
-          else truncated = true;
-        }
-      } catch (e) {
-        out.push({ sql: text, error: explainSqlError(String((e as Error).message ?? e)) });
-        stmt.free();
-        return out;
+  // Pernyataan dijalankan satu per satu: ALTER TABLE gaya MySQL yang tidak didukung SQLite
+  // (MODIFY, CHANGE, ADD CONSTRAINT, AFTER, ...) diemulasi dengan membangun ulang tabel.
+  for (const piece of splitStatements(mysqlToSqlite(code))) {
+    const shown = displaySql(piece);
+    try {
+      if (needsAlterEmulation(piece)) {
+        emulateAlter(db, piece);
+        out.push({ sql: shown, changes: 0 });
+        continue;
       }
-      stmt.free();
-      out.push(columns.length ? { sql: text, columns, rows, truncated } : { sql: text, changes: db.getRowsModified() });
+      for (const stmt of db.iterateStatements(piece)) {
+        const columns = stmt.getColumnNames();
+        const rows: ResultSet["rows"] = [];
+        let truncated = false;
+        try {
+          while (stmt.step()) {
+            if (rows.length < MAX_ROWS) rows.push(stmt.get() as ResultSet["rows"][number]);
+            else truncated = true;
+          }
+        } finally {
+          stmt.free();
+        }
+        out.push(columns.length ? { sql: shown, columns, rows, truncated } : { sql: shown, changes: db.getRowsModified() });
+      }
+    } catch (e) {
+      out.push({ sql: shown, error: explainSqlError(String((e as Error).message ?? e)) });
+      return out;
     }
-  } catch (e) {
-    // Galat sintaks muncul saat pernyataan berikutnya dipersiapkan.
-    out.push({ sql: "", error: explainSqlError(String((e as Error).message ?? e)) });
   }
   return out;
+}
+
+/** Teks pernyataan untuk ditampilkan: perintah asli (SHOW/DESCRIBE), tanpa komentar pembuka. */
+function displaySql(raw: string): string {
+  return raw.match(/\/\*asli:(.*?)\*\//)?.[1] ?? raw.replace(/^(\s*(--[^\n]*\n?|\/\*[\s\S]*?\*\/))+/, "").trim();
 }
 
 self.onmessage = async (e: MessageEvent<{ id: number; req: SqlRequest }>) => {
@@ -96,12 +104,12 @@ self.onmessage = async (e: MessageEvent<{ id: number; req: SqlRequest }>) => {
         db = sandboxes.get(req.datasetName) ?? create(S, req.datasetSql);
         sandboxes.set(req.datasetName, db);
       }
-      if (req.persiapan) db.exec(mysqlToSqlite(req.persiapan));
+      if (req.persiapan) execScript(db, mysqlToSqlite(req.persiapan));
       const statements = execute(db, req.code ?? "");
       res = { statements };
       if (req.periksa && !statements.some((s) => s.error)) {
         try {
-          res.periksa = db.exec(mysqlToSqlite(req.periksa)).map((r) => ({ columns: r.columns, rows: r.values as ResultSet["rows"] }));
+          res.periksa = execScript(db, mysqlToSqlite(req.periksa)).map((r) => ({ columns: r.columns, rows: r.values as ResultSet["rows"] }));
         } catch (err) {
           res.error = explainSqlError(String((err as Error).message));
         }

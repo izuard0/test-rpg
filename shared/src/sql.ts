@@ -31,7 +31,7 @@ export function mysqlToSqlite(sql: string): string {
       // Perintah asli disimpan sebagai komentar /*asli:...*/ agar terminal menampilkannya, bukan terjemahannya.
       .replace(/\bSHOW\s+TABLES\b/gi, "SELECT name AS tabel FROM sqlite_master WHERE type = 'table' AND name NOT LIKE 'sqlite_%' ORDER BY name /*asli:SHOW TABLES*/")
       .replace(/\b(?:DESCRIBE|DESC)\s+(\w+)\s*(;|$)/gi, (_m, t: string, end: string) =>
-        `SELECT name AS kolom, type AS tipe, CASE "notnull" WHEN 1 THEN 'NO' ELSE 'YES' END AS boleh_null, CASE pk WHEN 0 THEN '' ELSE 'PRI' END AS kunci, dflt_value AS bawaan FROM pragma_table_info('${t}') /*asli:DESCRIBE ${t}*/${end}`),
+        `SELECT name AS kolom, type AS tipe, CASE WHEN "notnull" = 1 OR pk > 0 THEN 'NO' ELSE 'YES' END AS boleh_null, CASE pk WHEN 0 THEN '' ELSE 'PRI' END AS kunci, dflt_value AS bawaan FROM pragma_table_info('${t}') /*asli:DESCRIBE ${t}*/${end}`),
   );
 }
 

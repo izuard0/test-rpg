@@ -1,0 +1,29 @@
+judul: "DDL: mengubah tabel dengan ALTER TABLE"
+mataKuliah: Perancangan Basis Data
+dataset: kosong
+deskripsi: |
+  Tabel `Mahasiswa(nim, nama_mahasiswa, email)` sudah ada dan berisi data.
+  Ubah strukturnya dengan ALTER TABLE (jangan DROP lalu CREATE ulang):
+  - tambahkan kolom `telepon` VARCHAR(15) tepat setelah `email`
+  - jadikan `telepon` UNIQUE dengan constraint bernama `uq_telepon`
+  - ubah `nama_mahasiswa` menjadi VARCHAR(150) dan tetap NOT NULL
+persiapan: |
+  CREATE TABLE Mahasiswa (
+    nim CHAR(10) PRIMARY KEY,
+    nama_mahasiswa VARCHAR(100) NOT NULL,
+    email VARCHAR(100)
+  );
+  INSERT INTO Mahasiswa VALUES ('2201001', 'Ani Lestari', 'ani@kampus.ac.id'), ('2201002', 'Budi Santoso', NULL);
+kodeAwal: |
+  ALTER TABLE Mahasiswa
+    ADD COLUMN ...
+kunci: |
+  ALTER TABLE Mahasiswa ADD COLUMN telepon VARCHAR(15) AFTER email;
+  ALTER TABLE Mahasiswa ADD CONSTRAINT uq_telepon UNIQUE (telepon);
+  ALTER TABLE Mahasiswa MODIFY COLUMN nama_mahasiswa VARCHAR(150) NOT NULL;
+periksa: |
+  SELECT name, upper(type), "notnull" FROM pragma_table_info('Mahasiswa') ORDER BY cid;
+  SELECT COUNT(*) FROM pragma_index_list('Mahasiswa') il
+  JOIN pragma_index_info(il.name) ii WHERE il."unique" = 1 AND ii.name = 'telepon';
+  -- data lama tidak boleh hilang
+  SELECT nim, nama_mahasiswa, email FROM Mahasiswa ORDER BY nim;

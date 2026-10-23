@@ -28,7 +28,8 @@ TRUNCATE TABLE Kursus;`));
     expect(db.exec(mysqlToSqlite("SHOW TABLES"))[0].values).toEqual([["Instruktur"], ["Kursus"]]);
     const desc = db.exec(mysqlToSqlite("DESCRIBE Instruktur;"))[0];
     expect(desc.columns).toEqual(["kolom", "tipe", "boleh_null", "kunci", "bawaan"]);
-    expect(desc.values[0]).toEqual(["instruktur_id", "INTEGER", "YES", "PRI", null]);
+    // Seperti MySQL: kolom PRIMARY KEY tidak boleh NULL.
+    expect(desc.values[0]).toEqual(["instruktur_id", "INTEGER", "NO", "PRI", null]);
     expect(() => db.exec("INSERT INTO Kursus (nama_kursus, instruktur_id) VALUES ('X', 99)")).toThrow(/FOREIGN KEY/);
   });
 
