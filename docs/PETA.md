@@ -10,8 +10,8 @@ menapak lantai). Gambar benda boleh lebih tinggi dari telapaknya.
 | # | Topik | Keputusan |
 |---|---|---|
 | 1 | Tampilan | **Kamera mengikuti pemain**, agak tele (zoom bulat 2× atau lebih) *(diubah dari "kamera diam", disetujui pemilik proyek)* |
-| 2 | Rak buku | **6 rak**: 2 biru (Logika Komputasional), 2 oranye (Kecerdasan Buatan), 2 hijau (cadangan, "segera hadir") |
-| 3 | Terminal | **4 terminal**, semuanya membuka terminal praktik yang sama; latihan dipilih di dalam panel |
+| 2 | Materi | **Diubah (23 Okt 2026):** materi dibuka dari **keenam meja baca**; setiap meja membuka katalog yang sama (semua mata kuliah) agar pemain tidak menumpuk. Rak buku kini dekorasi. Isi katalog dari `bahan_ajar/` |
+| 3 | Terminal | **Diubah (23 Okt 2026):** terminal praktik ada di **bilik belajar tiga komputer** di baris bawah perpustakaan; kios dinding kanan kini dekorasi. Latihan dipilih di dalam panel |
 | 4 | Tabrakan pemain | **Pemain saling menembus** (tanpa tabrakan antarpemain) |
 | 5 | Perpindahan | **Hibrida (diubah, disetujui):** satu peta **`kampus`** yang terhubung untuk halaman luar, lobi, dan perpustakaan (satu ruangan Colyseus, server hanya mengirim pemain di sekitar); **kelas tetap terpisah** lewat pintu (satu ruangan Colyseus per kelas) agar kuis, kursi terkunci, dan chat terisolasi |
 | 6 | Kursi kelas | Bebas memilih kursi kosong; **terkunci saat kuis dimulai**; yang terlambat masuk sebagai **penonton** (tidak ikut dinilai kecuali diizinkan dosen) |

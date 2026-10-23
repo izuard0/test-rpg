@@ -149,6 +149,11 @@ pre.term .path { color: var(--cyan); }
 }
 .file:hover, .file:focus-visible { background: #fff4ea; border-color: var(--orange); outline: none; }
 .file .ico { color: var(--orange); }
+.file .muted { font-size: 12px; }
+.folder { margin: 10px 0 2px; font: 700 13px var(--mono); color: var(--navy); }
+.folder:first-child { margin-top: 0; }
+.folder .ico { color: var(--orange); }
+.folder .muted { font-weight: 400; }
 .materi { display: flex; flex-direction: column; height: 70vh; margin: -16px -18px -20px; }
 .materi .bar { display: flex; justify-content: space-between; gap: 12px; padding: 6px 12px; font-size: 13px; background: #ece7db; }
 .materi .bar a { color: #b4501a; }
@@ -296,3 +301,7 @@ body:not(.in-game) #pad { display: none !important; }
       url("/game/assets/backgrounds/bg_register.jpg") 70% top / auto 50vh no-repeat, var(--ink);
   }
 }
+
+/* Slide materi 16:9: jendela dibuat hampir selebar layar. */
+.window:has(.materi) { width: min(1320px, 96vw); max-height: 96vh; }
+.window:has(.materi) .materi { height: min(78vw * 9 / 16 + 34px, 86vh); }

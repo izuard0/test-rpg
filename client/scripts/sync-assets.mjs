@@ -43,8 +43,27 @@ for (const f of ["bg_title.png", "bg_register.jpg", "bg_loading.jpg"]) copy(join
 for (const f of readdirSync(join(ROOT, "export/ui/items/sprites"))) copy(join(ROOT, "export/ui/items/sprites", f));
 for (const f of ["atlas.png", "atlas.json", "config.json", "head_adjust.json"]) copy(join(ROOT, "export/character", f));
 
-const materi = join(ROOT, "materi");
-if (existsSync(materi)) cpSync(materi, join(OUT, "materi"), { recursive: true });
+// Materi: bahan_ajar/<Mata Kuliah>/*.html disalin apa adanya, lalu katalognya dibuat otomatis
+// (judul dari <title>, urutan minggu dari nama berkas). Dosen cukup menaruh berkas di folder itu.
+const BAHAN = join(ROOT, "bahan_ajar");
+const slug = (s) => s.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+const courses = [];
+if (existsSync(BAHAN)) {
+  for (const dir of readdirSync(BAHAN, { withFileTypes: true }).filter((d) => d.isDirectory()).map((d) => d.name).sort()) {
+    const items = [];
+    for (const f of readdirSync(join(BAHAN, dir)).filter((f) => /\.html?$/i.test(f)).sort()) {
+      const abs = join(BAHAN, dir, f);
+      copy(abs);
+      const html = readFileSync(abs, "utf8");
+      const title = (html.match(/<title>([^<]*)<\/title>/i)?.[1] ?? f).replace(/\s*·\s*Kuliah\s*$/i, "").trim();
+      const week = Number(f.match(/(?:minggu|pertemuan|p)[_\s-]*0*(\d+)/i)?.[1]) || undefined;
+      items.push({ title, file: relative(ROOT, abs).split("\\").join("/"), week });
+    }
+    items.sort((a, b) => (a.week ?? 99) - (b.week ?? 99) || a.title.localeCompare(b.title, "id"));
+    courses.push({ code: slug(dir), title: dir, items });
+  }
+}
+writeFileSync(join(OUT, "materi.json"), JSON.stringify({ courses }));
 
 writeFileSync(join(OUT, "maps.json"), JSON.stringify(maps.map((f) => f.replace(/\.tmj$/, ""))));
 console.log(`sync-assets: ${copied.size} berkas, ${maps.length} peta -> ${relative(ROOT, OUT)}`);

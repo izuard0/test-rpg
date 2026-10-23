@@ -12,7 +12,7 @@
  "tiledversion": "1.10.2",
  "backgroundcolor": "#1b2a41",
  "nextlayerid": 10,
- "nextobjectid": 633,
+ "nextobjectid": 630,
  "properties": [
   {
    "name": "roomId",
@@ -15786,382 +15786,248 @@
      "id": 82,
      "gid": 60,
      "name": "rak_biru",
-     "type": "shelf",
+     "type": "decor",
      "width": 81,
      "height": 126,
      "rotation": 0,
      "visible": true,
      "x": 1234,
      "y": 1036,
-     "properties": [
-      {
-       "name": "shelfId",
-       "type": "int",
-       "value": 1
-      },
-      {
-       "name": "course",
-       "type": "string",
-       "value": "logika-komputasional"
-      },
-      {
-       "name": "color",
-       "type": "string",
-       "value": "biru"
-      },
-      {
-       "name": "title",
-       "type": "string",
-       "value": "Logika Komputasional"
-      }
-     ]
+     "properties": []
     },
     {
-     "id": 85,
+     "id": 84,
      "gid": 61,
      "name": "rak_biru_2",
-     "type": "shelf",
+     "type": "decor",
      "width": 81,
      "height": 128,
      "rotation": 0,
      "visible": true,
      "x": 1346,
      "y": 1036,
-     "properties": [
-      {
-       "name": "shelfId",
-       "type": "int",
-       "value": 2
-      },
-      {
-       "name": "course",
-       "type": "string",
-       "value": "logika-komputasional"
-      },
-      {
-       "name": "color",
-       "type": "string",
-       "value": "biru"
-      },
-      {
-       "name": "title",
-       "type": "string",
-       "value": "Logika Komputasional"
-      }
-     ]
+     "properties": []
     },
     {
-     "id": 88,
+     "id": 86,
      "gid": 62,
      "name": "rak_oranye",
-     "type": "shelf",
+     "type": "decor",
      "width": 83,
      "height": 126,
      "rotation": 0,
      "visible": true,
      "x": 1456,
      "y": 1036,
-     "properties": [
-      {
-       "name": "shelfId",
-       "type": "int",
-       "value": 3
-      },
-      {
-       "name": "course",
-       "type": "string",
-       "value": "kecerdasan-buatan"
-      },
-      {
-       "name": "color",
-       "type": "string",
-       "value": "oranye"
-      },
-      {
-       "name": "title",
-       "type": "string",
-       "value": "Kecerdasan Buatan"
-      }
-     ]
+     "properties": []
     },
     {
-     "id": 91,
+     "id": 88,
      "gid": 62,
      "name": "rak_oranye",
-     "type": "shelf",
+     "type": "decor",
      "width": 83,
      "height": 126,
      "rotation": 0,
      "visible": true,
      "x": 1736,
      "y": 1036,
-     "properties": [
-      {
-       "name": "shelfId",
-       "type": "int",
-       "value": 4
-      },
-      {
-       "name": "course",
-       "type": "string",
-       "value": "kecerdasan-buatan"
-      },
-      {
-       "name": "color",
-       "type": "string",
-       "value": "oranye"
-      },
-      {
-       "name": "title",
-       "type": "string",
-       "value": "Kecerdasan Buatan"
-      }
-     ]
+     "properties": []
     },
     {
-     "id": 94,
+     "id": 90,
      "gid": 63,
      "name": "rak_hijau",
-     "type": "shelf",
+     "type": "decor",
      "width": 81,
      "height": 126,
      "rotation": 0,
      "visible": true,
      "x": 1850,
      "y": 1036,
-     "properties": [
-      {
-       "name": "shelfId",
-       "type": "int",
-       "value": 5
-      },
-      {
-       "name": "course",
-       "type": "string",
-       "value": ""
-      },
-      {
-       "name": "color",
-       "type": "string",
-       "value": "hijau"
-      },
-      {
-       "name": "title",
-       "type": "string",
-       "value": "Segera hadir"
-      }
-     ]
+     "properties": []
     },
     {
-     "id": 97,
+     "id": 92,
      "gid": 64,
      "name": "rak_hijau_2",
-     "type": "shelf",
+     "type": "decor",
      "width": 81,
      "height": 128,
      "rotation": 0,
      "visible": true,
      "x": 1962,
      "y": 1036,
-     "properties": [
-      {
-       "name": "shelfId",
-       "type": "int",
-       "value": 6
-      },
-      {
-       "name": "course",
-       "type": "string",
-       "value": ""
-      },
-      {
-       "name": "color",
-       "type": "string",
-       "value": "hijau"
-      },
-      {
-       "name": "title",
-       "type": "string",
-       "value": "Segera hadir"
-      }
-     ]
+     "properties": []
     },
     {
-     "id": 100,
+     "id": 94,
      "gid": 65,
      "name": "kios_nyala_a",
-     "type": "terminal",
+     "type": "decor",
      "width": 46,
      "height": 90,
      "rotation": 0,
      "visible": true,
      "x": 2077,
      "y": 1120,
-     "properties": [
-      {
-       "name": "terminalId",
-       "type": "int",
-       "value": 1
-      },
-      {
-       "name": "mode",
-       "type": "string",
-       "value": "terminal"
-      }
-     ]
+     "properties": []
     },
     {
-     "id": 103,
+     "id": 96,
      "gid": 65,
      "name": "kios_nyala_a",
-     "type": "terminal",
+     "type": "decor",
      "width": 46,
      "height": 90,
      "rotation": 0,
      "visible": true,
      "x": 2077,
      "y": 1232,
-     "properties": [
-      {
-       "name": "terminalId",
-       "type": "int",
-       "value": 2
-      },
-      {
-       "name": "mode",
-       "type": "string",
-       "value": "terminal"
-      }
-     ]
+     "properties": []
     },
     {
-     "id": 106,
+     "id": 98,
      "gid": 65,
      "name": "kios_nyala_a",
-     "type": "terminal",
+     "type": "decor",
      "width": 46,
      "height": 90,
      "rotation": 0,
      "visible": true,
      "x": 2077,
      "y": 1344,
-     "properties": [
-      {
-       "name": "terminalId",
-       "type": "int",
-       "value": 3
-      },
-      {
-       "name": "mode",
-       "type": "string",
-       "value": "terminal"
-      }
-     ]
+     "properties": []
     },
     {
-     "id": 109,
+     "id": 100,
      "gid": 65,
      "name": "kios_nyala_a",
-     "type": "terminal",
+     "type": "decor",
      "width": 46,
      "height": 90,
      "rotation": 0,
      "visible": true,
      "x": 2077,
      "y": 1456,
-     "properties": [
-      {
-       "name": "terminalId",
-       "type": "int",
-       "value": 4
-      },
-      {
-       "name": "mode",
-       "type": "string",
-       "value": "terminal"
-      }
-     ]
+     "properties": []
     },
     {
-     "id": 112,
+     "id": 102,
      "gid": 66,
      "name": "meja_baca_panjang",
-     "type": "decor",
+     "type": "materi",
      "width": 170,
      "height": 115,
      "rotation": 0,
      "visible": true,
      "x": 1399,
      "y": 1232,
-     "properties": []
+     "properties": [
+      {
+       "name": "tableId",
+       "type": "int",
+       "value": 1
+      }
+     ]
+    },
+    {
+     "id": 105,
+     "gid": 66,
+     "name": "meja_baca_panjang",
+     "type": "materi",
+     "width": 170,
+     "height": 115,
+     "rotation": 0,
+     "visible": true,
+     "x": 1399,
+     "y": 1372,
+     "properties": [
+      {
+       "name": "tableId",
+       "type": "int",
+       "value": 2
+      }
+     ]
+    },
+    {
+     "id": 108,
+     "gid": 66,
+     "name": "meja_baca_panjang",
+     "type": "materi",
+     "width": 170,
+     "height": 115,
+     "rotation": 0,
+     "visible": true,
+     "x": 1399,
+     "y": 1512,
+     "properties": [
+      {
+       "name": "tableId",
+       "type": "int",
+       "value": 3
+      }
+     ]
+    },
+    {
+     "id": 111,
+     "gid": 66,
+     "name": "meja_baca_panjang",
+     "type": "materi",
+     "width": 170,
+     "height": 115,
+     "rotation": 0,
+     "visible": true,
+     "x": 1735,
+     "y": 1232,
+     "properties": [
+      {
+       "name": "tableId",
+       "type": "int",
+       "value": 4
+      }
+     ]
     },
     {
      "id": 114,
      "gid": 66,
      "name": "meja_baca_panjang",
-     "type": "decor",
-     "width": 170,
-     "height": 115,
-     "rotation": 0,
-     "visible": true,
-     "x": 1399,
-     "y": 1372,
-     "properties": []
-    },
-    {
-     "id": 116,
-     "gid": 66,
-     "name": "meja_baca_panjang",
-     "type": "decor",
-     "width": 170,
-     "height": 115,
-     "rotation": 0,
-     "visible": true,
-     "x": 1399,
-     "y": 1512,
-     "properties": []
-    },
-    {
-     "id": 118,
-     "gid": 66,
-     "name": "meja_baca_panjang",
-     "type": "decor",
+     "type": "materi",
      "width": 170,
      "height": 115,
      "rotation": 0,
      "visible": true,
      "x": 1735,
-     "y": 1232,
-     "properties": []
+     "y": 1372,
+     "properties": [
+      {
+       "name": "tableId",
+       "type": "int",
+       "value": 5
+      }
+     ]
+    },
+    {
+     "id": 117,
+     "gid": 66,
+     "name": "meja_baca_panjang",
+     "type": "materi",
+     "width": 170,
+     "height": 115,
+     "rotation": 0,
+     "visible": true,
+     "x": 1735,
+     "y": 1512,
+     "properties": [
+      {
+       "name": "tableId",
+       "type": "int",
+       "value": 6
+      }
+     ]
     },
     {
      "id": 120,
-     "gid": 66,
-     "name": "meja_baca_panjang",
-     "type": "decor",
-     "width": 170,
-     "height": 115,
-     "rotation": 0,
-     "visible": true,
-     "x": 1735,
-     "y": 1372,
-     "properties": []
-    },
-    {
-     "id": 122,
-     "gid": 66,
-     "name": "meja_baca_panjang",
-     "type": "decor",
-     "width": 170,
-     "height": 115,
-     "rotation": 0,
-     "visible": true,
-     "x": 1735,
-     "y": 1512,
-     "properties": []
-    },
-    {
-     "id": 124,
      "gid": 67,
      "name": "meja_pustakawan",
      "type": "decor",
@@ -16174,7 +16040,7 @@
      "properties": []
     },
     {
-     "id": 127,
+     "id": 123,
      "gid": 68,
      "name": "papan_tulis_beroda",
      "type": "decor",
@@ -16187,20 +16053,26 @@
      "properties": []
     },
     {
-     "id": 129,
+     "id": 125,
      "gid": 69,
      "name": "bilik_belajar_tiga",
-     "type": "decor",
+     "type": "terminal",
      "width": 147,
      "height": 91,
      "rotation": 0,
      "visible": true,
      "x": 1424,
      "y": 1624,
-     "properties": []
+     "properties": [
+      {
+       "name": "mode",
+       "type": "string",
+       "value": "terminal"
+      }
+     ]
     },
     {
-     "id": 131,
+     "id": 128,
      "gid": 70,
      "name": "troli_buku",
      "type": "decor",
@@ -16213,7 +16085,7 @@
      "properties": []
     },
     {
-     "id": 133,
+     "id": 130,
      "gid": 71,
      "name": "sofa_tunggal_biru_1",
      "type": "decor",
@@ -16226,7 +16098,7 @@
      "properties": []
     },
     {
-     "id": 135,
+     "id": 132,
      "gid": 45,
      "name": "meja_bulat",
      "type": "decor",
@@ -16239,7 +16111,7 @@
      "properties": []
     },
     {
-     "id": 137,
+     "id": 134,
      "gid": 72,
      "name": "sofa_tunggal_biru_2",
      "type": "decor",
@@ -16252,7 +16124,7 @@
      "properties": []
     },
     {
-     "id": 139,
+     "id": 136,
      "gid": 73,
      "name": "tanaman_pakis",
      "type": "decor",
@@ -16265,7 +16137,7 @@
      "properties": []
     },
     {
-     "id": 141,
+     "id": 138,
      "gid": 73,
      "name": "tanaman_pakis",
      "type": "decor",
@@ -16278,7 +16150,7 @@
      "properties": []
     },
     {
-     "id": 143,
+     "id": 140,
      "gid": 73,
      "name": "tanaman_pakis",
      "type": "decor",
@@ -16291,7 +16163,7 @@
      "properties": []
     },
     {
-     "id": 145,
+     "id": 142,
      "gid": 74,
      "name": "papan_tulis",
      "type": "decor",
@@ -16304,7 +16176,7 @@
      "properties": []
     },
     {
-     "id": 146,
+     "id": 143,
      "gid": 75,
      "name": "tv_nyala",
      "type": "decor",
@@ -16317,7 +16189,7 @@
      "properties": []
     },
     {
-     "id": 147,
+     "id": 144,
      "gid": 76,
      "name": "ac",
      "type": "decor",
@@ -16330,7 +16202,7 @@
      "properties": []
     },
     {
-     "id": 148,
+     "id": 145,
      "gid": 77,
      "name": "jam_oranye",
      "type": "decor",
@@ -16343,7 +16215,7 @@
      "properties": []
     },
     {
-     "id": 149,
+     "id": 146,
      "gid": 78,
      "name": "meja_dosen",
      "type": "decor",
@@ -16356,7 +16228,7 @@
      "properties": []
     },
     {
-     "id": 150,
+     "id": 147,
      "gid": 79,
      "name": "podium",
      "type": "decor",
@@ -16369,7 +16241,7 @@
      "properties": []
     },
     {
-     "id": 151,
+     "id": 148,
      "gid": 80,
      "name": "rak_perangkat",
      "type": "decor",
@@ -16382,7 +16254,7 @@
      "properties": []
     },
     {
-     "id": 152,
+     "id": 149,
      "gid": 81,
      "name": "speaker",
      "type": "decor",
@@ -16395,7 +16267,7 @@
      "properties": []
     },
     {
-     "id": 153,
+     "id": 150,
      "gid": 43,
      "name": "tanaman_d",
      "type": "decor",
@@ -16408,7 +16280,7 @@
      "properties": []
     },
     {
-     "id": 154,
+     "id": 151,
      "gid": 43,
      "name": "tanaman_d",
      "type": "decor",
@@ -16421,7 +16293,7 @@
      "properties": []
     },
     {
-     "id": 155,
+     "id": 152,
      "gid": 82,
      "name": "meja_komputer_nyala",
      "type": "decor",
@@ -16430,6 +16302,45 @@
      "rotation": 0,
      "visible": true,
      "x": 284,
+     "y": 364,
+     "properties": []
+    },
+    {
+     "id": 153,
+     "gid": 83,
+     "name": "kursi_putar_a",
+     "type": "decor",
+     "width": 28,
+     "height": 45,
+     "rotation": 0,
+     "visible": true,
+     "x": 294,
+     "y": 392,
+     "properties": []
+    },
+    {
+     "id": 154,
+     "gid": 83,
+     "name": "kursi_putar_a",
+     "type": "decor",
+     "width": 28,
+     "height": 45,
+     "rotation": 0,
+     "visible": true,
+     "x": 350,
+     "y": 392,
+     "properties": []
+    },
+    {
+     "id": 155,
+     "gid": 82,
+     "name": "meja_komputer_nyala",
+     "type": "decor",
+     "width": 103,
+     "height": 48,
+     "rotation": 0,
+     "visible": true,
+     "x": 452,
      "y": 364,
      "properties": []
     },
@@ -16442,7 +16353,7 @@
      "height": 45,
      "rotation": 0,
      "visible": true,
-     "x": 294,
+     "x": 462,
      "y": 392,
      "properties": []
     },
@@ -16455,7 +16366,7 @@
      "height": 45,
      "rotation": 0,
      "visible": true,
-     "x": 350,
+     "x": 518,
      "y": 392,
      "properties": []
     },
@@ -16468,7 +16379,7 @@
      "height": 48,
      "rotation": 0,
      "visible": true,
-     "x": 452,
+     "x": 620,
      "y": 364,
      "properties": []
     },
@@ -16481,7 +16392,7 @@
      "height": 45,
      "rotation": 0,
      "visible": true,
-     "x": 462,
+     "x": 630,
      "y": 392,
      "properties": []
     },
@@ -16494,7 +16405,7 @@
      "height": 45,
      "rotation": 0,
      "visible": true,
-     "x": 518,
+     "x": 686,
      "y": 392,
      "properties": []
     },
@@ -16507,8 +16418,8 @@
      "height": 48,
      "rotation": 0,
      "visible": true,
-     "x": 620,
-     "y": 364,
+     "x": 284,
+     "y": 420,
      "properties": []
     },
     {
@@ -16520,8 +16431,8 @@
      "height": 45,
      "rotation": 0,
      "visible": true,
-     "x": 630,
-     "y": 392,
+     "x": 294,
+     "y": 448,
      "properties": []
     },
     {
@@ -16533,8 +16444,8 @@
      "height": 45,
      "rotation": 0,
      "visible": true,
-     "x": 686,
-     "y": 392,
+     "x": 350,
+     "y": 448,
      "properties": []
     },
     {
@@ -16546,7 +16457,7 @@
      "height": 48,
      "rotation": 0,
      "visible": true,
-     "x": 284,
+     "x": 452,
      "y": 420,
      "properties": []
     },
@@ -16559,7 +16470,7 @@
      "height": 45,
      "rotation": 0,
      "visible": true,
-     "x": 294,
+     "x": 462,
      "y": 448,
      "properties": []
     },
@@ -16572,7 +16483,7 @@
      "height": 45,
      "rotation": 0,
      "visible": true,
-     "x": 350,
+     "x": 518,
      "y": 448,
      "properties": []
     },
@@ -16585,7 +16496,7 @@
      "height": 48,
      "rotation": 0,
      "visible": true,
-     "x": 452,
+     "x": 620,
      "y": 420,
      "properties": []
     },
@@ -16598,7 +16509,7 @@
      "height": 45,
      "rotation": 0,
      "visible": true,
-     "x": 462,
+     "x": 630,
      "y": 448,
      "properties": []
     },
@@ -16611,7 +16522,7 @@
      "height": 45,
      "rotation": 0,
      "visible": true,
-     "x": 518,
+     "x": 686,
      "y": 448,
      "properties": []
     },
@@ -16624,8 +16535,8 @@
      "height": 48,
      "rotation": 0,
      "visible": true,
-     "x": 620,
-     "y": 420,
+     "x": 284,
+     "y": 476,
      "properties": []
     },
     {
@@ -16637,8 +16548,8 @@
      "height": 45,
      "rotation": 0,
      "visible": true,
-     "x": 630,
-     "y": 448,
+     "x": 294,
+     "y": 504,
      "properties": []
     },
     {
@@ -16650,8 +16561,8 @@
      "height": 45,
      "rotation": 0,
      "visible": true,
-     "x": 686,
-     "y": 448,
+     "x": 350,
+     "y": 504,
      "properties": []
     },
     {
@@ -16663,7 +16574,7 @@
      "height": 48,
      "rotation": 0,
      "visible": true,
-     "x": 284,
+     "x": 452,
      "y": 476,
      "properties": []
     },
@@ -16676,7 +16587,7 @@
      "height": 45,
      "rotation": 0,
      "visible": true,
-     "x": 294,
+     "x": 462,
      "y": 504,
      "properties": []
     },
@@ -16689,7 +16600,7 @@
      "height": 45,
      "rotation": 0,
      "visible": true,
-     "x": 350,
+     "x": 518,
      "y": 504,
      "properties": []
     },
@@ -16702,7 +16613,7 @@
      "height": 48,
      "rotation": 0,
      "visible": true,
-     "x": 452,
+     "x": 620,
      "y": 476,
      "properties": []
     },
@@ -16715,7 +16626,7 @@
      "height": 45,
      "rotation": 0,
      "visible": true,
-     "x": 462,
+     "x": 630,
      "y": 504,
      "properties": []
     },
@@ -16728,7 +16639,7 @@
      "height": 45,
      "rotation": 0,
      "visible": true,
-     "x": 518,
+     "x": 686,
      "y": 504,
      "properties": []
     },
@@ -16741,8 +16652,8 @@
      "height": 48,
      "rotation": 0,
      "visible": true,
-     "x": 620,
-     "y": 476,
+     "x": 284,
+     "y": 532,
      "properties": []
     },
     {
@@ -16754,8 +16665,8 @@
      "height": 45,
      "rotation": 0,
      "visible": true,
-     "x": 630,
-     "y": 504,
+     "x": 294,
+     "y": 560,
      "properties": []
     },
     {
@@ -16767,8 +16678,8 @@
      "height": 45,
      "rotation": 0,
      "visible": true,
-     "x": 686,
-     "y": 504,
+     "x": 350,
+     "y": 560,
      "properties": []
     },
     {
@@ -16780,7 +16691,7 @@
      "height": 48,
      "rotation": 0,
      "visible": true,
-     "x": 284,
+     "x": 452,
      "y": 532,
      "properties": []
     },
@@ -16793,7 +16704,7 @@
      "height": 45,
      "rotation": 0,
      "visible": true,
-     "x": 294,
+     "x": 462,
      "y": 560,
      "properties": []
     },
@@ -16806,7 +16717,7 @@
      "height": 45,
      "rotation": 0,
      "visible": true,
-     "x": 350,
+     "x": 518,
      "y": 560,
      "properties": []
     },
@@ -16819,7 +16730,7 @@
      "height": 48,
      "rotation": 0,
      "visible": true,
-     "x": 452,
+     "x": 620,
      "y": 532,
      "properties": []
     },
@@ -16832,7 +16743,7 @@
      "height": 45,
      "rotation": 0,
      "visible": true,
-     "x": 462,
+     "x": 630,
      "y": 560,
      "properties": []
     },
@@ -16845,7 +16756,7 @@
      "height": 45,
      "rotation": 0,
      "visible": true,
-     "x": 518,
+     "x": 686,
      "y": 560,
      "properties": []
     },
@@ -16858,51 +16769,12 @@
      "height": 48,
      "rotation": 0,
      "visible": true,
-     "x": 620,
-     "y": 532,
-     "properties": []
-    },
-    {
-     "id": 189,
-     "gid": 83,
-     "name": "kursi_putar_a",
-     "type": "decor",
-     "width": 28,
-     "height": 45,
-     "rotation": 0,
-     "visible": true,
-     "x": 630,
-     "y": 560,
-     "properties": []
-    },
-    {
-     "id": 190,
-     "gid": 83,
-     "name": "kursi_putar_a",
-     "type": "decor",
-     "width": 28,
-     "height": 45,
-     "rotation": 0,
-     "visible": true,
-     "x": 686,
-     "y": 560,
-     "properties": []
-    },
-    {
-     "id": 191,
-     "gid": 82,
-     "name": "meja_komputer_nyala",
-     "type": "decor",
-     "width": 103,
-     "height": 48,
-     "rotation": 0,
-     "visible": true,
      "x": 284,
      "y": 588,
      "properties": []
     },
     {
-     "id": 192,
+     "id": 189,
      "gid": 83,
      "name": "kursi_putar_a",
      "type": "decor",
@@ -16915,7 +16787,7 @@
      "properties": []
     },
     {
-     "id": 193,
+     "id": 190,
      "gid": 83,
      "name": "kursi_putar_a",
      "type": "decor",
@@ -16928,7 +16800,7 @@
      "properties": []
     },
     {
-     "id": 194,
+     "id": 191,
      "gid": 82,
      "name": "meja_komputer_nyala",
      "type": "decor",
@@ -16941,7 +16813,7 @@
      "properties": []
     },
     {
-     "id": 195,
+     "id": 192,
      "gid": 83,
      "name": "kursi_putar_a",
      "type": "decor",
@@ -16954,7 +16826,7 @@
      "properties": []
     },
     {
-     "id": 196,
+     "id": 193,
      "gid": 83,
      "name": "kursi_putar_a",
      "type": "decor",
@@ -16967,7 +16839,7 @@
      "properties": []
     },
     {
-     "id": 197,
+     "id": 194,
      "gid": 82,
      "name": "meja_komputer_nyala",
      "type": "decor",
@@ -16980,7 +16852,7 @@
      "properties": []
     },
     {
-     "id": 198,
+     "id": 195,
      "gid": 83,
      "name": "kursi_putar_a",
      "type": "decor",
@@ -16993,7 +16865,7 @@
      "properties": []
     },
     {
-     "id": 199,
+     "id": 196,
      "gid": 83,
      "name": "kursi_putar_a",
      "type": "decor",
@@ -17006,7 +16878,7 @@
      "properties": []
     },
     {
-     "id": 200,
+     "id": 197,
      "gid": 74,
      "name": "papan_tulis",
      "type": "decor",
@@ -17019,7 +16891,7 @@
      "properties": []
     },
     {
-     "id": 201,
+     "id": 198,
      "gid": 84,
      "name": "layar_proyektor",
      "type": "decor",
@@ -17032,7 +16904,7 @@
      "properties": []
     },
     {
-     "id": 202,
+     "id": 199,
      "gid": 75,
      "name": "tv_nyala",
      "type": "decor",
@@ -17045,7 +16917,7 @@
      "properties": []
     },
     {
-     "id": 203,
+     "id": 200,
      "gid": 77,
      "name": "jam_oranye",
      "type": "decor",
@@ -17058,7 +16930,7 @@
      "properties": []
     },
     {
-     "id": 204,
+     "id": 201,
      "gid": 78,
      "name": "meja_dosen",
      "type": "decor",
@@ -17071,7 +16943,7 @@
      "properties": []
     },
     {
-     "id": 205,
+     "id": 202,
      "gid": 79,
      "name": "podium",
      "type": "decor",
@@ -17084,7 +16956,7 @@
      "properties": []
     },
     {
-     "id": 206,
+     "id": 203,
      "gid": 85,
      "name": "papan_tulis_kecil",
      "type": "decor",
@@ -17097,7 +16969,7 @@
      "properties": []
     },
     {
-     "id": 207,
+     "id": 204,
      "gid": 85,
      "name": "papan_tulis_kecil",
      "type": "decor",
@@ -17110,7 +16982,7 @@
      "properties": []
     },
     {
-     "id": 208,
+     "id": 205,
      "gid": 73,
      "name": "tanaman_pakis",
      "type": "decor",
@@ -17123,7 +16995,7 @@
      "properties": []
     },
     {
-     "id": 209,
+     "id": 206,
      "gid": 73,
      "name": "tanaman_pakis",
      "type": "decor",
@@ -17136,7 +17008,7 @@
      "properties": []
     },
     {
-     "id": 210,
+     "id": 207,
      "gid": 86,
      "name": "meja_heksagon_nyala",
      "type": "decor",
@@ -17146,6 +17018,45 @@
      "visible": true,
      "x": 840,
      "y": 392,
+     "properties": []
+    },
+    {
+     "id": 208,
+     "gid": 86,
+     "name": "meja_heksagon_nyala",
+     "type": "decor",
+     "width": 112,
+     "height": 95,
+     "rotation": 0,
+     "visible": true,
+     "x": 1036,
+     "y": 392,
+     "properties": []
+    },
+    {
+     "id": 209,
+     "gid": 86,
+     "name": "meja_heksagon_nyala",
+     "type": "decor",
+     "width": 112,
+     "height": 95,
+     "rotation": 0,
+     "visible": true,
+     "x": 1232,
+     "y": 392,
+     "properties": []
+    },
+    {
+     "id": 210,
+     "gid": 86,
+     "name": "meja_heksagon_nyala",
+     "type": "decor",
+     "width": 112,
+     "height": 95,
+     "rotation": 0,
+     "visible": true,
+     "x": 840,
+     "y": 532,
      "properties": []
     },
     {
@@ -17158,7 +17069,7 @@
      "rotation": 0,
      "visible": true,
      "x": 1036,
-     "y": 392,
+     "y": 532,
      "properties": []
     },
     {
@@ -17171,7 +17082,7 @@
      "rotation": 0,
      "visible": true,
      "x": 1232,
-     "y": 392,
+     "y": 532,
      "properties": []
     },
     {
@@ -17184,7 +17095,7 @@
      "rotation": 0,
      "visible": true,
      "x": 840,
-     "y": 532,
+     "y": 672,
      "properties": []
     },
     {
@@ -17197,7 +17108,7 @@
      "rotation": 0,
      "visible": true,
      "x": 1036,
-     "y": 532,
+     "y": 672,
      "properties": []
     },
     {
@@ -17210,50 +17121,11 @@
      "rotation": 0,
      "visible": true,
      "x": 1232,
-     "y": 532,
+     "y": 672,
      "properties": []
     },
     {
      "id": 216,
-     "gid": 86,
-     "name": "meja_heksagon_nyala",
-     "type": "decor",
-     "width": 112,
-     "height": 95,
-     "rotation": 0,
-     "visible": true,
-     "x": 840,
-     "y": 672,
-     "properties": []
-    },
-    {
-     "id": 217,
-     "gid": 86,
-     "name": "meja_heksagon_nyala",
-     "type": "decor",
-     "width": 112,
-     "height": 95,
-     "rotation": 0,
-     "visible": true,
-     "x": 1036,
-     "y": 672,
-     "properties": []
-    },
-    {
-     "id": 218,
-     "gid": 86,
-     "name": "meja_heksagon_nyala",
-     "type": "decor",
-     "width": 112,
-     "height": 95,
-     "rotation": 0,
-     "visible": true,
-     "x": 1232,
-     "y": 672,
-     "properties": []
-    },
-    {
-     "id": 219,
      "gid": 87,
      "name": "layar_proyektor_besar",
      "type": "decor",
@@ -17266,7 +17138,7 @@
      "properties": []
     },
     {
-     "id": 220,
+     "id": 217,
      "gid": 75,
      "name": "tv_nyala",
      "type": "decor",
@@ -17279,7 +17151,7 @@
      "properties": []
     },
     {
-     "id": 221,
+     "id": 218,
      "gid": 75,
      "name": "tv_nyala",
      "type": "decor",
@@ -17292,7 +17164,7 @@
      "properties": []
     },
     {
-     "id": 222,
+     "id": 219,
      "gid": 88,
      "name": "podium_laptop",
      "type": "decor",
@@ -17305,7 +17177,7 @@
      "properties": []
     },
     {
-     "id": 223,
+     "id": 220,
      "gid": 78,
      "name": "meja_dosen",
      "type": "decor",
@@ -17318,7 +17190,7 @@
      "properties": []
     },
     {
-     "id": 224,
+     "id": 221,
      "gid": 89,
      "name": "speaker_ganda",
      "type": "decor",
@@ -17331,7 +17203,7 @@
      "properties": []
     },
     {
-     "id": 225,
+     "id": 222,
      "gid": 89,
      "name": "speaker_ganda",
      "type": "decor",
@@ -17344,7 +17216,7 @@
      "properties": []
     },
     {
-     "id": 226,
+     "id": 223,
      "gid": 80,
      "name": "rak_perangkat",
      "type": "decor",
@@ -17357,7 +17229,7 @@
      "properties": []
     },
     {
-     "id": 227,
+     "id": 224,
      "gid": 80,
      "name": "rak_perangkat",
      "type": "decor",
@@ -17370,7 +17242,7 @@
      "properties": []
     },
     {
-     "id": 228,
+     "id": 225,
      "gid": 77,
      "name": "jam_oranye",
      "type": "decor",
@@ -17383,7 +17255,7 @@
      "properties": []
     },
     {
-     "id": 229,
+     "id": 226,
      "gid": 76,
      "name": "ac",
      "type": "decor",
@@ -17396,7 +17268,7 @@
      "properties": []
     },
     {
-     "id": 230,
+     "id": 227,
      "gid": 73,
      "name": "tanaman_pakis",
      "type": "decor",
@@ -17409,7 +17281,7 @@
      "properties": []
     },
     {
-     "id": 231,
+     "id": 228,
      "gid": 73,
      "name": "tanaman_pakis",
      "type": "decor",
@@ -17422,7 +17294,7 @@
      "properties": []
     },
     {
-     "id": 232,
+     "id": 229,
      "gid": 90,
      "name": "meja_komputer_nyala",
      "type": "decor",
@@ -17431,6 +17303,45 @@
      "rotation": 0,
      "visible": true,
      "x": 1451,
+     "y": 420,
+     "properties": []
+    },
+    {
+     "id": 230,
+     "gid": 91,
+     "name": "kursi_putar",
+     "type": "decor",
+     "width": 26,
+     "height": 41,
+     "rotation": 0,
+     "visible": true,
+     "x": 1457,
+     "y": 448,
+     "properties": []
+    },
+    {
+     "id": 231,
+     "gid": 91,
+     "name": "kursi_putar",
+     "type": "decor",
+     "width": 26,
+     "height": 41,
+     "rotation": 0,
+     "visible": true,
+     "x": 1513,
+     "y": 448,
+     "properties": []
+    },
+    {
+     "id": 232,
+     "gid": 90,
+     "name": "meja_komputer_nyala",
+     "type": "decor",
+     "width": 94,
+     "height": 44,
+     "rotation": 0,
+     "visible": true,
+     "x": 1563,
      "y": 420,
      "properties": []
     },
@@ -17443,7 +17354,7 @@
      "height": 41,
      "rotation": 0,
      "visible": true,
-     "x": 1457,
+     "x": 1569,
      "y": 448,
      "properties": []
     },
@@ -17456,7 +17367,7 @@
      "height": 41,
      "rotation": 0,
      "visible": true,
-     "x": 1513,
+     "x": 1625,
      "y": 448,
      "properties": []
     },
@@ -17469,7 +17380,7 @@
      "height": 44,
      "rotation": 0,
      "visible": true,
-     "x": 1563,
+     "x": 1675,
      "y": 420,
      "properties": []
     },
@@ -17482,7 +17393,7 @@
      "height": 41,
      "rotation": 0,
      "visible": true,
-     "x": 1569,
+     "x": 1681,
      "y": 448,
      "properties": []
     },
@@ -17495,7 +17406,7 @@
      "height": 41,
      "rotation": 0,
      "visible": true,
-     "x": 1625,
+     "x": 1737,
      "y": 448,
      "properties": []
     },
@@ -17508,7 +17419,7 @@
      "height": 44,
      "rotation": 0,
      "visible": true,
-     "x": 1675,
+     "x": 1815,
      "y": 420,
      "properties": []
     },
@@ -17521,7 +17432,7 @@
      "height": 41,
      "rotation": 0,
      "visible": true,
-     "x": 1681,
+     "x": 1821,
      "y": 448,
      "properties": []
     },
@@ -17534,7 +17445,7 @@
      "height": 41,
      "rotation": 0,
      "visible": true,
-     "x": 1737,
+     "x": 1877,
      "y": 448,
      "properties": []
     },
@@ -17547,7 +17458,7 @@
      "height": 44,
      "rotation": 0,
      "visible": true,
-     "x": 1815,
+     "x": 1927,
      "y": 420,
      "properties": []
     },
@@ -17560,7 +17471,7 @@
      "height": 41,
      "rotation": 0,
      "visible": true,
-     "x": 1821,
+     "x": 1933,
      "y": 448,
      "properties": []
     },
@@ -17573,7 +17484,7 @@
      "height": 41,
      "rotation": 0,
      "visible": true,
-     "x": 1877,
+     "x": 1989,
      "y": 448,
      "properties": []
     },
@@ -17586,7 +17497,7 @@
      "height": 44,
      "rotation": 0,
      "visible": true,
-     "x": 1927,
+     "x": 2039,
      "y": 420,
      "properties": []
     },
@@ -17599,7 +17510,7 @@
      "height": 41,
      "rotation": 0,
      "visible": true,
-     "x": 1933,
+     "x": 2045,
      "y": 448,
      "properties": []
     },
@@ -17612,7 +17523,7 @@
      "height": 41,
      "rotation": 0,
      "visible": true,
-     "x": 1989,
+     "x": 2101,
      "y": 448,
      "properties": []
     },
@@ -17625,8 +17536,8 @@
      "height": 44,
      "rotation": 0,
      "visible": true,
-     "x": 2039,
-     "y": 420,
+     "x": 1451,
+     "y": 476,
      "properties": []
     },
     {
@@ -17638,8 +17549,8 @@
      "height": 41,
      "rotation": 0,
      "visible": true,
-     "x": 2045,
-     "y": 448,
+     "x": 1457,
+     "y": 504,
      "properties": []
     },
     {
@@ -17651,8 +17562,8 @@
      "height": 41,
      "rotation": 0,
      "visible": true,
-     "x": 2101,
-     "y": 448,
+     "x": 1513,
+     "y": 504,
      "properties": []
     },
     {
@@ -17664,7 +17575,7 @@
      "height": 44,
      "rotation": 0,
      "visible": true,
-     "x": 1451,
+     "x": 1563,
      "y": 476,
      "properties": []
     },
@@ -17677,7 +17588,7 @@
      "height": 41,
      "rotation": 0,
      "visible": true,
-     "x": 1457,
+     "x": 1569,
      "y": 504,
      "properties": []
     },
@@ -17690,7 +17601,7 @@
      "height": 41,
      "rotation": 0,
      "visible": true,
-     "x": 1513,
+     "x": 1625,
      "y": 504,
      "properties": []
     },
@@ -17703,7 +17614,7 @@
      "height": 44,
      "rotation": 0,
      "visible": true,
-     "x": 1563,
+     "x": 1675,
      "y": 476,
      "properties": []
     },
@@ -17716,7 +17627,7 @@
      "height": 41,
      "rotation": 0,
      "visible": true,
-     "x": 1569,
+     "x": 1681,
      "y": 504,
      "properties": []
     },
@@ -17729,7 +17640,7 @@
      "height": 41,
      "rotation": 0,
      "visible": true,
-     "x": 1625,
+     "x": 1737,
      "y": 504,
      "properties": []
     },
@@ -17742,7 +17653,7 @@
      "height": 44,
      "rotation": 0,
      "visible": true,
-     "x": 1675,
+     "x": 1815,
      "y": 476,
      "properties": []
     },
@@ -17755,7 +17666,7 @@
      "height": 41,
      "rotation": 0,
      "visible": true,
-     "x": 1681,
+     "x": 1821,
      "y": 504,
      "properties": []
     },
@@ -17768,7 +17679,7 @@
      "height": 41,
      "rotation": 0,
      "visible": true,
-     "x": 1737,
+     "x": 1877,
      "y": 504,
      "properties": []
     },
@@ -17781,7 +17692,7 @@
      "height": 44,
      "rotation": 0,
      "visible": true,
-     "x": 1815,
+     "x": 1927,
      "y": 476,
      "properties": []
     },
@@ -17794,7 +17705,7 @@
      "height": 41,
      "rotation": 0,
      "visible": true,
-     "x": 1821,
+     "x": 1933,
      "y": 504,
      "properties": []
     },
@@ -17807,7 +17718,7 @@
      "height": 41,
      "rotation": 0,
      "visible": true,
-     "x": 1877,
+     "x": 1989,
      "y": 504,
      "properties": []
     },
@@ -17820,7 +17731,7 @@
      "height": 44,
      "rotation": 0,
      "visible": true,
-     "x": 1927,
+     "x": 2039,
      "y": 476,
      "properties": []
     },
@@ -17833,7 +17744,7 @@
      "height": 41,
      "rotation": 0,
      "visible": true,
-     "x": 1933,
+     "x": 2045,
      "y": 504,
      "properties": []
     },
@@ -17846,7 +17757,7 @@
      "height": 41,
      "rotation": 0,
      "visible": true,
-     "x": 1989,
+     "x": 2101,
      "y": 504,
      "properties": []
     },
@@ -17859,8 +17770,8 @@
      "height": 44,
      "rotation": 0,
      "visible": true,
-     "x": 2039,
-     "y": 476,
+     "x": 1451,
+     "y": 532,
      "properties": []
     },
     {
@@ -17872,8 +17783,8 @@
      "height": 41,
      "rotation": 0,
      "visible": true,
-     "x": 2045,
-     "y": 504,
+     "x": 1457,
+     "y": 560,
      "properties": []
     },
     {
@@ -17885,8 +17796,8 @@
      "height": 41,
      "rotation": 0,
      "visible": true,
-     "x": 2101,
-     "y": 504,
+     "x": 1513,
+     "y": 560,
      "properties": []
     },
     {
@@ -17898,7 +17809,7 @@
      "height": 44,
      "rotation": 0,
      "visible": true,
-     "x": 1451,
+     "x": 1563,
      "y": 532,
      "properties": []
     },
@@ -17911,7 +17822,7 @@
      "height": 41,
      "rotation": 0,
      "visible": true,
-     "x": 1457,
+     "x": 1569,
      "y": 560,
      "properties": []
     },
@@ -17924,7 +17835,7 @@
      "height": 41,
      "rotation": 0,
      "visible": true,
-     "x": 1513,
+     "x": 1625,
      "y": 560,
      "properties": []
     },
@@ -17937,7 +17848,7 @@
      "height": 44,
      "rotation": 0,
      "visible": true,
-     "x": 1563,
+     "x": 1675,
      "y": 532,
      "properties": []
     },
@@ -17950,7 +17861,7 @@
      "height": 41,
      "rotation": 0,
      "visible": true,
-     "x": 1569,
+     "x": 1681,
      "y": 560,
      "properties": []
     },
@@ -17963,7 +17874,7 @@
      "height": 41,
      "rotation": 0,
      "visible": true,
-     "x": 1625,
+     "x": 1737,
      "y": 560,
      "properties": []
     },
@@ -17976,7 +17887,7 @@
      "height": 44,
      "rotation": 0,
      "visible": true,
-     "x": 1675,
+     "x": 1815,
      "y": 532,
      "properties": []
     },
@@ -17989,7 +17900,7 @@
      "height": 41,
      "rotation": 0,
      "visible": true,
-     "x": 1681,
+     "x": 1821,
      "y": 560,
      "properties": []
     },
@@ -18002,7 +17913,7 @@
      "height": 41,
      "rotation": 0,
      "visible": true,
-     "x": 1737,
+     "x": 1877,
      "y": 560,
      "properties": []
     },
@@ -18015,7 +17926,7 @@
      "height": 44,
      "rotation": 0,
      "visible": true,
-     "x": 1815,
+     "x": 1927,
      "y": 532,
      "properties": []
     },
@@ -18028,7 +17939,7 @@
      "height": 41,
      "rotation": 0,
      "visible": true,
-     "x": 1821,
+     "x": 1933,
      "y": 560,
      "properties": []
     },
@@ -18041,7 +17952,7 @@
      "height": 41,
      "rotation": 0,
      "visible": true,
-     "x": 1877,
+     "x": 1989,
      "y": 560,
      "properties": []
     },
@@ -18054,7 +17965,7 @@
      "height": 44,
      "rotation": 0,
      "visible": true,
-     "x": 1927,
+     "x": 2039,
      "y": 532,
      "properties": []
     },
@@ -18067,7 +17978,7 @@
      "height": 41,
      "rotation": 0,
      "visible": true,
-     "x": 1933,
+     "x": 2045,
      "y": 560,
      "properties": []
     },
@@ -18080,7 +17991,7 @@
      "height": 41,
      "rotation": 0,
      "visible": true,
-     "x": 1989,
+     "x": 2101,
      "y": 560,
      "properties": []
     },
@@ -18093,8 +18004,8 @@
      "height": 44,
      "rotation": 0,
      "visible": true,
-     "x": 2039,
-     "y": 532,
+     "x": 1451,
+     "y": 588,
      "properties": []
     },
     {
@@ -18106,8 +18017,8 @@
      "height": 41,
      "rotation": 0,
      "visible": true,
-     "x": 2045,
-     "y": 560,
+     "x": 1457,
+     "y": 616,
      "properties": []
     },
     {
@@ -18119,8 +18030,8 @@
      "height": 41,
      "rotation": 0,
      "visible": true,
-     "x": 2101,
-     "y": 560,
+     "x": 1513,
+     "y": 616,
      "properties": []
     },
     {
@@ -18132,7 +18043,7 @@
      "height": 44,
      "rotation": 0,
      "visible": true,
-     "x": 1451,
+     "x": 1563,
      "y": 588,
      "properties": []
     },
@@ -18145,7 +18056,7 @@
      "height": 41,
      "rotation": 0,
      "visible": true,
-     "x": 1457,
+     "x": 1569,
      "y": 616,
      "properties": []
     },
@@ -18158,7 +18069,7 @@
      "height": 41,
      "rotation": 0,
      "visible": true,
-     "x": 1513,
+     "x": 1625,
      "y": 616,
      "properties": []
     },
@@ -18171,7 +18082,7 @@
      "height": 44,
      "rotation": 0,
      "visible": true,
-     "x": 1563,
+     "x": 1675,
      "y": 588,
      "properties": []
     },
@@ -18184,7 +18095,7 @@
      "height": 41,
      "rotation": 0,
      "visible": true,
-     "x": 1569,
+     "x": 1681,
      "y": 616,
      "properties": []
     },
@@ -18197,7 +18108,7 @@
      "height": 41,
      "rotation": 0,
      "visible": true,
-     "x": 1625,
+     "x": 1737,
      "y": 616,
      "properties": []
     },
@@ -18210,7 +18121,7 @@
      "height": 44,
      "rotation": 0,
      "visible": true,
-     "x": 1675,
+     "x": 1815,
      "y": 588,
      "properties": []
     },
@@ -18223,7 +18134,7 @@
      "height": 41,
      "rotation": 0,
      "visible": true,
-     "x": 1681,
+     "x": 1821,
      "y": 616,
      "properties": []
     },
@@ -18236,7 +18147,7 @@
      "height": 41,
      "rotation": 0,
      "visible": true,
-     "x": 1737,
+     "x": 1877,
      "y": 616,
      "properties": []
     },
@@ -18249,7 +18160,7 @@
      "height": 44,
      "rotation": 0,
      "visible": true,
-     "x": 1815,
+     "x": 1927,
      "y": 588,
      "properties": []
     },
@@ -18262,7 +18173,7 @@
      "height": 41,
      "rotation": 0,
      "visible": true,
-     "x": 1821,
+     "x": 1933,
      "y": 616,
      "properties": []
     },
@@ -18275,7 +18186,7 @@
      "height": 41,
      "rotation": 0,
      "visible": true,
-     "x": 1877,
+     "x": 1989,
      "y": 616,
      "properties": []
     },
@@ -18288,7 +18199,7 @@
      "height": 44,
      "rotation": 0,
      "visible": true,
-     "x": 1927,
+     "x": 2039,
      "y": 588,
      "properties": []
     },
@@ -18301,7 +18212,7 @@
      "height": 41,
      "rotation": 0,
      "visible": true,
-     "x": 1933,
+     "x": 2045,
      "y": 616,
      "properties": []
     },
@@ -18314,7 +18225,7 @@
      "height": 41,
      "rotation": 0,
      "visible": true,
-     "x": 1989,
+     "x": 2101,
      "y": 616,
      "properties": []
     },
@@ -18327,51 +18238,12 @@
      "height": 44,
      "rotation": 0,
      "visible": true,
-     "x": 2039,
-     "y": 588,
-     "properties": []
-    },
-    {
-     "id": 302,
-     "gid": 91,
-     "name": "kursi_putar",
-     "type": "decor",
-     "width": 26,
-     "height": 41,
-     "rotation": 0,
-     "visible": true,
-     "x": 2045,
-     "y": 616,
-     "properties": []
-    },
-    {
-     "id": 303,
-     "gid": 91,
-     "name": "kursi_putar",
-     "type": "decor",
-     "width": 26,
-     "height": 41,
-     "rotation": 0,
-     "visible": true,
-     "x": 2101,
-     "y": 616,
-     "properties": []
-    },
-    {
-     "id": 304,
-     "gid": 90,
-     "name": "meja_komputer_nyala",
-     "type": "decor",
-     "width": 94,
-     "height": 44,
-     "rotation": 0,
-     "visible": true,
      "x": 1451,
      "y": 644,
      "properties": []
     },
     {
-     "id": 305,
+     "id": 302,
      "gid": 91,
      "name": "kursi_putar",
      "type": "decor",
@@ -18384,7 +18256,7 @@
      "properties": []
     },
     {
-     "id": 306,
+     "id": 303,
      "gid": 91,
      "name": "kursi_putar",
      "type": "decor",
@@ -18397,7 +18269,7 @@
      "properties": []
     },
     {
-     "id": 307,
+     "id": 304,
      "gid": 90,
      "name": "meja_komputer_nyala",
      "type": "decor",
@@ -18410,7 +18282,7 @@
      "properties": []
     },
     {
-     "id": 308,
+     "id": 305,
      "gid": 91,
      "name": "kursi_putar",
      "type": "decor",
@@ -18423,7 +18295,7 @@
      "properties": []
     },
     {
-     "id": 309,
+     "id": 306,
      "gid": 91,
      "name": "kursi_putar",
      "type": "decor",
@@ -18436,7 +18308,7 @@
      "properties": []
     },
     {
-     "id": 310,
+     "id": 307,
      "gid": 90,
      "name": "meja_komputer_nyala",
      "type": "decor",
@@ -18449,7 +18321,7 @@
      "properties": []
     },
     {
-     "id": 311,
+     "id": 308,
      "gid": 91,
      "name": "kursi_putar",
      "type": "decor",
@@ -18462,7 +18334,7 @@
      "properties": []
     },
     {
-     "id": 312,
+     "id": 309,
      "gid": 91,
      "name": "kursi_putar",
      "type": "decor",
@@ -18475,7 +18347,7 @@
      "properties": []
     },
     {
-     "id": 313,
+     "id": 310,
      "gid": 90,
      "name": "meja_komputer_nyala",
      "type": "decor",
@@ -18488,7 +18360,7 @@
      "properties": []
     },
     {
-     "id": 314,
+     "id": 311,
      "gid": 91,
      "name": "kursi_putar",
      "type": "decor",
@@ -18501,7 +18373,7 @@
      "properties": []
     },
     {
-     "id": 315,
+     "id": 312,
      "gid": 91,
      "name": "kursi_putar",
      "type": "decor",
@@ -18514,7 +18386,7 @@
      "properties": []
     },
     {
-     "id": 316,
+     "id": 313,
      "gid": 90,
      "name": "meja_komputer_nyala",
      "type": "decor",
@@ -18527,7 +18399,7 @@
      "properties": []
     },
     {
-     "id": 317,
+     "id": 314,
      "gid": 91,
      "name": "kursi_putar",
      "type": "decor",
@@ -18540,7 +18412,7 @@
      "properties": []
     },
     {
-     "id": 318,
+     "id": 315,
      "gid": 91,
      "name": "kursi_putar",
      "type": "decor",
@@ -18553,7 +18425,7 @@
      "properties": []
     },
     {
-     "id": 319,
+     "id": 316,
      "gid": 90,
      "name": "meja_komputer_nyala",
      "type": "decor",
@@ -18566,7 +18438,7 @@
      "properties": []
     },
     {
-     "id": 320,
+     "id": 317,
      "gid": 91,
      "name": "kursi_putar",
      "type": "decor",
@@ -18579,7 +18451,7 @@
      "properties": []
     },
     {
-     "id": 321,
+     "id": 318,
      "gid": 91,
      "name": "kursi_putar",
      "type": "decor",
@@ -18592,7 +18464,7 @@
      "properties": []
     },
     {
-     "id": 322,
+     "id": 319,
      "gid": 92,
      "name": "pintu_ganda_kaca",
      "type": "decor",
@@ -18605,7 +18477,7 @@
      "properties": []
     },
     {
-     "id": 323,
+     "id": 320,
      "gid": 93,
      "name": "pintu_ganda_kayu_a",
      "type": "decor",
@@ -18618,7 +18490,7 @@
      "properties": []
     },
     {
-     "id": 324,
+     "id": 321,
      "gid": 92,
      "name": "pintu_ganda_kaca",
      "type": "decor",
@@ -18631,7 +18503,7 @@
      "properties": []
     },
     {
-     "id": 325,
+     "id": 322,
      "gid": 94,
      "name": "kios_nyala",
      "type": "info",
@@ -18650,7 +18522,7 @@
      ]
     },
     {
-     "id": 328,
+     "id": 325,
      "gid": 51,
      "name": "sofa_panjang",
      "type": "decor",
@@ -18663,7 +18535,7 @@
      "properties": []
     },
     {
-     "id": 330,
+     "id": 327,
      "gid": 51,
      "name": "sofa_panjang",
      "type": "decor",
@@ -18676,7 +18548,7 @@
      "properties": []
     },
     {
-     "id": 332,
+     "id": 329,
      "gid": 51,
      "name": "sofa_panjang",
      "type": "decor",
@@ -18689,7 +18561,7 @@
      "properties": []
     },
     {
-     "id": 334,
+     "id": 331,
      "gid": 58,
      "name": "tanaman_besar",
      "type": "decor",
@@ -18702,7 +18574,7 @@
      "properties": []
     },
     {
-     "id": 336,
+     "id": 333,
      "gid": 58,
      "name": "tanaman_besar",
      "type": "decor",
@@ -18715,7 +18587,7 @@
      "properties": []
     },
     {
-     "id": 338,
+     "id": 335,
      "gid": 58,
      "name": "tanaman_besar",
      "type": "decor",
@@ -18728,7 +18600,7 @@
      "properties": []
     },
     {
-     "id": 340,
+     "id": 337,
      "gid": 58,
      "name": "tanaman_besar",
      "type": "decor",
@@ -18741,7 +18613,7 @@
      "properties": []
     },
     {
-     "id": 342,
+     "id": 339,
      "gid": 58,
      "name": "tanaman_besar",
      "type": "decor",
@@ -18754,7 +18626,7 @@
      "properties": []
     },
     {
-     "id": 344,
+     "id": 341,
      "gid": 57,
      "name": "tempat_sampah_a",
      "type": "decor",
@@ -18767,7 +18639,7 @@
      "properties": []
     },
     {
-     "id": 346,
+     "id": 343,
      "gid": 57,
      "name": "tempat_sampah_a",
      "type": "decor",
@@ -18780,7 +18652,7 @@
      "properties": []
     },
     {
-     "id": 348,
+     "id": 345,
      "gid": 57,
      "name": "tempat_sampah_a",
      "type": "decor",
@@ -18793,7 +18665,7 @@
      "properties": []
     },
     {
-     "id": 350,
+     "id": 347,
      "gid": 57,
      "name": "tempat_sampah_a",
      "type": "decor",
@@ -18806,7 +18678,7 @@
      "properties": []
     },
     {
-     "id": 352,
+     "id": 349,
      "gid": 56,
      "name": "dispenser_air",
      "type": "decor",
@@ -18819,7 +18691,7 @@
      "properties": []
     },
     {
-     "id": 354,
+     "id": 351,
      "gid": 69,
      "name": "bilik_belajar_tiga",
      "type": "decor",
@@ -18832,7 +18704,7 @@
      "properties": []
     },
     {
-     "id": 356,
+     "id": 353,
      "gid": 69,
      "name": "bilik_belajar_tiga",
      "type": "decor",
@@ -18845,7 +18717,7 @@
      "properties": []
     },
     {
-     "id": 358,
+     "id": 355,
      "gid": 69,
      "name": "bilik_belajar_tiga",
      "type": "decor",
@@ -18858,7 +18730,7 @@
      "properties": []
     },
     {
-     "id": 360,
+     "id": 357,
      "gid": 69,
      "name": "bilik_belajar_tiga",
      "type": "decor",
@@ -18871,7 +18743,7 @@
      "properties": []
     },
     {
-     "id": 362,
+     "id": 359,
      "gid": 95,
      "name": "meja_dua_monitor",
      "type": "decor",
@@ -18884,7 +18756,7 @@
      "properties": []
     },
     {
-     "id": 364,
+     "id": 361,
      "gid": 96,
      "name": "meja_dua_monitor",
      "type": "decor",
@@ -18897,7 +18769,7 @@
      "properties": []
     },
     {
-     "id": 366,
+     "id": 363,
      "gid": 73,
      "name": "tanaman_pakis",
      "type": "decor",
@@ -18910,7 +18782,7 @@
      "properties": []
     },
     {
-     "id": 368,
+     "id": 365,
      "gid": 73,
      "name": "tanaman_pakis",
      "type": "decor",
@@ -18923,7 +18795,7 @@
      "properties": []
     },
     {
-     "id": 370,
+     "id": 367,
      "gid": 66,
      "name": "meja_baca_panjang",
      "type": "decor",
@@ -18936,7 +18808,7 @@
      "properties": []
     },
     {
-     "id": 372,
+     "id": 369,
      "gid": 68,
      "name": "papan_tulis_beroda",
      "type": "decor",
@@ -18949,7 +18821,7 @@
      "properties": []
     },
     {
-     "id": 374,
+     "id": 371,
      "gid": 73,
      "name": "tanaman_pakis",
      "type": "decor",
@@ -18962,7 +18834,7 @@
      "properties": []
     },
     {
-     "id": 376,
+     "id": 373,
      "gid": 73,
      "name": "tanaman_pakis",
      "type": "decor",
@@ -18975,7 +18847,7 @@
      "properties": []
     },
     {
-     "id": 378,
+     "id": 375,
      "gid": 59,
      "name": "jendela_kayu",
      "type": "decor",
@@ -18988,7 +18860,7 @@
      "properties": []
     },
     {
-     "id": 379,
+     "id": 376,
      "gid": 59,
      "name": "jendela_kayu",
      "type": "decor",
@@ -19001,7 +18873,7 @@
      "properties": []
     },
     {
-     "id": 380,
+     "id": 377,
      "gid": 49,
      "name": "sofa_sudut",
      "type": "decor",
@@ -19014,7 +18886,7 @@
      "properties": []
     },
     {
-     "id": 382,
+     "id": 379,
      "gid": 97,
      "name": "sofa_sudut",
      "type": "decor",
@@ -19027,7 +18899,7 @@
      "properties": []
     },
     {
-     "id": 384,
+     "id": 381,
      "gid": 45,
      "name": "meja_bulat",
      "type": "decor",
@@ -19040,7 +18912,7 @@
      "properties": []
     },
     {
-     "id": 386,
+     "id": 383,
      "gid": 45,
      "name": "meja_bulat",
      "type": "decor",
@@ -19053,7 +18925,7 @@
      "properties": []
     },
     {
-     "id": 388,
+     "id": 385,
      "gid": 48,
      "name": "bean_navy",
      "type": "decor",
@@ -19066,7 +18938,7 @@
      "properties": []
     },
     {
-     "id": 390,
+     "id": 387,
      "gid": 47,
      "name": "bean_oranye",
      "type": "decor",
@@ -19079,7 +18951,7 @@
      "properties": []
     },
     {
-     "id": 392,
+     "id": 389,
      "gid": 50,
      "name": "bean_abu",
      "type": "decor",
@@ -19092,7 +18964,7 @@
      "properties": []
     },
     {
-     "id": 394,
+     "id": 391,
      "gid": 56,
      "name": "dispenser_air",
      "type": "decor",
@@ -19105,7 +18977,7 @@
      "properties": []
     },
     {
-     "id": 396,
+     "id": 393,
      "gid": 58,
      "name": "tanaman_besar",
      "type": "decor",
@@ -19118,7 +18990,7 @@
      "properties": []
     },
     {
-     "id": 398,
+     "id": 395,
      "gid": 58,
      "name": "tanaman_besar",
      "type": "decor",
@@ -19131,7 +19003,7 @@
      "properties": []
     },
     {
-     "id": 400,
+     "id": 397,
      "gid": 66,
      "name": "meja_baca_panjang",
      "type": "decor",
@@ -19144,7 +19016,7 @@
      "properties": []
     },
     {
-     "id": 402,
+     "id": 399,
      "gid": 68,
      "name": "papan_tulis_beroda",
      "type": "decor",
@@ -19157,7 +19029,7 @@
      "properties": []
     },
     {
-     "id": 404,
+     "id": 401,
      "gid": 71,
      "name": "sofa_tunggal_biru_1",
      "type": "decor",
@@ -19170,7 +19042,7 @@
      "properties": []
     },
     {
-     "id": 406,
+     "id": 403,
      "gid": 73,
      "name": "tanaman_pakis",
      "type": "decor",
@@ -19183,7 +19055,7 @@
      "properties": []
     },
     {
-     "id": 408,
+     "id": 405,
      "gid": 98,
      "name": "air_mancur",
      "type": "decor",
@@ -19196,7 +19068,7 @@
      "properties": []
     },
     {
-     "id": 410,
+     "id": 407,
      "gid": 99,
      "name": "bangku_a",
      "type": "decor",
@@ -19209,7 +19081,7 @@
      "properties": []
     },
     {
-     "id": 412,
+     "id": 409,
      "gid": 99,
      "name": "bangku_a",
      "type": "decor",
@@ -19222,7 +19094,7 @@
      "properties": []
     },
     {
-     "id": 414,
+     "id": 411,
      "gid": 100,
      "name": "lampu_taman",
      "type": "decor",
@@ -19235,7 +19107,7 @@
      "properties": []
     },
     {
-     "id": 416,
+     "id": 413,
      "gid": 100,
      "name": "lampu_taman",
      "type": "decor",
@@ -19248,7 +19120,7 @@
      "properties": []
     },
     {
-     "id": 418,
+     "id": 415,
      "gid": 100,
      "name": "lampu_taman",
      "type": "decor",
@@ -19261,7 +19133,7 @@
      "properties": []
     },
     {
-     "id": 420,
+     "id": 417,
      "gid": 100,
      "name": "lampu_taman",
      "type": "decor",
@@ -19274,7 +19146,7 @@
      "properties": []
     },
     {
-     "id": 422,
+     "id": 419,
      "gid": 101,
      "name": "petak_bunga_panjang",
      "type": "decor",
@@ -19287,7 +19159,7 @@
      "properties": []
     },
     {
-     "id": 423,
+     "id": 420,
      "gid": 101,
      "name": "petak_bunga_panjang",
      "type": "decor",
@@ -19300,7 +19172,7 @@
      "properties": []
     },
     {
-     "id": 424,
+     "id": 421,
      "gid": 102,
      "name": "pot_batu_bunga",
      "type": "decor",
@@ -19313,7 +19185,7 @@
      "properties": []
     },
     {
-     "id": 426,
+     "id": 423,
      "gid": 102,
      "name": "pot_batu_bunga",
      "type": "decor",
@@ -19326,7 +19198,7 @@
      "properties": []
     },
     {
-     "id": 428,
+     "id": 425,
      "gid": 101,
      "name": "petak_bunga_panjang",
      "type": "decor",
@@ -19339,7 +19211,7 @@
      "properties": []
     },
     {
-     "id": 429,
+     "id": 426,
      "gid": 101,
      "name": "petak_bunga_panjang",
      "type": "decor",
@@ -19352,7 +19224,7 @@
      "properties": []
     },
     {
-     "id": 430,
+     "id": 427,
      "gid": 103,
      "name": "bangku_b",
      "type": "decor",
@@ -19365,7 +19237,7 @@
      "properties": []
     },
     {
-     "id": 432,
+     "id": 429,
      "gid": 103,
      "name": "bangku_b",
      "type": "decor",
@@ -19378,7 +19250,7 @@
      "properties": []
     },
     {
-     "id": 434,
+     "id": 431,
      "gid": 100,
      "name": "lampu_taman",
      "type": "decor",
@@ -19391,7 +19263,7 @@
      "properties": []
     },
     {
-     "id": 436,
+     "id": 433,
      "gid": 100,
      "name": "lampu_taman",
      "type": "decor",
@@ -19404,7 +19276,7 @@
      "properties": []
     },
     {
-     "id": 438,
+     "id": 435,
      "gid": 100,
      "name": "lampu_taman",
      "type": "decor",
@@ -19417,7 +19289,7 @@
      "properties": []
     },
     {
-     "id": 440,
+     "id": 437,
      "gid": 104,
      "name": "rak_sepeda",
      "type": "decor",
@@ -19430,7 +19302,7 @@
      "properties": []
     },
     {
-     "id": 442,
+     "id": 439,
      "gid": 104,
      "name": "rak_sepeda",
      "type": "decor",
@@ -19443,7 +19315,7 @@
      "properties": []
     },
     {
-     "id": 444,
+     "id": 441,
      "gid": 105,
      "name": "sepeda_merah",
      "type": "decor",
@@ -19456,7 +19328,7 @@
      "properties": []
     },
     {
-     "id": 445,
+     "id": 442,
      "gid": 106,
      "name": "sepeda_biru",
      "type": "decor",
@@ -19469,7 +19341,7 @@
      "properties": []
     },
     {
-     "id": 446,
+     "id": 443,
      "gid": 99,
      "name": "bangku_a",
      "type": "decor",
@@ -19482,7 +19354,7 @@
      "properties": []
     },
     {
-     "id": 448,
+     "id": 445,
      "gid": 102,
      "name": "pot_batu_bunga",
      "type": "decor",
@@ -19495,7 +19367,7 @@
      "properties": []
     },
     {
-     "id": 450,
+     "id": 447,
      "gid": 102,
      "name": "pot_batu_bunga",
      "type": "decor",
@@ -19508,7 +19380,7 @@
      "properties": []
     },
     {
-     "id": 452,
+     "id": 449,
      "gid": 107,
      "name": "semak_kecil",
      "type": "decor",
@@ -19521,7 +19393,7 @@
      "properties": []
     },
     {
-     "id": 454,
+     "id": 451,
      "gid": 107,
      "name": "semak_kecil",
      "type": "decor",
@@ -19534,7 +19406,7 @@
      "properties": []
     },
     {
-     "id": 456,
+     "id": 453,
      "gid": 107,
      "name": "semak_kecil",
      "type": "decor",
@@ -19547,7 +19419,7 @@
      "properties": []
     },
     {
-     "id": 458,
+     "id": 455,
      "gid": 107,
      "name": "semak_kecil",
      "type": "decor",
@@ -19560,7 +19432,7 @@
      "properties": []
     },
     {
-     "id": 460,
+     "id": 457,
      "gid": 107,
      "name": "semak_kecil",
      "type": "decor",
@@ -19573,7 +19445,7 @@
      "properties": []
     },
     {
-     "id": 462,
+     "id": 459,
      "gid": 107,
      "name": "semak_kecil",
      "type": "decor",
@@ -19586,7 +19458,7 @@
      "properties": []
     },
     {
-     "id": 464,
+     "id": 461,
      "gid": 107,
      "name": "semak_kecil",
      "type": "decor",
@@ -19599,7 +19471,7 @@
      "properties": []
     },
     {
-     "id": 466,
+     "id": 463,
      "gid": 107,
      "name": "semak_kecil",
      "type": "decor",
@@ -19612,7 +19484,7 @@
      "properties": []
     },
     {
-     "id": 468,
+     "id": 465,
      "gid": 107,
      "name": "semak_kecil",
      "type": "decor",
@@ -19625,7 +19497,7 @@
      "properties": []
     },
     {
-     "id": 470,
+     "id": 467,
      "gid": 108,
      "name": "semak_bulat",
      "type": "decor",
@@ -19638,7 +19510,7 @@
      "properties": []
     },
     {
-     "id": 472,
+     "id": 469,
      "gid": 108,
      "name": "semak_bulat",
      "type": "decor",
@@ -19651,7 +19523,7 @@
      "properties": []
     },
     {
-     "id": 474,
+     "id": 471,
      "gid": 108,
      "name": "semak_bulat",
      "type": "decor",
@@ -19664,7 +19536,7 @@
      "properties": []
     },
     {
-     "id": 476,
+     "id": 473,
      "gid": 108,
      "name": "semak_bulat",
      "type": "decor",
@@ -19677,7 +19549,7 @@
      "properties": []
     },
     {
-     "id": 478,
+     "id": 475,
      "gid": 108,
      "name": "semak_bulat",
      "type": "decor",
@@ -19690,7 +19562,7 @@
      "properties": []
     },
     {
-     "id": 480,
+     "id": 477,
      "gid": 108,
      "name": "semak_bulat",
      "type": "decor",
@@ -19703,7 +19575,7 @@
      "properties": []
     },
     {
-     "id": 482,
+     "id": 479,
      "gid": 108,
      "name": "semak_bulat",
      "type": "decor",
@@ -19716,7 +19588,7 @@
      "properties": []
     },
     {
-     "id": 484,
+     "id": 481,
      "gid": 108,
      "name": "semak_bulat",
      "type": "decor",
@@ -19729,7 +19601,7 @@
      "properties": []
     },
     {
-     "id": 486,
+     "id": 483,
      "gid": 108,
      "name": "semak_bulat",
      "type": "decor",
@@ -19742,7 +19614,7 @@
      "properties": []
     },
     {
-     "id": 488,
+     "id": 485,
      "gid": 108,
      "name": "semak_bulat",
      "type": "decor",
@@ -19755,7 +19627,7 @@
      "properties": []
     },
     {
-     "id": 490,
+     "id": 487,
      "gid": 109,
      "name": "bunga_merah",
      "type": "decor",
@@ -19768,7 +19640,7 @@
      "properties": []
     },
     {
-     "id": 491,
+     "id": 488,
      "gid": 110,
      "name": "bunga_kuning",
      "type": "decor",
@@ -19781,7 +19653,7 @@
      "properties": []
     },
     {
-     "id": 492,
+     "id": 489,
      "gid": 110,
      "name": "bunga_kuning",
      "type": "decor",
@@ -19794,7 +19666,7 @@
      "properties": []
     },
     {
-     "id": 493,
+     "id": 490,
      "gid": 109,
      "name": "bunga_merah",
      "type": "decor",
@@ -19807,7 +19679,7 @@
      "properties": []
     },
     {
-     "id": 494,
+     "id": 491,
      "gid": 109,
      "name": "bunga_merah",
      "type": "decor",
@@ -19820,7 +19692,7 @@
      "properties": []
     },
     {
-     "id": 495,
+     "id": 492,
      "gid": 110,
      "name": "bunga_kuning",
      "type": "decor",
@@ -19833,7 +19705,7 @@
      "properties": []
     },
     {
-     "id": 496,
+     "id": 493,
      "gid": 109,
      "name": "bunga_merah",
      "type": "decor",
@@ -19846,7 +19718,7 @@
      "properties": []
     },
     {
-     "id": 497,
+     "id": 494,
      "gid": 110,
      "name": "bunga_kuning",
      "type": "decor",
@@ -19859,7 +19731,7 @@
      "properties": []
     },
     {
-     "id": 498,
+     "id": 495,
      "gid": 109,
      "name": "bunga_merah",
      "type": "decor",
@@ -19872,7 +19744,7 @@
      "properties": []
     },
     {
-     "id": 499,
+     "id": 496,
      "gid": 110,
      "name": "bunga_kuning",
      "type": "decor",
@@ -19885,7 +19757,7 @@
      "properties": []
     },
     {
-     "id": 500,
+     "id": 497,
      "gid": 109,
      "name": "bunga_merah",
      "type": "decor",
@@ -19898,7 +19770,7 @@
      "properties": []
     },
     {
-     "id": 501,
+     "id": 498,
      "gid": 110,
      "name": "bunga_kuning",
      "type": "decor",
@@ -19911,7 +19783,7 @@
      "properties": []
     },
     {
-     "id": 502,
+     "id": 499,
      "gid": 110,
      "name": "bunga_kuning",
      "type": "decor",
@@ -19924,7 +19796,7 @@
      "properties": []
     },
     {
-     "id": 503,
+     "id": 500,
      "gid": 111,
      "name": "pohon_besar",
      "type": "decor",
@@ -19937,7 +19809,7 @@
      "properties": []
     },
     {
-     "id": 505,
+     "id": 502,
      "gid": 112,
      "name": "pohon_rimbun",
      "type": "decor",
@@ -19950,7 +19822,7 @@
      "properties": []
     },
     {
-     "id": 507,
+     "id": 504,
      "gid": 111,
      "name": "pohon_besar",
      "type": "decor",
@@ -19963,7 +19835,7 @@
      "properties": []
     },
     {
-     "id": 509,
+     "id": 506,
      "gid": 112,
      "name": "pohon_rimbun",
      "type": "decor",
@@ -19976,7 +19848,7 @@
      "properties": []
     },
     {
-     "id": 511,
+     "id": 508,
      "gid": 112,
      "name": "pohon_rimbun",
      "type": "decor",
@@ -19989,7 +19861,7 @@
      "properties": []
     },
     {
-     "id": 513,
+     "id": 510,
      "gid": 111,
      "name": "pohon_besar",
      "type": "decor",
@@ -20002,7 +19874,7 @@
      "properties": []
     },
     {
-     "id": 515,
+     "id": 512,
      "gid": 111,
      "name": "pohon_besar",
      "type": "decor",
@@ -20015,7 +19887,7 @@
      "properties": []
     },
     {
-     "id": 517,
+     "id": 514,
      "gid": 112,
      "name": "pohon_rimbun",
      "type": "decor",
@@ -20028,7 +19900,7 @@
      "properties": []
     },
     {
-     "id": 519,
+     "id": 516,
      "gid": 111,
      "name": "pohon_besar",
      "type": "decor",
@@ -20041,7 +19913,7 @@
      "properties": []
     },
     {
-     "id": 521,
+     "id": 518,
      "gid": 112,
      "name": "pohon_rimbun",
      "type": "decor",
@@ -20054,7 +19926,7 @@
      "properties": []
     },
     {
-     "id": 523,
+     "id": 520,
      "gid": 111,
      "name": "pohon_besar",
      "type": "decor",
@@ -20067,7 +19939,7 @@
      "properties": []
     },
     {
-     "id": 525,
+     "id": 522,
      "gid": 112,
      "name": "pohon_rimbun",
      "type": "decor",
@@ -20080,7 +19952,7 @@
      "properties": []
     },
     {
-     "id": 527,
+     "id": 524,
      "gid": 111,
      "name": "pohon_besar",
      "type": "decor",
@@ -20093,7 +19965,7 @@
      "properties": []
     },
     {
-     "id": 529,
+     "id": 526,
      "gid": 112,
      "name": "pohon_rimbun",
      "type": "decor",
@@ -20106,7 +19978,7 @@
      "properties": []
     },
     {
-     "id": 531,
+     "id": 528,
      "gid": 111,
      "name": "pohon_besar",
      "type": "decor",
@@ -20119,7 +19991,7 @@
      "properties": []
     },
     {
-     "id": 533,
+     "id": 530,
      "gid": 112,
      "name": "pohon_rimbun",
      "type": "decor",
@@ -20132,7 +20004,7 @@
      "properties": []
     },
     {
-     "id": 535,
+     "id": 532,
      "gid": 111,
      "name": "pohon_besar",
      "type": "decor",
@@ -20145,7 +20017,7 @@
      "properties": []
     },
     {
-     "id": 537,
+     "id": 534,
      "gid": 112,
      "name": "pohon_rimbun",
      "type": "decor",
@@ -20158,7 +20030,7 @@
      "properties": []
     },
     {
-     "id": 539,
+     "id": 536,
      "gid": 111,
      "name": "pohon_besar",
      "type": "decor",
@@ -20171,7 +20043,7 @@
      "properties": []
     },
     {
-     "id": 541,
+     "id": 538,
      "gid": 112,
      "name": "pohon_rimbun",
      "type": "decor",
@@ -20184,7 +20056,7 @@
      "properties": []
     },
     {
-     "id": 543,
+     "id": 540,
      "gid": 111,
      "name": "pohon_besar",
      "type": "decor",
@@ -20197,7 +20069,7 @@
      "properties": []
     },
     {
-     "id": 545,
+     "id": 542,
      "gid": 112,
      "name": "pohon_rimbun",
      "type": "decor",
@@ -20210,7 +20082,7 @@
      "properties": []
     },
     {
-     "id": 547,
+     "id": 544,
      "gid": 111,
      "name": "pohon_besar",
      "type": "decor",
@@ -20223,7 +20095,7 @@
      "properties": []
     },
     {
-     "id": 549,
+     "id": 546,
      "gid": 112,
      "name": "pohon_rimbun",
      "type": "decor",
@@ -20236,7 +20108,7 @@
      "properties": []
     },
     {
-     "id": 551,
+     "id": 548,
      "gid": 111,
      "name": "pohon_besar",
      "type": "decor",
@@ -20249,7 +20121,7 @@
      "properties": []
     },
     {
-     "id": 553,
+     "id": 550,
      "gid": 112,
      "name": "pohon_rimbun",
      "type": "decor",
@@ -20262,7 +20134,7 @@
      "properties": []
     },
     {
-     "id": 555,
+     "id": 552,
      "gid": 111,
      "name": "pohon_besar",
      "type": "decor",
@@ -20275,7 +20147,7 @@
      "properties": []
     },
     {
-     "id": 557,
+     "id": 554,
      "gid": 112,
      "name": "pohon_rimbun",
      "type": "decor",
@@ -20288,7 +20160,7 @@
      "properties": []
     },
     {
-     "id": 559,
+     "id": 556,
      "gid": 111,
      "name": "pohon_besar",
      "type": "decor",
@@ -20301,7 +20173,7 @@
      "properties": []
     },
     {
-     "id": 561,
+     "id": 558,
      "gid": 112,
      "name": "pohon_rimbun",
      "type": "decor",
@@ -20314,7 +20186,7 @@
      "properties": []
     },
     {
-     "id": 563,
+     "id": 560,
      "gid": 111,
      "name": "pohon_besar",
      "type": "decor",
@@ -20327,7 +20199,7 @@
      "properties": []
     },
     {
-     "id": 565,
+     "id": 562,
      "gid": 112,
      "name": "pohon_rimbun",
      "type": "decor",
@@ -20748,7 +20620,7 @@
      "visible": true
     },
     {
-     "id": 86,
+     "id": 85,
      "name": "rak_biru_2",
      "type": "collision",
      "x": 1344,
@@ -20759,7 +20631,7 @@
      "visible": true
     },
     {
-     "id": 89,
+     "id": 87,
      "name": "rak_oranye",
      "type": "collision",
      "x": 1456,
@@ -20770,7 +20642,7 @@
      "visible": true
     },
     {
-     "id": 92,
+     "id": 89,
      "name": "rak_oranye",
      "type": "collision",
      "x": 1736,
@@ -20781,7 +20653,7 @@
      "visible": true
     },
     {
-     "id": 95,
+     "id": 91,
      "name": "rak_hijau",
      "type": "collision",
      "x": 1848,
@@ -20792,7 +20664,7 @@
      "visible": true
     },
     {
-     "id": 98,
+     "id": 93,
      "name": "rak_hijau_2",
      "type": "collision",
      "x": 1960,
@@ -20803,7 +20675,7 @@
      "visible": true
     },
     {
-     "id": 101,
+     "id": 95,
      "name": "kios_nyala_a",
      "type": "collision",
      "x": 2072,
@@ -20814,7 +20686,7 @@
      "visible": true
     },
     {
-     "id": 104,
+     "id": 97,
      "name": "kios_nyala_a",
      "type": "collision",
      "x": 2072,
@@ -20825,7 +20697,7 @@
      "visible": true
     },
     {
-     "id": 107,
+     "id": 99,
      "name": "kios_nyala_a",
      "type": "collision",
      "x": 2072,
@@ -20836,7 +20708,7 @@
      "visible": true
     },
     {
-     "id": 110,
+     "id": 101,
      "name": "kios_nyala_a",
      "type": "collision",
      "x": 2072,
@@ -20847,10 +20719,43 @@
      "visible": true
     },
     {
-     "id": 113,
+     "id": 103,
      "name": "meja_baca_panjang",
      "type": "collision",
      "x": 1400,
+     "y": 1148,
+     "width": 168,
+     "height": 56,
+     "rotation": 0,
+     "visible": true
+    },
+    {
+     "id": 106,
+     "name": "meja_baca_panjang",
+     "type": "collision",
+     "x": 1400,
+     "y": 1288,
+     "width": 168,
+     "height": 56,
+     "rotation": 0,
+     "visible": true
+    },
+    {
+     "id": 109,
+     "name": "meja_baca_panjang",
+     "type": "collision",
+     "x": 1400,
+     "y": 1428,
+     "width": 168,
+     "height": 56,
+     "rotation": 0,
+     "visible": true
+    },
+    {
+     "id": 112,
+     "name": "meja_baca_panjang",
+     "type": "collision",
+     "x": 1736,
      "y": 1148,
      "width": 168,
      "height": 56,
@@ -20861,7 +20766,7 @@
      "id": 115,
      "name": "meja_baca_panjang",
      "type": "collision",
-     "x": 1400,
+     "x": 1736,
      "y": 1288,
      "width": 168,
      "height": 56,
@@ -20869,22 +20774,11 @@
      "visible": true
     },
     {
-     "id": 117,
-     "name": "meja_baca_panjang",
-     "type": "collision",
-     "x": 1400,
-     "y": 1428,
-     "width": 168,
-     "height": 56,
-     "rotation": 0,
-     "visible": true
-    },
-    {
-     "id": 119,
+     "id": 118,
      "name": "meja_baca_panjang",
      "type": "collision",
      "x": 1736,
-     "y": 1148,
+     "y": 1428,
      "width": 168,
      "height": 56,
      "rotation": 0,
@@ -20892,28 +20786,6 @@
     },
     {
      "id": 121,
-     "name": "meja_baca_panjang",
-     "type": "collision",
-     "x": 1736,
-     "y": 1288,
-     "width": 168,
-     "height": 56,
-     "rotation": 0,
-     "visible": true
-    },
-    {
-     "id": 123,
-     "name": "meja_baca_panjang",
-     "type": "collision",
-     "x": 1736,
-     "y": 1428,
-     "width": 168,
-     "height": 56,
-     "rotation": 0,
-     "visible": true
-    },
-    {
-     "id": 125,
      "name": "meja_pustakawan",
      "type": "collision",
      "x": 1232,
@@ -20924,7 +20796,7 @@
      "visible": true
     },
     {
-     "id": 128,
+     "id": 124,
      "name": "papan_tulis_beroda",
      "type": "collision",
      "x": 1232,
@@ -20935,7 +20807,7 @@
      "visible": true
     },
     {
-     "id": 130,
+     "id": 126,
      "name": "bilik_belajar_tiga",
      "type": "collision",
      "x": 1428,
@@ -20946,7 +20818,7 @@
      "visible": true
     },
     {
-     "id": 132,
+     "id": 129,
      "name": "troli_buku",
      "type": "collision",
      "x": 1624,
@@ -20957,7 +20829,7 @@
      "visible": true
     },
     {
-     "id": 134,
+     "id": 131,
      "name": "sofa_tunggal_biru_1",
      "type": "collision",
      "x": 1764,
@@ -20968,7 +20840,7 @@
      "visible": true
     },
     {
-     "id": 136,
+     "id": 133,
      "name": "meja_bulat",
      "type": "collision",
      "x": 1848,
@@ -20979,7 +20851,7 @@
      "visible": true
     },
     {
-     "id": 138,
+     "id": 135,
      "name": "sofa_tunggal_biru_2",
      "type": "collision",
      "x": 1932,
@@ -20990,7 +20862,7 @@
      "visible": true
     },
     {
-     "id": 140,
+     "id": 137,
      "name": "tanaman_pakis",
      "type": "collision",
      "x": 2072,
@@ -21001,7 +20873,7 @@
      "visible": true
     },
     {
-     "id": 142,
+     "id": 139,
      "name": "tanaman_pakis",
      "type": "collision",
      "x": 1204,
@@ -21012,7 +20884,7 @@
      "visible": true
     },
     {
-     "id": 144,
+     "id": 141,
      "name": "tanaman_pakis",
      "type": "collision",
      "x": 2072,
@@ -21023,7 +20895,7 @@
      "visible": true
     },
     {
-     "id": 326,
+     "id": 323,
      "name": "kios_nyala",
      "type": "collision",
      "x": 1400,
@@ -21034,7 +20906,7 @@
      "visible": true
     },
     {
-     "id": 329,
+     "id": 326,
      "name": "sofa_panjang",
      "type": "collision",
      "x": 644,
@@ -21045,7 +20917,7 @@
      "visible": true
     },
     {
-     "id": 331,
+     "id": 328,
      "name": "sofa_panjang",
      "type": "collision",
      "x": 1204,
@@ -21056,7 +20928,7 @@
      "visible": true
     },
     {
-     "id": 333,
+     "id": 330,
      "name": "sofa_panjang",
      "type": "collision",
      "x": 1904,
@@ -21067,7 +20939,7 @@
      "visible": true
     },
     {
-     "id": 335,
+     "id": 332,
      "name": "tanaman_besar",
      "type": "collision",
      "x": 252,
@@ -21078,7 +20950,7 @@
      "visible": true
     },
     {
-     "id": 337,
+     "id": 334,
      "name": "tanaman_besar",
      "type": "collision",
      "x": 784,
@@ -21089,7 +20961,7 @@
      "visible": true
     },
     {
-     "id": 339,
+     "id": 336,
      "name": "tanaman_besar",
      "type": "collision",
      "x": 1540,
@@ -21100,7 +20972,7 @@
      "visible": true
     },
     {
-     "id": 341,
+     "id": 338,
      "name": "tanaman_besar",
      "type": "collision",
      "x": 2100,
@@ -21111,7 +20983,7 @@
      "visible": true
     },
     {
-     "id": 343,
+     "id": 340,
      "name": "tanaman_besar",
      "type": "collision",
      "x": 2576,
@@ -21122,7 +20994,7 @@
      "visible": true
     },
     {
-     "id": 345,
+     "id": 342,
      "name": "tempat_sampah_a",
      "type": "collision",
      "x": 392,
@@ -21133,7 +21005,7 @@
      "visible": true
     },
     {
-     "id": 347,
+     "id": 344,
      "name": "tempat_sampah_a",
      "type": "collision",
      "x": 980,
@@ -21144,7 +21016,7 @@
      "visible": true
     },
     {
-     "id": 349,
+     "id": 346,
      "name": "tempat_sampah_a",
      "type": "collision",
      "x": 1680,
@@ -21155,7 +21027,7 @@
      "visible": true
     },
     {
-     "id": 351,
+     "id": 348,
      "name": "tempat_sampah_a",
      "type": "collision",
      "x": 2240,
@@ -21166,7 +21038,7 @@
      "visible": true
     },
     {
-     "id": 353,
+     "id": 350,
      "name": "dispenser_air",
      "type": "collision",
      "x": 2492,
@@ -21177,7 +21049,7 @@
      "visible": true
     },
     {
-     "id": 355,
+     "id": 352,
      "name": "bilik_belajar_tiga",
      "type": "collision",
      "x": 2212,
@@ -21188,7 +21060,7 @@
      "visible": true
     },
     {
-     "id": 357,
+     "id": 354,
      "name": "bilik_belajar_tiga",
      "type": "collision",
      "x": 2212,
@@ -21199,7 +21071,7 @@
      "visible": true
     },
     {
-     "id": 359,
+     "id": 356,
      "name": "bilik_belajar_tiga",
      "type": "collision",
      "x": 2520,
@@ -21210,7 +21082,7 @@
      "visible": true
     },
     {
-     "id": 361,
+     "id": 358,
      "name": "bilik_belajar_tiga",
      "type": "collision",
      "x": 2520,
@@ -21221,7 +21093,7 @@
      "visible": true
     },
     {
-     "id": 363,
+     "id": 360,
      "name": "meja_dua_monitor",
      "type": "collision",
      "x": 2212,
@@ -21232,7 +21104,7 @@
      "visible": true
     },
     {
-     "id": 365,
+     "id": 362,
      "name": "meja_dua_monitor",
      "type": "collision",
      "x": 2576,
@@ -21243,7 +21115,7 @@
      "visible": true
     },
     {
-     "id": 367,
+     "id": 364,
      "name": "tanaman_pakis",
      "type": "collision",
      "x": 2184,
@@ -21254,7 +21126,7 @@
      "visible": true
     },
     {
-     "id": 369,
+     "id": 366,
      "name": "tanaman_pakis",
      "type": "collision",
      "x": 2660,
@@ -21265,7 +21137,7 @@
      "visible": true
     },
     {
-     "id": 371,
+     "id": 368,
      "name": "meja_baca_panjang",
      "type": "collision",
      "x": 252,
@@ -21276,7 +21148,7 @@
      "visible": true
     },
     {
-     "id": 373,
+     "id": 370,
      "name": "papan_tulis_beroda",
      "type": "collision",
      "x": 476,
@@ -21287,7 +21159,7 @@
      "visible": true
     },
     {
-     "id": 375,
+     "id": 372,
      "name": "tanaman_pakis",
      "type": "collision",
      "x": 224,
@@ -21298,7 +21170,7 @@
      "visible": true
     },
     {
-     "id": 377,
+     "id": 374,
      "name": "tanaman_pakis",
      "type": "collision",
      "x": 532,
@@ -21309,7 +21181,7 @@
      "visible": true
     },
     {
-     "id": 381,
+     "id": 378,
      "name": "sofa_sudut",
      "type": "collision",
      "x": 2240,
@@ -21320,7 +21192,7 @@
      "visible": true
     },
     {
-     "id": 383,
+     "id": 380,
      "name": "sofa_sudut",
      "type": "collision",
      "x": 2604,
@@ -21331,7 +21203,7 @@
      "visible": true
     },
     {
-     "id": 385,
+     "id": 382,
      "name": "meja_bulat",
      "type": "collision",
      "x": 2380,
@@ -21342,7 +21214,7 @@
      "visible": true
     },
     {
-     "id": 387,
+     "id": 384,
      "name": "meja_bulat",
      "type": "collision",
      "x": 2548,
@@ -21353,7 +21225,7 @@
      "visible": true
     },
     {
-     "id": 389,
+     "id": 386,
      "name": "bean_navy",
      "type": "collision",
      "x": 2296,
@@ -21364,7 +21236,7 @@
      "visible": true
     },
     {
-     "id": 391,
+     "id": 388,
      "name": "bean_oranye",
      "type": "collision",
      "x": 2464,
@@ -21375,7 +21247,7 @@
      "visible": true
     },
     {
-     "id": 393,
+     "id": 390,
      "name": "bean_abu",
      "type": "collision",
      "x": 2660,
@@ -21386,7 +21258,7 @@
      "visible": true
     },
     {
-     "id": 395,
+     "id": 392,
      "name": "dispenser_air",
      "type": "collision",
      "x": 2744,
@@ -21397,7 +21269,7 @@
      "visible": true
     },
     {
-     "id": 397,
+     "id": 394,
      "name": "tanaman_besar",
      "type": "collision",
      "x": 2184,
@@ -21408,7 +21280,7 @@
      "visible": true
     },
     {
-     "id": 399,
+     "id": 396,
      "name": "tanaman_besar",
      "type": "collision",
      "x": 2744,
@@ -21419,7 +21291,7 @@
      "visible": true
     },
     {
-     "id": 401,
+     "id": 398,
      "name": "meja_baca_panjang",
      "type": "collision",
      "x": 2240,
@@ -21430,7 +21302,7 @@
      "visible": true
     },
     {
-     "id": 403,
+     "id": 400,
      "name": "papan_tulis_beroda",
      "type": "collision",
      "x": 2492,
@@ -21441,7 +21313,7 @@
      "visible": true
     },
     {
-     "id": 405,
+     "id": 402,
      "name": "sofa_tunggal_biru_1",
      "type": "collision",
      "x": 2492,
@@ -21452,7 +21324,7 @@
      "visible": true
     },
     {
-     "id": 407,
+     "id": 404,
      "name": "tanaman_pakis",
      "type": "collision",
      "x": 2576,
@@ -21463,7 +21335,7 @@
      "visible": true
     },
     {
-     "id": 409,
+     "id": 406,
      "name": "air_mancur",
      "type": "collision",
      "x": 896,
@@ -21474,7 +21346,7 @@
      "visible": true
     },
     {
-     "id": 411,
+     "id": 408,
      "name": "bangku_a",
      "type": "collision",
      "x": 672,
@@ -21485,7 +21357,7 @@
      "visible": true
     },
     {
-     "id": 413,
+     "id": 410,
      "name": "bangku_a",
      "type": "collision",
      "x": 1064,
@@ -21496,7 +21368,7 @@
      "visible": true
     },
     {
-     "id": 415,
+     "id": 412,
      "name": "lampu_taman",
      "type": "collision",
      "x": 644,
@@ -21507,7 +21379,7 @@
      "visible": true
     },
     {
-     "id": 417,
+     "id": 414,
      "name": "lampu_taman",
      "type": "collision",
      "x": 784,
@@ -21518,7 +21390,7 @@
      "visible": true
     },
     {
-     "id": 419,
+     "id": 416,
      "name": "lampu_taman",
      "type": "collision",
      "x": 672,
@@ -21529,7 +21401,7 @@
      "visible": true
     },
     {
-     "id": 421,
+     "id": 418,
      "name": "lampu_taman",
      "type": "collision",
      "x": 1120,
@@ -21540,7 +21412,7 @@
      "visible": true
     },
     {
-     "id": 425,
+     "id": 422,
      "name": "pot_batu_bunga",
      "type": "collision",
      "x": 644,
@@ -21551,7 +21423,7 @@
      "visible": true
     },
     {
-     "id": 427,
+     "id": 424,
      "name": "pot_batu_bunga",
      "type": "collision",
      "x": 784,
@@ -21562,7 +21434,7 @@
      "visible": true
     },
     {
-     "id": 431,
+     "id": 428,
      "name": "bangku_b",
      "type": "collision",
      "x": 1512,
@@ -21573,7 +21445,7 @@
      "visible": true
     },
     {
-     "id": 433,
+     "id": 430,
      "name": "bangku_b",
      "type": "collision",
      "x": 2016,
@@ -21584,7 +21456,7 @@
      "visible": true
     },
     {
-     "id": 435,
+     "id": 432,
      "name": "lampu_taman",
      "type": "collision",
      "x": 1456,
@@ -21595,7 +21467,7 @@
      "visible": true
     },
     {
-     "id": 437,
+     "id": 434,
      "name": "lampu_taman",
      "type": "collision",
      "x": 1960,
@@ -21606,7 +21478,7 @@
      "visible": true
     },
     {
-     "id": 439,
+     "id": 436,
      "name": "lampu_taman",
      "type": "collision",
      "x": 2296,
@@ -21617,7 +21489,7 @@
      "visible": true
     },
     {
-     "id": 441,
+     "id": 438,
      "name": "rak_sepeda",
      "type": "collision",
      "x": 2268,
@@ -21628,7 +21500,7 @@
      "visible": true
     },
     {
-     "id": 443,
+     "id": 440,
      "name": "rak_sepeda",
      "type": "collision",
      "x": 2408,
@@ -21639,7 +21511,7 @@
      "visible": true
     },
     {
-     "id": 447,
+     "id": 444,
      "name": "bangku_a",
      "type": "collision",
      "x": 2352,
@@ -21650,7 +21522,7 @@
      "visible": true
     },
     {
-     "id": 449,
+     "id": 446,
      "name": "pot_batu_bunga",
      "type": "collision",
      "x": 2212,
@@ -21661,7 +21533,7 @@
      "visible": true
     },
     {
-     "id": 451,
+     "id": 448,
      "name": "pot_batu_bunga",
      "type": "collision",
      "x": 2660,
@@ -21672,7 +21544,7 @@
      "visible": true
     },
     {
-     "id": 453,
+     "id": 450,
      "name": "semak_kecil",
      "type": "collision",
      "x": 252,
@@ -21683,7 +21555,7 @@
      "visible": true
     },
     {
-     "id": 455,
+     "id": 452,
      "name": "semak_kecil",
      "type": "collision",
      "x": 392,
@@ -21694,7 +21566,7 @@
      "visible": true
     },
     {
-     "id": 457,
+     "id": 454,
      "name": "semak_kecil",
      "type": "collision",
      "x": 532,
@@ -21705,7 +21577,7 @@
      "visible": true
     },
     {
-     "id": 459,
+     "id": 456,
      "name": "semak_kecil",
      "type": "collision",
      "x": 1232,
@@ -21716,7 +21588,7 @@
      "visible": true
     },
     {
-     "id": 461,
+     "id": 458,
      "name": "semak_kecil",
      "type": "collision",
      "x": 1428,
@@ -21727,7 +21599,7 @@
      "visible": true
     },
     {
-     "id": 463,
+     "id": 460,
      "name": "semak_kecil",
      "type": "collision",
      "x": 1624,
@@ -21738,7 +21610,7 @@
      "visible": true
     },
     {
-     "id": 465,
+     "id": 462,
      "name": "semak_kecil",
      "type": "collision",
      "x": 1764,
@@ -21749,7 +21621,7 @@
      "visible": true
     },
     {
-     "id": 467,
+     "id": 464,
      "name": "semak_kecil",
      "type": "collision",
      "x": 1960,
@@ -21760,7 +21632,7 @@
      "visible": true
     },
     {
-     "id": 469,
+     "id": 466,
      "name": "semak_kecil",
      "type": "collision",
      "x": 2100,
@@ -21771,7 +21643,7 @@
      "visible": true
     },
     {
-     "id": 471,
+     "id": 468,
      "name": "semak_bulat",
      "type": "collision",
      "x": 168,
@@ -21782,7 +21654,7 @@
      "visible": true
     },
     {
-     "id": 473,
+     "id": 470,
      "name": "semak_bulat",
      "type": "collision",
      "x": 392,
@@ -21793,7 +21665,7 @@
      "visible": true
     },
     {
-     "id": 475,
+     "id": 472,
      "name": "semak_bulat",
      "type": "collision",
      "x": 616,
@@ -21804,7 +21676,7 @@
      "visible": true
     },
     {
-     "id": 477,
+     "id": 474,
      "name": "semak_bulat",
      "type": "collision",
      "x": 1512,
@@ -21815,7 +21687,7 @@
      "visible": true
     },
     {
-     "id": 479,
+     "id": 476,
      "name": "semak_bulat",
      "type": "collision",
      "x": 1736,
@@ -21826,7 +21698,7 @@
      "visible": true
     },
     {
-     "id": 481,
+     "id": 478,
      "name": "semak_bulat",
      "type": "collision",
      "x": 1960,
@@ -21837,7 +21709,7 @@
      "visible": true
     },
     {
-     "id": 483,
+     "id": 480,
      "name": "semak_bulat",
      "type": "collision",
      "x": 2296,
@@ -21848,7 +21720,7 @@
      "visible": true
     },
     {
-     "id": 485,
+     "id": 482,
      "name": "semak_bulat",
      "type": "collision",
      "x": 2520,
@@ -21859,7 +21731,7 @@
      "visible": true
     },
     {
-     "id": 487,
+     "id": 484,
      "name": "semak_bulat",
      "type": "collision",
      "x": 2716,
@@ -21870,7 +21742,7 @@
      "visible": true
     },
     {
-     "id": 489,
+     "id": 486,
      "name": "semak_bulat",
      "type": "collision",
      "x": 2716,
@@ -21881,7 +21753,7 @@
      "visible": true
     },
     {
-     "id": 504,
+     "id": 501,
      "name": "pohon_besar",
      "type": "collision",
      "x": 56,
@@ -21892,7 +21764,7 @@
      "visible": true
     },
     {
-     "id": 506,
+     "id": 503,
      "name": "pohon_rimbun",
      "type": "collision",
      "x": 112,
@@ -21903,7 +21775,7 @@
      "visible": true
     },
     {
-     "id": 508,
+     "id": 505,
      "name": "pohon_besar",
      "type": "collision",
      "x": 56,
@@ -21914,7 +21786,7 @@
      "visible": true
     },
     {
-     "id": 510,
+     "id": 507,
      "name": "pohon_rimbun",
      "type": "collision",
      "x": 112,
@@ -21925,7 +21797,7 @@
      "visible": true
     },
     {
-     "id": 512,
+     "id": 509,
      "name": "pohon_rimbun",
      "type": "collision",
      "x": 308,
@@ -21936,7 +21808,7 @@
      "visible": true
     },
     {
-     "id": 514,
+     "id": 511,
      "name": "pohon_besar",
      "type": "collision",
      "x": 532,
@@ -21947,7 +21819,7 @@
      "visible": true
     },
     {
-     "id": 516,
+     "id": 513,
      "name": "pohon_besar",
      "type": "collision",
      "x": 952,
@@ -21958,7 +21830,7 @@
      "visible": true
     },
     {
-     "id": 518,
+     "id": 515,
      "name": "pohon_rimbun",
      "type": "collision",
      "x": 1232,
@@ -21969,7 +21841,7 @@
      "visible": true
     },
     {
-     "id": 520,
+     "id": 517,
      "name": "pohon_besar",
      "type": "collision",
      "x": 1624,
@@ -21980,7 +21852,7 @@
      "visible": true
     },
     {
-     "id": 522,
+     "id": 519,
      "name": "pohon_rimbun",
      "type": "collision",
      "x": 1904,
@@ -21991,7 +21863,7 @@
      "visible": true
     },
     {
-     "id": 524,
+     "id": 521,
      "name": "pohon_besar",
      "type": "collision",
      "x": 2212,
@@ -22002,7 +21874,7 @@
      "visible": true
     },
     {
-     "id": 526,
+     "id": 523,
      "name": "pohon_rimbun",
      "type": "collision",
      "x": 2380,
@@ -22013,7 +21885,7 @@
      "visible": true
     },
     {
-     "id": 528,
+     "id": 525,
      "name": "pohon_besar",
      "type": "collision",
      "x": 2548,
@@ -22024,7 +21896,7 @@
      "visible": true
     },
     {
-     "id": 530,
+     "id": 527,
      "name": "pohon_rimbun",
      "type": "collision",
      "x": 2716,
@@ -22035,7 +21907,7 @@
      "visible": true
     },
     {
-     "id": 532,
+     "id": 529,
      "name": "pohon_besar",
      "type": "collision",
      "x": 2884,
@@ -22046,7 +21918,7 @@
      "visible": true
     },
     {
-     "id": 534,
+     "id": 531,
      "name": "pohon_rimbun",
      "type": "collision",
      "x": 0,
@@ -22057,7 +21929,7 @@
      "visible": true
     },
     {
-     "id": 536,
+     "id": 533,
      "name": "pohon_besar",
      "type": "collision",
      "x": 0,
@@ -22068,7 +21940,7 @@
      "visible": true
     },
     {
-     "id": 538,
+     "id": 535,
      "name": "pohon_rimbun",
      "type": "collision",
      "x": 0,
@@ -22079,7 +21951,7 @@
      "visible": true
     },
     {
-     "id": 540,
+     "id": 537,
      "name": "pohon_besar",
      "type": "collision",
      "x": 56,
@@ -22090,7 +21962,7 @@
      "visible": true
     },
     {
-     "id": 542,
+     "id": 539,
      "name": "pohon_rimbun",
      "type": "collision",
      "x": 84,
@@ -22101,7 +21973,7 @@
      "visible": true
     },
     {
-     "id": 544,
+     "id": 541,
      "name": "pohon_besar",
      "type": "collision",
      "x": 392,
@@ -22112,7 +21984,7 @@
      "visible": true
     },
     {
-     "id": 546,
+     "id": 543,
      "name": "pohon_rimbun",
      "type": "collision",
      "x": 2856,
@@ -22123,7 +21995,7 @@
      "visible": true
     },
     {
-     "id": 548,
+     "id": 545,
      "name": "pohon_besar",
      "type": "collision",
      "x": 2772,
@@ -22134,7 +22006,7 @@
      "visible": true
     },
     {
-     "id": 550,
+     "id": 547,
      "name": "pohon_rimbun",
      "type": "collision",
      "x": 2912,
@@ -22145,7 +22017,7 @@
      "visible": true
     },
     {
-     "id": 552,
+     "id": 549,
      "name": "pohon_besar",
      "type": "collision",
      "x": 2800,
@@ -22156,7 +22028,7 @@
      "visible": true
     },
     {
-     "id": 554,
+     "id": 551,
      "name": "pohon_rimbun",
      "type": "collision",
      "x": 2884,
@@ -22167,7 +22039,7 @@
      "visible": true
     },
     {
-     "id": 556,
+     "id": 553,
      "name": "pohon_besar",
      "type": "collision",
      "x": 2772,
@@ -22178,7 +22050,7 @@
      "visible": true
     },
     {
-     "id": 558,
+     "id": 555,
      "name": "pohon_rimbun",
      "type": "collision",
      "x": 2912,
@@ -22189,7 +22061,7 @@
      "visible": true
     },
     {
-     "id": 560,
+     "id": 557,
      "name": "pohon_besar",
      "type": "collision",
      "x": 1260,
@@ -22200,7 +22072,7 @@
      "visible": true
     },
     {
-     "id": 562,
+     "id": 559,
      "name": "pohon_rimbun",
      "type": "collision",
      "x": 1708,
@@ -22211,7 +22083,7 @@
      "visible": true
     },
     {
-     "id": 564,
+     "id": 561,
      "name": "pohon_besar",
      "type": "collision",
      "x": 2156,
@@ -22222,7 +22094,7 @@
      "visible": true
     },
     {
-     "id": 566,
+     "id": 563,
      "name": "pohon_rimbun",
      "type": "collision",
      "x": 2492,
@@ -22233,7 +22105,7 @@
      "visible": true
     },
     {
-     "id": 567,
+     "id": 564,
      "name": "blok",
      "type": "collision",
      "x": 252,
@@ -22244,7 +22116,7 @@
      "visible": true
     },
     {
-     "id": 568,
+     "id": 565,
      "name": "blok",
      "type": "collision",
      "x": 784,
@@ -22255,7 +22127,7 @@
      "visible": true
     },
     {
-     "id": 569,
+     "id": 566,
      "name": "blok",
      "type": "collision",
      "x": 1428,
@@ -22266,7 +22138,7 @@
      "visible": true
     },
     {
-     "id": 570,
+     "id": 567,
      "name": "dinding",
      "type": "collision",
      "x": 756,
@@ -22277,7 +22149,7 @@
      "visible": true
     },
     {
-     "id": 571,
+     "id": 568,
      "name": "dinding",
      "type": "collision",
      "x": 224,
@@ -22288,7 +22160,7 @@
      "visible": true
     },
     {
-     "id": 572,
+     "id": 569,
      "name": "dinding",
      "type": "collision",
      "x": 224,
@@ -22299,7 +22171,7 @@
      "visible": true
     },
     {
-     "id": 573,
+     "id": 570,
      "name": "dinding",
      "type": "collision",
      "x": 1400,
@@ -22310,7 +22182,7 @@
      "visible": true
     },
     {
-     "id": 574,
+     "id": 571,
      "name": "dinding",
      "type": "collision",
      "x": 2156,
@@ -22321,7 +22193,7 @@
      "visible": true
     },
     {
-     "id": 575,
+     "id": 572,
      "name": "dinding",
      "type": "collision",
      "x": 224,
@@ -22332,7 +22204,7 @@
      "visible": true
     },
     {
-     "id": 576,
+     "id": 573,
      "name": "dinding",
      "type": "collision",
      "x": 756,
@@ -22343,7 +22215,7 @@
      "visible": true
     },
     {
-     "id": 577,
+     "id": 574,
      "name": "dinding",
      "type": "collision",
      "x": 1400,
@@ -22354,7 +22226,7 @@
      "visible": true
     },
     {
-     "id": 578,
+     "id": 575,
      "name": "dinding",
      "type": "collision",
      "x": 2156,
@@ -22365,7 +22237,7 @@
      "visible": true
     },
     {
-     "id": 579,
+     "id": 576,
      "name": "dinding",
      "type": "collision",
      "x": 2744,
@@ -22376,7 +22248,7 @@
      "visible": true
     },
     {
-     "id": 580,
+     "id": 577,
      "name": "dinding",
      "type": "collision",
      "x": 2464,
@@ -22387,7 +22259,7 @@
      "visible": true
     },
     {
-     "id": 581,
+     "id": 578,
      "name": "dinding",
      "type": "collision",
      "x": 224,
@@ -22398,7 +22270,7 @@
      "visible": true
     },
     {
-     "id": 582,
+     "id": 579,
      "name": "dinding",
      "type": "collision",
      "x": 2464,
@@ -22409,7 +22281,7 @@
      "visible": true
     },
     {
-     "id": 583,
+     "id": 580,
      "name": "dinding",
      "type": "collision",
      "x": 2632,
@@ -22420,7 +22292,7 @@
      "visible": true
     },
     {
-     "id": 584,
+     "id": 581,
      "name": "dinding",
      "type": "collision",
      "x": 224,
@@ -22431,7 +22303,7 @@
      "visible": true
     },
     {
-     "id": 585,
+     "id": 582,
      "name": "dinding",
      "type": "collision",
      "x": 2156,
@@ -22442,7 +22314,7 @@
      "visible": true
     },
     {
-     "id": 586,
+     "id": 583,
      "name": "dinding",
      "type": "collision",
      "x": 1708,
@@ -22453,7 +22325,7 @@
      "visible": true
     },
     {
-     "id": 587,
+     "id": 584,
      "name": "dinding",
      "type": "collision",
      "x": 2380,
@@ -22464,7 +22336,7 @@
      "visible": true
     },
     {
-     "id": 588,
+     "id": 585,
      "name": "dinding",
      "type": "collision",
      "x": 84,
@@ -22475,7 +22347,7 @@
      "visible": true
     },
     {
-     "id": 589,
+     "id": 586,
      "name": "dinding",
      "type": "collision",
      "x": 616,
@@ -22486,7 +22358,7 @@
      "visible": true
     },
     {
-     "id": 590,
+     "id": 587,
      "name": "dinding",
      "type": "collision",
      "x": 1708,
@@ -22497,7 +22369,7 @@
      "visible": true
     },
     {
-     "id": 591,
+     "id": 588,
      "name": "dinding",
      "type": "collision",
      "x": 2156,
@@ -22508,7 +22380,7 @@
      "visible": true
     },
     {
-     "id": 592,
+     "id": 589,
      "name": "dinding",
      "type": "collision",
      "x": 1176,
@@ -22519,7 +22391,7 @@
      "visible": true
     },
     {
-     "id": 593,
+     "id": 590,
      "name": "dinding",
      "type": "collision",
      "x": 2156,
@@ -22530,7 +22402,7 @@
      "visible": true
     },
     {
-     "id": 594,
+     "id": 591,
      "name": "dinding",
      "type": "collision",
      "x": 2828,
@@ -22541,7 +22413,7 @@
      "visible": true
     },
     {
-     "id": 595,
+     "id": 592,
      "name": "dinding",
      "type": "collision",
      "x": 2464,
@@ -22552,7 +22424,7 @@
      "visible": true
     },
     {
-     "id": 596,
+     "id": 593,
      "name": "dinding",
      "type": "collision",
      "x": 2156,
@@ -22563,7 +22435,7 @@
      "visible": true
     },
     {
-     "id": 597,
+     "id": 594,
      "name": "dinding",
      "type": "collision",
      "x": 2464,
@@ -22574,7 +22446,7 @@
      "visible": true
     },
     {
-     "id": 598,
+     "id": 595,
      "name": "dinding",
      "type": "collision",
      "x": 2156,
@@ -22585,7 +22457,7 @@
      "visible": true
     },
     {
-     "id": 599,
+     "id": 596,
      "name": "dinding",
      "type": "collision",
      "x": 84,
@@ -22596,7 +22468,7 @@
      "visible": true
     },
     {
-     "id": 600,
+     "id": 597,
      "name": "dinding",
      "type": "collision",
      "x": 1176,
@@ -22607,7 +22479,7 @@
      "visible": true
     },
     {
-     "id": 601,
+     "id": 598,
      "name": "dinding",
      "type": "collision",
      "x": 84,
@@ -22618,7 +22490,7 @@
      "visible": true
     },
     {
-     "id": 602,
+     "id": 599,
      "name": "dinding",
      "type": "collision",
      "x": 448,
@@ -22629,7 +22501,7 @@
      "visible": true
     },
     {
-     "id": 603,
+     "id": 600,
      "name": "dinding",
      "type": "collision",
      "x": 784,
@@ -22640,7 +22512,7 @@
      "visible": true
     },
     {
-     "id": 604,
+     "id": 601,
      "name": "dinding",
      "type": "collision",
      "x": 2156,
@@ -22651,7 +22523,7 @@
      "visible": true
     },
     {
-     "id": 605,
+     "id": 602,
      "name": "dinding",
      "type": "collision",
      "x": 2660,
@@ -22662,7 +22534,7 @@
      "visible": true
     },
     {
-     "id": 606,
+     "id": 603,
      "name": "dinding",
      "type": "collision",
      "x": 2156,
@@ -22673,7 +22545,7 @@
      "visible": true
     },
     {
-     "id": 607,
+     "id": 604,
      "name": "dinding",
      "type": "collision",
      "x": 196,
@@ -22684,7 +22556,7 @@
      "visible": true
     },
     {
-     "id": 608,
+     "id": 605,
      "name": "dinding",
      "type": "collision",
      "x": 448,
@@ -22695,7 +22567,7 @@
      "visible": true
     },
     {
-     "id": 609,
+     "id": 606,
      "name": "dinding",
      "type": "collision",
      "x": 1176,
@@ -22706,7 +22578,7 @@
      "visible": true
     },
     {
-     "id": 610,
+     "id": 607,
      "name": "dinding",
      "type": "collision",
      "x": 2156,
@@ -22717,7 +22589,7 @@
      "visible": true
     },
     {
-     "id": 611,
+     "id": 608,
      "name": "dinding",
      "type": "collision",
      "x": 1176,
@@ -22728,7 +22600,7 @@
      "visible": true
     },
     {
-     "id": 612,
+     "id": 609,
      "name": "dinding",
      "type": "collision",
      "x": 196,
@@ -22739,7 +22611,7 @@
      "visible": true
     },
     {
-     "id": 613,
+     "id": 610,
      "name": "dinding",
      "type": "collision",
      "x": 616,
@@ -22750,7 +22622,7 @@
      "visible": true
     },
     {
-     "id": 614,
+     "id": 611,
      "name": "dinding",
      "type": "collision",
      "x": 196,
@@ -22881,297 +22753,115 @@
      ]
     },
     {
-     "id": 84,
-     "name": "rak_1",
-     "type": "shelf",
-     "x": 1232,
-     "y": 1036,
-     "width": 84,
-     "height": 28,
+     "id": 104,
+     "name": "meja_baca_1",
+     "type": "materi",
+     "x": 1400,
+     "y": 1148,
+     "width": 168,
+     "height": 56,
      "rotation": 0,
      "visible": true,
      "properties": [
       {
-       "name": "shelfId",
+       "name": "tableId",
        "type": "int",
        "value": 1
-      },
-      {
-       "name": "course",
-       "type": "string",
-       "value": "logika-komputasional"
-      },
-      {
-       "name": "color",
-       "type": "string",
-       "value": "biru"
-      },
-      {
-       "name": "title",
-       "type": "string",
-       "value": "Logika Komputasional"
       }
      ]
     },
     {
-     "id": 87,
-     "name": "rak_2",
-     "type": "shelf",
-     "x": 1344,
-     "y": 1036,
-     "width": 84,
-     "height": 28,
+     "id": 107,
+     "name": "meja_baca_2",
+     "type": "materi",
+     "x": 1400,
+     "y": 1288,
+     "width": 168,
+     "height": 56,
      "rotation": 0,
      "visible": true,
      "properties": [
       {
-       "name": "shelfId",
+       "name": "tableId",
        "type": "int",
        "value": 2
-      },
-      {
-       "name": "course",
-       "type": "string",
-       "value": "logika-komputasional"
-      },
-      {
-       "name": "color",
-       "type": "string",
-       "value": "biru"
-      },
-      {
-       "name": "title",
-       "type": "string",
-       "value": "Logika Komputasional"
       }
      ]
     },
     {
-     "id": 90,
-     "name": "rak_3",
-     "type": "shelf",
-     "x": 1456,
-     "y": 1036,
-     "width": 84,
-     "height": 28,
+     "id": 110,
+     "name": "meja_baca_3",
+     "type": "materi",
+     "x": 1400,
+     "y": 1428,
+     "width": 168,
+     "height": 56,
      "rotation": 0,
      "visible": true,
      "properties": [
       {
-       "name": "shelfId",
+       "name": "tableId",
        "type": "int",
        "value": 3
-      },
-      {
-       "name": "course",
-       "type": "string",
-       "value": "kecerdasan-buatan"
-      },
-      {
-       "name": "color",
-       "type": "string",
-       "value": "oranye"
-      },
-      {
-       "name": "title",
-       "type": "string",
-       "value": "Kecerdasan Buatan"
       }
      ]
     },
     {
-     "id": 93,
-     "name": "rak_4",
-     "type": "shelf",
+     "id": 113,
+     "name": "meja_baca_4",
+     "type": "materi",
      "x": 1736,
-     "y": 1036,
-     "width": 84,
-     "height": 28,
+     "y": 1148,
+     "width": 168,
+     "height": 56,
      "rotation": 0,
      "visible": true,
      "properties": [
       {
-       "name": "shelfId",
+       "name": "tableId",
        "type": "int",
        "value": 4
-      },
-      {
-       "name": "course",
-       "type": "string",
-       "value": "kecerdasan-buatan"
-      },
-      {
-       "name": "color",
-       "type": "string",
-       "value": "oranye"
-      },
-      {
-       "name": "title",
-       "type": "string",
-       "value": "Kecerdasan Buatan"
       }
      ]
     },
     {
-     "id": 96,
-     "name": "rak_5",
-     "type": "shelf",
-     "x": 1848,
-     "y": 1036,
-     "width": 84,
-     "height": 28,
+     "id": 116,
+     "name": "meja_baca_5",
+     "type": "materi",
+     "x": 1736,
+     "y": 1288,
+     "width": 168,
+     "height": 56,
      "rotation": 0,
      "visible": true,
      "properties": [
       {
-       "name": "shelfId",
+       "name": "tableId",
        "type": "int",
        "value": 5
-      },
-      {
-       "name": "course",
-       "type": "string",
-       "value": ""
-      },
-      {
-       "name": "color",
-       "type": "string",
-       "value": "hijau"
-      },
-      {
-       "name": "title",
-       "type": "string",
-       "value": "Segera hadir"
       }
      ]
     },
     {
-     "id": 99,
-     "name": "rak_6",
-     "type": "shelf",
-     "x": 1960,
-     "y": 1036,
-     "width": 84,
-     "height": 28,
+     "id": 119,
+     "name": "meja_baca_6",
+     "type": "materi",
+     "x": 1736,
+     "y": 1428,
+     "width": 168,
+     "height": 56,
      "rotation": 0,
      "visible": true,
      "properties": [
       {
-       "name": "shelfId",
+       "name": "tableId",
        "type": "int",
        "value": 6
-      },
-      {
-       "name": "course",
-       "type": "string",
-       "value": ""
-      },
-      {
-       "name": "color",
-       "type": "string",
-       "value": "hijau"
-      },
-      {
-       "name": "title",
-       "type": "string",
-       "value": "Segera hadir"
       }
      ]
     },
     {
-     "id": 102,
-     "name": "terminal_1",
-     "type": "terminal",
-     "x": 2016,
-     "y": 1092,
-     "width": 56,
-     "height": 28,
-     "rotation": 0,
-     "visible": true,
-     "properties": [
-      {
-       "name": "terminalId",
-       "type": "int",
-       "value": 1
-      },
-      {
-       "name": "mode",
-       "type": "string",
-       "value": "terminal"
-      }
-     ]
-    },
-    {
-     "id": 105,
-     "name": "terminal_2",
-     "type": "terminal",
-     "x": 2016,
-     "y": 1204,
-     "width": 56,
-     "height": 28,
-     "rotation": 0,
-     "visible": true,
-     "properties": [
-      {
-       "name": "terminalId",
-       "type": "int",
-       "value": 2
-      },
-      {
-       "name": "mode",
-       "type": "string",
-       "value": "terminal"
-      }
-     ]
-    },
-    {
-     "id": 108,
-     "name": "terminal_3",
-     "type": "terminal",
-     "x": 2016,
-     "y": 1316,
-     "width": 56,
-     "height": 28,
-     "rotation": 0,
-     "visible": true,
-     "properties": [
-      {
-       "name": "terminalId",
-       "type": "int",
-       "value": 3
-      },
-      {
-       "name": "mode",
-       "type": "string",
-       "value": "terminal"
-      }
-     ]
-    },
-    {
-     "id": 111,
-     "name": "terminal_4",
-     "type": "terminal",
-     "x": 2016,
-     "y": 1428,
-     "width": 56,
-     "height": 28,
-     "rotation": 0,
-     "visible": true,
-     "properties": [
-      {
-       "name": "terminalId",
-       "type": "int",
-       "value": 4
-      },
-      {
-       "name": "mode",
-       "type": "string",
-       "value": "terminal"
-      }
-     ]
-    },
-    {
-     "id": 126,
+     "id": 122,
      "name": "pustakawan",
      "type": "npc",
      "x": 1260,
@@ -23194,7 +22884,25 @@
      ]
     },
     {
-     "id": 327,
+     "id": 127,
+     "name": "komputer_praktik",
+     "type": "terminal",
+     "x": 1428,
+     "y": 1568,
+     "width": 140,
+     "height": 56,
+     "rotation": 0,
+     "visible": true,
+     "properties": [
+      {
+       "name": "mode",
+       "type": "string",
+       "value": "terminal"
+      }
+     ]
+    },
+    {
+     "id": 324,
      "name": "kios_koridor",
      "type": "info",
      "x": 1400,
@@ -23212,7 +22920,7 @@
      ]
     },
     {
-     "id": 615,
+     "id": 612,
      "name": "Lab Lovelace",
      "type": "door",
      "x": 448,
@@ -23240,7 +22948,7 @@
      ]
     },
     {
-     "id": 616,
+     "id": 613,
      "name": "Ruang Kolaborasi",
      "type": "door",
      "x": 1064,
@@ -23268,7 +22976,7 @@
      ]
     },
     {
-     "id": 617,
+     "id": 614,
      "name": "Auditorium Turing",
      "type": "door",
      "x": 1736,
@@ -23308,7 +23016,7 @@
    "draworder": "topdown",
    "objects": [
     {
-     "id": 618,
+     "id": 615,
      "name": "awal",
      "type": "spawn",
      "point": true,
@@ -23327,7 +23035,7 @@
      ]
     },
     {
-     "id": 619,
+     "id": 616,
      "name": "dari_lab_lovelace",
      "type": "spawn",
      "point": true,
@@ -23346,7 +23054,7 @@
      ]
     },
     {
-     "id": 620,
+     "id": 617,
      "name": "dari_kelas_b",
      "type": "spawn",
      "point": true,
@@ -23365,7 +23073,7 @@
      ]
     },
     {
-     "id": 621,
+     "id": 618,
      "name": "dari_kelas_c",
      "type": "spawn",
      "point": true,
@@ -23396,7 +23104,7 @@
    "draworder": "topdown",
    "objects": [
     {
-     "id": 622,
+     "id": 619,
      "name": "luar",
      "type": "zone",
      "x": 0,
@@ -23424,7 +23132,7 @@
      ]
     },
     {
-     "id": 623,
+     "id": 620,
      "name": "lobi",
      "type": "zone",
      "x": 84,
@@ -23452,7 +23160,7 @@
      ]
     },
     {
-     "id": 624,
+     "id": 621,
      "name": "perpustakaan",
      "type": "zone",
      "x": 1176,
@@ -23480,7 +23188,7 @@
      ]
     },
     {
-     "id": 625,
+     "id": 622,
      "name": "koridor",
      "type": "zone",
      "x": 224,
@@ -23508,7 +23216,7 @@
      ]
     },
     {
-     "id": 626,
+     "id": 623,
      "name": "bilik-fokus",
      "type": "zone",
      "x": 2156,
@@ -23536,7 +23244,7 @@
      ]
     },
     {
-     "id": 627,
+     "id": 624,
      "name": "diskusi-a",
      "type": "zone",
      "x": 196,
@@ -23564,7 +23272,7 @@
      ]
     },
     {
-     "id": 628,
+     "id": 625,
      "name": "santai",
      "type": "zone",
      "x": 2156,
@@ -23592,7 +23300,7 @@
      ]
     },
     {
-     "id": 629,
+     "id": 626,
      "name": "diskusi-b",
      "type": "zone",
      "x": 2156,
@@ -23620,7 +23328,7 @@
      ]
     },
     {
-     "id": 630,
+     "id": 627,
      "name": "kelas-a (tampak)",
      "type": "zone",
      "x": 224,
@@ -23648,7 +23356,7 @@
      ]
     },
     {
-     "id": 631,
+     "id": 628,
      "name": "kelas-b (tampak)",
      "type": "zone",
      "x": 756,
@@ -23676,7 +23384,7 @@
      ]
     },
     {
-     "id": 632,
+     "id": 629,
      "name": "kelas-c (tampak)",
      "type": "zone",
      "x": 1400,

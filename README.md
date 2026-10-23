@@ -72,7 +72,7 @@ belum-dibuat/       daftar aset yang belum dibuat + gambar acuan
 client/             klien Phaser + UI HTML (Vite, TypeScript)
 server/             server Fastify (kelak + Colyseus dan API)
 shared/             logika bersama klien & server (tabrakan, peta, aturan karakter & akun)
-materi/             materi.json + file materi HTML untuk rak perpustakaan
+bahan_ajar/         slide HTML per mata kuliah untuk meja baca perpustakaan (katalog otomatis)
 docs/               RANCANGAN.md dan dokumen teknis
 export/character/   paket karakter siap pakai untuk klien (dihasilkan; docs/KARAKTER.md)
 export/tiles/       sprite tile transparan hasil olahan (dihasilkan; docs/TILES.md)

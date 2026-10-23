@@ -19,7 +19,7 @@ bersama secara daring.
 | Ruangan | Kapasitas | Fungsi |
 |---|---|---|
 | Lobi | maks. 100 orang | Tempat nongkrong, titik muncul pemain, papan peringkat dan pengumuman |
-| Perpustakaan Digital | — | Belajar mandiri: rak buku memunculkan daftar materi HTML; terminal untuk praktik SQL, Python, dan pseudocode (lihat bagian 5) |
+| Perpustakaan Digital | — | Belajar mandiri: keenam meja baca membuka katalog materi HTML; bilik komputer = terminal untuk praktik SQL, Python, dan pseudocode (lihat bagian 5) |
 | Kelas A · Lab Komputer | 30 kursi | Kuis individu, latihan |
 | Kelas B · Ruang Kolaborasi | 45 kursi (9 meja kelompok × 5) | Kuis tim, diskusi kelompok |
 | Kelas C · Auditorium | 60 kursi (bertingkat) | Kuis besar, kuliah umum |
@@ -56,7 +56,7 @@ warna neon. Latar tetap terang dan tenang karena pemain akan membaca materi lama
 | Mesin game | Phaser 3 | Mesin game 2D browser yang matang; tilemap, sprite, sentuh layar |
 | Pembuat peta | Tiled | Peta digambar visual, disimpan sebagai JSON; titik interaksi ditandai di peta |
 | Panel UI | HTML/CSS di atas kanvas | Teks, formulir, daftar materi, dan kuis lebih rapi dengan HTML |
-| Materi | File HTML yang sudah ada + `materi.json` | Slide tidak perlu diubah; dibuka di panel/iframe atau tab baru |
+| Materi | File HTML yang sudah ada di `bahan_ajar/<Mata Kuliah>/` (katalog dibuat otomatis) | Slide tidak perlu diubah; dibuka di panel/iframe atau tab baru |
 | Editor kode (terminal) | CodeMirror 6 | Editor ringan dengan pewarnaan sintaks, nyaman di laptop dan HP |
 | SQL di browser | sql.js (SQLite via WebAssembly) | Matang dan kecil; tiap mahasiswa punya database sendiri |
 | Python di browser | Pyodide | Python sungguhan di browser; dimuat hanya saat terminal Python dibuka |
@@ -119,7 +119,7 @@ test-rpg/
   client/          Phaser + UI HTML
   server/          Colyseus + Fastify
   shared/          tipe data bersama klien & server
-  materi/          file materi HTML + materi.json
+  bahan_ajar/      (ada) file materi HTML per mata kuliah
   latihan/         soal latihan terminal (SQL, Python, pseudocode) + dataset
 ```
 

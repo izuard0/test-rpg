@@ -16,7 +16,7 @@ COPY client client
 COPY server server
 COPY maps maps
 COPY export export
-COPY materi materi
+COPY bahan_ajar bahan_ajar
 COPY assets/backgrounds assets/backgrounds
 RUN npm run build
 

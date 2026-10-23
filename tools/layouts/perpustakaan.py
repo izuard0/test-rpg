@@ -1,8 +1,14 @@
 """Tata letak Perpustakaan Al-Khawarizmi (docs/PETA.md bagian 4), 36 x 28 petak. Satuan: petak.
 
 Enam rak buku dibagi menjadi dua sayap (kiri x=2,6,10 dan kanan x=20,24,28) mengapit gerbang tengah dari koridor
-(x=15..18) yang lurus dengan lorong tengah di antara dua kolom meja baca. Terminal di dinding kanan dicerminkan
-(flip=True) agar layarnya menghadap ke dalam ruangan."""
+(x=15..18) yang lurus dengan lorong tengah di antara dua kolom meja baca. Kios di dinding kanan dicerminkan
+(flip=True) agar layarnya menghadap ke dalam ruangan.
+
+Interaksi (keputusan pemilik proyek, 23 Okt 2026, docs/PETA.md no. 2 dan 3):
+- materi dibuka dari **keenam meja baca**; setiap meja membuka katalog yang sama (semua mata kuliah),
+  supaya pemain tidak menumpuk di satu meja;
+- terminal praktik ada di **bilik belajar tiga komputer** di baris bawah;
+- rak buku dan kios dinding kini hanya dekorasi."""
 
 LF = "library_floor_wall"
 BS = "library_bookshelves"
@@ -30,20 +36,22 @@ def put(spr, foot, scale=2, **kw):
 for x in [13, 19]:
     put((LF, "jendela_kayu"), [x, 2, 2, 1], scale=1.8, collide=False)
 
-# 6 rak buku utama (3 kiri, 3 kanan)
+# 6 rak buku utama (3 kiri, 3 kanan); dekorasi (warna rak tetap menandai mata kuliah)
 for i, (x, spr, course, color, title) in enumerate(SHELVES, 1):
-    put((BS, spr), [x, 4, 3, 1], scale=1.85, type="shelf", name=f"rak_{i}",
-        props={"shelfId": i, "course": course, "color": color, "title": title}, interact=[x, 5, 3, 1])
+    put((BS, spr), [x, 4, 3, 1], scale=1.85, name=f"rak_{i}")
 
-# 4 terminal di sisi kanan: dicerminkan (flip=True) supaya layar menghadap KIRI (ke arah pemain di x=30)
+# 4 kios di sisi kanan: dicerminkan (flip=True) supaya layar menghadap KIRI; dekorasi
 for i, y in enumerate([7, 11, 15, 19], 1):
-    put((TE, "kios_nyala_a"), [32, y, 2, 1], scale=2, flip=True, type="terminal", name=f"terminal_{i}",
-        props={"terminalId": i, "mode": "terminal"}, interact=[30, y, 2, 1])
+    put((TE, "kios_nyala_a"), [32, y, 2, 1], scale=2, flip=True, name=f"kios_{i}")
 
-# 6 meja baca besar (2 kolom x 3 baris, mengapit lorong tengah x=15..18)
+# 6 meja baca besar (2 kolom x 3 baris, mengapit lorong tengah x=15..18). Tiap meja membuka katalog materi
+# yang sama; titik interaksi = bagian meja yang bertabrakan, jadi bisa didekati dari keempat sisi.
+meja = 0
 for x in (8, 20):
     for y in (8, 13, 18):
-        put((FU, "meja_baca_panjang"), [x, y, 6, 4], scale=1.55, collide_rect=[x, y + 1, 6, 2])
+        meja += 1
+        put((FU, "meja_baca_panjang"), [x, y, 6, 4], scale=1.55, collide_rect=[x, y + 1, 6, 2],
+            type="materi", name=f"meja_baca_{meja}", props={"tableId": meja}, interact=[x, y + 1, 6, 2])
 
 # meja pustakawan & NPC di kiri bawah
 put((FU, "meja_pustakawan"), [2, 21, 5, 3], scale=2)
@@ -52,7 +60,8 @@ objects.append({"type": "npc", "name": "pustakawan", "foot": [3, 20, 1, 1], "int
 put((FU, "papan_tulis_beroda"), [2, 15, 3, 1], scale=1.8)
 
 # area belajar mandiri & pojok baca di baris bawah
-put((TE, "bilik_belajar_tiga"), [9, 24, 5, 2], scale=1.75)
+put((TE, "bilik_belajar_tiga"), [9, 24, 5, 2], scale=1.75, type="terminal", name="komputer_praktik",
+    props={"mode": "terminal"}, interact=[9, 24, 5, 2])
 put((FU, "troli_buku"), [16, 24, 3, 2], scale=1.75)
 put((FU, "sofa_tunggal_biru_1"), [21, 24, 2, 2], scale=1.85)
 put((LOF, "meja_bulat"), [24, 25, 2, 1], scale=1.85)
