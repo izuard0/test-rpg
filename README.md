@@ -14,7 +14,7 @@ Rancangan lengkap dan keputusan yang sudah disepakati ada di
 |---|---|
 | Rancangan, tech stack, aturan chat, login | Selesai (lihat `docs/RANCANGAN.md`) |
 | Prototipe karakter (gerak, kamera, kustomisasi) | Selesai: `prototype/karakter/index.html` |
-| Aset tile (lobi, perpustakaan, kelas) | Sudah diolah jadi 339 sprite transparan (`export/tiles/`); **skala petak belum diputuskan** (`docs/TILES.md`) |
+| Aset tile (lobi, perpustakaan, kelas) | Sudah diolah jadi 339 sprite transparan (`export/tiles/`); petak game **28 px** (diputuskan; temuan skala di `docs/TILES.md`) |
 | Aset NPC, ikon, dua latar layar | Belum dibuat (lihat `belum-dibuat/`) |
 | Peta perpustakaan (`maps/perpustakaan.tmj`) | Dibuat dan divalidasi lewat skrip; **belum dibuka di Tiled/Phaser** |
 | Klien (Phaser), server (Colyseus), terminal, kuis | Belum dimulai |
