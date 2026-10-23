@@ -1,0 +1,1149 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SQL DDL · Kuliah</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Domine:wght@500;700&family=Nunito+Sans:wght@400;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --dark:#1B2A41; --dark2:#24364F; --light:#F7F5F0; --light2:#EDEAE2; --white:#FFFFFF;
+  --blue:#2F6FB0; --orange:#E8833A; --orange-dk:#B4501A; --green:#3E9C7A; --red:#C0392B;
+  --muted:#4F5D6E; --muted-dk:#C9D3E0; --line:#D9D4C7;
+  --serif:'Domine', Georgia, serif; --sans:'Nunito Sans', 'Segoe UI', Arial, sans-serif; --mono:'JetBrains Mono', Consolas, monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;background:#0E1522;overflow:hidden;font-family:var(--sans);color:var(--dark)}
+#stage{position:absolute;left:50%;top:50%;width:1920px;height:1080px;transform-origin:center center;overflow:hidden;background:var(--light)}
+.slide{position:absolute;inset:0;padding:100px 128px 120px;background:var(--light);opacity:0;visibility:hidden;transition:opacity .45s ease, visibility 0s linear .45s;display:flex;flex-direction:column}
+.slide.active{opacity:1;visibility:visible;transition:opacity .45s ease}
+.slide.alt{background:var(--light2)}
+.slide.dark{background:var(--dark);color:var(--light)}
+
+/* type */
+h1{font:700 120px/1.02 var(--serif);letter-spacing:-1px}
+h2{font:700 64px/1.12 var(--serif);letter-spacing:-.5px}
+h3{font:800 34px/1.25 var(--sans)}
+p,li{font-size:28px;line-height:1.45}
+.eyebrow{font:800 22px/1 var(--sans);letter-spacing:3px;text-transform:uppercase;color:var(--orange-dk);margin-bottom:16px}
+.dark .eyebrow{color:var(--orange)}
+.lead{font-size:32px;line-height:1.45;color:var(--muted)}
+.dark .lead{color:var(--muted-dk)}
+.muted{color:var(--muted)} .dark .muted{color:var(--muted-dk)}
+.head{margin-bottom:36px}
+code,.mono{font-family:var(--mono);font-size:22px}
+b{font-weight:800}
+.hl-b{color:var(--blue)} .hl-o{color:var(--orange-dk)} .hl-g{color:var(--green)}
+
+/* layout */
+.card{background:var(--white);border:2px solid var(--line);border-radius:22px;padding:30px 32px}
+.dark .card{background:var(--dark2);border-color:#33486A}
+.pill{display:inline-block;font:800 20px/1 var(--sans);letter-spacing:1px;text-transform:uppercase;padding:9px 16px;border-radius:999px}
+.pill.cls{background:#E3ECF6;color:var(--blue)} .pill.reg{background:#FBE6D6;color:var(--orange-dk)} .pill.grn{background:#DDF0E8;color:#24704F}
+.btn{font:800 22px/1 var(--sans);padding:14px 24px;border-radius:999px;border:2px solid var(--dark);background:transparent;color:var(--dark);cursor:pointer;transition:all .2s}
+.btn:hover{transform:translateY(-2px)}
+.btn.on{background:var(--dark);color:var(--light)}
+.btn.primary{background:var(--orange);border-color:var(--orange);color:var(--dark)}
+.btn:disabled{opacity:.4;cursor:default;transform:none}
+.dark .btn{border-color:var(--light);color:var(--light)} .dark .btn.on{background:var(--light);color:var(--dark)}
+.ctrl{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+.ctrl .lbl{font-size:24px;font-weight:800;margin-right:6px}
+
+/* entry animation */
+.slide.active .rise{animation:rise .7s cubic-bezier(.2,.7,.2,1) both;animation-delay:var(--d,0s)}
+@keyframes rise{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:none}}
+
+/* chrome */
+#progress{position:fixed;left:0;top:0;height:5px;background:var(--orange);transition:width .4s;z-index:10}
+#counter{position:absolute;right:56px;bottom:40px;font:700 22px/1 var(--sans);color:var(--muted);z-index:5;display:flex;gap:14px;align-items:center}
+#counter button{width:52px;height:52px;border-radius:50%;border:2px solid currentColor;background:transparent;color:inherit;font-size:24px;cursor:pointer}
+#stage.on-dark #counter{color:var(--muted-dk)}
+#notes{position:fixed;left:50%;bottom:16px;transform:translateX(-50%);width:min(1100px,94vw);background:rgba(14,21,34,.94);color:#F2F0EA;border-radius:14px;padding:18px 24px;font-size:17px;line-height:1.5;z-index:20;display:none;box-shadow:0 10px 40px rgba(0,0,0,.4)}
+#notes.show{display:block}
+#notes b{color:var(--orange)}
+.src{position:absolute;left:128px;bottom:44px;max-width:1350px;font-size:19px;line-height:1.35;color:var(--muted)}
+.dark .src{color:var(--muted-dk)}
+.src i{font-style:italic}
+
+/* ---------- SQL code & terminal ---------- */
+.code{background:var(--dark);color:#E8ECF2;border-radius:20px;padding:26px 30px;font:500 22px/1.6 var(--mono);white-space:pre;overflow:hidden}
+.code .kw{color:#F4A86B}.code .ty{color:#8EC5FF}.code .nu{color:#9FE0C2}.code .st{color:#F2D7BF}.code .cm{color:#8A9AB0;font-style:italic}
+.term{background:#0F1826;color:#D5DEEA;border-radius:16px;padding:18px 22px;font:500 19px/1.55 var(--mono);white-space:pre-wrap;word-break:break-word;min-height:80px}
+.term .ok{color:#7FD6A8}.term .err{color:#FF9B8A}.term .pr{color:#8A9AB0}
+.term .line{animation:fadein .35s both}
+@keyframes fadein{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+/* mini table visual */
+.tv{background:var(--white);border:2px solid var(--line);border-radius:16px;overflow:hidden}
+.tv .tn{background:var(--dark);color:var(--light);font:800 22px/1 var(--sans);padding:14px 18px;display:flex;justify-content:space-between;align-items:center}
+.tv .tn span{font:500 17px/1 var(--mono);color:var(--muted-dk)}
+.tv table{border-collapse:collapse;width:100%}
+.tv th,.tv td{padding:10px 14px;text-align:left;font:500 19px/1.3 var(--mono);border-bottom:1.5px solid #ECE8DE;white-space:nowrap}
+.tv th{font:800 17px/1.2 var(--sans);color:var(--muted);background:#FBFAF6;text-transform:none}
+.tv tr{transition:background .4s,opacity .4s}
+.tv tr.flash td{background:#FFE3CC}
+.tv tr.gone{opacity:0}
+.tv tr.new td{background:#DDF0E8}
+.tv td.nul{color:#A0A8B4;font-style:italic}
+.tv td.chg{background:#FFF1C9}
+
+/* ---------- cover ---------- */
+#s-cover{background-color:var(--dark);background-image:linear-gradient(rgba(255,255,255,.04) 2px,transparent 2px),linear-gradient(90deg,rgba(255,255,255,.04) 2px,transparent 2px);background-size:48px 48px}
+#s-cover .wrap{display:grid;grid-template-columns:1fr 760px;gap:60px;align-items:center;flex:1}
+#s-cover h1{color:var(--light);margin:10px 0 36px}
+#s-cover .lead{font-size:36px;max-width:880px;color:var(--muted-dk)}
+#s-cover .code{font-size:23px;min-height:470px;box-shadow:0 30px 80px rgba(0,0,0,.35);border:2px solid #33486A;background:#132036}
+.caret{display:inline-block;width:12px;height:26px;background:var(--orange);vertical-align:-4px;animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+
+/* objectives & outline */
+.objs{display:flex;flex-direction:column;gap:18px}
+.obj{display:grid;grid-template-columns:70px 1fr 270px;align-items:center;gap:24px;background:var(--white);border:2px solid var(--line);border-radius:20px;padding:24px 30px}
+.obj .n{font:700 46px/1 var(--serif);color:var(--orange)}
+.obj p{font-size:29px}
+.obj .pill{justify-self:end}
+.outline{display:grid;grid-template-columns:repeat(4,1fr);gap:28px;flex:1}
+.outline .card{display:flex;flex-direction:column;gap:16px;padding:36px}
+.outline .n{font:700 72px/1 var(--serif);color:var(--orange)}
+.outline h3{font-family:var(--serif);font-size:34px}
+.outline ul{margin-left:26px}.outline li{font-size:25px;color:var(--muted);margin-bottom:8px}
+
+/* recap */
+#s-recap .wrap{display:grid;grid-template-columns:600px 1fr;gap:44px;flex:1;min-height:0}
+.lvls{display:flex;flex-direction:column;gap:18px}
+.lvl{display:grid;grid-template-columns:64px 1fr;gap:18px;cursor:pointer;transition:all .35s;border-left:10px solid var(--line);padding:22px 26px}
+.lvl .n{font:700 44px/1 var(--serif);color:var(--muted)}
+.lvl h3{font-size:29px}.lvl p{font-size:22px;color:var(--muted);line-height:1.4}
+.lvl.on{border-left-color:var(--orange);box-shadow:0 10px 28px rgba(27,42,65,.12);transform:translateX(8px)}
+.lvl.on .n{color:var(--orange)}
+.panes{position:relative}
+.pane{position:absolute;inset:0;display:flex;flex-direction:column;gap:20px;justify-content:center;opacity:0;transition:opacity .45s;pointer-events:none}
+.pane.on{opacity:1;pointer-events:auto}
+.pane .cap{font-size:24px;color:var(--muted)}
+.schema{font:500 30px/1.9 var(--mono);background:var(--white);border:2px solid var(--line);border-radius:22px;padding:40px 44px}
+.schema u{text-decoration-thickness:3px;text-underline-offset:6px}
+.schema i{color:var(--orange-dk);font-style:normal;border-bottom:3px dashed var(--orange)}
+svg.erd{width:100%;height:auto;display:block}
+svg.erd text{font:800 26px var(--sans);fill:var(--dark)}
+svg.erd .at text{font:600 22px var(--sans)}
+svg.erd .card{font:800 30px var(--serif);fill:var(--orange-dk)}
+
+/* sublanguages */
+.langs{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+.lang{display:flex;flex-direction:column;gap:8px;border-top:10px solid var(--c);padding:24px 28px}
+.lang h3{font-size:34px;font-family:var(--serif);color:var(--c)}
+.lang .full{font-size:19px;font-weight:800;color:var(--muted);letter-spacing:.5px}
+.lang p{font-size:22px;color:var(--muted);line-height:1.38}
+.cmds{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-top:24px;align-items:stretch}
+.cmd{font:500 22px/1.2 var(--mono);padding:14px 18px;border-radius:14px;background:var(--white);border:2px dashed var(--muted);cursor:pointer;transition:all .25s;display:flex;flex-direction:column;justify-content:center;gap:6px}
+.cmd:hover{border-color:var(--dark);transform:translateY(-2px)}
+.cmd-top{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.cmd .tag{font:800 15px/1 var(--sans);letter-spacing:1px;padding:5px 10px;border-radius:999px;color:#fff;background:var(--c);display:none}
+.cmd .desc{font:600 17px/1.32 var(--sans);color:var(--dark);display:none}
+.cmd.show{border-style:solid;border-color:var(--c);background:var(--cbg);justify-content:flex-start}
+.cmd.show .tag{display:inline-block}
+.cmd.show .desc{display:block}
+.ddl{--c:var(--orange-dk);--cbg:#FFF1E4}.dml{--c:var(--blue);--cbg:#EEF4FA}.dcl{--c:var(--green);--cbg:#E8F5EF}.tcl{--c:#7A5BA6;--cbg:#F1ECF8}
+
+/* env */
+#s-env .wrap{display:grid;grid-template-columns:900px 1fr;gap:44px;flex:1;min-height:0}
+#s-env .term{font-size:22px;min-height:520px}
+.envc{display:flex;flex-direction:column;gap:16px}
+.envc .card{padding:20px 26px}
+.envc h3{font:500 24px/1.2 var(--mono);color:var(--orange-dk)}
+.envc p{font-size:22px;color:var(--muted);line-height:1.4}
+
+/* anatomy */
+#s-anat .wrap{display:grid;grid-template-columns:1010px 1fr;gap:40px;flex:1;min-height:0}
+#s-anat .code{font-size:23px;line-height:1.75}
+.part{border-radius:6px;transition:background .3s,box-shadow .3s;cursor:pointer}
+.code.focus .part{opacity:.35;transition:opacity .3s}
+.code.focus .part.on{opacity:1;background:rgba(232,131,58,.22);box-shadow:0 0 0 3px rgba(232,131,58,.22)}
+.parts{display:flex;flex-direction:column;gap:12px}
+.pt{display:grid;grid-template-columns:48px 1fr;gap:14px;align-items:start;padding:16px 20px;cursor:pointer;transition:all .3s}
+.pt .n{font:700 34px/1 var(--serif);color:var(--orange)}
+.pt h3{font-size:25px}.pt p{font-size:20px;color:var(--muted);line-height:1.4}
+.pt.on{border-color:var(--orange);box-shadow:0 8px 22px rgba(232,131,58,.18);transform:translateX(-6px)}
+
+/* types */
+#s-types .wrap{display:grid;grid-template-columns:1fr 470px;gap:40px;flex:1;min-height:0}
+table.formal{border-collapse:separate;border-spacing:0;width:100%}
+table.formal th,table.formal td{padding:13px 20px;text-align:left;font-size:22px;border-bottom:2px solid var(--line);background:var(--white);vertical-align:top;line-height:1.35}
+table.formal th{background:var(--dark);color:var(--light);font-size:21px;font-weight:800}
+table.formal th:first-child{border-radius:14px 0 0 0}table.formal th:last-child{border-radius:0 14px 0 0}
+table.formal td.mono{font-family:var(--mono);font-size:20px;color:var(--blue);white-space:nowrap}
+table.formal td.warn{background:#FFF6EE}
+.fdemo{display:flex;flex-direction:column;gap:18px}
+.fdemo .res{display:grid;grid-template-columns:150px 1fr;gap:10px 16px;align-items:center;font-size:22px}
+.fdemo .res .mono{font-size:26px;padding:10px 14px;border-radius:10px;background:var(--light2)}
+.fdemo .res .bad{color:var(--red);background:#FCEBE8}
+.fdemo .res .good{color:#24704F;background:#E3F3EB}
+
+/* type quiz */
+.tq{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;flex:1}
+.tq .card{display:flex;flex-direction:column;gap:12px;padding:24px 26px;transition:border-color .3s}
+.tq .attr{font:500 26px/1.2 var(--mono);color:var(--dark)}
+.tq .val{font:500 21px/1.2 var(--mono);color:var(--muted);background:var(--light2);border-radius:10px;padding:8px 12px;align-self:flex-start}
+.tq .opts{display:flex;gap:10px;flex-wrap:wrap}
+.tq .opt{font:500 19px/1 var(--mono);padding:12px 14px;border-radius:12px;border:2px solid var(--line);background:#FBFAF6;cursor:pointer;transition:all .25s}
+.tq .opt:hover{border-color:var(--dark)}
+.tq .opt.right{background:var(--green);border-color:var(--green);color:#fff}
+.tq .opt.wrong{background:#FCEBE8;border-color:var(--red);color:var(--red);text-decoration:line-through}
+.tq .why{font-size:20px;line-height:1.4;color:var(--muted);min-height:84px}
+.tq .card.done{border-color:var(--green)}
+
+/* constraints */
+.cons{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.con{display:flex;flex-direction:column;gap:10px;padding:24px 26px}
+.con h3{font:500 25px/1.2 var(--mono);color:var(--orange-dk)}
+.con p{font-size:21px;color:var(--muted);line-height:1.4}
+.con code{font-size:18px;background:var(--light2);padding:8px 12px;border-radius:8px;display:block;white-space:pre;color:var(--dark)}
+.levels{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:22px}
+.levels .card{padding:20px 26px;display:flex;gap:18px;align-items:center}
+.levels p{font-size:22px}
+
+/* tester */
+#s-test .wrap{display:grid;grid-template-columns:860px 1fr;gap:36px;flex:1;min-height:0}
+.ins{display:flex;flex-direction:column;gap:10px}
+.insb{font:500 17px/1.45 var(--mono);text-align:left;padding:12px 16px;border-radius:12px;border:2px solid var(--line);background:var(--white);cursor:pointer;transition:all .2s;color:var(--dark);white-space:pre-wrap}
+.insb:hover{border-color:var(--dark);transform:translateX(4px)}
+.insb .lab{display:block;font:800 16px/1 var(--sans);letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.insb.res-ok{border-color:var(--green)} .insb.res-err{border-color:var(--red)}
+.rules{display:flex;gap:10px;flex-wrap:wrap}
+.rules span{font:500 17px/1 var(--mono);padding:8px 12px;border-radius:999px;background:var(--light2);color:var(--muted)}
+
+/* relmap */
+.tabs{display:flex;gap:12px;margin-bottom:24px}
+#s-rel .panes{flex:1;min-height:0}
+#s-rel .pane{display:grid;grid-template-columns:780px 1fr;gap:36px;align-items:start;justify-content:stretch}
+#s-rel .rule{background:var(--white);border:2px solid var(--line);border-left:8px solid var(--orange);border-radius:0 18px 18px 0;padding:22px 28px;margin-top:20px}
+#s-rel .rule h3{font-size:28px;margin-bottom:6px}
+#s-rel .rule p{font-size:23px;color:var(--muted)}
+#s-rel .code{font-size:21px}
+
+/* referential actions */
+#s-ref2 .wrap{display:grid;grid-template-columns:900px 1fr;gap:40px;flex:1;min-height:0}
+.twotab{display:grid;grid-template-columns:330px 1fr;gap:20px;align-items:start}
+#s-ref2 .code{font-size:20px;padding:20px 24px}
+
+/* order */
+#s-order .wrap{display:grid;grid-template-columns:1000px 1fr;gap:40px;flex:1;min-height:0}
+.graph{position:relative;height:560px;background:var(--white);border:2px solid var(--line);border-radius:22px}
+.graph svg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.gn{position:absolute;width:270px;height:92px;transform:translate(-50%,-50%);border-radius:18px;border:3px dashed var(--muted);background:#FBFAF6;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;transition:all .3s;gap:6px}
+.gn b{font:800 25px/1 var(--sans)}
+.gn span{font:700 17px/1 var(--sans);color:var(--muted);letter-spacing:.5px}
+.gn.made{border-style:solid;border-color:var(--green);background:#E8F5EF}
+.gn.made span{color:#24704F}
+.gn.shake{animation:shake .45s}
+@keyframes shake{20%,60%{transform:translate(-53%,-50%)}40%,80%{transform:translate(-47%,-50%)}}
+.gedge{stroke:#B9B3A5;stroke-width:3.5;fill:none}
+#s-order .side{display:flex;flex-direction:column;gap:18px}
+#s-order .term{min-height:250px;font-size:18px}
+
+/* case */
+#s-case .wrap{display:grid;grid-template-columns:1fr 1fr;gap:48px;flex:1;min-height:0}
+.brules{display:flex;flex-direction:column;gap:18px}
+.brule{display:grid;grid-template-columns:110px 1fr;gap:20px;align-items:center;padding:22px 26px}
+.brule .k{font:700 40px/1 var(--serif);color:var(--orange);text-align:center}
+.brule p{font-size:25px}
+
+/* script stepper */
+#s-script .wrap{display:grid;grid-template-columns:840px 1fr;gap:36px;flex:1;min-height:0}
+#s-script .code{font-size:20px;line-height:1.55;height:470px;padding:22px 26px}
+.steps{display:flex;gap:8px;flex-wrap:wrap}
+.steps .btn{padding:10px 16px;font-size:19px}
+.stepx{font-size:22px;line-height:1.45;color:var(--muted);min-height:96px}
+.diagram{position:relative;height:100%;min-height:640px}
+.diagram svg{position:absolute;inset:0;width:100%;height:100%}
+.ent{position:absolute;width:340px;background:var(--white);border:2px solid var(--line);border-radius:14px;overflow:hidden;opacity:.28;transition:all .5s;filter:grayscale(1)}
+.ent.made{opacity:1;filter:none}
+.ent.cur{border-color:var(--orange);box-shadow:0 12px 30px rgba(232,131,58,.25);transform:scale(1.03)}
+.ent .h{background:var(--dark);color:var(--light);font:800 20px/1 var(--sans);padding:11px 14px}
+.ent .r{font:500 17px/1 var(--mono);padding:8px 14px;border-top:1.5px solid #ECE8DE;display:flex;justify-content:space-between;gap:8px}
+.ent .r em{font:800 13px/1 var(--sans);font-style:normal;padding:4px 7px;border-radius:6px;background:#E3ECF6;color:var(--blue)}
+.ent .r em.fk{background:#FBE6D6;color:var(--orange-dk)}
+.dedge{stroke:var(--line);stroke-width:3;fill:none;transition:stroke .4s}
+.dedge.made{stroke:var(--orange)}
+.dlab{font:800 18px var(--sans);fill:var(--muted)}
+
+/* review cards */
+.quiz{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;flex:1}
+.qcard{perspective:1400px;cursor:pointer}
+.qcard .inner{position:relative;width:100%;height:100%;transition:transform .6s cubic-bezier(.3,.8,.3,1);transform-style:preserve-3d}
+.qcard.flip .inner{transform:rotateY(180deg)}
+.qcard .face{position:absolute;inset:0;backface-visibility:hidden;border-radius:22px;padding:34px;display:flex;flex-direction:column;justify-content:center;gap:16px}
+.qcard .front{background:var(--white);border:2px solid var(--line)}
+.qcard .front .em{font-size:56px;line-height:1}
+.qcard .front p{font:700 28px/1.35 var(--sans)}
+.qcard .front code{font-size:21px;background:var(--light2);padding:2px 8px;border-radius:6px}
+.qcard .back{transform:rotateY(180deg);background:var(--dark);color:var(--light)}
+.qcard .back h3{font-size:34px;font-family:var(--serif);color:var(--orange)}
+.qcard .back p{font-size:23px;color:var(--muted-dk)}
+.qcard .back code{font-size:20px;color:#F2D7BF}
+.qcard .hint{font-size:19px;color:var(--muted);font-weight:700}
+
+/* alter */
+#s-alter .wrap{display:grid;grid-template-columns:860px 1fr;gap:40px;flex:1;min-height:0}
+.cols{display:flex;flex-direction:column;gap:12px}
+.colr{display:grid;grid-template-columns:1fr 230px auto;gap:14px;align-items:center;background:var(--white);border:2px solid var(--line);border-radius:14px;padding:14px 20px;transition:all .45s}
+.colr .cn{font:500 23px/1 var(--mono)}
+.colr .ct{font:500 20px/1 var(--mono);color:var(--blue)}
+.colr .cc{display:flex;gap:6px}
+.colr .cc em{font:800 14px/1 var(--sans);font-style:normal;padding:6px 8px;border-radius:6px;background:var(--light2);color:var(--muted)}
+.colr.new{border-color:var(--green);background:#E8F5EF}
+.colr.chg{border-color:#E6B422;background:#FFFBEF}
+.colr.warn{border-color:var(--red);background:#FCEBE8}
+.colr.out{opacity:0;transform:translateX(40px)}
+
+/* drop/truncate */
+#s-drop .wrap{display:grid;grid-template-columns:640px 1fr;gap:44px;flex:1;min-height:0}
+#s-drop .tv.vanish{opacity:.15;filter:grayscale(1);transform:scale(.97);transition:all .5s}
+
+/* dialect / errors */
+table.formal.tight td{font-size:20px;padding:11px 18px}
+table.formal td.err{font-family:var(--mono);font-size:17px;color:var(--red);line-height:1.4}
+
+/* praktikum / summary */
+.prak{display:grid;grid-template-columns:1fr 1fr;gap:40px;flex:1;align-items:start}
+.prak .card{display:flex;flex-direction:column;gap:16px;padding:36px 40px}
+.prak ol,.prak ul{margin-left:32px} .prak li{font-size:25px;color:var(--muted-dk);margin-bottom:6px}
+.prak code{font-size:21px;color:#F2D7BF}
+.sum{display:grid;grid-template-columns:1fr 1fr;gap:26px}
+.sum .card{display:flex;gap:24px;align-items:flex-start}
+.sum .em{font-size:52px;line-height:1}
+.sum p{font-size:27px}
+.teaser{margin-top:auto;background:var(--dark);color:var(--light);border-radius:24px;padding:30px 40px;display:flex;gap:28px;align-items:center}
+.teaser .em{font-size:58px}
+.teaser p{font-size:28px}
+.exercises{margin-left:44px;display:flex;flex-direction:column;gap:18px}
+.exercises li{font-size:27px;line-height:1.45;padding-left:10px}
+.exercises code{font-size:22px;background:var(--white);padding:1px 8px;border-radius:6px}
+.refs{display:flex;flex-direction:column;gap:10px}
+.refs p{font-size:23px;line-height:1.4;padding-left:44px;text-indent:-44px}
+</style>
+</head>
+<body>
+<div id="progress"></div>
+<div id="stage">
+
+<!-- 1. COVER -->
+<section class="slide dark" id="s-cover" data-notes="Pembukaan. Posisi materi: pertemuan ke-9, pertama setelah UTS. Sampai pertemuan 7 mahasiswa sudah menghasilkan ERD dan skema relasional yang ternormalisasi; hari ini skema tersebut diwujudkan menjadi tabel fisik di DBMS.">
+  <div class="wrap">
+    <div>
+      <p class="eyebrow rise">Perancangan Basis Data · Pertemuan ke-9</p>
+      <h1 class="rise" style="--d:.1s">Skema Fisik<br>dengan SQL DDL</h1>
+      <p class="lead rise" style="--d:.25s">Dari skema relasional menjadi tabel nyata: tipe data, constraint, integritas referensial, dan perubahan struktur</p>
+      <p class="rise" style="--d:.4s;margin-top:44px;font-size:26px;color:var(--muted-dk)">Izuardo Zulkarnain, S.Pd., M.T. · Informatika Untan</p>
+    </div>
+    <div class="code rise" style="--d:.3s" id="coverCode"></div>
+  </div>
+  <p class="src">← → navigasi · F layar penuh · N catatan pengajar</p>
+</section>
+
+<!-- 2. CPMK -->
+<section class="slide" id="s-cpmk" data-notes="Sub-CPMK di RPS untuk pertemuan 9: 'Mampu menerapkan skema fisik basis data relasional menggunakan perintah SQL DDL untuk membangun tabel fisik.' Empat butir di bawah adalah rincian indikatornya. Catatan untuk RPS: kode SUBCPMK031 pada minggu 6–10 sebaiknya diselaraskan dengan CPMK033 (normalisasi dan SQL).">
+  <div class="head"><p class="eyebrow rise">Capaian pembelajaran · CPMK033</p><h2 class="rise" style="--d:.08s">Sub-CPMK pertemuan ini</h2></div>
+  <p class="lead rise" style="--d:.15s;margin-bottom:28px">Mahasiswa mampu menerapkan skema fisik basis data relasional menggunakan SQL DDL. Indikatornya, mahasiswa mampu:</p>
+  <div class="objs">
+    <div class="obj rise" style="--d:.2s"><span class="n">1</span><p>Membedakan sub-bahasa SQL dan menjelaskan peran <b>DDL</b> pada tahap desain fisik.</p><span class="pill cls">C2 · memahami</span></div>
+    <div class="obj rise" style="--d:.3s"><span class="n">2</span><p>Memilih <b>tipe data</b> dan <b>constraint</b> yang tepat untuk setiap atribut.</p><span class="pill cls">C3 · menerapkan</span></div>
+    <div class="obj rise" style="--d:.4s"><span class="n">3</span><p>Mentransformasikan relasi 1:1, 1:N, dan M:N menjadi <b>FOREIGN KEY</b> beserta aksi referensialnya.</p><span class="pill reg">C3 · menerapkan</span></div>
+    <div class="obj rise" style="--d:.5s"><span class="n">4</span><p>Menyusun, menguji, dan mengubah skema dengan <b>CREATE</b>, <b>ALTER</b>, dan <b>DROP</b> secara berurutan dan aman.</p><span class="pill reg">C4 · menganalisis</span></div>
+  </div>
+</section>
+
+<!-- 3. OUTLINE -->
+<section class="slide alt" id="s-outline" data-notes="Alokasi waktu (TM 2×50 menit): bagian 01 ±15 menit, 02 ±30 menit, 03 ±30 menit, 04 ±25 menit. Praktikum (P = 1 sks) memakai skrip pada slide studi kasus.">
+  <div class="head"><p class="eyebrow rise">Pokok bahasan</p><h2 class="rise" style="--d:.08s">Peta materi</h2></div>
+  <div class="outline">
+    <div class="card rise" style="--d:.15s"><span class="n">01</span><h3>Dari desain ke fisik</h3><ul><li>Tiga tahap perancangan</li><li>Sub-bahasa SQL</li><li>Lingkungan kerja DBMS</li></ul></div>
+    <div class="card rise" style="--d:.25s"><span class="n">02</span><h3>CREATE TABLE</h3><ul><li>Anatomi perintah</li><li>Memilih tipe data</li><li>Enam jenis constraint</li></ul></div>
+    <div class="card rise" style="--d:.35s"><span class="n">03</span><h3>Relasi &amp; integritas</h3><ul><li>Pemetaan 1:1, 1:N, M:N</li><li>ON DELETE / ON UPDATE</li><li>Urutan pembuatan tabel</li></ul></div>
+    <div class="card rise" style="--d:.45s"><span class="n">04</span><h3>Studi kasus &amp; perawatan</h3><ul><li>Skema e-learning</li><li>ALTER TABLE</li><li>DROP, TRUNCATE, DELETE</li></ul></div>
+  </div>
+</section>
+
+<!-- 4. RECAP -->
+<section class="slide" id="s-recap" data-notes="Satu contoh yang sama ditampilkan di tiga tahap (Silberschatz et al., 2011, bab 1.6 dan 7). Sorotan berganti otomatis; klik kartu untuk mengunci. Tekankan bahwa DDL hanyalah terjemahan; keputusan desain sudah diambil di tahap konseptual dan logis. Bila skema logis salah, DDL yang rapi pun tetap salah.">
+  <div class="head"><p class="eyebrow rise">Kilas balik</p><h2 class="rise" style="--d:.08s">Satu rancangan, tiga tingkat abstraksi</h2></div>
+  <div class="wrap">
+    <div class="lvls rise" style="--d:.15s">
+      <div class="card lvl" data-k="0"><span class="n">1</span><div><h3>Desain konseptual</h3><p>Entitas, atribut, dan relasi dalam ERD. Fokus pada kebutuhan bisnis, belum memikirkan DBMS.</p></div></div>
+      <div class="card lvl" data-k="1"><span class="n">2</span><div><h3>Desain logis</h3><p>ERD ditransformasikan menjadi skema relasional (PK, FK), lalu dinormalisasi.</p></div></div>
+      <div class="card lvl" data-k="2"><span class="n">3</span><div><h3>Desain fisik</h3><p>Skema ditulis sebagai perintah <b>DDL</b> yang dieksekusi DBMS: tipe data, constraint, indeks.</p></div></div>
+    </div>
+    <div class="panes rise" style="--d:.25s">
+      <div class="pane" data-k="0"><div class="card" id="recapErd"></div><p class="cap">ERD notasi Chen: satu instruktur mengajar banyak kursus (1:N).</p></div>
+      <div class="pane" data-k="1"><div class="schema">Instruktur(<u>instruktur_id</u>, nama_instruktur, email)<br>Kursus(<u>kursus_id</u>, nama_kursus, jumlah_modul, <i>instruktur_id</i>)</div><p class="cap">Garis bawah = primary key; garis putus-putus = foreign key yang merujuk Instruktur.</p></div>
+      <div class="pane" data-k="2"><div class="code sql">CREATE TABLE Kursus (
+  kursus_id     INT AUTO_INCREMENT PRIMARY KEY,
+  nama_kursus   VARCHAR(150) NOT NULL,
+  jumlah_modul  INT,
+  instruktur_id INT NOT NULL,
+  FOREIGN KEY (instruktur_id)
+    REFERENCES Instruktur(instruktur_id)
+);</div><p class="cap">Skema yang sama ditulis sebagai perintah yang dapat dieksekusi DBMS.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 5. SUBLANGUAGES -->
+<section class="slide alt" id="s-sql" data-notes="SQL berasal dari SEQUEL (IBM, 1970-an) dan distandarkan ANSI/ISO. Silberschatz menggolongkan kontrol transaksi dan otorisasi ke dalam DDL; pembagian empat sub-bahasa di sini adalah konvensi pengajaran yang umum. TRUNCATE tergolong DDL karena di MySQL ia men-drop dan membuat ulang tabel serta melakukan commit implisit. Kegiatan: minta mahasiswa menebak golongan setiap perintah sebelum kartu diklik.">
+  <div class="head"><p class="eyebrow rise">Structured Query Language</p><h2 class="rise" style="--d:.08s">Empat sub-bahasa SQL</h2></div>
+  <div class="langs">
+    <div class="card lang ddl rise" style="--d:.12s"><h3>DDL</h3><span class="full">DATA DEFINITION</span><p>Mendefinisikan <b>struktur</b>: basis data, tabel, kolom, constraint, indeks, view.</p></div>
+    <div class="card lang dml rise" style="--d:.2s"><h3>DML</h3><span class="full">DATA MANIPULATION</span><p>Mengelola <b>isi</b>: menambah, membaca, mengubah, dan menghapus baris. Dibahas pada P10.</p></div>
+    <div class="card lang dcl rise" style="--d:.28s"><h3>DCL</h3><span class="full">DATA CONTROL</span><p>Mengatur <b>hak akses</b>: siapa boleh membaca atau mengubah objek apa.</p></div>
+    <div class="card lang tcl rise" style="--d:.36s"><h3>TCL</h3><span class="full">TRANSACTION CONTROL</span><p>Mengelola <b>transaksi</b>: menyimpan atau membatalkan sekumpulan perubahan.</p></div>
+  </div>
+  <div class="cmds rise" style="--d:.45s" id="cmds"></div>
+  <div class="ctrl" style="margin-top:22px"><span class="lbl">Klik perintah untuk melihat golongan &amp; definisi singkatnya</span><button class="btn" id="cmdAll">Tampilkan semua</button><button class="btn" id="cmdReset">Ulang</button></div>
+</section>
+
+<!-- 6. ENV -->
+<section class="slide" id="s-env" data-notes="Di MySQL, DATABASE dan SCHEMA adalah sinonim. Satu server DBMS dapat menampung banyak basis data. Gunakan utf8mb4 agar nama dengan karakter non-ASCII dan emoji tersimpan benar. Jika laboratorium memakai XAMPP, DBMS-nya adalah MariaDB; sintaks DDL dasar sama, tetapi beberapa pesan galat berbeda (mis. pelanggaran CHECK berkode 4025, bukan 3819).">
+  <div class="head"><p class="eyebrow rise">Lingkungan kerja · MySQL 8</p><h2 class="rise" style="--d:.08s">Sebelum membuat tabel</h2></div>
+  <div class="wrap">
+    <div class="term rise" style="--d:.15s" id="envTerm"></div>
+    <div class="envc">
+      <div class="card rise" style="--d:.2s"><h3>CREATE DATABASE</h3><p>Membuat wadah bagi semua tabel. Tetapkan <i>character set</i> sejak awal.</p></div>
+      <div class="card rise" style="--d:.28s"><h3>USE</h3><p>Memilih basis data aktif; perintah berikutnya berlaku di dalamnya.</p></div>
+      <div class="card rise" style="--d:.36s"><h3>SHOW TABLES</h3><p>Menampilkan daftar tabel yang sudah ada.</p></div>
+      <div class="card rise" style="--d:.44s"><h3>DESCRIBE · SHOW CREATE TABLE</h3><p>Memeriksa struktur tabel. Pakai untuk memverifikasi hasil DDL.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 7. ANATOMY -->
+<section class="slide alt" id="s-anat" data-notes="Klik kartu di kanan atau bagian kode untuk menyorot. Bedakan constraint tingkat kolom (ditulis menempel pada kolom) dan tingkat tabel (ditulis setelah semua kolom, dapat mencakup lebih dari satu kolom). Memberi nama constraint (CONSTRAINT nama ...) membuat pesan galat mudah dibaca dan constraint mudah dihapus dengan ALTER TABLE ... DROP CONSTRAINT.">
+  <div class="head"><p class="eyebrow rise">Perintah #1</p><h2 class="rise" style="--d:.08s">Anatomi CREATE TABLE</h2></div>
+  <div class="wrap">
+    <div class="code rise" style="--d:.15s" id="anatCode"></div>
+    <div class="parts rise" style="--d:.25s">
+      <div class="card pt" data-p="1"><span class="n">1</span><div><h3>Perintah &amp; nama tabel</h3><p>Nama unik di dalam basis data; gunakan kata benda tunggal.</p></div></div>
+      <div class="card pt" data-p="2"><span class="n">2</span><div><h3>Nama kolom</h3><p>Sesuai atribut di skema logis; huruf kecil dengan garis bawah.</p></div></div>
+      <div class="card pt" data-p="3"><span class="n">3</span><div><h3>Tipe data</h3><p>Menentukan domain nilai dan ruang penyimpanan.</p></div></div>
+      <div class="card pt" data-p="4"><span class="n">4</span><div><h3>Constraint kolom</h3><p>Aturan yang melekat pada satu kolom.</p></div></div>
+      <div class="card pt" data-p="5"><span class="n">5</span><div><h3>Constraint tabel</h3><p>Aturan bernama, dapat melibatkan beberapa kolom.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 8. TYPES -->
+<section class="slide" id="s-types" data-notes="Silberschatz et al. (2011) bab 3.2.1 dan 4.5. FLOAT/DOUBLE menyimpan bilangan dalam basis dua sehingga 0,1 tidak dapat direpresentasikan secara eksak. Demo di kanan dihitung langsung oleh JavaScript, yang memakai format IEEE 754 double yang sama dengan DOUBLE di MySQL. Untuk uang selalu gunakan DECIMAL. Catatan: di MySQL, BOOLEAN adalah alias TINYINT(1).">
+  <div class="head"><p class="eyebrow rise">Domain atribut</p><h2 class="rise" style="--d:.08s">Tipe data yang umum dipakai</h2></div>
+  <div class="wrap">
+    <table class="formal rise" style="--d:.15s">
+      <tr><th>Kategori</th><th>Tipe</th><th>Contoh atribut</th><th>Catatan</th></tr>
+      <tr><td>Bilangan bulat</td><td class="mono">INT · BIGINT</td><td>id, jumlah_modul</td><td>INT: ±2,1 miliar</td></tr>
+      <tr><td>Desimal eksak</td><td class="mono">DECIMAL(p,s)</td><td>harga, ipk</td><td>p digit total, s di belakang koma</td></tr>
+      <tr><td>Desimal aproksimasi</td><td class="mono">FLOAT · DOUBLE</td><td>data sensor</td><td class="warn">Ada galat pembulatan; <b>jangan untuk uang</b></td></tr>
+      <tr><td>Teks panjang tetap</td><td class="mono">CHAR(n)</td><td>nim, kode_prodi</td><td>Selalu n karakter</td></tr>
+      <tr><td>Teks panjang variabel</td><td class="mono">VARCHAR(n)</td><td>nama, email</td><td>n = batas maksimum</td></tr>
+      <tr><td>Teks panjang</td><td class="mono">TEXT</td><td>bio, deskripsi</td><td>Tidak perlu batas panjang</td></tr>
+      <tr><td>Waktu</td><td class="mono">DATE · DATETIME</td><td>tgl_pendaftaran</td><td>Format 'YYYY-MM-DD'</td></tr>
+      <tr><td>Logika</td><td class="mono">BOOLEAN</td><td>status_aktif</td><td>MySQL: alias TINYINT(1)</td></tr>
+    </table>
+    <div class="card fdemo rise" style="--d:.3s">
+      <h3>Mengapa uang memakai DECIMAL?</h3>
+      <p style="font-size:22px;color:var(--muted)">Jumlahkan biaya 0,10 dan 0,20 sebanyak yang Anda mau, lalu bandingkan.</p>
+      <div class="ctrl"><button class="btn primary" id="fAdd">+ 0,1 + 0,2</button><button class="btn" id="fReset">Ulang</button></div>
+      <div class="res"><b>DOUBLE</b><span class="mono" id="fD">0</span><b>DECIMAL</b><span class="mono" id="fE">0.00</span></div>
+      <p id="fMsg" style="font-size:21px;color:var(--muted);min-height:90px"></p>
+    </div>
+  </div>
+</section>
+
+<!-- 9. TYPE QUIZ -->
+<section class="slide alt" id="s-tq" data-notes="Latihan kelas: mahasiswa memilih lebih dulu, lalu klik. Pesan utama: angka yang tidak dihitung secara aritmetika (NIM, nomor HP, kode pos) disimpan sebagai teks. Kasus harga: INT masih dapat diterima untuk rupiah tanpa sen, tetapi DECIMAL lebih aman dan lazim.">
+  <div class="head"><p class="eyebrow rise">Latihan singkat</p><h2 class="rise" style="--d:.08s">Pilih tipe data yang paling tepat</h2></div>
+  <div class="tq rise" style="--d:.15s" id="tq"></div>
+</section>
+
+<!-- 10. CONSTRAINTS -->
+<section class="slide" id="s-cons" data-notes="Constraint adalah implementasi aturan integritas dari model relasional (Codd, 1970; Silberschatz bab 4.4): integritas entitas (PRIMARY KEY), integritas domain (tipe, NOT NULL, CHECK), dan integritas referensial (FOREIGN KEY). PRIMARY KEY = UNIQUE + NOT NULL, satu per tabel. UNIQUE mengizinkan beberapa NULL. CHECK baru ditegakkan MySQL sejak versi 8.0.16; versi lebih lama mengabaikannya tanpa peringatan.">
+  <div class="head"><p class="eyebrow rise">Aturan integritas</p><h2 class="rise" style="--d:.08s">Enam constraint utama</h2></div>
+  <div class="cons">
+    <div class="card con rise" style="--d:.12s"><h3>PRIMARY KEY</h3><p>Identitas setiap baris: unik dan tidak boleh NULL. Satu per tabel.</p><code>kursus_id INT PRIMARY KEY</code></div>
+    <div class="card con rise" style="--d:.18s"><h3>FOREIGN KEY</h3><p>Nilainya harus ada di PK tabel induk (integritas referensial).</p><code>FOREIGN KEY (instruktur_id)
+  REFERENCES Instruktur(instruktur_id)</code></div>
+    <div class="card con rise" style="--d:.24s"><h3>NOT NULL</h3><p>Kolom wajib diisi.</p><code>nama_kursus VARCHAR(150) NOT NULL</code></div>
+    <div class="card con rise" style="--d:.3s"><h3>UNIQUE</h3><p>Tidak ada dua baris dengan nilai sama; untuk candidate key.</p><code>email VARCHAR(100) UNIQUE</code></div>
+    <div class="card con rise" style="--d:.36s"><h3>CHECK</h3><p>Nilai harus memenuhi kondisi logika.</p><code>CHECK (jumlah_modul &gt; 0)</code></div>
+    <div class="card con rise" style="--d:.42s"><h3>DEFAULT</h3><p>Nilai otomatis bila kolom tidak diisi saat INSERT.</p><code>harga DECIMAL(12,2) DEFAULT 0</code></div>
+  </div>
+  <div class="levels">
+    <div class="card rise" style="--d:.5s"><span class="pill cls">Tingkat kolom</span><p>Ditulis menempel pada definisi kolom; berlaku untuk kolom itu saja.</p></div>
+    <div class="card rise" style="--d:.56s"><span class="pill reg">Tingkat tabel</span><p>Ditulis setelah kolom: <code>CONSTRAINT nama ...</code>; dapat mencakup beberapa kolom.</p></div>
+  </div>
+</section>
+
+<!-- 11. CONSTRAINT TESTER -->
+<section class="slide alt" id="s-test" data-notes="Simulasi interaktif; pesan galat sama persis dengan MySQL 8.0. Klik setiap INSERT, minta mahasiswa memprediksi hasilnya lebih dulu. Setelah INSERT (f), perhatikan harga terisi 0.00 dari DEFAULT. Di InnoDB, INSERT yang gagal dapat tetap menghabiskan nomor AUTO_INCREMENT sehingga nomor bisa melompat; itu normal dan PK tidak perlu berurutan.">
+  <div class="head"><p class="eyebrow rise">Simulasi · constraint bekerja</p><h2 class="rise" style="--d:.08s">Apa yang ditolak DBMS?</h2></div>
+  <div class="wrap">
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <div class="tv rise" style="--d:.12s"><div class="tn">kursus <span>instruktur yang ada: 1, 2, 3</span></div><table id="ktab"></table></div>
+      <div class="rules rise" style="--d:.2s"><span>PK kursus_id</span><span>nama_kursus NOT NULL</span><span>chk_modul: jumlah_modul &gt; 0</span><span>harga DEFAULT 0</span><span>FK → instruktur</span></div>
+      <div class="term rise" style="--d:.25s" id="kterm"><span class="pr">mysql&gt; -- klik salah satu INSERT di kanan</span></div>
+    </div>
+    <div class="ins rise" style="--d:.2s" id="kins"></div>
+  </div>
+  <div class="ctrl" style="position:absolute;right:300px;bottom:40px"><button class="btn" id="kReset">Ulang data</button></div>
+</section>
+
+<!-- 12. RELATIONSHIP MAPPING -->
+<section class="slide" id="s-rel" data-notes="Aturan transformasi ERD ke relasi (Elmasri &amp; Navathe, 2016, bab 9). 1:N: FK selalu di sisi N; menaruhnya di sisi 1 akan menghasilkan atribut bernilai banyak dan melanggar 1NF. 1:1: FK + UNIQUE di sisi yang partisipasinya total. M:N: tidak dapat diwakili oleh FK saja, harus ada tabel penghubung; atribut relasi (tgl_pendaftaran) disimpan di tabel ini.">
+  <div class="head" style="margin-bottom:20px"><p class="eyebrow rise">ERD → DDL</p><h2 class="rise" style="--d:.08s">Memetakan kardinalitas menjadi FOREIGN KEY</h2></div>
+  <div class="tabs rise" style="--d:.12s"><button class="btn on" data-k="0">1 : 1</button><button class="btn" data-k="1">1 : N</button><button class="btn" data-k="2">M : N</button></div>
+  <div class="panes rise" style="--d:.18s">
+    <div class="pane on" data-k="0">
+      <div><div class="card" id="erd0"></div><div class="rule"><h3>FK + UNIQUE di salah satu sisi</h3><p>Letakkan pada sisi yang partisipasinya total: setiap profil pasti milik satu instruktur. UNIQUE yang menjaga agar tetap 1:1.</p></div></div>
+      <div class="code sql">CREATE TABLE ProfilInstruktur (
+  profil_id     INT AUTO_INCREMENT PRIMARY KEY,
+  instruktur_id INT NOT NULL UNIQUE, -- kunci 1:1
+  bio           TEXT,
+  website       VARCHAR(255),
+  CONSTRAINT fk_profil_ke_instruktur
+    FOREIGN KEY (instruktur_id)
+    REFERENCES Instruktur(instruktur_id)
+    ON DELETE CASCADE
+);</div>
+    </div>
+    <div class="pane" data-k="1">
+      <div><div class="card" id="erd1"></div><div class="rule"><h3>FK di sisi N (banyak)</h3><p>Setiap kursus menyimpan <b>satu</b> instruktur_id. Bila dibalik, satu instruktur harus menyimpan banyak kursus_id dalam satu sel, dan itu melanggar 1NF.</p></div></div>
+      <div class="code sql">CREATE TABLE Kursus (
+  kursus_id     INT AUTO_INCREMENT PRIMARY KEY,
+  nama_kursus   VARCHAR(150) NOT NULL,
+  jumlah_modul  INT,
+  instruktur_id INT NOT NULL,        -- FK di sisi N
+  CONSTRAINT fk_kursus_instruktur
+    FOREIGN KEY (instruktur_id)
+    REFERENCES Instruktur(instruktur_id)
+);</div>
+    </div>
+    <div class="pane" data-k="2">
+      <div><div class="card" id="erd2"></div><div class="rule"><h3>Tabel penghubung</h3><p>Berisi dua FK. Kombinasi keduanya harus unik. Atribut milik relasi (tgl_pendaftaran) ikut disimpan di sini.</p></div></div>
+      <div class="code sql" style="font-size:19.5px">CREATE TABLE Pendaftaran (
+  pendaftaran_id  INT AUTO_INCREMENT PRIMARY KEY,
+  mahasiswa_id    INT NOT NULL,
+  kursus_id       INT NOT NULL,
+  tgl_pendaftaran DATE NOT NULL,   -- atribut relasi
+  CONSTRAINT uq_mahasiswa_kursus
+    UNIQUE (mahasiswa_id, kursus_id),
+  CONSTRAINT fk_pendaftaran_mahasiswa
+    FOREIGN KEY (mahasiswa_id)
+    REFERENCES Mahasiswa(mahasiswa_id),
+  CONSTRAINT fk_pendaftaran_kursus
+    FOREIGN KEY (kursus_id) REFERENCES Kursus(kursus_id)
+);</div>
+    </div>
+  </div>
+</section>
+
+<!-- 13. REFERENTIAL ACTIONS -->
+<section class="slide alt" id="s-ref2" data-notes="Bila ON DELETE tidak ditulis, InnoDB memakai RESTRICT (setara NO ACTION). Pada CASCADE, MySQL hanya melaporkan '1 row affected' walaupun baris anak ikut terhapus; baris yang terhapus berantai tidak dihitung. SET NULL mensyaratkan kolom FK boleh NULL; bila kolom NOT NULL, CREATE TABLE ditolak dengan ERROR 1830. Diskusi: pada skema lengkap, CASCADE dari Instruktur ke Kursus akan tertahan jika kursus masih punya baris di Pendaftaran (FK-nya RESTRICT). Hapus Andi (id 3) untuk menunjukkan bahwa induk tanpa anak selalu dapat dihapus.">
+  <div class="head"><p class="eyebrow rise">Integritas referensial</p><h2 class="rise" style="--d:.08s">Apa yang terjadi bila induk dihapus?</h2></div>
+  <div class="wrap">
+    <div style="display:flex;flex-direction:column;gap:18px">
+      <div class="twotab rise" style="--d:.12s">
+        <div class="tv"><div class="tn">instruktur <span>induk</span></div><table id="rInstr"></table></div>
+        <div class="tv"><div class="tn">kursus <span>anak</span></div><table id="rKurs"></table></div>
+      </div>
+      <div class="term rise" style="--d:.2s" id="rTerm"><span class="pr">mysql&gt; -- pilih aksi, lalu jalankan DELETE</span></div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:18px" class="rise" style="--d:.2s">
+      <div class="ctrl"><span class="lbl">ON DELETE</span><button class="btn on" data-a="RESTRICT">RESTRICT</button><button class="btn" data-a="CASCADE">CASCADE</button><button class="btn" data-a="SET NULL">SET NULL</button></div>
+      <div class="code" id="rCode"></div>
+      <p id="rDesc" style="font-size:23px;color:var(--muted);min-height:100px"></p>
+      <div class="ctrl"><button class="btn primary" id="rDel1">DELETE … WHERE instruktur_id = 1</button><button class="btn" id="rDel3">… = 3</button><button class="btn" id="rReset">Ulang</button></div>
+    </div>
+  </div>
+</section>
+
+<!-- 14. ORDER -->
+<section class="slide" id="s-order" data-notes="Panah menunjuk dari tabel anak (yang memiliki FK) ke tabel induk. Klik tabel untuk menjalankan CREATE TABLE; urutan yang salah memunculkan ERROR 1824. Setelah semua dibuat, pindah ke mode DROP: urutannya terbalik, dan galat 3730 muncul bila induk masih dirujuk. SET FOREIGN_KEY_CHECKS = 0 dapat melewati pemeriksaan ini saat impor data, tetapi jangan dijadikan kebiasaan.">
+  <div class="head"><p class="eyebrow rise">Simulasi · ketergantungan</p><h2 class="rise" style="--d:.08s">Urutan CREATE dan DROP</h2></div>
+  <div class="wrap">
+    <div class="graph rise" style="--d:.12s" id="graph"><svg id="gsvg"></svg></div>
+    <div class="side rise" style="--d:.2s">
+      <div class="ctrl"><span class="lbl">Mode</span><button class="btn on" data-m="create">CREATE</button><button class="btn" data-m="drop">DROP</button><button class="btn" id="oReset">Ulang</button></div>
+      <div class="card" style="padding:22px 26px"><p style="font-size:23px"><b>CREATE:</b> tabel induk lebih dulu, anak kemudian.<br><b>DROP:</b> kebalikannya, yaitu anak lebih dulu.</p></div>
+      <div class="term" id="oTerm"><span class="pr">mysql&gt; -- klik tabel untuk membuatnya</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 15. CASE -->
+<section class="slide alt" id="s-case" data-notes="Studi kasus yang sama dengan pertemuan 10 (DML), sehingga skrip hari ini menjadi fondasi praktikum minggu depan. Minta mahasiswa menggambar ERD Chen-nya terlebih dahulu (5 menit) sebelum melihat skrip.">
+  <div class="head"><p class="eyebrow rise">Studi kasus</p><h2 class="rise" style="--d:.08s">Platform e-learning</h2></div>
+  <div class="wrap">
+    <div class="rise" style="--d:.12s;display:flex;flex-direction:column;gap:24px">
+      <p class="lead">Sistem mengelola data <b>Instruktur</b> yang mengajar, <b>Kursus</b> yang mereka buat, dan <b>Mahasiswa</b> yang mendaftar. Setiap instruktur memiliki halaman <b>Profil</b>, dan setiap <b>Pendaftaran</b> mahasiswa ke kursus dicatat beserta tanggalnya.</p>
+      <div class="card" style="padding:24px 28px"><p style="font-size:24px;color:var(--muted)"><b style="color:var(--dark)">Tambahan aturan domain:</b> setiap kursus memiliki minimal satu modul dan harga yang tidak negatif; email instruktur dan mahasiswa tidak boleh ganda.</p></div>
+    </div>
+    <div class="brules">
+      <div class="card brule rise" style="--d:.2s"><span class="k">1 : 1</span><p>Setiap Instruktur memiliki tepat satu ProfilInstruktur.</p></div>
+      <div class="card brule rise" style="--d:.28s"><span class="k">1 : N</span><p>Satu Instruktur dapat membuat banyak Kursus.</p></div>
+      <div class="card brule rise" style="--d:.36s"><span class="k">M : N</span><p>Satu Mahasiswa dapat mendaftar di banyak Kursus, dan sebaliknya.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 16. SCRIPT STEPPER -->
+<section class="slide" id="s-script" data-notes="Jalankan langkah demi langkah. Urutannya mengikuti aturan induk-sebelum-anak. Dibanding versi sebelumnya, tabel Kursus diberi kolom harga (DEFAULT 0) dan CHECK pada jumlah_modul dan harga; perubahan ini tetap kompatibel dengan contoh INSERT di pertemuan 10 karena harga memiliki nilai default.">
+  <div class="head" style="margin-bottom:24px"><p class="eyebrow rise">Studi kasus · skrip DDL</p><h2 class="rise" style="--d:.08s">Membangun skema langkah demi langkah</h2></div>
+  <div class="wrap">
+    <div style="display:flex;flex-direction:column;gap:16px" class="rise" style="--d:.12s">
+      <div class="steps" id="scSteps"></div>
+      <div class="code" id="scCode"></div>
+      <p class="stepx" id="scText"></p>
+    </div>
+    <div class="diagram rise" style="--d:.2s" id="diagram"><svg id="dsvg"></svg></div>
+  </div>
+</section>
+
+<!-- 17. REVIEW -->
+<section class="slide alt" id="s-review" data-notes="Kegiatan berpikir kritis (sesuai SUBCPMK0331: memodifikasi model dan mempertahankan argumen). Diskusikan dulu dalam kelompok kecil, lalu buka kartu. Tidak ada satu jawaban mutlak pada kartu 2; yang dinilai adalah alasannya.">
+  <div class="head"><p class="eyebrow rise">Telaah rancangan</p><h2 class="rise" style="--d:.08s">Apakah skrip ini sudah optimal?</h2></div>
+  <div class="quiz">
+    <div class="qcard rise" style="--d:.15s"><div class="inner"><div class="face front"><span class="em">🧩</span><p>ProfilInstruktur memiliki <code>profil_id</code> <i>dan</i> <code>instruktur_id UNIQUE</code>. Perlukah <code>profil_id</code>?</p><span class="hint">Klik untuk membuka</span></div>
+      <div class="face back"><h3>Tidak wajib</h3><p>Karena relasinya 1:1, <code>instruktur_id</code> dapat sekaligus menjadi PRIMARY KEY dan FOREIGN KEY (<i>shared primary key</i>). Satu kolom dan satu indeks berkurang.</p></div></div></div>
+    <div class="qcard rise" style="--d:.25s"><div class="inner"><div class="face front"><span class="em">🔑</span><p>Pendaftaran: surrogate key + <code>UNIQUE(mahasiswa_id, kursus_id)</code>, atau <code>PRIMARY KEY(mahasiswa_id, kursus_id)</code>?</p><span class="hint">Klik untuk membuka</span></div>
+      <div class="face back"><h3>Keduanya sah</h3><p>PK gabungan lebih ringkas. Surrogate key memudahkan bila baris pendaftaran kelak dirujuk tabel lain (mis. Nilai). Yang wajib: kombinasi mahasiswa–kursus tidak boleh ganda.</p></div></div></div>
+    <div class="qcard rise" style="--d:.35s"><div class="inner"><div class="face front"><span class="em">🗑️</span><p>FK pada Kursus tidak menulis <code>ON DELETE</code>. Apa yang terjadi bila seorang instruktur dihapus?</p><span class="hint">Klik untuk membuka</span></div>
+      <div class="face back"><h3>Ditolak (RESTRICT)</h3><p>Penghapusan gagal selama instruktur masih memiliki kursus. Untuk data bernilai, ini justru aman. CASCADE akan ikut menghapus kursus beserta riwayatnya tanpa peringatan.</p></div></div></div>
+  </div>
+</section>
+
+<!-- 18. ALTER -->
+<section class="slide" id="s-alter" data-notes="Sintaks MySQL; padanan PostgreSQL ada di slide dialek. Jebakan penting: MODIFY menuliskan ulang SELURUH definisi kolom, sehingga NOT NULL yang lupa ditulis akan hilang (tombol 'MODIFY tanpa NOT NULL'). Pada tabel yang sudah berisi data, ALTER dapat gagal, misalnya menambah UNIQUE pada kolom yang memiliki nilai ganda atau memperpendek VARCHAR di bawah panjang data yang ada.">
+  <div class="head"><p class="eyebrow rise">Perintah #2</p><h2 class="rise" style="--d:.08s">ALTER TABLE: mengubah struktur</h2></div>
+  <div class="wrap">
+    <div class="ins rise" style="--d:.12s" id="alIns"></div>
+    <div style="display:flex;flex-direction:column;gap:16px" class="rise" style="--d:.2s">
+      <div class="tv"><div class="tn">mahasiswa <span>struktur tabel</span></div></div>
+      <div class="cols" id="alCols"></div>
+      <div class="term" id="alTerm"><span class="pr">mysql&gt; -- klik perintah ALTER di kiri</span></div>
+      <div class="ctrl"><button class="btn" id="alReset">Ulang struktur</button></div>
+    </div>
+  </div>
+</section>
+
+<!-- 19. DROP / TRUNCATE / DELETE -->
+<section class="slide alt" id="s-drop" data-notes="Coba ketiganya, lalu tekan 'INSERT baris baru' untuk melihat perbedaan AUTO_INCREMENT. Tabel contoh sengaja tidak dirujuk FK. Jika dirujuk, TRUNCATE ditolak (ERROR 1701) dan DROP ditolak (ERROR 3730). DDL di MySQL melakukan commit implisit, sehingga DROP dan TRUNCATE tidak dapat di-ROLLBACK. Selalu buat cadangan (mysqldump) sebelum DROP di server produksi.">
+  <div class="head"><p class="eyebrow rise">Perintah #3</p><h2 class="rise" style="--d:.08s">DROP, TRUNCATE, atau DELETE?</h2></div>
+  <div class="wrap">
+    <div style="display:flex;flex-direction:column;gap:16px" class="rise" style="--d:.12s">
+      <div class="tv" id="dTv"><div class="tn">pengumuman <span id="dAi">AUTO_INCREMENT = 4</span></div><table id="dTab"></table></div>
+      <div class="ctrl"><button class="btn" data-d="DELETE">DELETE FROM</button><button class="btn" data-d="TRUNCATE">TRUNCATE</button><button class="btn" data-d="DROP">DROP TABLE</button></div>
+      <div class="ctrl"><button class="btn primary" id="dIns">INSERT baris baru</button><button class="btn" id="dReset">Ulang</button></div>
+      <div class="term" id="dTerm"><span class="pr">mysql&gt; -- pilih salah satu perintah</span></div>
+    </div>
+    <table class="formal tight rise" style="--d:.2s">
+      <tr><th></th><th>DELETE</th><th>TRUNCATE</th><th>DROP</th></tr>
+      <tr><td><b>Golongan</b></td><td>DML</td><td>DDL</td><td>DDL</td></tr>
+      <tr><td><b>Yang hilang</b></td><td>Baris (bisa dengan WHERE)</td><td>Semua baris</td><td>Baris + struktur tabel</td></tr>
+      <tr><td><b>Struktur tabel</b></td><td>Tetap</td><td>Tetap</td><td>Hilang</td></tr>
+      <tr><td><b>AUTO_INCREMENT</b></td><td>Berlanjut</td><td>Kembali ke 1</td><td>Ikut hilang</td></tr>
+      <tr><td><b>ROLLBACK</b></td><td>Bisa (dalam transaksi)</td><td>Tidak (commit implisit)</td><td>Tidak (commit implisit)</td></tr>
+      <tr><td><b>Kecepatan</b></td><td>Lambat untuk data besar</td><td>Cepat</td><td>Cepat</td></tr>
+      <tr><td><b>Pola aman</b></td><td colspan="3" class="mono" style="color:var(--dark)">DROP TABLE IF EXISTS pengumuman;</td></tr>
+    </table>
+  </div>
+</section>
+
+<!-- 20. DIALECT -->
+<section class="slide" id="s-dialect" data-notes="Penting bagi mahasiswa yang mencari contoh di internet: banyak sintaks yang beredar khusus untuk satu DBMS. Kolom 'Standar SQL' mengacu pada ISO/IEC 9075. Perbedaan DDL transaksional sering mengejutkan: di PostgreSQL, CREATE/DROP dalam BEGIN ... ROLLBACK dapat dibatalkan; di MySQL tidak.">
+  <div class="head"><p class="eyebrow rise">Portabilitas</p><h2 class="rise" style="--d:.08s">Satu standar, banyak dialek</h2></div>
+  <table class="formal tight rise" style="--d:.15s">
+    <tr><th>Kebutuhan</th><th>MySQL 8</th><th>PostgreSQL</th><th>Standar SQL</th></tr>
+    <tr><td>Kunci otomatis</td><td class="mono">INT AUTO_INCREMENT</td><td class="mono">INT GENERATED ALWAYS AS IDENTITY</td><td>Identity column</td></tr>
+    <tr><td>Ubah tipe kolom</td><td class="mono">MODIFY COLUMN c VARCHAR(150)</td><td class="mono">ALTER COLUMN c TYPE VARCHAR(150)</td><td>ALTER COLUMN</td></tr>
+    <tr><td>Ganti nama kolom</td><td class="mono">RENAME COLUMN a TO b</td><td class="mono">RENAME COLUMN a TO b</td><td>Belum seragam</td></tr>
+    <tr><td>BOOLEAN</td><td>Alias TINYINT(1)</td><td>Tipe asli</td><td>Tipe asli</td></tr>
+    <tr><td>CHECK</td><td>Ditegakkan sejak 8.0.16</td><td>Selalu ditegakkan</td><td>Wajib</td></tr>
+    <tr><td>Mengutip identifier</td><td class="mono">`nama`</td><td class="mono">"nama"</td><td class="mono">"nama"</td></tr>
+    <tr><td>DDL dalam transaksi</td><td>Commit implisit</td><td>Dapat di-ROLLBACK</td><td>Bergantung implementasi</td></tr>
+  </table>
+</section>
+
+<!-- 21. ERRORS -->
+<section class="slide alt" id="s-err" data-notes="Daftar ini disusun dari galat yang paling sering muncul saat praktikum DDL. Latih mahasiswa membaca pesan galat: kode angka dan nama constraint biasanya langsung menunjuk letak masalah. Galat 3780 sering terjadi bila PK bertipe INT UNSIGNED sementara FK bertipe INT.">
+  <div class="head"><p class="eyebrow rise">Pemecahan masalah</p><h2 class="rise" style="--d:.08s">Galat DDL yang paling sering muncul</h2></div>
+  <table class="formal tight rise" style="--d:.15s">
+    <tr><th style="width:620px">Pesan MySQL</th><th>Penyebab</th><th>Perbaikan</th></tr>
+    <tr><td class="err">ERROR 1064: You have an error in your SQL syntax … near ')'</td><td>Koma setelah kolom terakhir, VARCHAR tanpa panjang, atau nama tabel berupa kata kunci (mis. <code>order</code>)</td><td>Periksa koma dan kurung; ganti nama (pesanan)</td></tr>
+    <tr><td class="err">ERROR 1824: Failed to open the referenced table 'instruktur'</td><td>Tabel induk belum dibuat</td><td>Buat induk lebih dulu</td></tr>
+    <tr><td class="err">ERROR 3780: Referencing column … and referenced column … are incompatible</td><td>Tipe FK berbeda dengan PK (INT vs BIGINT, UNSIGNED)</td><td>Samakan tipe secara persis</td></tr>
+    <tr><td class="err">ERROR 1830: Column … cannot be NOT NULL: needed in a foreign key constraint … SET NULL</td><td>ON DELETE SET NULL pada kolom NOT NULL</td><td>Izinkan NULL atau pilih aksi lain</td></tr>
+    <tr><td class="err">ERROR 3730: Cannot drop table 'instruktur' referenced by a foreign key constraint</td><td>Induk di-DROP sebelum anak</td><td>DROP anak lebih dulu</td></tr>
+    <tr><td class="err">ERROR 1050: Table 'kursus' already exists</td><td>Skrip dijalankan dua kali</td><td><code>DROP TABLE IF EXISTS</code> di awal skrip</td></tr>
+  </table>
+</section>
+
+<!-- 22. PRAKTIKUM -->
+<section class="slide dark" id="s-prak" data-notes="Praktikum 1 sks. Bagian A dikerjakan bersama (live coding) memakai skrip studi kasus. Bagian B sesuai RPS minggu 9: diskusi dan asistensi tugas studi kasus perancangan kelompok. Minta mahasiswa menyerahkan berkas .sql dan tangkapan layar SHOW CREATE TABLE.">
+  <div class="head"><p class="eyebrow rise">Praktikum · MySQL 8 / MariaDB</p><h2 class="rise" style="--d:.08s;color:var(--light)">Kegiatan praktikum</h2></div>
+  <div class="prak">
+    <div class="card rise" style="--d:.2s"><span style="font-size:60px">🧑‍💻</span><p class="eyebrow" style="margin:0">Bagian A · e-learning · terbimbing</p>
+      <ol><li>Buat basis data <code>elearning</code> (utf8mb4)</li><li>Jalankan skrip lima tabel sesuai urutan</li><li>Verifikasi dengan <code>DESCRIBE</code> dan <code>SHOW CREATE TABLE</code></li><li>Uji setiap constraint dengan INSERT yang melanggar, lalu catat kode galatnya</li><li>Ubah ProfilInstruktur menjadi <i>shared primary key</i> dengan ALTER</li></ol></div>
+    <div class="card rise" style="--d:.35s"><span style="font-size:60px">🏗️</span><p class="eyebrow" style="margin:0">Bagian B · proyek kelompok · mandiri</p>
+      <ul><li>Terjemahkan skema relasional hasil normalisasi kelompok menjadi skrip DDL</li><li>Tetapkan tipe data dan alasannya untuk setiap kolom</li><li>Tentukan aksi ON DELETE untuk setiap FK beserta justifikasinya</li><li>Kumpulkan: <code>kelompok_X.sql</code> + tangkapan layar</li></ul></div>
+  </div>
+</section>
+
+<!-- 23. SUMMARY -->
+<section class="slide" id="s-sum" data-notes="Rangkuman mengacu kembali ke empat indikator Sub-CPMK. Pertanyaan pemantik menjadi jembatan ke pertemuan 10 (DML): constraint yang dibuat hari ini akan 'diuji' oleh perintah INSERT, UPDATE, DELETE.">
+  <div class="head"><p class="eyebrow rise">Rangkuman</p><h2 class="rise" style="--d:.08s">Poin-poin utama</h2></div>
+  <div class="sum">
+    <div class="card rise" style="--d:.15s"><span class="em">🏛️</span><p>DDL mewujudkan skema logis menjadi <b>struktur fisik</b>; keputusan desain diambil sebelumnya.</p></div>
+    <div class="card rise" style="--d:.25s"><span class="em">🔢</span><p>Tipe data adalah <b>domain</b>: NIM dan nomor HP disimpan sebagai teks, uang sebagai DECIMAL.</p></div>
+    <div class="card rise" style="--d:.35s"><span class="em">🛡️</span><p>Constraint membuat DBMS <b>menolak data yang salah</b>, bukan aplikasi yang harus selalu ingat.</p></div>
+    <div class="card rise" style="--d:.45s"><span class="em">🔗</span><p>FK di sisi N; M:N memerlukan tabel penghubung. <b>CREATE</b> induk dulu, <b>DROP</b> anak dulu.</p></div>
+  </div>
+  <div class="teaser rise" style="--d:.6s"><span class="em">🤔</span><p><b>Pertanyaan pemantik:</b> bila data ganda sudah terlanjur masuk sebelum UNIQUE dibuat, apa yang terjadi saat <code style="font-size:24px">ALTER TABLE … ADD UNIQUE</code> dijalankan? Bagaimana membersihkannya dengan DML?</p></div>
+</section>
+
+<!-- 24. EXERCISES -->
+<section class="slide alt" id="s-latihan" data-notes="KUNCI JAWABAN. (1) isbn CHAR(13) PRIMARY KEY, judul VARCHAR(200) NOT NULL, tahun_terbit SMALLINT CHECK (tahun_terbit BETWEEN 1450 AND 2100), harga DECIMAL(12,2) NOT NULL CHECK (harga >= 0), stok INT NOT NULL DEFAULT 0 CHECK (stok >= 0). (2) FK nip_pembimbing di tabel Mahasiswa (sisi N), merujuk Dosen(nip). (3) KRS(nim, kode_mk, nilai CHAR(2), PRIMARY KEY (nim, kode_mk), FK nim → Mahasiswa, FK kode_mk → MataKuliah). (4) CREATE: Instruktur, Mahasiswa, Kursus, Pendaftaran (Instruktur dan Mahasiswa boleh tertukar). DROP: Pendaftaran, Kursus, lalu Instruktur dan Mahasiswa. (5) ALTER TABLE Mahasiswa ADD COLUMN angkatan SMALLINT; ALTER TABLE Mahasiswa ADD CONSTRAINT chk_angkatan CHECK (angkatan >= 2000); ALTER TABLE Mahasiswa RENAME COLUMN nama_mahasiswa TO nama. (6) Lihat tabel perbandingan pada slide DROP/TRUNCATE/DELETE.">
+  <div class="head"><p class="eyebrow rise">Evaluasi pembelajaran</p><h2 class="rise" style="--d:.08s">Latihan soal</h2></div>
+  <ol class="exercises rise" style="--d:.15s">
+    <li>Tulis <code>CREATE TABLE Buku</code> dengan atribut isbn (13 digit), judul, tahun_terbit, harga, dan stok (tidak boleh negatif). Jelaskan pilihan tipe data dan constraint-nya.</li>
+    <li>ERD: <b>Dosen</b> (1) membimbing (N) <b>Mahasiswa</b>. Di tabel mana FK diletakkan? Tulis DDL kedua tabel.</li>
+    <li>Relasi M:N <b>Mahasiswa</b>–<b>MataKuliah</b> memiliki atribut <i>nilai</i>. Rancang tabel penghubungnya lengkap dengan PK dan FK.</li>
+    <li>Tentukan urutan CREATE dan urutan DROP untuk tabel Pendaftaran, Kursus, Instruktur, dan Mahasiswa.</li>
+    <li>Tulis perintah ALTER untuk: menambah kolom angkatan, menambahkan CHECK angkatan ≥ 2000, dan mengganti nama kolom nama_mahasiswa menjadi nama.</li>
+    <li>Jelaskan perbedaan DELETE, TRUNCATE, dan DROP dari segi struktur, AUTO_INCREMENT, dan ROLLBACK.</li>
+  </ol>
+  <p class="src">Kunci jawaban tersedia pada catatan pengajar (tekan N).</p>
+</section>
+
+<!-- 25. REFERENCES -->
+<section class="slide" id="s-refs" data-notes="Rujukan utama dari RPS adalah Silberschatz et al. (2011): bab 3.2 (SQL data definition), 4.4 (integrity constraints), dan 4.5 (SQL data types and schemas). Untuk pembahasan berbahasa Indonesia, Prayoga et al. (2023) bab 8 membahas CREATE, ALTER, DROP, RENAME, dan TRUNCATE di MySQL; buku ini ada di folder 03_Referensi_Buku.">
+  <div class="head"><p class="eyebrow rise">Referensi</p><h2 class="rise" style="--d:.08s">Daftar pustaka</h2></div>
+  <div class="refs rise" style="--d:.12s">
+    <p>Codd, E. F. (1970). A relational model of data for large shared data banks. <i>Communications of the ACM, 13</i>(6), 377–387. https://doi.org/10.1145/362384.362685</p>
+    <p>Connolly, T., &amp; Begg, C. (2015). <i>Database systems: A practical approach to design, implementation, and management</i> (6th ed.). Pearson.</p>
+    <p>Elmasri, R., &amp; Navathe, S. B. (2016). <i>Fundamentals of database systems</i> (7th ed.). Pearson.</p>
+    <p>Kusrini. (2007). <i>Strategi perancangan dan pengelolaan basis data</i>. Andi.</p>
+    <p>Oracle Corporation. (2025). <i>MySQL 8.0 reference manual</i>. https://dev.mysql.com/doc/refman/8.0/en/</p>
+    <p>PostgreSQL Global Development Group. (2025). <i>PostgreSQL documentation</i>. https://www.postgresql.org/docs/</p>
+    <p>Prayoga, J., Sinurat, S., Rachman, A., Carolina, I., Jumaryadi, Y., Frieyadie, … Munawarah. (2023). <i>Sistem basis data</i>. Graha Mitra Edukasi.</p>
+    <p>Silberschatz, A., Korth, H. F., &amp; Sudarshan, S. (2011). <i>Database system concepts</i> (6th ed.). McGraw-Hill.</p>
+    <p>Sutanta, E. (2011). <i>Basis data dalam tinjauan konseptual</i>. Andi.</p>
+  </div>
+</section>
+
+<div id="counter"><button id="prevBtn" aria-label="Sebelumnya">‹</button><span id="num">1 / 25</span><button id="nextBtn" aria-label="Berikutnya">›</button></div>
+</div>
+<div id="notes"></div>
+
+<script>
+(function(){
+'use strict';
+const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>[...r.querySelectorAll(s)];
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+const esc=s=>s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+
+/* ---------- SQL highlighter ---------- */
+const KW=new Set('CREATE TABLE DATABASE USE SHOW TABLES DESCRIBE PRIMARY KEY FOREIGN REFERENCES CONSTRAINT NOT NULL UNIQUE DEFAULT CHECK AUTO_INCREMENT ON DELETE UPDATE CASCADE RESTRICT SET ALTER ADD COLUMN MODIFY RENAME TO DROP IF EXISTS TRUNCATE INSERT INTO VALUES AND BETWEEN CHARACTER COLLATE AFTER FROM WHERE SELECT NO ACTION'.split(' '));
+const TY=new Set('INT INTEGER BIGINT SMALLINT TINYINT DECIMAL NUMERIC FLOAT DOUBLE CHAR VARCHAR TEXT DATE TIME DATETIME TIMESTAMP BOOLEAN'.split(' '));
+function hl(src){
+  return src.replace(/(--[^\n]*)|('(?:[^']|'')*')|\b([A-Za-z_][A-Za-z0-9_]*)\b|\b(\d+(?:\.\d+)?)\b|([^'\-A-Za-z0-9_]+|-)/g,(m,c,s,w,n,o)=>{
+    if(c)return`<span class="cm">${esc(c)}</span>`;
+    if(s)return`<span class="st">${esc(s)}</span>`;
+    if(w){const u=w.toUpperCase();if(KW.has(u))return`<span class="kw">${w}</span>`;if(TY.has(u))return`<span class="ty">${w}</span>`;return w}
+    if(n)return`<span class="nu">${n}</span>`;
+    return esc(m)});
+}
+$$('.code.sql').forEach(el=>{el.innerHTML=hl(el.textContent)});
+
+/* ---------- stage & navigation ---------- */
+const stage=$('#stage'), slides=$$('.slide'), S={}, inited=new Set();
+let cur=-1;
+function fit(){const s=Math.min(innerWidth/1920,innerHeight/1080);stage.style.transform=`translate(-50%,-50%) scale(${s})`}
+addEventListener('resize',fit);fit();
+function go(n){
+  n=clamp(n,0,slides.length-1); if(n===cur)return;
+  if(cur>=0){slides[cur].classList.remove('active');const h=S[slides[cur].id];h&&h.leave&&h.leave()}
+  cur=n;const el=slides[n];el.classList.add('active');
+  const h=S[el.id];
+  if(h){if(!inited.has(el.id)){inited.add(el.id);try{h.init&&h.init(el)}catch(e){console.error(e)}}h.enter&&h.enter(el)}
+  stage.classList.toggle('on-dark',el.classList.contains('dark'));
+  $('#num').textContent=`${n+1} / ${slides.length}`;
+  $('#progress').style.width=((n+1)/slides.length*100)+'%';
+  $('#notes').innerHTML=el.dataset.notes?`<b>Catatan · slide ${n+1}</b><br>${el.dataset.notes}`:'';
+  history.replaceState(null,'','#'+(n+1));
+}
+addEventListener('keydown',e=>{
+  if(e.target.tagName==='INPUT')return;
+  if(['ArrowRight','PageDown',' '].includes(e.key)){e.preventDefault();go(cur+1)}
+  else if(['ArrowLeft','PageUp'].includes(e.key)){e.preventDefault();go(cur-1)}
+  else if(e.key==='Home')go(0); else if(e.key==='End')go(slides.length-1);
+  else if(e.key==='f'||e.key==='F'){document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen().catch(()=>{})}
+  else if(e.key==='n'||e.key==='N')$('#notes').classList.toggle('show');
+});
+$('#prevBtn').onclick=()=>go(cur-1); $('#nextBtn').onclick=()=>go(cur+1);
+let last=performance.now();
+function loop(now){const dt=Math.min(.05,(now-last)/1000);last=now;const h=cur>=0&&S[slides[cur].id];if(h&&h.frame){try{h.frame(dt,now/1000)}catch(e){console.error(e);h.frame=null}}requestAnimationFrame(loop)}
+
+/* ---------- helpers ---------- */
+function termLine(el,html,cls){const d=document.createElement('div');d.className='line'+(cls?' '+cls:'');d.innerHTML=html;el.appendChild(d);while(el.children.length>8)el.removeChild(el.firstChild);return d}
+function termClear(el){el.innerHTML=''}
+const PR='<span class="pr">mysql&gt; </span>';
+function rowsHTML(cols,rows,opt={}){
+  return `<tr>${cols.map(c=>`<th>${c}</th>`).join('')}</tr>`+rows.map(r=>`<tr data-id="${r[0]}" class="${(opt.cls&&opt.cls(r))||''}">${r.map((v,i)=>v===null?'<td class="nul">NULL</td>':`<td class="${(opt.cell&&opt.cell(r,i))||''}">${esc(String(v))}</td>`).join('')}</tr>`).join('');
+}
+/* Chen ERD as SVG string */
+function erd(o){
+  const A=o.a,B=o.b;let s=`<svg class="erd" viewBox="0 0 1000 ${o.h||300}" xmlns="http://www.w3.org/2000/svg">`;
+  const y=o.y||110;
+  s+=`<line x1="280" y1="${y+40}" x2="380" y2="${y+40}" stroke="#1B2A41" stroke-width="3"/><line x1="620" y1="${y+40}" x2="720" y2="${y+40}" stroke="#1B2A41" stroke-width="3"/>`;
+  (o.attrs||[]).forEach(t=>{s+=`<g class="at"><line x1="${t.lx}" y1="${t.ly}" x2="${t.x}" y2="${t.y}" stroke="#2F6FB0" stroke-width="2"/><ellipse cx="${t.x}" cy="${t.y}" rx="${t.rx||110}" ry="30" fill="#F2F6FB" stroke="#2F6FB0" stroke-width="2"/><text x="${t.x}" y="${t.y+8}" text-anchor="middle" ${t.pk?'text-decoration="underline"':''}>${t.t}</text></g>`});
+  if(o.rattr){s+=`<g class="at"><line x1="500" y1="${y+110}" x2="500" y2="${y+170}" stroke="#2F6FB0" stroke-width="2"/><ellipse cx="500" cy="${y+180}" rx="130" ry="30" fill="#F2F6FB" stroke="#2F6FB0" stroke-width="2"/><text x="500" y="${y+188}" text-anchor="middle">${o.rattr}</text></g>`}
+  s+=`<rect x="40" y="${y}" width="240" height="80" rx="6" fill="#fff" stroke="#1B2A41" stroke-width="3"/><text x="160" y="${y+49}" text-anchor="middle">${A}</text>`;
+  s+=`<rect x="720" y="${y}" width="240" height="80" rx="6" fill="#fff" stroke="#1B2A41" stroke-width="3"/><text x="840" y="${y+49}" text-anchor="middle">${B}</text>`;
+  s+=`<polygon points="500,${y-30} 620,${y+40} 500,${y+110} 380,${y+40}" fill="#FFF1E4" stroke="#E8833A" stroke-width="3"/><text x="500" y="${y+48}" text-anchor="middle">${o.r}</text>`;
+  s+=`<text class="card" x="330" y="${y+26}" text-anchor="middle">${o.c1}</text><text class="card" x="670" y="${y+26}" text-anchor="middle">${o.c2}</text>`;
+  return s+'</svg>';
+}
+
+/* ---------- 1. cover typewriter ---------- */
+const COVER_SQL=`CREATE TABLE Kursus (
+  kursus_id     INT AUTO_INCREMENT PRIMARY KEY,
+  nama_kursus   VARCHAR(150) NOT NULL,
+  jumlah_modul  INT,
+  harga         DECIMAL(12,2) NOT NULL DEFAULT 0,
+  instruktur_id INT NOT NULL,
+  CONSTRAINT chk_modul CHECK (jumlah_modul > 0),
+  CONSTRAINT fk_kursus_instruktur
+    FOREIGN KEY (instruktur_id)
+    REFERENCES Instruktur(instruktur_id)
+);`;
+S['s-cover']={init(el){this.el=$('#coverCode')},enter(){this.t=0;this.n=-1},
+  frame(dt){this.t+=dt;const n=Math.min(COVER_SQL.length,Math.floor(Math.max(0,this.t-.8)*38));
+    if(n!==this.n){this.n=n;this.el.innerHTML=hl(COVER_SQL.slice(0,n))+'<span class="caret"></span>'}
+    if(this.t>COVER_SQL.length/38+7)this.t=0}};
+
+/* ---------- 4. recap ---------- */
+S['s-recap']={init(el){this.el=el;
+    $('#recapErd').innerHTML=erd({a:'Instruktur',b:'Kursus',r:'mengajar',c1:'1',c2:'N',h:340,y:130,attrs:[
+      {x:160,y:40,lx:160,ly:130,t:'instruktur_id',pk:1,rx:120},{x:160,y:300,lx:160,ly:210,t:'nama_instruktur',rx:125},
+      {x:840,y:40,lx:840,ly:130,t:'kursus_id',pk:1},{x:840,y:300,lx:840,ly:210,t:'nama_kursus'}]});
+    $$('.lvl',el).forEach(c=>c.onclick=()=>{this.auto=false;this.set(+c.dataset.k)})},
+  set(k){this.k=k;$$('.lvl',this.el).forEach(c=>c.classList.toggle('on',+c.dataset.k===k));$$('.pane',this.el).forEach(p=>p.classList.toggle('on',+p.dataset.k===k))},
+  enter(){this.auto=true;this.t=0;this.set(0)},
+  frame(dt){if(!this.auto)return;this.t+=dt;if(this.t>5){this.t=0;this.set((this.k+1)%3)}}};
+
+/* ---------- 5. sublanguages ---------- */
+S['s-sql']={init(el){
+  const C=[
+    ['CREATE','ddl','Membuat objek baru (database, tabel, view, indeks)'],
+    ['INSERT','dml','Menambahkan baris data baru ke dalam tabel'],
+    ['GRANT','dcl','Memberikan hak akses kepada pengguna'],
+    ['COMMIT','tcl','Menyimpan perubahan transaksi secara permanen'],
+    ['ALTER','ddl','Mengubah struktur tabel atau kolom yang sudah ada'],
+    ['SELECT','dml','Mengambil dan menampilkan data dari tabel'],
+    ['REVOKE','dcl','Mencabut kembali hak akses dari pengguna'],
+    ['ROLLBACK','tcl','Membatalkan perubahan transaksi ke kondisi awal'],
+    ['DROP','ddl','Menghapus tabel atau database beserta strukturnya'],
+    ['UPDATE','dml','Memperbarui nilai data pada baris yang sudah ada'],
+    ['TRUNCATE','ddl','Mengosongkan seluruh isi tabel (struktur tetap)'],
+    ['DELETE','dml','Menghapus baris data tertentu dari tabel'],
+    ['SAVEPOINT','tcl','Menandai titik simpan sementara dalam transaksi'],
+    ['RENAME','ddl','Mengganti nama tabel atau objek basis data']
+  ];
+  $('#cmds').innerHTML=C.map(([c,k,d])=>`<div class="cmd ${k}"><div class="cmd-top"><span>${c}</span><span class="tag">${k.toUpperCase()}</span></div><span class="desc">${d}</span></div>`).join('');
+  $$('.cmd',el).forEach(c=>c.onclick=()=>c.classList.toggle('show'));
+  $('#cmdAll').onclick=()=>$$('.cmd',el).forEach(c=>c.classList.add('show'));
+  $('#cmdReset').onclick=()=>$$('.cmd',el).forEach(c=>c.classList.remove('show'))}};
+
+/* ---------- 6. env terminal ---------- */
+const ENV=[[PR+hl('CREATE DATABASE elearning'),''],['  '+hl('CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;'),''],['Query OK, 1 row affected (0.01 sec)','ok'],[' ',''],[PR+hl('USE elearning;'),''],['Database changed','ok'],[' ',''],[PR+hl('SHOW TABLES;'),''],['Empty set (0.00 sec)','ok'],[' ',''],[PR+'<span class="cm">-- basis data siap; saatnya CREATE TABLE</span>','']];
+S['s-env']={init(){this.el=$('#envTerm')},enter(){termClear(this.el);this.i=0;this.t=0},
+  frame(dt){this.t+=dt;if(this.i<ENV.length&&this.t>.55){this.t=0;const d=document.createElement('div');d.className='line '+ENV[this.i][1];d.innerHTML=ENV[this.i][0];this.el.appendChild(d);this.i++}}};
+
+/* ---------- 7. anatomy ---------- */
+S['s-anat']={init(el){this.el=el;
+  const L=[[['CREATE TABLE Kursus',1],[' (',0]],
+    [['  ',0],['kursus_id    ',2],[' ',0],['INT          ',3],[' ',0],['AUTO_INCREMENT PRIMARY KEY',4],[',',0]],
+    [['  ',0],['nama_kursus  ',2],[' ',0],['VARCHAR(150) ',3],[' ',0],['NOT NULL',4],[',',0]],
+    [['  ',0],['jumlah_modul ',2],[' ',0],['INT',3],[',',0]],
+    [['  ',0],['harga        ',2],[' ',0],['DECIMAL(12,2)',3],[' ',0],['NOT NULL DEFAULT 0',4],[',',0]],
+    [['  ',0],['instruktur_id',2],[' ',0],['INT          ',3],[' ',0],['NOT NULL',4],[',',0]],
+    [['  CONSTRAINT chk_modul CHECK (jumlah_modul > 0),',5]],
+    [['  CONSTRAINT fk_kursus_instruktur',5]],
+    [['    FOREIGN KEY (instruktur_id)',5]],
+    [['    REFERENCES Instruktur(instruktur_id)',5]],
+    [[');',0]]];
+  const code=$('#anatCode');
+  code.innerHTML=L.map(line=>line.map(([t,p])=>p?`<span class="part" data-p="${p}">${hl(t)}</span>`:hl(t)).join('')).join('\n');
+  const pick=p=>{this.auto=false;this.set(p)};
+  $$('.pt',el).forEach(c=>c.onclick=()=>pick(+c.dataset.p));$$('.part',code).forEach(c=>c.onclick=()=>pick(+c.dataset.p))},
+  set(p){this.p=p;$('#anatCode').classList.add('focus');$$('.part',this.el).forEach(s=>s.classList.toggle('on',+s.dataset.p===p));$$('.pt',this.el).forEach(c=>c.classList.toggle('on',+c.dataset.p===p))},
+  enter(){this.auto=true;this.t=0;this.set(1)},
+  frame(dt){if(!this.auto)return;this.t+=dt;if(this.t>3.2){this.t=0;this.set(this.p%5+1)}}};
+
+/* ---------- 8. float demo ---------- */
+S['s-types']={init(){const upd=()=>{$('#fD').textContent=String(this.d);$('#fE').textContent=(this.e/100).toFixed(2);
+      $('#fD').className='mono'+(this.k&&String(this.d)!==(this.e/100).toFixed(1)&&String(this.d)!==(this.e/100).toFixed(2)&&String(this.d)!==String(this.e/100)?' bad':'');$('#fE').className='mono'+(this.k?' good':'');
+      $('#fMsg').innerHTML=!this.k?'':(String(this.d)===String(this.e/100)?`Setelah ${this.k} kali penjumlahan hasilnya kebetulan masih sama.`:`Setelah ${this.k} kali, DOUBLE menjadi <b>${this.d}</b>, padahal seharusnya <b>${(this.e/100).toFixed(2)}</b>. Selisih kecil ini terus menumpuk pada laporan keuangan.`)};
+    this.reset=()=>{this.d=0;this.e=0;this.k=0;upd()};
+    $('#fAdd').onclick=()=>{this.d=this.d+0.1+0.2;this.e+=30;this.k++;upd()};$('#fReset').onclick=this.reset;this.reset()}};
+
+/* ---------- 9. type quiz ---------- */
+S['s-tq']={init(el){
+  const Q=[['nim',"'D1041241999'",['INT','CHAR(11)','DATE'],1,'Mengandung huruf dan panjangnya selalu 11 karakter. NIM tidak pernah dijumlahkan, jadi simpan sebagai teks.'],
+    ['no_hp',"'081234567890'",['BIGINT','VARCHAR(15)','DECIMAL(12,0)'],1,'Bila disimpan sebagai bilangan, angka 0 di depan hilang: 81234567890. Nomor telepon bukan besaran, jadi pakai teks.'],
+    ['ipk','3.75',['FLOAT','DECIMAL(3,2)','VARCHAR(4)'],1,'Tiga digit, dua di belakang koma, nilainya eksak. Tambahkan CHECK (ipk BETWEEN 0 AND 4).'],
+    ['harga','250000.00',['DOUBLE','INT','DECIMAL(12,2)'],2,'Uang harus eksak. DOUBLE berisiko galat pembulatan; INT bisa untuk rupiah bulat, tetapi DECIMAL lebih lazim dan aman.'],
+    ['tgl_lahir',"'2005-03-17'",['VARCHAR(10)','DATE','INT'],1,'DATE menolak tanggal mustahil (2005-02-30), dapat diurutkan, dan mendukung fungsi tanggal seperti menghitung umur.'],
+    ['status_aktif','ya / tidak',['BOOLEAN',"CHAR(5)",'TEXT'],0,'Hanya dua kemungkinan nilai. Di MySQL BOOLEAN disimpan sebagai TINYINT(1): 1 = TRUE, 0 = FALSE.']];
+  $('#tq').innerHTML=Q.map((q,i)=>`<div class="card" data-i="${i}"><span class="attr">${q[0]}</span><span class="val">contoh: ${esc(q[1])}</span><div class="opts">${q[2].map((o,j)=>`<button class="opt" data-j="${j}">${o}</button>`).join('')}</div><p class="why"></p></div>`).join('');
+  $$('#tq .card').forEach(c=>{const q=Q[+c.dataset.i];$$('.opt',c).forEach(b=>b.onclick=()=>{
+    const j=+b.dataset.j;if(j===q[3]){b.classList.add('right');c.classList.add('done');$('.why',c).innerHTML='<b>Tepat.</b> '+q[4]}
+    else{b.classList.add('wrong');$('.why',c).innerHTML='Belum tepat. Coba lagi.'}})})}};
+
+/* ---------- 11. constraint tester ---------- */
+const K0=[[1,'Dasar Pemrograman Python',10,'150000.00',1],[2,'Basis Data Lanjut',8,'200000.00',1],[3,'Desain UI/UX',6,'175000.00',2]];
+const KINS=[
+  {lab:'a',sql:"INSERT INTO Kursus (nama_kursus, jumlah_modul, harga, instruktur_id)\nVALUES ('Jaringan Komputer', 12, 250000, 3);",r:{nama:'Jaringan Komputer',modul:12,harga:250000,ins:3}},
+  {lab:'b',sql:"INSERT INTO Kursus (nama_kursus, jumlah_modul, harga, instruktur_id)\nVALUES (NULL, 5, 100000, 2);",r:{nama:null,modul:5,harga:100000,ins:2}},
+  {lab:'c',sql:"INSERT INTO Kursus (nama_kursus, jumlah_modul, harga, instruktur_id)\nVALUES ('Statistika', 0, 100000, 1);",r:{nama:'Statistika',modul:0,harga:100000,ins:1}},
+  {lab:'d',sql:"INSERT INTO Kursus (nama_kursus, jumlah_modul, harga, instruktur_id)\nVALUES ('Machine Learning', 8, 300000, 9);",r:{nama:'Machine Learning',modul:8,harga:300000,ins:9}},
+  {lab:'e',sql:"INSERT INTO Kursus (kursus_id, nama_kursus, jumlah_modul, instruktur_id)\nVALUES (1, 'Basis Data Dasar', 6, 2);",r:{id:1,nama:'Basis Data Dasar',modul:6,ins:2}},
+  {lab:'f',sql:"INSERT INTO Kursus (nama_kursus, jumlah_modul, instruktur_id)\nVALUES ('Statistika Dasar', 7, 2);",r:{nama:'Statistika Dasar',modul:7,ins:2}}];
+S['s-test']={init(el){this.el=el;
+  $('#kins').innerHTML=KINS.map((k,i)=>`<button class="insb" data-i="${i}"><span class="lab">INSERT (${k.lab})</span>${hl(k.sql).replace(/class="(kw|ty|nu|st|cm)"/g,(m,c)=>`style="color:${{kw:'#B4501A',ty:'#2F6FB0',nu:'#24704F',st:'#7A5BA6',cm:'#8A9AB0'}[c]}"`)}</button>`).join('');
+  $$('.insb',el).forEach(b=>b.onclick=()=>this.run(+b.dataset.i,b));$('#kReset').onclick=()=>this.reset()},
+  reset(){this.rows=K0.map(r=>r.slice());this.ai=4;this.newId=null;this.draw();termClear($('#kterm'));termLine($('#kterm'),'<span class="pr">mysql&gt; -- klik salah satu INSERT di kanan</span>');$$('.insb',this.el).forEach(b=>b.classList.remove('res-ok','res-err'))},
+  draw(){$('#ktab').innerHTML=rowsHTML(['kursus_id','nama_kursus','jumlah_modul','harga','instruktur_id'],this.rows,{cls:r=>r[0]===this.newId?'new':''})},
+  run(i,b){const r=KINS[i].r,t=$('#kterm');let err=null;
+    termClear(t);termLine(t,PR+'INSERT ('+KINS[i].lab+') …');
+    if(r.nama===null)err="ERROR 1048 (23000): Column 'nama_kursus' cannot be null";
+    else if(r.id!==undefined&&this.rows.some(x=>x[0]===r.id))err=`ERROR 1062 (23000): Duplicate entry '${r.id}' for key 'kursus.PRIMARY'`;
+    else if(r.modul<=0)err="ERROR 3819 (HY000): Check constraint 'chk_modul' is violated.";
+    else if(![1,2,3].includes(r.ins))err="ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`elearning`.`kursus`, CONSTRAINT `fk_kursus_instruktur` FOREIGN KEY (`instruktur_id`) REFERENCES `instruktur` (`instruktur_id`))";
+    b.classList.remove('res-ok','res-err');
+    if(err){termLine(t,err,'err');b.classList.add('res-err');this.newId=null;this.draw();return}
+    const id=r.id!==undefined?r.id:this.ai;this.ai=Math.max(this.ai,id+1);
+    const harga=r.harga!==undefined?r.harga.toFixed(2):'0.00';
+    this.rows.push([id,r.nama,r.modul,harga,r.ins]);this.newId=id;this.draw();
+    termLine(t,'Query OK, 1 row affected (0.01 sec)','ok');
+    termLine(t,`<span class="pr">-- baris baru: kursus_id = ${id} (AUTO_INCREMENT), harga = ${harga}${r.harga===undefined?' (dari DEFAULT)':''}</span>`);
+    b.classList.add('res-ok')},
+  enter(){this.reset()}};
+
+/* ---------- 12. relationship mapping ---------- */
+S['s-rel']={init(el){this.el=el;
+  $('#erd0').innerHTML=erd({a:'Instruktur',b:'ProfilInstruktur',r:'memiliki',c1:'1',c2:'1',h:230,y:60});
+  $('#erd1').innerHTML=erd({a:'Instruktur',b:'Kursus',r:'mengajar',c1:'1',c2:'N',h:230,y:60});
+  $('#erd2').innerHTML=erd({a:'Mahasiswa',b:'Kursus',r:'mendaftar',c1:'M',c2:'N',h:300,y:50,rattr:'tgl_pendaftaran'});
+  $$('.tabs .btn',el).forEach(b=>b.onclick=()=>this.set(+b.dataset.k))},
+  set(k){$$('.tabs .btn',this.el).forEach(b=>b.classList.toggle('on',+b.dataset.k===k));$$('.pane',this.el).forEach(p=>p.classList.toggle('on',+p.dataset.k===k))},
+  enter(){this.set(0)}};
+
+/* ---------- 13. referential actions ---------- */
+const RI0=[[1,'Budi Santoso'],[2,'Sari Dewi'],[3,'Andi Wijaya']];
+const RK0=[[1,'Dasar Pemrograman Python',1],[2,'Basis Data Lanjut',1],[3,'Desain UI/UX',2]];
+const RDESC={RESTRICT:'<b>Ditolak.</b> Induk tidak dapat dihapus selama masih memiliki anak. Ini perilaku bawaan bila ON DELETE tidak ditulis.',
+  CASCADE:'<b>Ikut terhapus.</b> Semua kursus milik instruktur tersebut dihapus otomatis. Cocok untuk data yang tidak bermakna tanpa induknya, misalnya ProfilInstruktur.',
+  'SET NULL':'<b>Diputus.</b> Kursus tetap ada, tetapi instruktur_id menjadi NULL. Syarat: kolom FK harus boleh NULL.'};
+S['s-ref2']={init(el){this.el=el;this.a='RESTRICT';
+  $$('[data-a]',el).forEach(b=>b.onclick=()=>{this.a=b.dataset.a;this.reset()});
+  $('#rDel1').onclick=()=>this.del(1);$('#rDel3').onclick=()=>this.del(3);$('#rReset').onclick=()=>this.reset()},
+  code(){const nn=this.a==='SET NULL'?'NULL    ':'NOT NULL';
+    $('#rCode').innerHTML=hl(`CREATE TABLE Kursus (
+  ...
+  instruktur_id INT ${nn},${this.a==='SET NULL'?'  -- wajib boleh NULL':''}
+  CONSTRAINT fk_kursus_instruktur
+    FOREIGN KEY (instruktur_id)
+    REFERENCES Instruktur(instruktur_id)
+    ON DELETE ${this.a}
+);`)},
+  draw(hlI,hlK){$('#rInstr').innerHTML=rowsHTML(['id','nama'],this.I,{cls:r=>hlI&&hlI.includes(r[0])?'flash':''});
+    $('#rKurs').innerHTML=rowsHTML(['kursus_id','nama_kursus','instruktur_id'],this.K,{cls:r=>hlK&&hlK.includes(r[0])?'flash':'',cell:(r,i)=>i===2&&this.chg&&this.chg.includes(r[0])?'chg':''})},
+  reset(){this.I=RI0.map(r=>r.slice());this.K=RK0.map(r=>r.slice());this.chg=[];this.busy=false;
+    $$('[data-a]',this.el).forEach(b=>b.classList.toggle('on',b.dataset.a===this.a));$('#rDesc').innerHTML=RDESC[this.a];this.code();this.draw();
+    termClear($('#rTerm'));termLine($('#rTerm'),'<span class="pr">mysql&gt; -- pilih aksi, lalu jalankan DELETE</span>')},
+  del(id){if(this.busy)return;const t=$('#rTerm');termClear(t);termLine(t,PR+hl(`DELETE FROM Instruktur WHERE instruktur_id = ${id};`));
+    if(!this.I.some(r=>r[0]===id)){termLine(t,'Query OK, 0 rows affected (0.00 sec)','ok');return}
+    const kids=this.K.filter(r=>r[2]===id).map(r=>r[0]);
+    if(kids.length&&this.a==='RESTRICT'){this.draw([id],kids);termLine(t,"ERROR 1451 (23000): Cannot delete or update a parent row: a foreign key constraint fails (`elearning`.`kursus`, CONSTRAINT `fk_kursus_instruktur` FOREIGN KEY (`instruktur_id`) REFERENCES `instruktur` (`instruktur_id`))",'err');setTimeout(()=>this.draw(),1400);return}
+    this.busy=true;this.draw([id],this.a==='CASCADE'?kids:[]);
+    setTimeout(()=>{this.I=this.I.filter(r=>r[0]!==id);
+      if(this.a==='CASCADE')this.K=this.K.filter(r=>r[2]!==id);
+      else if(this.a==='SET NULL'){this.K.forEach(r=>{if(r[2]===id)r[2]=null});this.chg=kids}
+      this.draw();this.busy=false;
+      termLine(t,'Query OK, 1 row affected (0.01 sec)','ok');
+      if(kids.length)termLine(t,`<span class="pr">-- ${this.a==='CASCADE'?kids.length+' kursus ikut terhapus (tidak dihitung dalam "rows affected")':kids.length+' kursus kini memiliki instruktur_id = NULL'}</span>`);
+      else termLine(t,'<span class="pr">-- instruktur ini tidak memiliki kursus, jadi aman dihapus</span>')},900)},
+  enter(){this.reset()}};
+
+/* ---------- 14. order ---------- */
+const GN=[{id:'instruktur',x:190,y:110,p:[]},{id:'mahasiswa',x:810,y:110,p:[]},{id:'kursus',x:500,y:280,p:['instruktur']},{id:'profilinstruktur',x:190,y:450,p:['instruktur'],label:'ProfilInstruktur'},{id:'pendaftaran',x:810,y:450,p:['kursus','mahasiswa']}];
+const FKN={profilinstruktur:'fk_profil_ke_instruktur',kursus:'fk_kursus_instruktur',pendaftaran:'fk_pendaftaran_kursus'};
+S['s-order']={init(el){this.el=el;const g=$('#graph');
+  GN.forEach(n=>{const d=document.createElement('div');d.className='gn';d.style.left=n.x+'px';d.style.top=n.y+'px';d.dataset.id=n.id;
+    d.innerHTML=`<b>${n.label||n.id[0].toUpperCase()+n.id.slice(1)}</b><span>belum ada</span>`;d.onclick=()=>this.click(n,d);g.appendChild(d)});
+  let s='<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#8E877A"/></marker></defs>';
+  GN.forEach(c=>c.p.forEach(pid=>{const p=GN.find(n=>n.id===pid);const[x1,y1]=trim(c,p),[x2,y2]=trim(p,c);s+=`<line class="gedge" x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" marker-end="url(#ah)"/>`}));
+  $('#gsvg').innerHTML=s+'<text x="24" y="540" style="font:700 18px Nunito Sans,sans-serif;fill:#4F5D6E">panah: anak (memiliki FK) → induk</text>';
+  function trim(a,b){const dx=b.x-a.x,dy=b.y-a.y,hw=145,hh=56;const t=Math.min(dx?hw/Math.abs(dx):1e9,dy?hh/Math.abs(dy):1e9);return[a.x+dx*t,a.y+dy*t]}
+  $$('[data-m]',el).forEach(b=>b.onclick=()=>this.mode(b.dataset.m));$('#oReset').onclick=()=>this.reset()},
+  mode(m){this.m=m;$$('[data-m]',this.el).forEach(b=>b.classList.toggle('on',b.dataset.m===m));termLine($('#oTerm'),`<span class="pr">-- mode ${m.toUpperCase()}: klik tabel untuk ${m==='create'?'membuatnya':'menghapusnya'}</span>`)},
+  reset(){this.made=new Set();this.k=0;termClear($('#oTerm'));this.mode('create');this.draw()},
+  draw(){$$('.gn',this.el).forEach(d=>{const on=this.made.has(d.dataset.id);d.classList.toggle('made',on);$('span',d).textContent=on?'✓ sudah dibuat':'belum ada'})},
+  shake(d){d.classList.remove('shake');void d.offsetWidth;d.classList.add('shake')},
+  click(n,d){const t=$('#oTerm');
+    if(this.m==='create'){termLine(t,PR+hl(`CREATE TABLE ${n.label||n.id} (...);`));
+      if(this.made.has(n.id)){termLine(t,`ERROR 1050 (42S01): Table '${n.id}' already exists`,'err');this.shake(d);return}
+      const miss=n.p.find(p=>!this.made.has(p));
+      if(miss){termLine(t,`ERROR 1824 (HY000): Failed to open the referenced table '${miss}'`,'err');this.shake(d);return}
+      this.made.add(n.id);termLine(t,'Query OK, 0 rows affected (0.03 sec)','ok');
+      if(this.made.size===GN.length)termLine(t,'<span class="pr">-- semua tabel dibuat. Coba mode DROP.</span>')}
+    else{termLine(t,PR+hl(`DROP TABLE ${n.label||n.id};`));
+      if(!this.made.has(n.id)){termLine(t,`ERROR 1051 (42S02): Unknown table 'elearning.${n.id}'`,'err');this.shake(d);return}
+      const child=GN.find(c=>c.p.includes(n.id)&&this.made.has(c.id));
+      if(child){const fk=child.id==='pendaftaran'?(n.id==='mahasiswa'?'fk_pendaftaran_mahasiswa':'fk_pendaftaran_kursus'):FKN[child.id];
+        termLine(t,`ERROR 3730 (HY000): Cannot drop table '${n.id}' referenced by a foreign key constraint '${fk}' on table '${child.id}'.`,'err');this.shake(d);return}
+      this.made.delete(n.id);termLine(t,'Query OK, 0 rows affected (0.02 sec)','ok')}
+    this.draw()},
+  enter(){if(!this.made)this.reset()}};
+
+/* ---------- 16. script stepper ---------- */
+const STEPS=[
+  {t:'Database',code:`DROP DATABASE IF EXISTS elearning;
+CREATE DATABASE elearning
+  CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+USE elearning;`,x:'Siapkan wadah. DROP … IF EXISTS membuat skrip aman dijalankan ulang (hanya di lingkungan latihan!).',e:[]},
+  {t:'Instruktur',code:`CREATE TABLE Instruktur (
+  instruktur_id   INT AUTO_INCREMENT PRIMARY KEY,
+  nama_instruktur VARCHAR(100) NOT NULL,
+  email           VARCHAR(100) NOT NULL UNIQUE
+);`,x:'Tabel induk tanpa FK, jadi dibuat paling awal. Email adalah candidate key sehingga diberi UNIQUE.',e:['ins']},
+  {t:'Profil',code:`CREATE TABLE ProfilInstruktur (
+  profil_id     INT AUTO_INCREMENT PRIMARY KEY,
+  instruktur_id INT NOT NULL UNIQUE,
+  bio           TEXT,
+  website       VARCHAR(255),
+  CONSTRAINT fk_profil_ke_instruktur
+    FOREIGN KEY (instruktur_id)
+    REFERENCES Instruktur(instruktur_id)
+    ON DELETE CASCADE
+);`,x:'Relasi 1:1: FK + UNIQUE. CASCADE dipakai karena profil tidak bermakna tanpa instrukturnya.',e:['pro']},
+  {t:'Mahasiswa',code:`CREATE TABLE Mahasiswa (
+  mahasiswa_id   INT AUTO_INCREMENT PRIMARY KEY,
+  nama_mahasiswa VARCHAR(100) NOT NULL,
+  email          VARCHAR(100) NOT NULL UNIQUE
+);`,x:'Tabel induk kedua, juga tanpa FK. Urutannya boleh ditukar dengan Instruktur.',e:['mhs']},
+  {t:'Kursus',code:`CREATE TABLE Kursus (
+  kursus_id     INT AUTO_INCREMENT PRIMARY KEY,
+  nama_kursus   VARCHAR(150) NOT NULL,
+  jumlah_modul  INT,
+  harga         DECIMAL(12,2) NOT NULL DEFAULT 0,
+  instruktur_id INT NOT NULL,
+  CONSTRAINT chk_modul CHECK (jumlah_modul > 0),
+  CONSTRAINT chk_harga CHECK (harga >= 0),
+  CONSTRAINT fk_kursus_instruktur
+    FOREIGN KEY (instruktur_id)
+    REFERENCES Instruktur(instruktur_id)
+);`,x:'Relasi 1:N: FK di sisi N. Aturan domain diwujudkan dengan CHECK. Tanpa ON DELETE berarti RESTRICT.',e:['kur','e1']},
+  {t:'Pendaftaran',code:`CREATE TABLE Pendaftaran (
+  pendaftaran_id  INT AUTO_INCREMENT PRIMARY KEY,
+  mahasiswa_id    INT NOT NULL,
+  kursus_id       INT NOT NULL,
+  tgl_pendaftaran DATE NOT NULL,
+  CONSTRAINT uq_mahasiswa_kursus
+    UNIQUE (mahasiswa_id, kursus_id),
+  CONSTRAINT fk_pendaftaran_mahasiswa
+    FOREIGN KEY (mahasiswa_id)
+    REFERENCES Mahasiswa(mahasiswa_id),
+  CONSTRAINT fk_pendaftaran_kursus
+    FOREIGN KEY (kursus_id) REFERENCES Kursus(kursus_id)
+);`,x:'Relasi M:N: tabel penghubung dibuat paling akhir karena bergantung pada Mahasiswa dan Kursus.',e:['daf','e2','e3']},
+  {t:'Verifikasi',code:`SHOW TABLES;
+-- instruktur, kursus, mahasiswa,
+-- pendaftaran, profilinstruktur
+
+DESCRIBE Kursus;
+-- Field          Type           Null Key Default
+-- kursus_id      int            NO   PRI NULL
+-- nama_kursus    varchar(150)   NO       NULL
+-- jumlah_modul   int            YES      NULL
+-- harga          decimal(12,2)  NO       0.00
+-- instruktur_id  int            NO   MUL NULL`,x:'Selalu verifikasi. Key MUL menandakan kolom berindeks yang boleh berulang; MySQL otomatis membuat indeks untuk setiap FK.',e:[]}];
+const ENTS={ins:{t:'Instruktur',x:20,y:10,r:[['instruktur_id','PK'],['nama_instruktur'],['email','UQ']]},
+  pro:{t:'ProfilInstruktur',x:20,y:250,r:[['profil_id','PK'],['instruktur_id','FK'],['bio'],['website']]},
+  mhs:{t:'Mahasiswa',x:20,y:490,r:[['mahasiswa_id','PK'],['nama_mahasiswa'],['email','UQ']]},
+  kur:{t:'Kursus',x:440,y:10,r:[['kursus_id','PK'],['nama_kursus'],['jumlah_modul'],['harga'],['instruktur_id','FK']]},
+  daf:{t:'Pendaftaran',x:440,y:330,r:[['pendaftaran_id','PK'],['mahasiswa_id','FK'],['kursus_id','FK'],['tgl_pendaftaran']]}};
+S['s-script']={init(el){this.el=el;const D=$('#diagram');
+  Object.entries(ENTS).forEach(([k,e])=>{const d=document.createElement('div');d.className='ent';d.id='ent-'+k;d.style.left=e.x+'px';d.style.top=e.y+'px';
+    d.innerHTML=`<div class="h">${e.t}</div>`+e.r.map(([n,tag])=>`<div class="r"><span>${n}</span>${tag?`<em class="${tag==='FK'?'fk':''}">${tag}</em>`:''}</div>`).join('');D.appendChild(d)});
+  /* edges: e0 profil→instr, e1 kursus→instr, e2 daftar→mhs, e3 daftar→kursus */
+  $('#dsvg').innerHTML=`<path id="e0" class="dedge" d="M90 250 V 156"/><text class="dlab" x="100" y="180">1</text><text class="dlab" x="100" y="240">1</text>
+    <path id="e1" class="dedge" d="M440 245 H 400 V 80 H 360"/><text class="dlab" x="366" y="72">1</text><text class="dlab" x="420" y="238">N</text>
+    <path id="e2" class="dedge" d="M440 440 H 400 V 560 H 360"/><text class="dlab" x="366" y="552">1</text><text class="dlab" x="420" y="432">N</text>
+    <path id="e3" class="dedge" d="M610 330 V 290"/><text class="dlab" x="620" y="312">N · 1</text>`;
+  $('#scSteps').innerHTML=STEPS.map((s,i)=>`<button class="btn" data-i="${i}">${i}. ${s.t}</button>`).join('');
+  $$('#scSteps .btn').forEach(b=>b.onclick=()=>this.set(+b.dataset.i))},
+  set(i){this.i=i;const s=STEPS[i];$('#scCode').innerHTML=hl(s.code);$('#scText').textContent=s.x;
+    $$('#scSteps .btn').forEach(b=>b.classList.toggle('on',+b.dataset.i===i));
+    const made=new Set();STEPS.slice(0,i+1).forEach(x=>x.e.forEach(k=>made.add(k)));if(made.has('pro'))made.add('e0');
+    Object.keys(ENTS).forEach(k=>{const d=$('#ent-'+k);d.classList.toggle('made',made.has(k));d.classList.toggle('cur',s.e.includes(k))});
+    ['e0','e1','e2','e3'].forEach(k=>$('#'+k).classList.toggle('made',made.has(k)))},
+  enter(){this.set(0)}};
+
+/* ---------- 17. review flip ---------- */
+S['s-review']={init(el){$$('.qcard',el).forEach(c=>c.onclick=()=>c.classList.toggle('flip'))},enter(el){$$('.qcard',el).forEach(c=>c.classList.remove('flip'))}};
+
+/* ---------- 18. alter ---------- */
+const AL0=[{n:'mahasiswa_id',t:'INT',c:['PK','AI']},{n:'nama_mahasiswa',t:'VARCHAR(100)',c:['NOT NULL']},{n:'email',t:'VARCHAR(100)',c:['NOT NULL','UNIQUE']}];
+const ALOPS=[
+  {lab:'Tambah kolom',sql:'ALTER TABLE Mahasiswa\n  ADD COLUMN no_hp VARCHAR(15) AFTER email;',f(s){if(s.find(c=>c.n==='no_hp'))return"ERROR 1060 (42S21): Duplicate column name 'no_hp'";s.push({n:'no_hp',t:'VARCHAR(15)',c:[],fx:'new'})}},
+  {lab:'Ubah tipe',sql:'ALTER TABLE Mahasiswa\n  MODIFY COLUMN nama_mahasiswa VARCHAR(150) NOT NULL;',f(s){const c=s.find(c=>c.n==='nama_mahasiswa');if(!c)return"ERROR 1054 (42S22): Unknown column 'nama_mahasiswa' in 'mahasiswa'";c.t='VARCHAR(150)';c.c=['NOT NULL'];c.fx='chg'}},
+  {lab:'Jebakan MODIFY',sql:'ALTER TABLE Mahasiswa\n  MODIFY COLUMN nama_mahasiswa VARCHAR(150);  -- lupa NOT NULL',f(s){const c=s.find(c=>c.n==='nama_mahasiswa');if(!c)return"ERROR 1054 (42S22): Unknown column 'nama_mahasiswa' in 'mahasiswa'";c.t='VARCHAR(150)';c.c=['NULL!'];c.fx='warn';return{ok:'-- berhasil, tetapi NOT NULL ikut hilang tanpa peringatan'}}},
+  {lab:'Ganti nama kolom',sql:'ALTER TABLE Mahasiswa\n  RENAME COLUMN no_hp TO telepon;',f(s){const c=s.find(c=>c.n==='no_hp');if(!c)return"ERROR 1054 (42S22): Unknown column 'no_hp' in 'mahasiswa'";c.n='telepon';c.fx='chg'}},
+  {lab:'Tambah constraint',sql:'ALTER TABLE Mahasiswa\n  ADD CONSTRAINT uq_telepon UNIQUE (telepon);',f(s){const c=s.find(c=>c.n==='telepon');if(!c)return"ERROR 1072 (42000): Key column 'telepon' doesn't exist in table";if(c.c.includes('UNIQUE'))return"ERROR 1061 (42000): Duplicate key name 'uq_telepon'";c.c.push('UNIQUE');c.fx='chg'}},
+  {lab:'Hapus kolom',sql:'ALTER TABLE Mahasiswa\n  DROP COLUMN telepon;',f(s){const i=s.findIndex(c=>c.n==='telepon');if(i<0)return"ERROR 1091 (42000): Can't DROP 'telepon'; check that column/key exists";s[i].fx='out';s[i].del=true}}];
+S['s-alter']={init(el){this.el=el;
+  $('#alIns').innerHTML=ALOPS.map((o,i)=>`<button class="insb" data-i="${i}"><span class="lab">${o.lab}</span>${hl(o.sql).replace(/class="(kw|ty|nu|st|cm)"/g,(m,c)=>`style="color:${{kw:'#B4501A',ty:'#2F6FB0',nu:'#24704F',st:'#7A5BA6',cm:'#8A9AB0'}[c]}"`)}</button>`).join('');
+  $$('#alIns .insb').forEach(b=>b.onclick=()=>this.run(+b.dataset.i));$('#alReset').onclick=()=>this.reset()},
+  draw(){$('#alCols').innerHTML=this.s.map(c=>`<div class="colr ${c.fx||''}"><span class="cn">${c.n}</span><span class="ct">${c.t}</span><span class="cc">${c.c.map(x=>`<em>${x}</em>`).join('')}</span></div>`).join('')},
+  run(i){const o=ALOPS[i],t=$('#alTerm');this.s=this.s.filter(c=>!c.del);this.s.forEach(c=>delete c.fx);
+    termClear(t);termLine(t,PR+hl(o.sql.split('\n')[1].trim()));const r=o.f(this.s);
+    if(typeof r==='string'){termLine(t,r,'err');this.draw();return}
+    termLine(t,'Query OK, 0 rows affected (0.04 sec)','ok');if(r&&r.ok)termLine(t,`<span class="err">${r.ok}</span>`);
+    this.draw();if(this.s.some(c=>c.del))setTimeout(()=>{this.s=this.s.filter(c=>!c.del);this.draw()},700)},
+  reset(){this.s=AL0.map(c=>({...c,c:c.c.slice()}));this.draw();termClear($('#alTerm'));termLine($('#alTerm'),'<span class="pr">mysql&gt; -- klik perintah ALTER di kiri</span>')},
+  enter(){this.reset()}};
+
+/* ---------- 19. drop / truncate / delete ---------- */
+const D0=[[1,'Kuliah perdana'],[2,'Jadwal UTS'],[3,'Libur nasional']];
+S['s-drop']={init(el){this.el=el;$$('[data-d]',el).forEach(b=>b.onclick=()=>this.cmd(b.dataset.d));$('#dIns').onclick=()=>this.ins();$('#dReset').onclick=()=>this.reset()},
+  draw(nid){$('#dTab').innerHTML=rowsHTML(['id','judul'],this.rows,{cls:r=>r[0]===nid?'new':''});$('#dTv').classList.toggle('vanish',!this.exists);$('#dAi').textContent=this.exists?`AUTO_INCREMENT = ${this.ai}`:'tabel tidak ada'},
+  cmd(c){const t=$('#dTerm');termClear(t);
+    const q={DELETE:'DELETE FROM Pengumuman;',TRUNCATE:'TRUNCATE TABLE Pengumuman;',DROP:'DROP TABLE Pengumuman;'}[c];termLine(t,PR+hl(q));
+    if(!this.exists){termLine(t,c==='DROP'?"ERROR 1051 (42S02): Unknown table 'elearning.pengumuman'":"ERROR 1146 (42S02): Table 'elearning.pengumuman' doesn't exist",'err');return}
+    const n=this.rows.length;
+    if(c==='DELETE'){this.rows=[];termLine(t,`Query OK, ${n} rows affected (0.01 sec)`,'ok');termLine(t,'<span class="pr">-- struktur tetap; AUTO_INCREMENT tidak berubah</span>')}
+    if(c==='TRUNCATE'){this.rows=[];this.ai=1;termLine(t,'Query OK, 0 rows affected (0.02 sec)','ok');termLine(t,'<span class="pr">-- struktur tetap; AUTO_INCREMENT kembali ke 1</span>')}
+    if(c==='DROP'){this.rows=[];this.exists=false;termLine(t,'Query OK, 0 rows affected (0.02 sec)','ok');termLine(t,'<span class="pr">-- tabel beserta strukturnya hilang</span>')}
+    this.draw()},
+  ins(){const t=$('#dTerm');termLine(t,PR+hl("INSERT INTO Pengumuman (judul) VALUES ('Pengumuman baru');"));
+    if(!this.exists){termLine(t,"ERROR 1146 (42S02): Table 'elearning.pengumuman' doesn't exist",'err');return}
+    const id=this.ai++;this.rows.push([id,'Pengumuman baru']);termLine(t,`Query OK, 1 row affected · id = ${id}`,'ok');this.draw(id)},
+  reset(){this.rows=D0.map(r=>r.slice());this.ai=4;this.exists=true;this.draw();termClear($('#dTerm'));termLine($('#dTerm'),'<span class="pr">mysql&gt; -- pilih salah satu perintah</span>')},
+  enter(){this.reset()}};
+
+/* ---------- start ---------- */
+const start=parseInt((location.hash||'').slice(1))||1;
+go(start-1);requestAnimationFrame(loop);
+})();
+</script>
+</body>
+</html>
