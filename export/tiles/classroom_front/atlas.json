@@ -28,7 +28,7 @@
     3.14,
     1.93
    ],
-   "nama": null
+   "nama": "papan_tulis"
   },
   {
    "id": 2,
@@ -44,7 +44,7 @@
     2.32,
     1.54
    ],
-   "nama": null
+   "nama": "tv_mati"
   },
   {
    "id": 3,
@@ -60,7 +60,7 @@
     0.68,
     0.68
    ],
-   "nama": null
+   "nama": "cctv_a"
   },
   {
    "id": 4,
@@ -76,7 +76,7 @@
     0.68,
     0.71
    ],
-   "nama": null
+   "nama": "jam_kecil"
   },
   {
    "id": 5,
@@ -92,7 +92,7 @@
     2.32,
     1.43
    ],
-   "nama": null
+   "nama": "tv_nyala"
   },
   {
    "id": 6,
@@ -108,7 +108,7 @@
     3.11,
     2.43
    ],
-   "nama": null
+   "nama": "layar_proyektor"
   },
   {
    "id": 7,
@@ -124,7 +124,7 @@
     0.54,
     0.86
    ],
-   "nama": null
+   "nama": "server_kecil"
   },
   {
    "id": 8,
@@ -140,7 +140,7 @@
     0.86,
     0.89
    ],
-   "nama": null
+   "nama": "jam_oranye"
   },
   {
    "id": 9,
@@ -156,7 +156,7 @@
     1.86,
     0.82
    ],
-   "nama": null
+   "nama": "ac"
   },
   {
    "id": 10,
@@ -172,7 +172,7 @@
     0.79,
     0.79
    ],
-   "nama": null
+   "nama": "jam_oranye_2"
   },
   {
    "id": 11,
@@ -188,7 +188,7 @@
     0.61,
     0.82
    ],
-   "nama": null
+   "nama": "speaker"
   },
   {
    "id": 12,
@@ -204,7 +204,7 @@
     3.21,
     1.86
    ],
-   "nama": null
+   "nama": "meja_dosen"
   },
   {
    "id": 13,
@@ -220,7 +220,7 @@
     0.93,
     1.5
    ],
-   "nama": null
+   "nama": "podium"
   },
   {
    "id": 14,
@@ -236,7 +236,7 @@
     0.71,
     0.64
    ],
-   "nama": null
+   "nama": "cctv_b"
   }
  ]
 }

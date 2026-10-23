@@ -15,7 +15,7 @@
    5.12
   ],
   "jumlahSprite": 39,
-  "bernama": 0
+  "bernama": 39
  },
  "classroom_front": {
   "sumber": "assets/tiles/classroom/classroom_front.png",
@@ -24,7 +24,7 @@
    5.12
   ],
   "jumlahSprite": 14,
-  "bernama": 0
+  "bernama": 14
  },
  "lab_computer_desks": {
   "sumber": "assets/tiles/classroom/lab_computer_desks.png",
@@ -33,7 +33,7 @@
    5.12
   ],
   "jumlahSprite": 16,
-  "bernama": 0
+  "bernama": 16
  },
  "room_signs": {
   "sumber": "assets/tiles/classroom/room_signs.png",
@@ -114,7 +114,7 @@
    4.92
   ],
   "jumlahSprite": 23,
-  "bernama": 0
+  "bernama": 23
  },
  "lobby_doors": {
   "sumber": "assets/tiles/lobby/lobby_doors.png",
@@ -123,7 +123,7 @@
    5.12
   ],
   "jumlahSprite": 20,
-  "bernama": 0
+  "bernama": 20
  },
  "lobby_floor_wall": {
   "sumber": "assets/tiles/lobby/lobby_floor_wall.png",
@@ -141,7 +141,7 @@
    4.92
   ],
   "jumlahSprite": 26,
-  "bernama": 0
+  "bernama": 26
  },
  "lobby_tech": {
   "sumber": "assets/tiles/lobby/lobby_tech.png",
@@ -150,6 +150,6 @@
    4.92
   ],
   "jumlahSprite": 11,
-  "bernama": 0
+  "bernama": 11
  }
 }

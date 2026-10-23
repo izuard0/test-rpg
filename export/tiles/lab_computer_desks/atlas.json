@@ -28,7 +28,7 @@
     3.21,
     1.5
    ],
-   "nama": null
+   "nama": "meja_komputer_mati"
   },
   {
    "id": 2,
@@ -44,7 +44,7 @@
     0.86,
     1.39
    ],
-   "nama": null
+   "nama": "kursi_putar_a"
   },
   {
    "id": 3,
@@ -60,7 +60,7 @@
     0.82,
     1.39
    ],
-   "nama": null
+   "nama": "kursi_putar_b"
   },
   {
    "id": 4,
@@ -76,7 +76,7 @@
     0.79,
     1.18
    ],
-   "nama": null
+   "nama": "sekat_a"
   },
   {
    "id": 5,
@@ -92,7 +92,7 @@
     3.21,
     1.5
    ],
-   "nama": null
+   "nama": "meja_komputer_nyala"
   },
   {
    "id": 6,
@@ -108,7 +108,7 @@
     0.82,
     1.36
    ],
-   "nama": null
+   "nama": "kursi_putar_c"
   },
   {
    "id": 7,
@@ -124,7 +124,7 @@
     0.86,
     1.36
    ],
-   "nama": null
+   "nama": "kursi_putar_d"
   },
   {
    "id": 8,
@@ -140,7 +140,7 @@
     0.79,
     1.14
    ],
-   "nama": null
+   "nama": "meja_samping_a"
   },
   {
    "id": 9,
@@ -156,7 +156,7 @@
     3.21,
     1.5
    ],
-   "nama": null
+   "nama": "meja_komputer_nyala_2"
   },
   {
    "id": 10,
@@ -172,7 +172,7 @@
     0.86,
     1.36
    ],
-   "nama": null
+   "nama": "kursi_putar_e"
   },
   {
    "id": 11,
@@ -188,7 +188,7 @@
     0.89,
     1.39
    ],
-   "nama": null
+   "nama": "kursi_oranye"
   },
   {
    "id": 12,
@@ -204,7 +204,7 @@
     0.79,
     1.14
    ],
-   "nama": null
+   "nama": "meja_samping_b"
   },
   {
    "id": 13,
@@ -220,7 +220,7 @@
     3.21,
     1.5
    ],
-   "nama": null
+   "nama": "meja_komputer_nyala_3"
   },
   {
    "id": 14,
@@ -236,7 +236,7 @@
     0.86,
     1.14
    ],
-   "nama": null
+   "nama": "sekat_b"
   },
   {
    "id": 15,
@@ -252,7 +252,7 @@
     1.0,
     0.86
    ],
-   "nama": null
+   "nama": "laci_keyboard"
   },
   {
    "id": 16,
@@ -268,7 +268,7 @@
     0.79,
     0.64
    ],
-   "nama": null
+   "nama": "cpu_rak"
   }
  ]
 }

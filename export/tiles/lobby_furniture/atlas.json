@@ -28,7 +28,7 @@
     0.89,
     0.89
    ],
-   "nama": null
+   "nama": "bean_navy"
   },
   {
    "id": 2,
@@ -44,7 +44,7 @@
     0.86,
     0.89
    ],
-   "nama": null
+   "nama": "bean_oranye"
   },
   {
    "id": 3,
@@ -60,7 +60,7 @@
     0.89,
     0.89
    ],
-   "nama": null
+   "nama": "bean_abu"
   },
   {
    "id": 4,
@@ -76,7 +76,7 @@
     2.5,
     1.96
    ],
-   "nama": null
+   "nama": "sofa_sudut"
   },
   {
    "id": 5,
@@ -92,7 +92,7 @@
     1.04,
     0.79
    ],
-   "nama": null
+   "nama": "meja_bulat"
   },
   {
    "id": 6,
@@ -108,7 +108,7 @@
     1.86,
     1.61
    ],
-   "nama": null
+   "nama": "sofa_panjang_besar"
   },
   {
    "id": 7,
@@ -124,7 +124,7 @@
     0.86,
     1.57
    ],
-   "nama": null
+   "nama": "sofa_samping"
   },
   {
    "id": 8,
@@ -140,7 +140,7 @@
     1.89,
     1.14
    ],
-   "nama": null
+   "nama": "sofa_panjang"
   },
   {
    "id": 9,
@@ -156,7 +156,7 @@
     1.61,
     1.39
    ],
-   "nama": null
+   "nama": "meja_kerja_putih"
   },
   {
    "id": 10,
@@ -172,7 +172,7 @@
     3.32,
     1.21
    ],
-   "nama": null
+   "nama": "bar_panjang"
   },
   {
    "id": 11,
@@ -188,7 +188,7 @@
     0.57,
     1.32
    ],
-   "nama": null
+   "nama": "bangku_tinggi_sandaran"
   },
   {
    "id": 12,
@@ -204,7 +204,7 @@
     0.57,
     0.96
    ],
-   "nama": null
+   "nama": "bangku_bulat"
   },
   {
    "id": 13,
@@ -220,7 +220,7 @@
     0.39,
     0.57
    ],
-   "nama": null
+   "nama": "tanaman_a"
   },
   {
    "id": 14,
@@ -236,7 +236,7 @@
     0.39,
     0.64
    ],
-   "nama": null
+   "nama": "tanaman_b"
   },
   {
    "id": 15,
@@ -252,7 +252,7 @@
     0.43,
     0.68
    ],
-   "nama": null
+   "nama": "tanaman_c"
   },
   {
    "id": 16,
@@ -268,7 +268,7 @@
     1.21,
     2.11
    ],
-   "nama": null
+   "nama": "tanaman_besar"
   },
   {
    "id": 17,
@@ -284,7 +284,7 @@
     0.57,
     0.71
    ],
-   "nama": null
+   "nama": "tanaman_d"
   },
   {
    "id": 18,
@@ -300,7 +300,7 @@
     0.46,
     0.61
    ],
-   "nama": null
+   "nama": "tanaman_e"
   },
   {
    "id": 19,
@@ -316,7 +316,7 @@
     0.46,
     0.61
    ],
-   "nama": null
+   "nama": "tanaman_f"
   },
   {
    "id": 20,
@@ -332,7 +332,7 @@
     0.46,
     0.61
    ],
-   "nama": null
+   "nama": "tanaman_g"
   },
   {
    "id": 21,
@@ -348,7 +348,7 @@
     0.54,
     1.54
    ],
-   "nama": null
+   "nama": "dispenser_air"
   },
   {
    "id": 22,
@@ -364,7 +364,7 @@
     1.61,
     1.61
    ],
-   "nama": null
+   "nama": "meja_kopi"
   },
   {
    "id": 23,
@@ -380,7 +380,7 @@
     0.57,
     0.89
    ],
-   "nama": null
+   "nama": "tempat_sampah_a"
   },
   {
    "id": 24,
@@ -396,7 +396,7 @@
     0.61,
     0.89
    ],
-   "nama": null
+   "nama": "tempat_sampah_b"
   },
   {
    "id": 25,
@@ -412,7 +412,7 @@
     0.57,
     0.89
    ],
-   "nama": null
+   "nama": "tempat_sampah_c"
   },
   {
    "id": 26,
@@ -428,7 +428,7 @@
     0.61,
     0.89
    ],
-   "nama": null
+   "nama": "tempat_sampah_d"
   }
  ]
 }

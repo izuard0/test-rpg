@@ -49,6 +49,10 @@ def rel(path, start):
 # ------------------------------------------------------------------ set tile
 def clean_tile(name, im):
     """Buang garis tepi bawaan sprite yang membentuk kisi/garis saat petak diulang."""
+    if name.startswith(("lantai_", "panel_gelap_")):      # lembar kelas: tepi 2 px berwarna ungu sisa latar
+        return im.crop((2, 2, im.width - 2, im.height - 2))
+    if name.startswith("dinding_biru_"):
+        return im.crop((2, 0, im.width - 2, im.height))
     if name == "panel_navy_gelap":                       # baris atas dan kolom kanan lebih terang
         return im.crop((0, 5, 22, im.height))
     if name.startswith("karpet_navy_") and "sudut" not in name:   # garis cokelat dekat tepi atas/bawah

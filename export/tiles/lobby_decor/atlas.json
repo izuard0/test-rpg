@@ -28,7 +28,7 @@
     1.86,
     2.5
    ],
-   "nama": null
+   "nama": "poster_chip_biru"
   },
   {
    "id": 2,
@@ -44,7 +44,7 @@
     1.04,
     1.43
    ],
-   "nama": null
+   "nama": "poster_chip_emas"
   },
   {
    "id": 3,
@@ -60,7 +60,7 @@
     0.96,
     1.36
    ],
-   "nama": null
+   "nama": "poster_chip_abu"
   },
   {
    "id": 4,
@@ -76,7 +76,7 @@
     0.68,
     1.5
    ],
-   "nama": null
+   "nama": "lampu_gantung_a"
   },
   {
    "id": 5,
@@ -92,7 +92,7 @@
     0.68,
     1.64
    ],
-   "nama": null
+   "nama": "lampu_gantung_b"
   },
   {
    "id": 6,
@@ -108,7 +108,7 @@
     0.43,
     1.79
    ],
-   "nama": null
+   "nama": "lampu_gantung_c"
   },
   {
    "id": 7,
@@ -124,7 +124,7 @@
     0.75,
     0.93
    ],
-   "nama": null
+   "nama": "poster_gelap"
   },
   {
    "id": 8,
@@ -140,7 +140,7 @@
     2.21,
     2.25
    ],
-   "nama": null
+   "nama": "palang_kisi"
   },
   {
    "id": 9,
@@ -156,7 +156,7 @@
     0.5,
     1.86
    ],
-   "nama": null
+   "nama": "pilar_a"
   },
   {
    "id": 10,
@@ -172,7 +172,7 @@
     0.5,
     1.04
    ],
-   "nama": null
+   "nama": "bangku_kayu"
   },
   {
    "id": 11,
@@ -188,7 +188,7 @@
     0.96,
     1.14
    ],
-   "nama": null
+   "nama": "sinar_a"
   },
   {
    "id": 12,
@@ -204,7 +204,7 @@
     1.36,
     1.07
    ],
-   "nama": null
+   "nama": "sinar_b"
   },
   {
    "id": 13,
@@ -220,7 +220,7 @@
     3.39,
     0.36
    ],
-   "nama": null
+   "nama": "palang_tipis"
   },
   {
    "id": 14,
@@ -236,7 +236,7 @@
     1.14,
     2.36
    ],
-   "nama": null
+   "nama": "kios_informasi"
   },
   {
    "id": 15,
@@ -252,7 +252,7 @@
     1.0,
     2.21
    ],
-   "nama": null
+   "nama": "gantungan_jaket"
   },
   {
    "id": 16,
@@ -268,7 +268,7 @@
     1.36,
     1.82
    ],
-   "nama": null
+   "nama": "lemari_piala"
   },
   {
    "id": 17,
@@ -284,7 +284,7 @@
     0.57,
     1.82
    ],
-   "nama": null
+   "nama": "pilar_b"
   },
   {
    "id": 18,
@@ -300,7 +300,7 @@
     0.57,
     0.57
    ],
-   "nama": null
+   "nama": "panah_kiri_atas"
   },
   {
    "id": 19,
@@ -316,7 +316,7 @@
     0.57,
     0.71
    ],
-   "nama": null
+   "nama": "panah_atas"
   },
   {
    "id": 20,
@@ -332,7 +332,7 @@
     0.71,
     0.54
    ],
-   "nama": null
+   "nama": "panah_kiri"
   },
   {
    "id": 21,
@@ -348,7 +348,7 @@
     0.68,
     0.54
    ],
-   "nama": null
+   "nama": "panah_kanan"
   },
   {
    "id": 22,
@@ -364,7 +364,7 @@
     0.57,
     0.54
    ],
-   "nama": null
+   "nama": "panah_kiri_bawah"
   },
   {
    "id": 23,
@@ -380,7 +380,7 @@
     0.57,
     0.54
    ],
-   "nama": null
+   "nama": "panah_kanan_bawah"
   }
  ]
 }

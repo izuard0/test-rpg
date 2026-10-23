@@ -270,10 +270,19 @@ pratinjau digambar ulang **dari berkas itu**, bukan dari spesifikasi. Namun berk
 `type` (bukan `class`) agar terbaca Phaser; Tiled 1.9+ masih membacanya, tetapi belum
 diverifikasi. Perlakukan uji buka di Tiled dan Phaser sebagai langkah wajib berikutnya.
 
+**Selesai juga:** `maps/lobi.tmj` (40×28, 4 pintu: Lab Lovelace, Ruang Kolaborasi, Auditorium Turing, Perpustakaan) dan
+`maps/kelas-a.tmj` (Lab Lovelace 20×18, 15 meja × 2 = 30 kursi bertipe `seat`, meja dosen, papan tulis).
+Lantai lobi sementara memakai lantai kelas; lobi masih jarang perabotnya dan perlu penataan visual.
+Pintu kelas B dan C di lobi sudah ada, petanya belum.
+
+```bash
+python tools/make_map.py lobi
+python tools/make_map.py kelas-a
+```
+
 **Belum:**
 
-1. Lobi dan Lab Lovelace (kelas A), lalu kelas B dan C.
-2. Memberi nama sprite kelas dan lobi (`tools/tile_names.json`).
-3. Mengganti `lobby_floor_wall` dan `lobby_doors` yang akan dibuat ulang.
-4. NPC pustakawan (belum ada sprite; di peta hanya titik interaksi).
-5. Uji buka di Tiled dan muat di Phaser.
+1. Kelas B dan C; 2 kursi penonton Lab Lovelace (logika, bukan petak).
+2. Membuat ulang `lobby_floor_wall` dan `lobby_doors` (lantai lobi, pintu setinggi karakter).
+3. NPC pustakawan dan NPC lain (belum ada sprite).
+4. Uji buka di Tiled dan muat di Phaser.
