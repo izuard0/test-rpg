@@ -1,0 +1,54 @@
+// Aturan akun: login NIM (mahasiswa) / NIP (dosen) + kata sandi, tanpa username
+// (docs/RANCANGAN.md, "Login dengan NIM"). Dipakai formulir klien sekarang dan
+// API server kelak, supaya pesan galatnya sama.
+
+export type Role = "mahasiswa" | "dosen";
+
+export interface Registration {
+  role: Role;
+  /** NIM atau NIP, hanya angka. */
+  id: string;
+  fullName: string;
+  password: string;
+}
+
+export const ROLE_ID_LABEL: Record<Role, string> = { mahasiswa: "NIM", dosen: "NIP" };
+
+export const PASSWORD_MIN = 8;
+export const NAME_MAX = 60;
+
+/** Menghapus spasi dan pemisah yang sering ikut tersalin (titik, tanda hubung). */
+export function normalizeId(raw: string): string {
+  return raw.replace(/[\s.\-]/g, "");
+}
+
+/** Merapikan spasi nama lengkap. */
+export function normalizeName(raw: string): string {
+  return raw.trim().replace(/\s+/g, " ");
+}
+
+export type FieldErrors = Partial<Record<"id" | "fullName" | "password" | "password2", string>>;
+
+export function validateId(role: Role, raw: string): string | undefined {
+  const id = normalizeId(raw);
+  const label = ROLE_ID_LABEL[role];
+  if (!id) return `${label} wajib diisi.`;
+  if (!/^\d+$/.test(id)) return `${label} hanya berisi angka.`;
+  // Panjang NIM berbeda antarkampus; NIP PNS 18 digit, NIP dosen yayasan bisa lebih pendek.
+  if (id.length < 5 || id.length > 20) return `${label} harus 5–20 digit.`;
+  return undefined;
+}
+
+export function validateRegistration(r: Registration & { password2?: string }): FieldErrors {
+  const e: FieldErrors = {};
+  const idErr = validateId(r.role, r.id);
+  if (idErr) e.id = idErr;
+  const name = normalizeName(r.fullName);
+  if (name.length < 2) e.fullName = "Nama lengkap wajib diisi.";
+  else if (name.length > NAME_MAX) e.fullName = `Nama lengkap maksimal ${NAME_MAX} karakter.`;
+  else if (!/^[\p{L}][\p{L}\p{M} .,'’-]*$/u.test(name)) e.fullName = "Nama hanya boleh berisi huruf, spasi, titik, koma, apostrof, dan tanda hubung.";
+  if (r.password.length < PASSWORD_MIN) e.password = `Kata sandi minimal ${PASSWORD_MIN} karakter.`;
+  else if (r.password.toLowerCase() === normalizeId(r.id)) e.password = `Kata sandi tidak boleh sama dengan ${ROLE_ID_LABEL[r.role]}.`;
+  if (r.password2 !== undefined && r.password2 !== r.password) e.password2 = "Kata sandi tidak sama.";
+  return e;
+}

@@ -4,7 +4,6 @@
 import Phaser from "phaser";
 import {
   CollisionWorld,
-  defaultChoice,
   GID_FLIP_H,
   GID_FLIP_V,
   nearestInteractable,
@@ -16,13 +15,13 @@ import {
   type Zone,
 } from "@mita/shared";
 import { getAssembler } from "../char/textures";
-import { loadProfile, saveProfile, type PlayerProfile } from "../state";
+import type { Account, AuthService } from "../auth";
 import { actionLabel, openInfo, openShelf, openTerminalPlaceholder, type MateriCatalog } from "../ui/content";
 import { openCreator } from "../ui/creator";
 import { setHud, setPrompt, showError, showLoading } from "../ui/hud";
 import { closePanel, isPanelOpen } from "../ui/panel";
 import { onTouchAction, touchDirs } from "../ui/touch";
-import { loadCharacterAssets, loadMap, textureForGid, type LoadedMap } from "../world/loader";
+import { loadMap, loadMateri, textureForGid, type LoadedMap } from "../world/loader";
 import { Avatar } from "../world/player";
 
 export interface WorldData {
@@ -49,7 +48,8 @@ export class WorldScene extends Phaser.Scene {
   private loaded!: LoadedMap;
   private collision!: CollisionWorld;
   private player?: Avatar;
-  private profile!: PlayerProfile;
+  private account!: Account;
+  private auth!: AuthService;
   private cfg!: CharacterConfig;
   private catalog?: MateriCatalog;
   private placed: Placed[] = [];
@@ -87,9 +87,12 @@ export class WorldScene extends Phaser.Scene {
   }
 
   private async build(): Promise<void> {
-    await loadCharacterAssets(this);
+    // Akun dan layanan akun diisi main.ts setelah pemain masuk dan punya avatar.
+    this.account = this.registry.get("account") as Account;
+    this.auth = this.registry.get("auth") as AuthService;
+    await loadMateri(this);
     this.loaded = await loadMap(this, this.roomCode);
-    this.cfg = this.cache.json.get("char-config") as CharacterConfig;
+    this.cfg = getAssembler().cfg;
     this.catalog = this.cache.json.get("materi") as MateriCatalog | undefined;
     this.room = readRoom(this.loaded.map);
     this.collision = new CollisionWorld(this.room.width, this.room.height, this.room.collisions);
@@ -104,28 +107,10 @@ export class WorldScene extends Phaser.Scene {
 
     this.setupInput();
     if (DEBUG) this.drawDebug();
-    const start = () => {
-      this.spawnPlayer();
-      showLoading(false);
-      this.cameras.main.fadeIn(FADE_MS, 27, 42, 65);
-      this.ready = true;
-    };
-    const existing = loadProfile();
-    if (existing) {
-      this.profile = existing;
-      start();
-    } else {
-      showLoading(false);
-      openCreator(getAssembler(this), null, (p) => {
-        this.profile = p;
-        saveProfile(p);
-        start();
-      }, () => {
-        // Jendela ditutup tanpa menyimpan: masuk sebagai tamu dengan karakter bawaan.
-        this.profile = { name: "Tamu", choice: defaultChoice(this.cfg, "L") };
-        start();
-      });
-    }
+    this.spawnPlayer();
+    showLoading(false);
+    this.cameras.main.fadeIn(FADE_MS, 27, 42, 65);
+    this.ready = true;
   }
 
   // ---------- peta ----------
@@ -197,7 +182,7 @@ export class WorldScene extends Phaser.Scene {
 
   private spawnPlayer(): void {
     const s = this.room.spawns[this.spawnName] ?? this.room.spawns.awal ?? this.room.spawns.dari_lobi ?? Object.values(this.room.spawns)[0];
-    this.player = new Avatar(this, this.profile.choice, this.profile.name, s.x, s.y);
+    this.player = new Avatar(this, this.account.character!, this.account.fullName, s.x, s.y);
     const cam = this.cameras.main;
     cam.startFollow(this.player.sprite, true, 0.15, 0.15, 0, 24);
     cam.setRoundPixels(true);
@@ -255,15 +240,14 @@ export class WorldScene extends Phaser.Scene {
 
   private editCharacter(): void {
     if (!this.ready || isPanelOpen()) return;
-    openCreator(getAssembler(this), this.profile, (p) => {
-      this.profile = p;
-      saveProfile(p);
-      const old = this.player!;
-      this.player = new Avatar(this, p.choice, p.name, old.x, old.y);
-      this.player.dir = old.dir;
-      old.destroy();
-      this.cameras.main.startFollow(this.player.sprite, true, 0.15, 0.15, 0, 24);
-      this.applyZoom();
+    openCreator(getAssembler(), {
+      name: this.account.fullName,
+      choice: this.account.character,
+      onSave: async (choice) => {
+        this.account = await this.auth.saveCharacter(choice);
+        this.registry.set("account", this.account);
+        this.player!.setChoice(choice);
+      },
     });
   }
 

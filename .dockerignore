@@ -3,7 +3,8 @@
 **/node_modules
 **/dist
 client/public/game
-assets
+assets/*
+!assets/backgrounds
 asset-prompts
 belum-dibuat
 prototype

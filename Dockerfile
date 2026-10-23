@@ -17,6 +17,7 @@ COPY server server
 COPY maps maps
 COPY export export
 COPY materi materi
+COPY assets/backgrounds assets/backgrounds
 RUN npm run build
 
 # ---- runtime ----

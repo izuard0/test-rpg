@@ -1,12 +1,14 @@
 // Jendela panel bergaya terminal (dialog, daftar materi, dsb.) di atas kanvas.
 
-let current: { el: HTMLElement; onClose?: () => void } | null = null;
+let current: { el: HTMLElement; closable: boolean; onClose?: () => void } | null = null;
 
 export interface PanelOptions {
   title: string;
   body: string | Node;
   /** Lebar besar, untuk materi atau terminal. */
   wide?: boolean;
+  /** `false`: tanpa tombol tutup, Esc, atau klik di luar (langkah wajib). */
+  closable?: boolean;
   onClose?: () => void;
 }
 
@@ -40,18 +42,22 @@ export function openPanel(opts: PanelOptions): HTMLElement {
   const content = backdrop.querySelector<HTMLElement>(".content")!;
   if (typeof opts.body === "string") content.innerHTML = opts.body;
   else content.append(opts.body);
-  backdrop.querySelector(".close")!.addEventListener("click", closePanel);
-  backdrop.addEventListener("pointerdown", (e) => {
-    if (e.target === backdrop) closePanel();
-  });
+  const closable = opts.closable !== false;
+  const closeBtn = backdrop.querySelector<HTMLElement>(".close")!;
+  if (closable) {
+    closeBtn.addEventListener("click", closePanel);
+    backdrop.addEventListener("pointerdown", (e) => {
+      if (e.target === backdrop) closePanel();
+    });
+  } else closeBtn.remove();
   root.append(backdrop);
-  current = { el: backdrop, onClose: opts.onClose };
-  backdrop.querySelector<HTMLElement>(".close")!.focus();
+  current = { el: backdrop, closable, onClose: opts.onClose };
+  if (closable) closeBtn.focus();
   return content;
 }
 
 addEventListener("keydown", (e) => {
-  if (e.key === "Escape" && current) {
+  if (e.key === "Escape" && current?.closable) {
     e.preventDefault();
     closePanel();
   }

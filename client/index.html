@@ -8,11 +8,13 @@
   </head>
   <body>
     <div id="game"></div>
+    <div id="title" hidden></div>
     <div id="ui">
       <div id="hud">
         <div id="place">Memuat…</div>
         <div id="chat-rule"></div>
       </div>
+      <div id="account" hidden><span class="who"></span><button class="logout" type="button">Keluar</button></div>
       <div id="help"><kbd>WASD</kbd>/<kbd>←↑→↓</kbd> gerak · <kbd>Shift</kbd> pelan · <kbd>E</kbd> aksi · <kbd>C</kbd> karakter · <kbd>−</kbd>/<kbd>+</kbd> zoom</div>
       <div id="prompt" hidden></div>
       <div id="pad" aria-label="Kontrol layar sentuh">
@@ -20,7 +22,7 @@
         <button data-d="left" aria-label="Kiri">◀</button><button data-a="1" class="act" aria-label="Aksi">E</button><button data-d="right" aria-label="Kanan">▶</button>
         <span></span><button data-d="down" aria-label="Bawah">▼</button><span></span>
       </div>
-      <div id="loading">Memuat kampus…</div>
+      <div id="loading">Memuat…</div>
       <div id="error" hidden></div>
     </div>
     <script type="module" src="/src/main.ts"></script>

@@ -38,6 +38,7 @@ for (const file of maps) {
     for (const t of tileset.tiles ?? []) if (t.image) copy(resolve(dirname(tsPath), t.image));
   }
 }
+copy(join(ROOT, "assets/backgrounds/bg_title.png"));
 for (const f of ["atlas.png", "atlas.json", "config.json", "head_adjust.json"]) copy(join(ROOT, "export/character", f));
 
 const materi = join(ROOT, "materi");

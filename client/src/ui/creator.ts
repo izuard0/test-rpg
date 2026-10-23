@@ -3,22 +3,30 @@
 import { allowedSets, defaultChoice, headPalette, sanitizeChoice, type CharacterChoice, type Gender } from "@mita/shared";
 import type { CharacterAssembler } from "../char/assembler";
 import { DIRECTIONS } from "../char/assembler";
-import type { PlayerProfile } from "../state";
-import { closePanel, openPanel } from "./panel";
+import { closePanel, esc, openPanel } from "./panel";
 
-export function openCreator(asm: CharacterAssembler, initial: PlayerProfile | null, onSave: (p: PlayerProfile) => void, onCancel?: () => void): void {
-  let saved = false;
+export interface CreatorOptions {
+  /** Nama lengkap pemilik akun (hanya ditampilkan; tidak bisa diubah di sini). */
+  name: string;
+  /** Pilihan sekarang; `null` = avatar baru. */
+  choice: CharacterChoice | null;
+  /** Langkah wajib setelah registrasi: jendela tidak bisa ditutup. */
+  required?: boolean;
+  /** Menyimpan pilihan; galat yang dilempar ditampilkan di bawah tombol. */
+  onSave: (choice: CharacterChoice) => Promise<void> | void;
+}
+
+export function openCreator(asm: CharacterAssembler, opts: CreatorOptions): void {
   const cfg = asm.cfg;
-  let st: CharacterChoice = initial ? sanitizeChoice(cfg, initial.choice) : defaultChoice(cfg, "L");
-  let name = initial?.name ?? "";
+  let st: CharacterChoice = opts.choice ? sanitizeChoice(cfg, opts.choice) : defaultChoice(cfg, "L");
 
   const root = document.createElement("div");
   root.className = "creator";
   root.innerHTML = `
     <div class="preview"><div class="dirs"></div>
-      <label class="name">Nama lengkap<input maxlength="60" autocomplete="name" placeholder="mis. Siti Aminah"></label>
-      <p class="muted small">Sementara diisi sendiri. Setelah ada login NIM/NIP, nama diambil dari daftar kelas.</p>
-      <button class="primary save" type="button">Masuk ke kampus</button>
+      <div class="name"><span class="muted small">Nama di atas kepala</span><b>${esc(opts.name)}</b></div>
+      <button class="primary save" type="button">${opts.required ? "Simpan & masuk ke kampus" : "Simpan avatar"}</button>
+      <p class="form-error" role="alert" hidden></p>
     </div>
     <div class="options">
       <h3>Jenis kelamin</h3><div class="chips" data-k="gender"></div>
@@ -35,11 +43,6 @@ export function openCreator(asm: CharacterAssembler, initial: PlayerProfile | nu
     </div>`;
 
   const $ = <T extends HTMLElement>(sel: string) => root.querySelector<T>(sel)!;
-  const nameInput = $<HTMLInputElement>(".name input");
-  nameInput.value = name;
-  nameInput.addEventListener("input", () => (name = nameInput.value));
-  // Tombol game (WASD, E) tidak boleh bocor saat mengetik nama.
-  nameInput.addEventListener("keydown", (e) => e.stopPropagation());
 
   const canvas = (w: number, h: number) => {
     const c = document.createElement("canvas");
@@ -132,20 +135,21 @@ export function openCreator(asm: CharacterAssembler, initial: PlayerProfile | nu
     });
   }
 
-  $(".save").onclick = () => {
-    const clean = name.trim().replace(/\s+/g, " ");
-    if (clean.length < 2) {
-      nameInput.focus();
-      nameInput.classList.add("invalid");
-      return;
+  const saveBtn = $<HTMLButtonElement>(".save");
+  saveBtn.onclick = async () => {
+    const err = $(".form-error");
+    saveBtn.disabled = true;
+    err.hidden = true;
+    try {
+      await opts.onSave(st);
+      closePanel();
+    } catch (e) {
+      err.textContent = e instanceof Error ? e.message : String(e);
+      err.hidden = false;
+      saveBtn.disabled = false;
     }
-    const profile = { name: clean, choice: st };
-    saved = true;
-    closePanel();
-    onSave(profile);
   };
 
   render();
-  openPanel({ title: "kreator-karakter", body: root, wide: true, onClose: () => { if (!saved) onCancel?.(); } });
-  nameInput.focus();
+  openPanel({ title: "kreator-karakter", body: root, wide: true, closable: !opts.required });
 }

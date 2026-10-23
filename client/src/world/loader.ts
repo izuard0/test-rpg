@@ -106,11 +106,9 @@ export function textureForGid(loaded: LoadedMap, gid: number): string | undefine
   return ts?.tileKeys.get(g - ts.firstgid);
 }
 
-export async function loadCharacterAssets(scene: Phaser.Scene): Promise<void> {
+/** Katalog materi untuk rak buku (materi/materi.json). */
+export async function loadMateri(scene: Phaser.Scene): Promise<void> {
   await runLoader(scene, (load) => {
-    const base = GAME_BASE + "export/character/";
-    if (!scene.textures.exists("char-atlas")) load.image("char-atlas", base + "atlas.png");
-    for (const f of ["atlas", "config", "head_adjust"]) if (!scene.cache.json.exists(`char-${f}`)) load.json(`char-${f}`, base + f + ".json");
     if (!scene.cache.json.exists("materi")) load.json("materi", GAME_BASE + "materi/materi.json");
   });
 }
