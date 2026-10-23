@@ -1,2 +1,20 @@
+# Python
 __pycache__/
 *.pyc
+.venv/
+venv/
+
+# Node / klien
+node_modules/
+dist/
+.env
+.env.*
+
+# Sistem & editor
+*.log
+.DS_Store
+Thumbs.db
+
+# Kotak masuk gambar mentah dari Gemini (diganti nama lalu dipindah ke
+# assets/characters/raw/, jadi salinannya tidak perlu masuk Git)
+asset-prompts/karakter-hemat/Gemini_Generated_Image_*.jpg
