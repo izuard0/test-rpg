@@ -13,6 +13,7 @@ import {
   readRoom,
   zoneAt,
   type CharacterConfig,
+  type ClassState,
   type Interactable,
   type RoomData,
   type Zone,
@@ -23,6 +24,8 @@ import { net } from "../net/net";
 import { chat } from "../ui/chat";
 import { actionLabel, openCatalog, openInfo, openTerminal, type MateriCatalog } from "../ui/content";
 import { openCreator } from "../ui/creator";
+import { downloadFile, kelasPanelOpen, openBahanKelas, openDosenPanel, openSlide, refreshFileLists } from "../ui/kelas";
+import { toast } from "../ui/toast";
 import { setHud, setLoadingProgress, setPrompt, showError, showLoading } from "../ui/hud";
 import { closePanel, isPanelOpen } from "../ui/panel";
 import { onTouchAction, touchDirs } from "../ui/touch";
@@ -90,6 +93,8 @@ export class WorldScene extends Phaser.Scene {
   private seats = new Map<number, number>();
   private mySid = -1;
   private debugTeleported = false;
+  private myUid = "";
+  private kelasState: ClassState = { active: false, files: [] };
   private keys!: Record<"up" | "down" | "left" | "right" | "w" | "a" | "s" | "d" | "shift", Phaser.Input.Keyboard.Key>;
 
   constructor() {
@@ -108,6 +113,7 @@ export class WorldScene extends Phaser.Scene {
     this.zone = undefined;
     this.seats = new Map();
     this.mySid = -1;
+    this.kelasState = { active: false, files: [] };
   }
 
   create(): void {
@@ -165,7 +171,9 @@ export class WorldScene extends Phaser.Scene {
             this.remotes.clear();
             for (const p of w.players) if (p.sid !== w.you) this.remotes.add(p);
             this.seats = new Map(Object.entries(w.seats).map(([k, v]) => [Number(k), v]));
+            this.myUid = w.uid;
             chat.attach(net, { uid: w.uid, role: acc.role, name: acc.fullName }, w.history);
+            this.onClassState(w.kelas ?? { active: false, files: [] }, undefined, true);
           },
           add: (p) => p.sid !== this.mySid && this.remotes.add(p),
           remove: (m) => this.remotes.remove(m.sid),
@@ -183,6 +191,7 @@ export class WorldScene extends Phaser.Scene {
           pmRequest: (r) => chat.pmRequest(r),
           pmStatus: (st) => chat.pmStatus(st),
           notice: (n) => chat.system(n.text),
+          classState: (st) => this.onClassState(st, st.event),
           correct: (c) => {
             // Teleport uji (?debug=1) sengaja melompat; jangan ditarik kembali oleh server.
             if (!this.player || this.debugTeleported) return;
@@ -202,6 +211,46 @@ export class WorldScene extends Phaser.Scene {
       const msg = e instanceof Error && /penuh/.test(e.message) ? e.message : "Server multipemain tidak terhubung.";
       chat.offline(`${msg} Kamu bermain sendiri untuk sementara.`);
     }
+  }
+
+  // ---------- sesi kelas ----------
+
+  private get isClassRoom(): boolean {
+    return this.roomCode !== "kampus";
+  }
+
+  private onClassState(st: ClassState, event: string | undefined, joining = false): void {
+    const prev = this.kelasState;
+    this.kelasState = { active: st.active, dosenUid: st.dosenUid, dosenName: st.dosenName, materi: st.materi, startedAt: st.startedAt, files: st.files };
+    chat.setClassContext(this.isClassRoom, st.active);
+    const btn = document.getElementById("bahan");
+    if (btn) {
+      btn.hidden = !this.isClassRoom;
+      btn.classList.toggle("live", st.active);
+      btn.onclick = () => !isPanelOpen() && openBahanKelas(this.kelasState, this.room.title);
+    }
+    const iLead = st.dosenUid === this.myUid;
+    // Masuk saat kelas sudah berjalan: diperlakukan seperti "kelas dimulai".
+    const ev = joining && st.active ? "start" : event;
+    if ((ev === "start" || ev === "materi") && st.materi && !iLead) {
+      const t = ev === "start" ? `${st.dosenName} memulai kelas` : `${st.dosenName} mengganti materi`;
+      toast(t, st.materi.title, [{ label: "Buka slide", primary: true, run: () => openSlide(st.materi!) }, { label: "Nanti", run: () => {} }]);
+      chat.system(`${t}: ${st.materi.title}. Mode chat Kelas terbuka.`);
+    }
+    if (ev === "file" && !iLead) {
+      const fresh = st.files.find((f) => !prev.files.some((p) => p.token === f.token));
+      if (fresh) toast(`${fresh.fromName} membagikan file`, fresh.name, [{ label: "Unduh", primary: true, run: () => downloadFile(fresh) }]);
+    }
+    if (ev === "end" && prev.active) {
+      toast("Kelas selesai", "Obrolan Kelas ditutup. File yang sudah dibagikan tetap bisa diunduh sampai kedaluwarsa.");
+      chat.system("Kelas selesai.");
+    }
+    // Panel yang sedang terbuka mengikuti keadaan terbaru.
+    const open = kelasPanelOpen();
+    if (open && ev === "file") refreshFileLists(this.kelasState);
+    else if (open === "dosen" && ev) openDosenPanel(this.kelasState, this.myUid, this.catalog, this.room.title);
+    else if (open === "bahan" && ev) openBahanKelas(this.kelasState, this.room.title);
+    else if (open && !ev) refreshFileLists(this.kelasState);
   }
 
   // ---------- peta ----------
@@ -395,6 +444,10 @@ export class WorldScene extends Phaser.Scene {
       case "seat":
         this.sit(it);
         break;
+      case "teacher_desk":
+        if (this.account.role === "dosen") openDosenPanel(this.kelasState, this.myUid, this.catalog, this.room.title);
+        else openBahanKelas(this.kelasState, this.room.title);
+        break;
       default:
         openInfo(it);
     }
@@ -472,7 +525,8 @@ export class WorldScene extends Phaser.Scene {
       this.focus = it;
       this.focusImages = it ? this.imagesFor(it) : [];
       for (const img of this.focusImages) img.postFX?.addGlow(ORANGE, 3, 0, false, 0.1, 10);
-      setPrompt(it ? actionLabel(it) : p.sitting ? "Berdiri (atau bergerak)" : null);
+      const label = it?.kind === "teacher_desk" ? (this.account.role === "dosen" ? "Kelola kelas" : "Bahan kelas") : it ? actionLabel(it) : null;
+      setPrompt(label ?? (p.sitting ? "Berdiri (atau bergerak)" : null));
     }
     if (it) {
       const top = this.focusImages.length ? Math.min(...this.focusImages.map((i) => i.getBounds().top)) : it.rect.y - 8;

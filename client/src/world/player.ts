@@ -7,7 +7,7 @@ import { CHAR_ORIGIN, ensureCharacterTexture, frameName } from "../char/textures
 /** Panjang maksimum nama di name tag; nama utuh tampil di daftar pemain. */
 const TAG_MAX = 22;
 const BUBBLE_MS = 5000;
-const BUBBLE_COLOR: Record<string, string> = { sekitar: "#F7F5F0", global: "#D6E9FB", pribadi: "#FCE3CF", dots: "#F7F5F0" };
+const BUBBLE_COLOR: Record<string, string> = { sekitar: "#F7F5F0", global: "#D6E9FB", pribadi: "#FCE3CF", kelas: "#D5F0E6", dots: "#F7F5F0" };
 
 export class Avatar {
   readonly sprite: Phaser.GameObjects.Sprite;

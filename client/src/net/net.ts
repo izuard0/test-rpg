@@ -7,7 +7,7 @@ import { NET_HZ, ROOM_KAMPUS, ROOM_KELAS, type C2S, type JoinOptions, type S2C }
 
 type Handlers = { [K in keyof S2C]?: (msg: S2C[K]) => void } & { leave?: (code: number) => void };
 
-function serverUrl(): string {
+export function serverUrl(): string {
   const q = new URLSearchParams(location.search).get("server");
   if (q) return q;
   // Saat pengembangan, Vite (5173) dan server game (3000) berjalan terpisah.
@@ -22,6 +22,11 @@ export class GameNet {
 
   get connected(): boolean {
     return !!this.room;
+  }
+
+  /** sessionId ruang aktif; dipakai rute HTTP (unggah/unduh file kelas). */
+  get sessionId(): string | undefined {
+    return this.room?.sessionId;
   }
 
   async join(map: string, opts: Omit<JoinOptions, "kelas">, on: Handlers): Promise<void> {

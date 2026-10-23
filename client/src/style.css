@@ -453,3 +453,47 @@ body:not(.in-game) #chat { display: none; }
   }
   body:not(.in-game) #chat-toggle { display: none; }
 }
+
+/* ---------- sesi kelas ---------- */
+#chat .msg.kelas { color: #d5f0e6; }
+#chat .msg.kelas .tag { background: #2f8f63; color: #fff; }
+#chat .mode[data-mode="kelas"] { background: #2f8f63; }
+
+#bahan {
+  position: absolute; left: 12px; top: 116px; border: 1px solid rgba(247, 245, 240, 0.3); border-radius: 999px;
+  padding: 5px 12px; background: rgba(14, 21, 34, 0.78); color: var(--cream); font: 600 13px var(--sans); cursor: pointer;
+}
+#bahan.live { border-color: var(--green); box-shadow: 0 0 0 2px rgba(108, 195, 162, 0.35); }
+#bahan.live::before { content: "● "; color: var(--green); }
+body:not(.in-game) #bahan { display: none; }
+
+#toasts { position: absolute; top: 12px; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; gap: 8px; width: min(420px, calc(100vw - 24px)); pointer-events: none; z-index: 5; }
+.toast {
+  position: relative; pointer-events: auto; padding: 12px 36px 12px 14px; border-radius: 12px; background: var(--cream); color: var(--navy);
+  border: 2px solid var(--navy); box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4); animation: muncul 0.2s both;
+}
+.toast b { display: block; font-size: 14px; }
+.toast p { margin: 2px 0 8px; font-size: 14px; }
+.toast div { display: flex; gap: 8px; }
+.toast div button { border: 2px solid var(--line); background: #fff; border-radius: 8px; padding: 5px 12px; font: 600 13px var(--sans); cursor: pointer; color: var(--navy); }
+.toast div button.primary { background: var(--orange); border-color: var(--orange); }
+.toast .x { position: absolute; top: 6px; right: 6px; border: 0; background: none; font-size: 14px; cursor: pointer; color: var(--stone); }
+
+.kelas-panel h3 { margin: 16px 0 6px; font-size: 12px; letter-spacing: 1.4px; text-transform: uppercase; color: #b4501a; }
+.kelas-panel .kmateri, .kelas-panel .kfile {
+  display: flex; align-items: center; gap: 10px; padding: 8px 10px; border-radius: 8px; background: #fff; border: 1px solid var(--line); margin-bottom: 6px;
+}
+.kelas-panel .kmateri > span:nth-child(2), .kelas-panel .kfile .nm { flex: 1; min-width: 0; }
+.kelas-panel small { display: block; font-size: 12px; }
+.kelas-panel .ico { color: var(--orange); }
+.kelas-panel button { border: 2px solid var(--line); background: #fff; border-radius: 8px; padding: 6px 12px; font: 600 13px var(--sans); cursor: pointer; color: var(--navy); }
+.kelas-panel button.primary { background: var(--orange); border-color: var(--orange); }
+.kelas-panel button.danger { border-color: #d8574a; color: #b8382c; }
+.kelas-panel select, .kelas-panel input { font: 14px var(--sans); padding: 7px 9px; border-radius: 8px; border: 2px solid var(--line); color: var(--navy); background: #fff; }
+.kelas-panel .field { display: flex; flex-direction: column; gap: 4px; font-size: 13px; font-weight: 600; margin-bottom: 10px; }
+.kelas-panel .actions-row { display: flex; flex-wrap: wrap; gap: 8px; }
+.kelas-panel .share { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.kelas-panel .share label { display: flex; align-items: center; gap: 6px; font-size: 13px; }
+.kelas-panel .share .kodein { width: 140px; }
+.kelas-panel .up-status { margin: 6px 0 0; font-size: 13px; color: #2f8f63; min-height: 1em; }
+.kelas-panel .up-status.bad { color: #b8382c; }

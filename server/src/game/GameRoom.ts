@@ -16,6 +16,7 @@ import {
   VIEW_HALF_TILES,
   cleanChatText,
   defaultChoice,
+  distanceToRect,
   footBox,
   maskProfanity,
   normalizeId,
@@ -25,9 +26,12 @@ import {
   zoneAt,
   type C2S,
   type CharacterConfig,
+  type ClassState,
+  type Materi,
   type ChatMessage,
   type JoinOptions,
 } from "@mita/shared";
+import type { FileStore } from "./files.js";
 import { hub, send, type Session } from "./hub.js";
 import type { World, WorldRoom } from "./world.js";
 
@@ -35,6 +39,9 @@ export interface GameContext {
   world: World;
   cfg: CharacterConfig;
   runSpeed: number;
+  files: FileStore;
+  /** Materi yang sah (file -> materi) dari katalog klien; kosong = cek bentuk jalur saja. */
+  catalog: Map<string, Materi>;
 }
 
 let ctx: GameContext;
@@ -43,6 +50,8 @@ let ctx: GameContext;
  * matchmaker Colyseus akan membuat ruang kedua, jadi pembuatan itu ditolak di onCreate.
  */
 const activeMaps = new Set<string>();
+/** Ruang aktif per kode peta (dipakai rute HTTP unggah/unduh file). */
+export const roomsByCode = new Map<string, GameRoom>();
 const TICK_LOG = !!process.env.MITA_TICK_LOG;
 export function setGameContext(c: GameContext): void {
   ctx = c;
@@ -56,6 +65,9 @@ export class GameRoom extends Room {
   private readonly history: ChatMessage[] = [];
   /** sid pemain kelas yang sedang dicerminkan ke klien kampus. */
   private mirrored = new Set<number>();
+  private kelas: ClassState = { active: false, files: [] };
+  /** Obrolan mode Kelas selama sesi berjalan (memori saja; dibuang saat kelas selesai). */
+  private classChat: ChatMessage[] = [];
 
   onCreate(options: { kelas?: string }): void {
     this.code = this.roomName === "kelas" ? String(options.kelas ?? "") : "kampus";
@@ -65,6 +77,7 @@ export class GameRoom extends Room {
       throw new Error(`${map.data.title} sedang penuh (${map.data.capacity} orang). Coba lagi sebentar lagi.`);
     }
     activeMaps.add(this.code);
+    roomsByCode.set(this.code, this);
     this.map = map;
     this.maxClients = Math.max(1, map.data.capacity || 150);
     this.autoDispose = this.roomName === "kelas";
@@ -87,6 +100,12 @@ export class GameRoom extends Room {
       if (s) hub.setMuted(s, !!m?.muted);
     });
     this.onMessage("directory", (c) => send(c, "directory", { players: hub.directory() }));
+    this.onMessage("classStart", (c, m: C2S["classStart"]) => this.onClassMateri(c, m?.materi, true));
+    this.onMessage("classMateri", (c, m: C2S["classMateri"]) => this.onClassMateri(c, m?.materi, false));
+    this.onMessage("classEnd", (c) => {
+      const s = this.mine.get(c.sessionId);
+      if (s?.role === "dosen" && this.kelas.active) this.endClass();
+    });
 
     this.clock.setInterval(() => this.tick(), 1000 / NET_HZ);
     if (this.code === "kampus") this.clock.setInterval(() => hub.sweep(Date.now()), 5000);
@@ -138,12 +157,14 @@ export class GameRoom extends Room {
       room: this.code,
       players,
       seats: Object.fromEntries(this.seats),
-      history: this.history,
+      history: this.isClass ? this.classChat : this.history,
+      ...(this.isClass ? { kelas: this.classState() } : {}),
     });
   }
 
   onDispose(): void {
     activeMaps.delete(this.code);
+    if (roomsByCode.get(this.code) === this) roomsByCode.delete(this.code);
   }
 
   onLeave(client: Client): void {
@@ -153,6 +174,8 @@ export class GameRoom extends Room {
     hub.remove(s.sid);
     if (s.seatId !== null) this.freeSeat(s);
     for (const other of this.mine.values()) send(other.client, "remove", { sid: s.sid });
+    // Dosen yang memulai kelas pergi: kelas selesai (file yang sudah dibagikan tetap sampai kedaluwarsa).
+    if (this.kelas.active && this.kelas.dosenUid === s.uid && !this.sessionsOf(s.uid).length) this.endClass();
   }
 
   /** Titik bebas acak dalam ± 2 petak dari titik muncul (docs/PETA.md: muncul acak agar tidak bertumpuk). */
@@ -164,6 +187,68 @@ export class GameRoom extends Room {
       if (!this.map.collision.blocked(footBox(x, y))) return { x, y };
     }
     return p;
+  }
+
+  // ----- sesi kelas -----
+
+  get isClass(): boolean {
+    return this.roomName === "kelas";
+  }
+
+  sessionsOf(uid: string): Session[] {
+    return [...this.mine.values()].filter((s) => s.uid === uid);
+  }
+
+  /** Sesi pemain di ruang ini menurut sessionId Colyseus (dipakai rute HTTP). */
+  sessionById(sessionId: string): Session | undefined {
+    return this.mine.get(sessionId);
+  }
+
+  classState(): ClassState {
+    return { ...this.kelas, files: ctx.files.inRoom(this.code) };
+  }
+
+  /** Dosen harus berdiri di dekat meja dosen (± 2,5 petak) untuk memulai/mengganti materi. */
+  nearTeacherDesk(s: Session): boolean {
+    const desk = this.map.data.interactables.find((i) => i.kind === "teacher_desk");
+    return !!desk && distanceToRect(s.x, s.y, desk.rect) <= this.map.data.tile * 2.5;
+  }
+
+  private onClassMateri(c: Client, raw: Materi | undefined, start: boolean): void {
+    const s = this.mine.get(c.sessionId);
+    if (!s || !this.isClass) return;
+    if (s.role !== "dosen") return send(c, "notice", { text: "Hanya dosen yang bisa memulai kelas." });
+    if (!this.nearTeacherDesk(s)) return send(c, "notice", { text: "Berdirilah di meja dosen untuk memulai kelas." });
+    const materi = this.validMateri(raw);
+    if (!materi) return send(c, "notice", { text: "Materi tidak ditemukan di bahan ajar." });
+    if (!start && !this.kelas.active) return;
+    if (this.kelas.active && this.kelas.dosenUid !== s.uid && start) {
+      return send(c, "notice", { text: `Kelas sedang dipimpin ${this.kelas.dosenName}.` });
+    }
+    const wasActive = this.kelas.active;
+    this.kelas = { active: true, dosenUid: s.uid, dosenName: s.name, materi, startedAt: wasActive ? this.kelas.startedAt : Date.now(), files: [] };
+    if (!wasActive) this.classChat = [];
+    this.broadcast("classState", { ...this.classState(), event: wasActive ? "materi" : "start" });
+  }
+
+  private validMateri(m: Materi | undefined): Materi | undefined {
+    if (!m || typeof m.file !== "string") return undefined;
+    if (ctx.catalog.size) return ctx.catalog.get(m.file);
+    // Tanpa katalog (mis. saat uji): hanya berkas HTML di bawah bahan_ajar/, tanpa "..".
+    if (!/^bahan_ajar\/[^]+\.html?$/i.test(m.file) || m.file.includes("..")) return undefined;
+    return { title: String(m.title ?? "").slice(0, 120), file: m.file, course: String(m.course ?? "").slice(0, 80) };
+  }
+
+  private endClass(): void {
+    this.kelas = { active: false, files: [] };
+    this.classChat = [];
+    this.broadcast("classState", { ...this.classState(), event: "end" });
+  }
+
+  /** Dipanggil rute HTTP setelah file tersimpan, atau saat file kedaluwarsa. */
+  announceFiles(event?: "file"): void {
+    if (!this.isClass) return;
+    this.broadcast("classState", { ...this.classState(), ...(event ? { event } : {}) });
   }
 
   // ----- gerak -----
@@ -302,6 +387,19 @@ export class GameRoom extends Room {
     if (now - s.lastChatAt < CHAT_MIN_INTERVAL_MS) return send(c, "notice", { text: "Pelan-pelan: maksimal 1 pesan per detik." });
     const zone = zoneAt(this.map.data, s.x, s.y);
     const msg: ChatMessage = { mode: m.mode, from: s.sid, fromUid: s.uid, fromName: s.name, fromRole: s.role, text, at: now };
+
+    if (m.mode === "kelas") {
+      if (!this.isClass || !this.kelas.active) return send(c, "notice", { text: "Obrolan Kelas hanya ada selama sesi kelas berjalan." });
+      s.lastChatAt = now;
+      this.classChat.push(msg);
+      if (this.classChat.length > CHAT_HISTORY * 4) this.classChat.shift();
+      this.broadcast("chat", msg);
+      return;
+    }
+
+    if (m.mode === "global" && this.isClass) {
+      return send(c, "notice", { text: this.kelas.active ? "Di dalam kelas, pakai mode Kelas." : "Obrolan untuk seluruh kelas terbuka saat dosen memulai kelas." });
+    }
 
     if (m.mode === "global") {
       if (zone && !zone.chatPublic) return send(c, "notice", { text: `Global tidak bisa dikirim dari ${zone.name} (ruang tenang). Pakai Sekitar atau Pribadi.` });
