@@ -17,13 +17,14 @@ export interface AccountRecord {
   mustChangePassword: boolean;
   status: AccountStatus;
   character: CharacterChoice | null;
+  tag: string | null;
   createdAt: Date;
   reviewedAt: Date | null;
   lastLoginAt: Date | null;
 }
 
 export type NewAccount = Pick<AccountRecord, "role" | "loginId" | "fullName" | "passwordHash">;
-export type AccountPatch = Partial<Pick<AccountRecord, "status" | "passwordHash" | "mustChangePassword" | "character" | "reviewedAt" | "lastLoginAt">>;
+export type AccountPatch = Partial<Pick<AccountRecord, "status" | "passwordHash" | "mustChangePassword" | "character" | "tag" | "reviewedAt" | "lastLoginAt">>;
 
 export class DuplicateError extends Error {}
 
@@ -58,6 +59,7 @@ export class MemoryStore implements AccountStore {
       mustChangePassword: false,
       status: "menunggu",
       character: null,
+      tag: null,
       createdAt: new Date(),
       reviewedAt: null,
       lastLoginAt: null,

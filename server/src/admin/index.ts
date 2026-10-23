@@ -8,6 +8,7 @@ import { randomBytes, timingSafeEqual } from "node:crypto";
 import { existsSync } from "node:fs";
 import { join } from "node:path";
 import type { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
+import { TAG_MAX, normalizeTag } from "@mita/shared";
 import { accountView, type Accounts } from "../auth/index.js";
 import { Limiter } from "../auth/limit.js";
 import { hashPassword, tempPassword } from "../auth/password.js";
@@ -172,6 +173,23 @@ export function registerAdminRoutes(app: FastifyInstance, accounts: Accounts, op
     }
     app.log.info(`Admin: ${action} ${done} akun`);
     return { done, skipped };
+  });
+
+  app.post("/api/admin/accounts/tag", async (req, reply) => {
+    const b = (req.body ?? {}) as { ids?: unknown; tag?: unknown };
+    const ids = Array.isArray(b.ids) ? b.ids.filter((x): x is string => typeof x === "string").slice(0, 500) : [];
+    const tag = normalizeTag(String(b.tag ?? ""));
+    if (tag === null) return reply.code(400).send({ error: `Tag maksimal ${TAG_MAX} karakter: huruf, angka, spasi, dan . - _ & +.` });
+    if (!ids.length) return reply.code(400).send({ error: "Pilih akun dulu." });
+    let done = 0;
+    for (const id of ids) {
+      const a = await store.update(id, { tag: tag || null });
+      if (!a) continue;
+      accounts.tagChanged(a.id, a.tag);
+      done++;
+    }
+    app.log.info(`Admin: tag "${tag}" untuk ${done} akun`);
+    return { done, tag: tag || null };
   });
 
   app.post("/api/admin/accounts/reset-password", async (req, reply) => {

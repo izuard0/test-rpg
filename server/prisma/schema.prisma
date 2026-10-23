@@ -35,6 +35,8 @@ model Account {
   /// Diset saat admin me-reset kata sandi: pengguna wajib menggantinya setelah masuk.
   mustChangePassword Boolean       @default(false) @map("must_change_password")
   status             AccountStatus @default(menunggu)
+  /// Label dari admin, tampil di name tag sebagai "[tag] Nama" (mis. "Asdos", "Ketua").
+  tag                String?
   /// Pilihan avatar (CharacterChoice); null = belum membuat avatar.
   character          Json?
   createdAt          DateTime      @default(now()) @map("created_at")

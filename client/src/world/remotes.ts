@@ -25,7 +25,7 @@ export class RemotePlayers {
 
   add(p: Profile): void {
     this.remove(p.sid);
-    const avatar = new Avatar(this.scene, p.choice, p.name, -1000, -1000, p.role);
+    const avatar = new Avatar(this.scene, p.choice, p.name, -1000, -1000, p.role, p.tag ?? null);
     avatar.setTextResolution(this.zoom);
     avatar.sprite.setInteractive({ useHandCursor: true }).on("pointerdown", () => this.onClick(p));
     avatar.sprite.setVisible(false);
@@ -44,6 +44,15 @@ export class RemotePlayers {
 
   get(sid: number): Remote | undefined {
     return this.list.get(sid);
+  }
+
+  /** Admin mengubah tag pemain (semua sesinya, termasuk cermin kelas). */
+  setTag(uid: string, tag: string | null): void {
+    for (const r of this.list.values()) {
+      if (r.profile.uid !== uid) continue;
+      r.profile.tag = tag ?? undefined;
+      r.avatar.setNameTag(tag);
+    }
   }
 
   profiles(): Profile[] {

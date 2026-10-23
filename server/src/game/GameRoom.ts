@@ -129,6 +129,7 @@ export class GameRoom extends Room {
       uid: hub.uidFor(accountId),
       accountId,
       name: acc.fullName,
+      tag: acc.tag,
       role,
       choice: acc.character ? sanitizeChoice(ctx.cfg, acc.character) : defaultChoice(ctx.cfg, "L"),
       client,

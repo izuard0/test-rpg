@@ -52,6 +52,8 @@ export interface Profile {
   name: string;
   role: Role;
   choice: CharacterChoice;
+  /** Tag dari admin (tampil "[tag] Nama"). */
+  tag?: string;
   /** Pemain di dalam kelas yang dicerminkan ke denah kampus (tidak bisa diajak chat Sekitar). */
   mirror?: string;
 }
@@ -139,6 +141,8 @@ export interface S2C {
   /** `x`/`y`: titik muncul yang dipilih server (diacak sedikit agar pemain tidak bertumpuk). */
   welcome: { you: number; uid: string; room: string; x: number; y: number; kelas?: ClassState; players: Profile[]; seats: Record<number, number>; history: ChatMessage[] };
   add: Profile;
+  /** Admin mengubah tag pemain yang sedang daring (semua ruang). */
+  tag: { uid: string; tag: string | null };
   remove: { sid: number };
   /** Rata: [sid, x, y, arah, flag, sid, x, y, ...] untuk pemain dalam pandangan. */
   snap: number[];

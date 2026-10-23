@@ -28,6 +28,7 @@ export interface Session {
   name: string;
   role: Role;
   choice: CharacterChoice;
+  tag: string | null;
   client: Client;
   room: RoomRef;
   x: number;
@@ -64,6 +65,18 @@ export class Hub {
   private readonly muted = new Set<string>();
   /** Penghapusan izin ditunda sebentar: pindah ruang = keluar lalu masuk lagi. */
   private readonly goneTimers = new Map<string, NodeJS.Timeout>();
+
+  /** Tag akun diubah admin: perbarui sesi daringnya dan kabari semua pemain (name tag). */
+  setTag(accountId: string, tag: string | null): void {
+    let uid: string | undefined;
+    for (const s of this.sessions.values()) {
+      if (s.accountId !== accountId) continue;
+      s.tag = tag;
+      uid = s.uid;
+    }
+    if (!uid) return;
+    for (const s of this.sessions.values()) send(s.client, "tag", { uid, tag });
+  }
 
   /** Mengeluarkan semua sesi game milik akun (dinonaktifkan / sesi dicabut admin). */
   kickAccount(accountId: string, text: string): void {
@@ -126,7 +139,7 @@ export class Hub {
   }
 
   profile(s: Session, mirror?: string): Profile {
-    return { sid: s.sid, uid: s.uid, name: s.name, role: s.role, choice: s.choice, ...(mirror ? { mirror } : {}) };
+    return { sid: s.sid, uid: s.uid, name: s.name, role: s.role, choice: s.choice, ...(s.tag ? { tag: s.tag } : {}), ...(mirror ? { mirror } : {}) };
   }
 
   directory(): S2C["directory"]["players"] {

@@ -44,13 +44,22 @@ async function loginAs(id: string, name: string, role: Role) {
   return ((await res.json()) as { token: string }).token;
 }
 
+async function adminCookie() {
+  const login = await fetch(`${url}/api/admin/login`, {
+    method: "POST",
+    headers: { "content-type": "application/json", "x-mita-panel": "1" },
+    body: JSON.stringify({ username: "admin", password: "admin-uji-rahasia" }),
+  });
+  return login.headers.get("set-cookie")!.split(";")[0];
+}
+
 /** Klien uji yang mengumpulkan semua pesan server. */
 async function player(id: string, name: string, role: Role = "mahasiswa", room = ROOM_KAMPUS, extra: Partial<JoinOptions> = {}) {
   const c = new Client(url);
   const inbox: { type: string; msg: unknown }[] = [];
   const token = await loginAs(id, name, role);
   const r: Room = await c.joinOrCreate(room, { token, ...extra });
-  for (const t of ["welcome", "add", "remove", "snap", "chat", "dots", "seat", "pmRequest", "pmStatus", "notice", "directory", "correct", "classState"]) {
+  for (const t of ["welcome", "add", "remove", "snap", "chat", "dots", "seat", "pmRequest", "pmStatus", "notice", "directory", "correct", "classState", "tag"]) {
     r.onMessage(t, (msg) => inbox.push({ type: t, msg }));
   }
   const wait = async <K extends keyof S2C>(type: K, pred: (m: S2C[K]) => boolean = () => true, ms = 3000): Promise<S2C[K]> => {
@@ -328,6 +337,24 @@ describe("multipemain", () => {
     for (const p of [dosen, mhs, telat, luar]) await p.room.leave();
   }, 30_000);
 
+  it("tag dari admin tampil di profil dan langsung sampai ke pemain yang daring", async () => {
+    const a = await player("2201401", "Rani Uji");
+    const b = await player("2201402", "Sinta Uji");
+    const cookie = await adminCookie();
+    const acc = (await store.byLoginId("2201401"))!;
+    await fetch(`${url}/api/admin/accounts/tag`, {
+      method: "POST",
+      headers: { "content-type": "application/json", "x-mita-panel": "1", cookie },
+      body: JSON.stringify({ ids: [acc.id], tag: "Asdos" }),
+    });
+    expect(await b.wait("tag", (m) => m.uid === a.uid)).toEqual({ uid: a.uid, tag: "Asdos" });
+    expect(await a.wait("tag")).toMatchObject({ tag: "Asdos" });
+    // Pemain yang masuk belakangan menerima tag di profil.
+    const c = await player("2201403", "Tono Uji");
+    expect(c.welcome.players.find((p) => p.uid === a.uid)?.tag).toBe("Asdos");
+    for (const p of [a, b, c]) await p.room.leave();
+  });
+
   it("menolak token yang tidak sah dan mengeluarkan akun yang dicabut", async () => {
     await expect(new Client(url).joinOrCreate(ROOM_KAMPUS, { token: "token-palsu-yang-cukup-panjang-123" })).rejects.toThrow(/Sesi berakhir/);
     await expect(new Client(url).joinOrCreate(ROOM_KAMPUS, { id: "2201101", name: "Palsu", role: "dosen" })).rejects.toThrow();
@@ -335,12 +362,7 @@ describe("multipemain", () => {
     const left = new Promise<number>((res) => p.room.onLeave((code) => res(code)));
     const acc = (await store.byLoginId("2201301"))!;
     // Admin menonaktifkan akun lewat /panel: pemain langsung dikeluarkan dari game.
-    const login = await fetch(`${url}/api/admin/login`, {
-      method: "POST",
-      headers: { "content-type": "application/json", "x-mita-panel": "1" },
-      body: JSON.stringify({ username: "admin", password: "admin-uji-rahasia" }),
-    });
-    const cookie = login.headers.get("set-cookie")!.split(";")[0];
+    const cookie = await adminCookie();
     const act = await fetch(`${url}/api/admin/accounts/action`, {
       method: "POST",
       headers: { "content-type": "application/json", "x-mita-panel": "1", cookie },

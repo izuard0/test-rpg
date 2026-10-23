@@ -444,6 +444,10 @@ sekitar 1 menit). Set baru otomatis mendapat versi badan ramping.
      Nonaktifkan (langsung dikeluarkan dari game), Aktifkan, Hapus (hanya akun yang tidak
      aktif; NIM bisa dipakai daftar ulang), **Reset sandi** (sandi sementara ditampilkan
      sekali; pengguna wajib menggantinya saat masuk). Tanda "nama sama" untuk akun kembar.
+   - **Tag nama** (permintaan pemilik proyek, 23 Okt 2026): admin memberi label pada akun
+     (satu atau banyak sekaligus), tampil di name tag sebagai `[tag] Nama`, mis. `[Asdos]`.
+     Maks. 12 karakter (huruf, angka, spasi, `. - _ & +`); perubahan langsung terlihat oleh
+     pemain yang sedang daring. Tag hanya di atas kepala, tidak di chat.
    - Sesi login: token acak per tab (sessionStorage), berlaku 12 jam; server menyimpan hash
      token saja. Kata sandi di-hash scrypt.
    - Batas percobaan: gagal masuk 10 per NIM / 15 menit. Batas per IP sengaja longgar (200
