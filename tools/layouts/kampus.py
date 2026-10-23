@@ -131,13 +131,13 @@ OPEN = [[19, SY, 3, 5], [31, SY, 3, 5], [LX + 16, SY, 3, 3], [LX, SY + 10, 1, 3]
 
 # ---- koridor: pintu kelas (sprite + papan nama berwarna + area interaksi), tanaman, kios, tempat sampah
 doors = []
-for (nm, tgt, spawn, dx, sign, label) in [
+for (nm, tgt, _back, dx, sign, label) in [  # _back = titik muncul saat kembali ke kampus
         ("kelas-a", "kelas-a", "dari_lab_lovelace", 12, "papan_biru", "Lab Lovelace"),
         ("kelas-b", "kelas-b", "dari_kelas_b", 34, "papan_oranye", "Ruang Kolaborasi"),
         ("kelas-c", "kelas-c", "dari_kelas_c", 59, "papan_biru_menyala", "Auditorium Turing")]:
     objects.append({"sprite": (CF, "pintu_kelas"), "foot": [dx, CY + 1, 1, 1], "collide": False})
     objects.append({"sprite": (RS, sign), "foot": [dx + 2, CY, 1, 1], "collide": False})
-    doors.append({"rect": [dx - 1, CY + 2, 3, 1], "target": tgt, "spawn": spawn, "label": label})
+    doors.append({"rect": [dx - 1, CY + 2, 3, 1], "target": tgt, "spawn": "dari_lobi", "label": label})
 for x in [6, 90]:
     put("tanaman_besar", [x, 29, 2, 1], sheet=LOF)
 put("kios_nyala", [48, 29, 3, 1], sheet=LTC, type="info", name="kios_koridor", props={"info": "peta"},

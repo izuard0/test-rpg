@@ -1,0 +1,19 @@
+{
+  "name": "@mita/client",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "assets": "node scripts/sync-assets.mjs",
+    "dev": "npm run assets && vite",
+    "build": "npm run assets && vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc -p ."
+  },
+  "dependencies": {
+    "@mita/shared": "*",
+    "phaser": "3.90.0"
+  },
+  "devDependencies": {
+    "vite": "^8.3.5"
+  }
+}

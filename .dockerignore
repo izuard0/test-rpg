@@ -1,0 +1,18 @@
+# Hanya yang dibutuhkan build (lihat Dockerfile). Aset mentah dan pratinjau tidak ikut.
+.git
+**/node_modules
+**/dist
+client/public/game
+assets
+asset-prompts
+belum-dibuat
+prototype
+maps/preview
+export/tiles/*/sheet.png
+export/tiles/*/preview.png
+docs
+tools
+*.md
+!materi/**
+.env
+.env.*

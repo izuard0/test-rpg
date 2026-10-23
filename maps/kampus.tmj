@@ -20029,7 +20029,7 @@
       {
        "name": "spawn",
        "type": "string",
-       "value": "dari_lab_lovelace"
+       "value": "dari_lobi"
       },
       {
        "name": "label",
@@ -20057,7 +20057,7 @@
       {
        "name": "spawn",
        "type": "string",
-       "value": "dari_kelas_b"
+       "value": "dari_lobi"
       },
       {
        "name": "label",
@@ -20085,7 +20085,7 @@
       {
        "name": "spawn",
        "type": "string",
-       "value": "dari_kelas_c"
+       "value": "dari_lobi"
       },
       {
        "name": "label",
