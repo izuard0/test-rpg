@@ -252,16 +252,18 @@ terpisah untuk set ini (belum ada; lihat bagian 9).
 
 | Peta | Isi | Ukuran | Perintah |
 |---|---|---|---|
-| `maps/kampus.tmj` | halaman luar, lobi, perpustakaan (satu ruangan Colyseus) | 78 × 54 petak (2.184 × 1.512 px) | `python tools/make_map.py kampus` |
+| `maps/kampus.tmj` | lobi + perpustakaan + pinggiran rumput (satu ruangan Colyseus) | 83 × 36 petak (2.324 × 1.008 px) | `python tools/make_map.py kampus` |
 | `maps/kelas-a.tmj` | Lab Lovelace, 30 kursi bertipe `seat` | 20 × 18 | `python tools/make_map.py kelas-a` |
 
-- **Kampus.** Lobi 40 × 28 di kiri atas; perpustakaan **36 × 28** (diperbesar dari 30 × 22 karena
-  perabotnya kini 2×) di sebelah kanan, tersambung lewat bukaan di dinding timur lobi (tanpa layar
-  loading). Di selatan lobi ada **gedung depan** (aset luar ruangan, 2×) dengan lorong ke lobi,
-  plaza berair mancur, jalan batu, pohon, bangku, lampu, dan rak sepeda. Tiga pintu kiri lobi menuju
-  kelas A/B/C (ruangan terpisah). Titik muncul pemain baru: `awal` di depan gedung.
+- **Kampus (v2, rujukan video csbinussmg).** Satu **denah gedung** dilihat dari atas, bukan kompleks
+  bangunan: lobi 40 × 28 di kiri, perpustakaan 36 × 28 di kanan (berbagi dinding timur, tersambung
+  lewat bukaan), dikelilingi **pinggiran rumput 4 petak** yang hanya berisi hiasan di tepi (pohon,
+  semak, bangku, lampu, petak bunga, rak sepeda). **Tanpa gedung depan, plaza, dan air mancur**
+  (versi pertama membuatnya dan ditolak: terlalu menonjol). Dinding selatan berjendela. Pintu
+  depan di selatan lobi menuju jalur batu pendek ke halaman. Pintu kelas A/B/C ada di dinding kiri
+  lobi; area interaksinya di sisi dalam lobi (dinding tetap padat sehingga pemain tidak keluar lewat pintu).
 - **Skala.** Perabot besar digambar **2×** (`scale` di tata letak); lantai 28 px per petak.
-- **Lorong gedung depan.** Gedung menempel di dinding selatan lobi dan pintunya sejajar dengan bukaan
+- ~~**Lorong gedung depan.**~~ (dibuang di v2) Gedung menempel di dinding selatan lobi dan pintunya sejajar dengan bukaan
   dinding. Di Phaser, urutkan kedalaman menurut **tepi bawah** sprite supaya pemain tampak
   "masuk" di balik gedung lalu muncul di lobi. Sayap gedung bertabrakan lewat objek `blok`; lorong x=19..21 terbuka.
 - Tata letak sumber: `tools/layouts/{kampus,lobi,perpustakaan,kelas-a}.py`. `lobi.py` dan

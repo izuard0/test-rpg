@@ -8,10 +8,10 @@
  "margin": 0,
  "name": "kampus-objects",
  "spacing": 0,
- "tilecount": 61,
+ "tilecount": 58,
  "tiledversion": "1.10.2",
- "tileheight": 143,
- "tilewidth": 149,
+ "tileheight": 74,
+ "tilewidth": 110,
  "type": "tileset",
  "version": "1.10",
  "tiles": [
@@ -845,14 +845,32 @@
   },
   {
    "id": 46,
-   "image": "../../export/tiles/outdoor/sprites/18_gedung_depan.png",
-   "imageheight": 143,
-   "imagewidth": 149,
+   "image": "../../export/tiles/classroom_floor_wall/sprites/19_jendela_gabung_a.png",
+   "imageheight": 23,
+   "imagewidth": 85,
    "properties": [
     {
      "name": "name",
      "type": "string",
-     "value": "gedung_depan"
+     "value": "jendela_gabung_a"
+    },
+    {
+     "name": "lembar",
+     "type": "string",
+     "value": "classroom_floor_wall"
+    }
+   ]
+  },
+  {
+   "id": 47,
+   "image": "../../export/tiles/outdoor/sprites/21_pohon_rimbun.png",
+   "imageheight": 64,
+   "imagewidth": 62,
+   "properties": [
+    {
+     "name": "name",
+     "type": "string",
+     "value": "pohon_rimbun"
     },
     {
      "name": "lembar",
@@ -862,7 +880,25 @@
    ]
   },
   {
-   "id": 47,
+   "id": 48,
+   "image": "../../export/tiles/outdoor/sprites/24_pohon_besar.png",
+   "imageheight": 63,
+   "imagewidth": 63,
+   "properties": [
+    {
+     "name": "name",
+     "type": "string",
+     "value": "pohon_besar"
+    },
+    {
+     "name": "lembar",
+     "type": "string",
+     "value": "outdoor"
+    }
+   ]
+  },
+  {
+   "id": 49,
    "image": "../../export/tiles/outdoor/sprites/28_semak_kecil.png",
    "imageheight": 30,
    "imagewidth": 30,
@@ -880,7 +916,7 @@
    ]
   },
   {
-   "id": 48,
+   "id": 50,
    "image": "../../export/tiles/outdoor/sprites/04_petak_bunga_panjang.png",
    "imageheight": 16,
    "imagewidth": 64,
@@ -889,42 +925,6 @@
      "name": "name",
      "type": "string",
      "value": "petak_bunga_panjang"
-    },
-    {
-     "name": "lembar",
-     "type": "string",
-     "value": "outdoor"
-    }
-   ]
-  },
-  {
-   "id": 49,
-   "image": "../../export/tiles/outdoor/sprites/09_lampu_taman.png",
-   "imageheight": 31,
-   "imagewidth": 6,
-   "properties": [
-    {
-     "name": "name",
-     "type": "string",
-     "value": "lampu_taman"
-    },
-    {
-     "name": "lembar",
-     "type": "string",
-     "value": "outdoor"
-    }
-   ]
-  },
-  {
-   "id": 50,
-   "image": "../../export/tiles/outdoor/sprites/05_air_mancur.png",
-   "imageheight": 96,
-   "imagewidth": 80,
-   "properties": [
-    {
-     "name": "name",
-     "type": "string",
-     "value": "air_mancur"
     },
     {
      "name": "lembar",
@@ -953,14 +953,14 @@
   },
   {
    "id": 52,
-   "image": "../../export/tiles/outdoor/sprites/07_bangku_b.png",
-   "imageheight": 14,
-   "imagewidth": 29,
+   "image": "../../export/tiles/outdoor/sprites/09_lampu_taman.png",
+   "imageheight": 31,
+   "imagewidth": 6,
    "properties": [
     {
      "name": "name",
      "type": "string",
-     "value": "bangku_b"
+     "value": "lampu_taman"
     },
     {
      "name": "lembar",
@@ -971,42 +971,6 @@
   },
   {
    "id": 53,
-   "image": "../../export/tiles/outdoor/sprites/24_pohon_besar.png",
-   "imageheight": 63,
-   "imagewidth": 63,
-   "properties": [
-    {
-     "name": "name",
-     "type": "string",
-     "value": "pohon_besar"
-    },
-    {
-     "name": "lembar",
-     "type": "string",
-     "value": "outdoor"
-    }
-   ]
-  },
-  {
-   "id": 54,
-   "image": "../../export/tiles/outdoor/sprites/21_pohon_rimbun.png",
-   "imageheight": 64,
-   "imagewidth": 62,
-   "properties": [
-    {
-     "name": "name",
-     "type": "string",
-     "value": "pohon_rimbun"
-    },
-    {
-     "name": "lembar",
-     "type": "string",
-     "value": "outdoor"
-    }
-   ]
-  },
-  {
-   "id": 55,
    "image": "../../export/tiles/outdoor/sprites/13_rak_sepeda.png",
    "imageheight": 10,
    "imagewidth": 30,
@@ -1024,7 +988,7 @@
    ]
   },
   {
-   "id": 56,
+   "id": 54,
    "image": "../../export/tiles/outdoor/sprites/11_sepeda_merah.png",
    "imageheight": 11,
    "imagewidth": 16,
@@ -1042,7 +1006,7 @@
    ]
   },
   {
-   "id": 57,
+   "id": 55,
    "image": "../../export/tiles/outdoor/sprites/12_sepeda_biru.png",
    "imageheight": 11,
    "imagewidth": 16,
@@ -1060,7 +1024,25 @@
    ]
   },
   {
-   "id": 58,
+   "id": 56,
+   "image": "../../export/tiles/outdoor/sprites/07_bangku_b.png",
+   "imageheight": 14,
+   "imagewidth": 29,
+   "properties": [
+    {
+     "name": "name",
+     "type": "string",
+     "value": "bangku_b"
+    },
+    {
+     "name": "lembar",
+     "type": "string",
+     "value": "outdoor"
+    }
+   ]
+  },
+  {
+   "id": 57,
    "image": "../../export/tiles/outdoor/sprites/34_pot_batu_bunga.png",
    "imageheight": 14,
    "imagewidth": 12,
@@ -1069,42 +1051,6 @@
      "name": "name",
      "type": "string",
      "value": "pot_batu_bunga"
-    },
-    {
-     "name": "lembar",
-     "type": "string",
-     "value": "outdoor"
-    }
-   ]
-  },
-  {
-   "id": 59,
-   "image": "../../export/tiles/outdoor/sprites/40_semak_ganda.png",
-   "imageheight": 14,
-   "imagewidth": 21,
-   "properties": [
-    {
-     "name": "name",
-     "type": "string",
-     "value": "semak_ganda"
-    },
-    {
-     "name": "lembar",
-     "type": "string",
-     "value": "outdoor"
-    }
-   ]
-  },
-  {
-   "id": 60,
-   "image": "../../export/tiles/outdoor/sprites/03_petak_bunga_kecil.png",
-   "imageheight": 15,
-   "imagewidth": 45,
-   "properties": [
-    {
-     "name": "name",
-     "type": "string",
-     "value": "petak_bunga_kecil"
     },
     {
      "name": "lembar",
