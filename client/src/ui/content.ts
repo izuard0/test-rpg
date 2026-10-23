@@ -19,7 +19,7 @@ export function actionLabel(it: Interactable): string {
     case "npc": return "Bicara";
     case "board": return "Baca papan";
     case "exhibit": return "Lihat pameran";
-    case "info": return "Tanya informasi";
+    case "info": return p.info === "web_informatika" ? "Buka situs Informatika" : "Tanya informasi";
     case "teacher_desk": return "Meja dosen";
     default: return "Periksa";
   }
@@ -70,10 +70,28 @@ const TEXT: Record<string, { title: string; body: string }> = {
   },
 };
 
+/** Situs resmi prodi, dibuka dari kios di lobi. */
+export const WEB_INFORMATIKA = "https://informatika.untan.ac.id/";
+
 export function openInfo(it: Interactable): void {
+  if (it.props.info === "web_informatika") return openWeb(WEB_INFORMATIKA, "informatika.untan.ac.id");
   const sub = String(it.props.npc ?? it.props.board ?? it.props.exhibit ?? it.props.info ?? it.props.role ?? "");
   const t = TEXT[`${it.kind}:${sub}`] ?? { title: `${it.name}.txt`, body: `<p>${esc(it.name.replace(/_/g, " "))}</p>` };
   openPanel({ title: t.title, body: t.body });
+}
+
+/**
+ * Jendela berisi situs luar (iframe). Bila situs itu menolak ditampilkan di dalam bingkai
+ * (X-Frame-Options), isinya kosong: tombol "Buka di tab baru" selalu tersedia.
+ */
+export function openWeb(url: string, title: string): void {
+  const wrap = document.createElement("div");
+  wrap.className = "materi web";
+  wrap.innerHTML = `<div class="bar"><span>${esc(title)} <span class="muted">· tidak tampil? buka di tab baru</span></span><a target="_blank" rel="noopener noreferrer">Buka di tab baru ↗</a></div>
+    <iframe title="${esc(title)}" referrerpolicy="no-referrer" sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox allow-forms"></iframe>`;
+  wrap.querySelector("a")!.href = url;
+  wrap.querySelector("iframe")!.src = url;
+  openPanel({ title, body: wrap, wide: true });
 }
 
 /** Katalog materi (sama di keenam meja baca): folder per mata kuliah, berkas per pertemuan. */
