@@ -4,6 +4,9 @@
 import Phaser from "phaser";
 import {
   CollisionWorld,
+  DIRS,
+  FLAG_MOVING,
+  FLAG_SITTING,
   GID_FLIP_H,
   GID_FLIP_V,
   nearestInteractable,
@@ -16,6 +19,8 @@ import {
 } from "@mita/shared";
 import { getAssembler } from "../char/textures";
 import type { Account, AuthService } from "../auth";
+import { net } from "../net/net";
+import { chat } from "../ui/chat";
 import { actionLabel, openCatalog, openInfo, openTerminal, type MateriCatalog } from "../ui/content";
 import { openCreator } from "../ui/creator";
 import { setHud, setLoadingProgress, setPrompt, showError, showLoading } from "../ui/hud";
@@ -23,6 +28,7 @@ import { closePanel, isPanelOpen } from "../ui/panel";
 import { onTouchAction, touchDirs } from "../ui/touch";
 import { MARKER_KEY, loadMap, loadWorldUi, textureForGid, type LoadedMap } from "../world/loader";
 import { Avatar } from "../world/player";
+import { RemotePlayers } from "../world/remotes";
 
 export interface WorldData {
   room?: string;
@@ -79,6 +85,11 @@ export class WorldScene extends Phaser.Scene {
   private zoomPref = savedZoom();
   private ready = false;
   private transitioning = false;
+  private remotes!: RemotePlayers;
+  /** seatId -> sid pemain yang duduk (dari server). */
+  private seats = new Map<number, number>();
+  private mySid = -1;
+  private debugTeleported = false;
   private keys!: Record<"up" | "down" | "left" | "right" | "w" | "a" | "s" | "d" | "shift", Phaser.Input.Keyboard.Key>;
 
   constructor() {
@@ -95,6 +106,8 @@ export class WorldScene extends Phaser.Scene {
     this.focusImages = [];
     this.player = undefined;
     this.zone = undefined;
+    this.seats = new Map();
+    this.mySid = -1;
   }
 
   create(): void {
@@ -125,11 +138,70 @@ export class WorldScene extends Phaser.Scene {
     this.tweens.add({ targets: this.marker, y: "-=3", duration: 450, yoyo: true, repeat: -1, ease: "Sine.inOut" });
 
     this.setupInput();
+    this.remotes = new RemotePlayers(this, (p) => chat.setTarget({ uid: p.uid, name: p.name, role: p.role }));
     if (DEBUG) this.drawDebug();
     this.spawnPlayer();
+    void this.connect();
     showLoading(false);
     this.cameras.main.fadeIn(FADE_MS, 27, 42, 65);
     this.ready = true;
+  }
+
+  // ---------- multipemain ----------
+
+  private async connect(): Promise<void> {
+    const acc = this.account;
+    try {
+      await net.join(
+        this.roomCode,
+        { id: acc.id, name: acc.fullName, role: acc.role, choice: acc.character!, spawn: this.spawnName },
+        {
+          welcome: (w) => {
+            this.mySid = w.you;
+            if (this.player) {
+              this.player.x = w.x;
+              this.player.y = w.y;
+            }
+            this.remotes.clear();
+            for (const p of w.players) if (p.sid !== w.you) this.remotes.add(p);
+            this.seats = new Map(Object.entries(w.seats).map(([k, v]) => [Number(k), v]));
+            chat.attach(net, { uid: w.uid, role: acc.role, name: acc.fullName }, w.history);
+          },
+          add: (p) => p.sid !== this.mySid && this.remotes.add(p),
+          remove: (m) => this.remotes.remove(m.sid),
+          snap: (d) => this.remotes.snapshot(d),
+          chat: (m) => {
+            chat.message(m);
+            const who = m.from === this.mySid ? this.player : this.remotes.get(m.from)?.avatar;
+            who?.say(m.mode === "pribadi" ? `🔒 ${m.text}` : m.text, m.mode);
+          },
+          dots: (m) => this.remotes.get(m.from)?.avatar.say("…", "dots"),
+          seat: (m) => {
+            if (m.sid === null) this.seats.delete(m.seatId);
+            else this.seats.set(m.seatId, m.sid);
+          },
+          pmRequest: (r) => chat.pmRequest(r),
+          pmStatus: (st) => chat.pmStatus(st),
+          notice: (n) => chat.system(n.text),
+          correct: (c) => {
+            // Teleport uji (?debug=1) sengaja melompat; jangan ditarik kembali oleh server.
+            if (!this.player || this.debugTeleported) return;
+            this.player.x = c.x;
+            this.player.y = c.y;
+          },
+          directory: (d) => chat.directory(d.players),
+          leave: () => {
+            if (this.transitioning || !this.sys.isActive()) return;
+            this.remotes.clear();
+            chat.offline("Terputus dari server. Muat ulang halaman untuk menyambung lagi.");
+          },
+        },
+      );
+    } catch (e) {
+      console.warn("multipemain tidak tersedia:", e);
+      const msg = e instanceof Error && /penuh/.test(e.message) ? e.message : "Server multipemain tidak terhubung.";
+      chat.offline(`${msg} Kamu bermain sendiri untuk sementara.`);
+    }
   }
 
   // ---------- peta ----------
@@ -193,6 +265,9 @@ export class WorldScene extends Phaser.Scene {
       room: () => this.roomCode,
       player: () => this.player && { x: this.player.x, y: this.player.y, dir: this.player.dir, sitting: this.player.sitting },
       focus: () => this.focus?.name ?? null,
+      sid: () => this.mySid,
+      remotes: () => this.remotes.profiles().map((p) => ({ sid: p.sid, name: p.name, mirror: p.mirror ?? null, visible: !!this.remotes.get(p.sid)?.avatar.sprite.visible })),
+      seats: () => Object.fromEntries(this.seats),
       zoom: () => this.zoomLevel,
       glow: () => this.focusImages.map((i) => i.texture.key.split("/").pop()),
       interactables: () => this.room.interactables.map((i) => ({ name: i.name, kind: i.kind, rect: i.rect })),
@@ -201,6 +276,7 @@ export class WorldScene extends Phaser.Scene {
           this.player.x = x;
           this.player.y = y;
           this.player.sitting = false;
+          this.debugTeleported = true;
         }
       },
     };
@@ -252,6 +328,7 @@ export class WorldScene extends Phaser.Scene {
     const { width: rw, height: rh } = this.room;
     cam.setBounds(Math.min(0, (rw - vw) / 2), Math.min(0, (rh - vh) / 2), Math.max(rw, vw), Math.max(rh, vh));
     this.player?.setTextResolution(this.zoomLevel);
+    this.remotes?.setZoom(this.zoomLevel);
   }
 
   // ---------- masukan ----------
@@ -274,6 +351,7 @@ export class WorldScene extends Phaser.Scene {
     this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
       this.scale.off(Phaser.Scale.Events.RESIZE, this.onResize, this);
       kb.removeAllListeners();
+      this.remotes?.clear();
     });
   }
 
@@ -299,6 +377,7 @@ export class WorldScene extends Phaser.Scene {
     if (isPanelOpen()) return;
     if (this.player.sitting) {
       this.player.sitting = false;
+      net.send("sit", { seatId: null });
       return;
     }
     const it = this.focus;
@@ -323,6 +402,13 @@ export class WorldScene extends Phaser.Scene {
 
   private sit(it: Interactable): void {
     const p = this.player!;
+    const seatId = Number(it.props.seatId);
+    const taken = this.seats.get(seatId);
+    if (taken !== undefined && taken !== this.mySid) {
+      chat.system(`Kursi ${seatId} sudah diduduki ${this.remotes.get(taken)?.profile.name ?? "pemain lain"}.`);
+      return;
+    }
+    net.send("sit", { seatId });
     // Duduk menghadap papan; pose duduk (badan dipotong di pinggang) belum ada.
     p.x = it.rect.x + it.rect.w / 2;
     p.y = it.rect.y + it.rect.h - 2;
@@ -337,7 +423,9 @@ export class WorldScene extends Phaser.Scene {
     closePanel();
     const cam = this.cameras.main;
     cam.fadeOut(FADE_MS, 27, 42, 65);
-    cam.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, () => this.scene.restart({ room: target, spawn } satisfies WorldData));
+    cam.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, () => {
+      void net.leave().then(() => this.scene.restart({ room: target, spawn } satisfies WorldData));
+    });
   }
 
   // ---------- putaran ----------
@@ -347,7 +435,7 @@ export class WorldScene extends Phaser.Scene {
     if (!this.ready || !p) return;
     const dt = Math.min(0.05, deltaMs / 1000);
     const k = this.keys;
-    const frozen = isPanelOpen() || this.transitioning;
+    const frozen = isPanelOpen() || this.transitioning || chat.isTyping();
     let vx = 0, vy = 0;
     if (!frozen) {
       if (k.left.isDown || k.a.isDown || touchDirs.has("left")) vx -= 1;
@@ -370,6 +458,8 @@ export class WorldScene extends Phaser.Scene {
       p.y = next.y;
     }
     p.update(dt, this.cfg.movement, running);
+    net.sendMove(p.x, p.y, DIRS.indexOf(p.dir), (p.moving ? FLAG_MOVING : 0) | (p.sitting ? FLAG_SITTING : 0), this.time.now);
+    this.remotes.update(dt, this.cfg.movement);
     this.updateFocus();
     this.updateHud();
   }
