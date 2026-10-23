@@ -34,10 +34,11 @@ const ORANGE = 0xe8833a;
 const DEBUG = new URLSearchParams(location.search).has("debug");
 const FADE_MS = 300;
 /**
- * Kamera "agak tele" (docs/PETA.md): zoom bawaan = bilangan bulat terbesar yang masih
- * menampilkan ± 15 × 8,5 petak (420 × 240 px dunia). Laptop 1366 × 768 -> 3×, 1920 × 1080 -> 4×.
+ * Zoom bawaan = bilangan bulat terbesar yang masih menampilkan ± 30 × 17 petak
+ * (840 × 480 px dunia), supaya pemain melihat sekeliling cukup luas.
+ * Laptop 1366 × 768 -> 1×, 1920 × 1080 -> 2×, 2560 × 1440 -> 3×.
  */
-const VIEW_TARGET = { w: 420, h: 240 };
+const VIEW_TARGET = { w: 840, h: 480 };
 /** Zoom terbesar: sisi layar terpendek masih menampilkan ± 6 petak (160 px dunia). */
 const VIEW_MIN_SIDE = 160;
 const ZOOM_MAX = 6;
@@ -226,8 +227,7 @@ export class WorldScene extends Phaser.Scene {
   private defaultZoom(): number {
     const { width, height } = this.scale;
     const z = Math.floor(Math.min(width / VIEW_TARGET.w, height / VIEW_TARGET.h));
-    // Layar HP terlalu kecil untuk 15 × 8,5 petak; tetap tele (2×) agar karakter tidak mungil.
-    return Phaser.Math.Clamp(Math.max(z, 2), 1, this.maxZoom());
+    return Phaser.Math.Clamp(z, 1, this.maxZoom());
   }
 
   private changeZoom(delta: number): void {
