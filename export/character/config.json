@@ -1,6 +1,6 @@
 {
   "_keterangan": "Konfigurasi kreator karakter: SATU-SATUNYA sumber untuk daftar pilihan, palet warna, aturan, dan konstanta gerak. Dibaca oleh tools/build_sim.py (prototipe) dan disalin ke export/character/config.json untuk klien. Penjelasan lengkap: docs/KARAKTER.md.",
-  "tile": 32,
+  "tile": 28,
   "directions": ["down", "left", "right", "up"],
   "movement": {
     "runSpeed": 150,

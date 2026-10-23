@@ -220,7 +220,7 @@ function drawWorld(){
     const sx = tx*T - Math.round(cam.x), sy = ty*T - Math.round(cam.y);
     if (ty < 2){                         // dinding
       g.fillStyle = "#F7F5F0"; g.fillRect(sx, sy, T, T);
-      if (ty === 1){ g.fillStyle = "#1B2A41"; g.fillRect(sx, sy + 24, T, 8); }
+      if (ty === 1){ g.fillStyle = "#1B2A41"; g.fillRect(sx, sy + T - 8, T, 8); }
       continue;
     }
     const alt = (tx + ty) % 2;
