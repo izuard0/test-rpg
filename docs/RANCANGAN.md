@@ -428,6 +428,13 @@ sekitar 1 menit). Set baru otomatis mendapat versi badan ramping.
    doc/docx, xls/xlsx, ipynb, sql, py, zip; maks. 20 MB, total 200 MB) yang kedaluwarsa
    15/30/60 menit lalu dihapus dari server. Hanya peserta kelas itu yang bisa mengunduh
    (token login + sesi di kelas itu); hanya dosen yang disetujui admin yang bisa mengunggah.
+   **Presentasi bersama** (disetujui pemilik proyek, 24 Okt 2026): dosen pemimpin menekan
+   *Presentasikan* di meja dosen; slide terbuka sendiri di layar semua orang di ruang kelas
+   dan mengikuti nomor slide dosen. Mahasiswa **hanya boleh mundur** (maju melewati slide
+   dosen diblokir); saat tertinggal muncul tombol *Ikuti dosen*. Yang masuk terlambat mulai
+   di slide dosen. *Akhiri presentasi*: slide tetap terbuka dan bebas dibaca. Yang
+   disinkronkan hanya nomor slide (demo interaktif di dalam slide tetap per orang); berkas
+   slide tidak diubah (memakai nomor di hash alamat dan tombol panah slide).
    Belum: kuis.
    Rencana kuis: kursi, panel kuis, halaman dosen untuk memulai kuis
    dan mengunduh nilai; kuis praktik memakai terminal di Lab Komputer.

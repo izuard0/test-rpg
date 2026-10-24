@@ -59,7 +59,7 @@ async function player(id: string, name: string, role: Role = "mahasiswa", room =
   const inbox: { type: string; msg: unknown }[] = [];
   const token = await loginAs(id, name, role);
   const r: Room = await c.joinOrCreate(room, { token, ...extra });
-  for (const t of ["welcome", "add", "remove", "snap", "chat", "dots", "seat", "pmRequest", "pmStatus", "notice", "directory", "correct", "classState", "tag"]) {
+  for (const t of ["welcome", "add", "remove", "snap", "chat", "dots", "seat", "pmRequest", "pmStatus", "notice", "directory", "correct", "classState", "classSlide", "tag"]) {
     r.onMessage(t, (msg) => inbox.push({ type: t, msg }));
   }
   const wait = async <K extends keyof S2C>(type: K, pred: (m: S2C[K]) => boolean = () => true, ms = 3000): Promise<S2C[K]> => {
@@ -335,6 +335,46 @@ describe("multipemain", () => {
     mhs.room.send("chat", { mode: "kelas", text: "masih?" });
     expect((await mhs.wait("notice")).text).toMatch(/selama sesi/);
     for (const p of [dosen, mhs, telat, luar]) await p.room.leave();
+  }, 30_000);
+
+  it("presentasi: slide mahasiswa mengikuti dosen pemimpin; yang terlambat mulai di slide dosen", async () => {
+    const opt = { kelas: "kelas-c", spawn: "dari_lobi" };
+    const dosen = await player("198001012005011003", "Dr. Budi Uji", "dosen", ROOM_KELAS, opt);
+    const lain = await player("198001012005011004", "Dr. Rina Uji", "dosen", ROOM_KELAS, opt);
+    const mhs = await player("2201501", "Umar Uji", "mahasiswa", ROOM_KELAS, opt);
+    const materi = { title: "SQL DDL", file: "bahan_ajar/Perancangan Basis Data/P09_SQL_DDL_slides.html", course: "Perancangan Basis Data" };
+    const map = (await import("../src/game/world.js")).loadWorld(join(ROOT, "maps"));
+    const desk = map.rooms.get("kelas-c")!.data.interactables.find((i) => i.kind === "teacher_desk")!;
+    const atDesk = [desk.rect.x + desk.rect.w / 2, desk.rect.y + desk.rect.h + 10] as const;
+    await walkPath(dosen, "kelas-c", ...atDesk);
+    dosen.room.send("classStart", { materi });
+    await mhs.wait("classState", (x) => x.event === "start");
+
+    // Mahasiswa tidak bisa memulai presentasi atau menggerakkan slide.
+    mhs.room.send("classPresent", { on: true });
+    expect(await mhs.none("classState", (x: { event?: string }) => x.event === "present")).toBe(true);
+
+    dosen.room.send("classPresent", { on: true, slide: 1 });
+    expect(await mhs.wait("classState", (x) => x.event === "present")).toMatchObject({ presenting: true, slide: 1 });
+    dosen.room.send("classSlide", { n: 3 });
+    expect(await mhs.wait("classSlide")).toEqual({ n: 3 });
+    mhs.room.send("classSlide", { n: 9 });
+    expect(await dosen.none("classSlide")).toBe(true);
+    // Dosen lain di meja dosen tidak bisa mengambil alih materi atau slide.
+    await walkPath(lain, "kelas-c", ...atDesk);
+    lain.room.send("classMateri", { materi: { ...materi, file: "bahan_ajar/Kecerdasan Buatan/supervised_learning_slides_formal.html" } });
+    expect((await lain.wait("notice")).text).toMatch(/dipimpin Dr. Budi Uji/);
+    lain.room.send("classSlide", { n: 7 });
+    expect(await mhs.none("classSlide")).toBe(true);
+
+    const telat = await player("2201502", "Vina Uji", "mahasiswa", ROOM_KELAS, opt);
+    expect(telat.welcome.kelas).toMatchObject({ presenting: true, slide: 3, materi });
+
+    dosen.room.send("classPresent", { on: false });
+    const end = await mhs.wait("classState", (x) => x.event === "presentEnd");
+    expect(end.presenting).toBeUndefined();
+    expect(end.active).toBe(true);
+    for (const p of [dosen, lain, mhs, telat]) await p.room.leave();
   }, 30_000);
 
   it("tag dari admin tampil di profil dan langsung sampai ke pemain yang daring", async () => {
