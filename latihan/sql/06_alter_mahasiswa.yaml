@@ -27,3 +27,13 @@ periksa: |
   JOIN pragma_index_info(il.name) ii WHERE il."unique" = 1 AND ii.name = 'telepon';
   -- data lama tidak boleh hilang
   SELECT nim, nama_mahasiswa, email FROM Mahasiswa ORDER BY nim;
+periksaMysql: |
+  SELECT LOWER(column_name), UPPER(column_type), is_nullable
+  FROM information_schema.columns
+  WHERE table_schema = DATABASE() AND LOWER(table_name) = 'mahasiswa'
+  ORDER BY ordinal_position;
+  SELECT LOWER(constraint_name), constraint_type
+  FROM information_schema.table_constraints
+  WHERE table_schema = DATABASE() AND LOWER(table_name) = 'mahasiswa' AND constraint_type = 'UNIQUE';
+  -- data lama tidak boleh hilang
+  SELECT nim, nama_mahasiswa, email FROM Mahasiswa ORDER BY nim;

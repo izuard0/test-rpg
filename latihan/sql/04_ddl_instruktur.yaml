@@ -23,3 +23,10 @@ periksa: |
   -- UNIQUE pada email
   SELECT COUNT(*) FROM pragma_index_list('Instruktur') il
   JOIN pragma_index_info(il.name) ii WHERE il."unique" = 1 AND ii.name = 'email';
+# Versi MySQL dari "periksa" (terminal MySQL server). Dijalankan pada hasil kunci dan hasil
+# mahasiswa; keduanya harus sama. LOWER(): nama tabel di MySQL Linux peka huruf besar/kecil.
+periksaMysql: |
+  SELECT LOWER(column_name), is_nullable, column_key, extra LIKE '%auto_increment%'
+  FROM information_schema.columns
+  WHERE table_schema = DATABASE() AND LOWER(table_name) = 'instruktur'
+  ORDER BY ordinal_position;

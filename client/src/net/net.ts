@@ -30,6 +30,11 @@ export class GameNet {
     return this.room?.sessionId;
   }
 
+  /** Token login yang dipakai sesi game ini. */
+  get token(): string {
+    return this.authToken;
+  }
+
   /** Header untuk rute HTTP yang terikat sesi game (token login pemilik sesi). */
   authHeaders(): Record<string, string> {
     return { authorization: `Bearer ${this.authToken}` };

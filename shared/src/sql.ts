@@ -7,6 +7,16 @@ export interface ResultSet {
   rows: (string | number | null)[][];
 }
 
+/** Hasil satu pernyataan di terminal SQL (sql.js di browser atau MySQL di server). */
+export interface SqlStatementResult {
+  sql: string;
+  columns?: string[];
+  rows?: ResultSet["rows"];
+  truncated?: boolean;
+  changes?: number;
+  error?: string;
+}
+
 /** Menjalankan `fn` hanya di luar teks berkutip dan komentar, agar isinya tidak ikut diubah. */
 function outsideQuotes(sql: string, fn: (s: string) => string): string {
   return sql

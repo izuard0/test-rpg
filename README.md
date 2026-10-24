@@ -70,6 +70,9 @@ Uji beban dengan pemain tiruan (bot): `MITA_TICK_LOG=1 npm start` lalu
 (alamat, jumlah bot, detik). Bot didaftarkan dan disetujui lewat API admin; di server dengan
 database, hapus akun bot (NIM `2299…`) di `/panel` setelah uji.
 
+Tes terminal MySQL: `TEST_MYSQL_URL=mysql://mita_praktik:...@127.0.0.1:3306 npm test` (user dengan
+hak seperti di bagian Deploy; dilewati bila kosong).
+
 Tes akun juga bisa dijalankan pada PostgreSQL sungguhan: `TEST_DATABASE_URL=postgresql://.../mita_test npm test`
 (database itu dikosongkan; jangan pakai database produksi).
 
@@ -86,7 +89,24 @@ Tes akun juga bisa dijalankan pada PostgreSQL sungguhan: `TEST_DATABASE_URL=post
 | `DATABASE_URL` | ya | Alamat PostgreSQL, mis. `postgresql://user:sandi@host:5432/mita`. Tanpa ini akun hanya di memori dan hilang setiap deploy. |
 | `ADMIN_USERNAME` | ya | Username untuk `/panel`. |
 | `ADMIN_PASSWORD` | ya | Kata sandi `/panel`, **minimal 12 karakter**. Panel nonaktif bila kosong/terlalu pendek. Login admin dikunci 15 menit setelah 5 kali gagal. |
+| `PRAKTIK_MYSQL_URL` | tidak | MySQL 8 terpisah untuk terminal praktik, mis. `mysql://mita_praktik:sandi@host:3306` (lihat di bawah). Tanpa ini terminal SQL memakai SQLite di browser. |
 | `APP_VERSION` | tidak | Ditampilkan di `/health`. |
+
+**Terminal praktik MySQL.** Buat layanan MySQL 8 di proyek Coolify yang sama (tanpa port
+publik), lalu sebagai root buat user khusus praktik (jangan pakai root di aplikasi):
+
+```sql
+CREATE USER 'mita_praktik'@'%' IDENTIFIED BY '<sandi acak panjang>';
+GRANT CREATE USER, PROCESS, CONNECTION_ADMIN ON *.* TO 'mita_praktik'@'%';
+GRANT ALL PRIVILEGES ON `p\_%`.* TO 'mita_praktik'@'%' WITH GRANT OPTION;
+```
+
+Tiap akun mendapat user MySQL sementara yang hanya berhak atas database berawalan `p_<id>_`
+(awalan disembunyikan dari mahasiswa). Sesi berakhir, dan semua database praktiknya dihapus,
+setelah 30 menit tanpa query, saat keluar/tab ditutup, atau saat server dimulai ulang. Batas:
+5 detik per query, 500 baris hasil, 10 database dan 50 MB per sesi, 2 koneksi per user.
+Catatan: MySQL di Linux membedakan huruf besar/kecil nama tabel (`Mahasiswa` ≠ `mahasiswa`),
+berbeda dari XAMPP di Windows.
 
 `KODE_DOSEN` dari tahap 4 tidak dipakai lagi (boleh dihapus dari Coolify): dosen yang sudah
 disetujui admin langsung bisa membagikan file.

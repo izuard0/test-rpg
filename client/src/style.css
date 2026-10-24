@@ -508,3 +508,6 @@ body:not(.in-game) #bahan { display: none; }
 .materi.slides .bar button.danger { border-color: #d8574a; color: #b8382c; }
 .kelas-panel .present { margin-top: 10px; align-items: center; }
 .kelas-panel .present .live { color: #2f8f63; font-weight: 700; font-size: 13px; }
+.term-warn { color: #8a5a00; background: #fff4e0; border: 1px solid #f0c27a; border-radius: 6px; padding: 4px 8px; font-size: 13px; }
+.t-db { font-size: 12px; color: var(--stone); }
+.t-db code { font-family: var(--mono); background: #ece7db; padding: 1px 5px; border-radius: 4px; }

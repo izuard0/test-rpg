@@ -62,7 +62,14 @@ kunci: SELECT nama FROM mahasiswa WHERE angkatan = 2023 ORDER BY nama;
 - Latihan DDL memakai `periksa`: query yang dijalankan sesudah kode mahasiswa, dan hasilnya
   yang dibandingkan. `persiapan` dijalankan sebelum kode mahasiswa (mis. membuat tabel induk).
   Contoh: `sql/04_ddl_instruktur.yaml`, `sql/05_ddl_kursus_fk.yaml`.
-- Mesin SQL adalah SQLite (sql.js). Sintaks MySQL yang umum di kuliah diterjemahkan otomatis:
+- Bila server punya MySQL praktik (`PRAKTIK_MYSQL_URL`), latihan dijalankan dan **dinilai di
+  MySQL 8 sungguhan**: kode mahasiswa dan `kunci` masing-masing dijalankan di database baru
+  berisi dataset + `persiapan`, lalu hasil SELECT terakhirnya dibandingkan. Latihan DDL butuh
+  `periksaMysql`: query pemeriksa versi MySQL (biasanya `information_schema` dengan
+  `table_schema = DATABASE()`), yang dijalankan pada hasil kunci dan hasil mahasiswa.
+  Tulis `persiapan` dengan sintaks MySQL (diterjemahkan otomatis untuk SQLite).
+  Contoh: `sql/04_ddl_instruktur.yaml`.
+- Tanpa MySQL praktik, mesin SQL adalah SQLite (sql.js) di browser. Sintaks MySQL yang umum di kuliah diterjemahkan otomatis:
   `INT AUTO_INCREMENT PRIMARY KEY`, `UNSIGNED`, `TRUNCATE TABLE`, `ENGINE=...`, `SHOW TABLES`,
   `DESCRIBE tabel`. `FOREIGN KEY` aktif.
 - `ALTER TABLE` gaya MySQL didukung penuh untuk materi P09: `ADD COLUMN ... AFTER/FIRST`,
@@ -73,7 +80,9 @@ kunci: SELECT nama FROM mahasiswa WHERE angkatan = 2023 ORDER BY nama;
 
 ## Keamanan dan batas
 
-Kode mahasiswa berjalan **di browser masing-masing** (Web Worker), dengan batas waktu 3 detik,
+SQL berjalan di **MySQL praktik di server** bila tersedia (user sementara per sesi, 5 detik per
+query; lihat README utama). Pseudocode, dan SQL tanpa MySQL praktik, berjalan **di browser
+masing-masing** (Web Worker), dengan batas waktu 3 detik,
 maksimal 200.000 langkah pseudocode, dan 1.000 baris keluaran. Karena pemeriksaan berjalan di
 browser, mahasiswa yang gigih tetap bisa mengakalinya; untuk latihan mandiri ini dapat diterima.
 Kuis bernilai akan diperiksa di server (tahap 4).
