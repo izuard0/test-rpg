@@ -15,6 +15,7 @@ import {
   zoneAt,
   type CharacterConfig,
   type ClassState,
+  type Materi,
   type Interactable,
   type RoomData,
   type Zone,
@@ -25,7 +26,8 @@ import { net } from "../net/net";
 import { chat } from "../ui/chat";
 import { actionLabel, openCatalog, openInfo, openTerminal, type MateriCatalog } from "../ui/content";
 import { openCreator } from "../ui/creator";
-import { downloadFile, kelasPanelOpen, openBahanKelas, openDosenPanel, openSlide, refreshFileLists } from "../ui/kelas";
+import { downloadFile, kelasPanelOpen, openBahanKelas, openDosenPanel, refreshFileLists, setSlideOpener, type PresentActions } from "../ui/kelas";
+import { dosenMovedSlide, openSlideViewer, presentationEnded, slideViewerMateri, slideViewerMode } from "../ui/slides";
 import { toast } from "../ui/toast";
 import { setHud, setLoadingProgress, setPrompt, showError, showLoading } from "../ui/hud";
 import { closePanel, isPanelOpen } from "../ui/panel";
@@ -200,6 +202,10 @@ export class WorldScene extends Phaser.Scene {
           pmStatus: (st) => chat.pmStatus(st),
           notice: (n) => chat.system(n.text),
           classState: (st) => this.onClassState(st, st.event),
+          classSlide: (m) => {
+            this.kelasState.slide = m.n;
+            dosenMovedSlide(m.n);
+          },
           correct: (c) => {
             // Teleport uji (?debug=1) sengaja melompat; jangan ditarik kembali oleh server.
             if (!this.player || this.debugTeleported) return;
@@ -234,7 +240,17 @@ export class WorldScene extends Phaser.Scene {
 
   private onClassState(st: ClassState, event: string | undefined, joining = false): void {
     const prev = this.kelasState;
-    this.kelasState = { active: st.active, dosenUid: st.dosenUid, dosenName: st.dosenName, materi: st.materi, startedAt: st.startedAt, files: st.files };
+    this.kelasState = {
+      active: st.active,
+      dosenUid: st.dosenUid,
+      dosenName: st.dosenName,
+      materi: st.materi,
+      startedAt: st.startedAt,
+      files: st.files,
+      presenting: st.presenting,
+      slide: st.slide,
+    };
+    setSlideOpener((m) => this.openClassSlide(m));
     chat.setClassContext(this.isClassRoom, st.active);
     const btn = document.getElementById("bahan");
     if (btn) {
@@ -243,17 +259,23 @@ export class WorldScene extends Phaser.Scene {
       btn.onclick = () => !isPanelOpen() && openBahanKelas(this.kelasState, this.room.title);
     }
     const iLead = st.dosenUid === this.myUid;
-    // Masuk saat kelas sudah berjalan: diperlakukan seperti "kelas dimulai".
-    const ev = joining && st.active ? "start" : event;
-    if ((ev === "start" || ev === "materi") && st.materi && !iLead) {
+    // Masuk saat kelas sudah berjalan: diperlakukan seperti "kelas dimulai" (atau presentasi).
+    const ev = joining && st.active ? (st.presenting ? "present" : "start") : event;
+    // Presentasi: slide terbuka sendiri di layar mahasiswa dan mengikuti dosen.
+    if ((ev === "present" || (ev === "materi" && st.presenting)) && st.materi && !iLead) {
+      this.openClassSlide(st.materi);
+      chat.system(`${st.dosenName} mempresentasikan ${st.materi.title}. Slide mengikuti dosen; kamu bisa mundur untuk membaca ulang.`);
+    } else if ((ev === "start" || ev === "materi") && st.materi && !iLead) {
       const t = ev === "start" ? `${st.dosenName} memulai kelas` : `${st.dosenName} mengganti materi`;
-      toast(t, st.materi.title, [{ label: "Buka slide", primary: true, run: () => openSlide(st.materi!) }, { label: "Nanti", run: () => {} }]);
+      toast(t, st.materi.title, [{ label: "Buka slide", primary: true, run: () => this.openClassSlide(st.materi!) }, { label: "Nanti", run: () => {} }]);
       chat.system(`${t}: ${st.materi.title}. Mode chat Kelas terbuka.`);
     }
     if (ev === "file" && !iLead) {
       const fresh = st.files.find((f) => !prev.files.some((p) => p.token === f.token));
       if (fresh) toast(`${fresh.fromName} membagikan file`, fresh.name, [{ label: "Unduh", primary: true, run: () => downloadFile(fresh) }]);
     }
+    if (ev === "presentEnd" || ev === "end") presentationEnded();
+    if (ev === "presentEnd" && !iLead) chat.system("Presentasi selesai. Slide bebas dibaca sendiri.");
     if (ev === "end" && prev.active) {
       toast("Kelas selesai", "Obrolan Kelas ditutup. File yang sudah dibagikan tetap bisa diunduh sampai kedaluwarsa.");
       chat.system("Kelas selesai.");
@@ -261,9 +283,36 @@ export class WorldScene extends Phaser.Scene {
     // Panel yang sedang terbuka mengikuti keadaan terbaru.
     const open = kelasPanelOpen();
     if (open && ev === "file") refreshFileLists(this.kelasState);
-    else if (open === "dosen" && ev) openDosenPanel(this.kelasState, this.myUid, this.catalog, this.room.title);
+    else if (open === "dosen" && ev) openDosenPanel(this.kelasState, this.myUid, this.catalog, this.room.title, this.presentActions());
     else if (open === "bahan" && ev) openBahanKelas(this.kelasState, this.room.title);
     else if (open && !ev) refreshFileLists(this.kelasState);
+  }
+
+  /** Membuka slide kelas sesuai keadaan: presentasi (dosen pemimpin), ikut (peserta), atau bebas. */
+  private openClassSlide(m: Materi): void {
+    const st = this.kelasState;
+    const live = st.presenting && st.materi?.file === m.file;
+    if (live && st.dosenUid === this.myUid) {
+      openSlideViewer(m, "presentasi", { slide: st.slide, onEnd: () => net.send("classPresent", { on: false }) });
+    } else if (live) {
+      // Sudah mengikuti presentasi yang sama: biarkan (jangan memuat ulang slide).
+      if (slideViewerMode() === "ikut" && slideViewerMateri()?.file === m.file) return;
+      openSlideViewer(m, "ikut", { slide: st.slide, dosenName: st.dosenName });
+    } else openSlideViewer(m, "bebas");
+  }
+
+  private presentActions(): PresentActions {
+    return {
+      start: () => {
+        const m = this.kelasState.materi;
+        if (!m) return;
+        net.send("classPresent", { on: true, slide: 1 });
+        this.kelasState = { ...this.kelasState, presenting: true, slide: 1 };
+        this.openClassSlide(m);
+      },
+      resume: () => this.kelasState.materi && this.openClassSlide(this.kelasState.materi),
+      end: () => net.send("classPresent", { on: false }),
+    };
   }
 
   // ---------- peta ----------
@@ -458,7 +507,7 @@ export class WorldScene extends Phaser.Scene {
         this.sit(it);
         break;
       case "teacher_desk":
-        if (this.account.role === "dosen") openDosenPanel(this.kelasState, this.myUid, this.catalog, this.room.title);
+        if (this.account.role === "dosen") openDosenPanel(this.kelasState, this.myUid, this.catalog, this.room.title, this.presentActions());
         else openBahanKelas(this.kelasState, this.room.title);
         break;
       default:

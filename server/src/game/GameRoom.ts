@@ -102,6 +102,8 @@ export class GameRoom extends Room {
     this.onMessage("directory", (c) => send(c, "directory", { players: hub.directory() }));
     this.onMessage("classStart", (c, m: C2S["classStart"]) => this.onClassMateri(c, m?.materi, true));
     this.onMessage("classMateri", (c, m: C2S["classMateri"]) => this.onClassMateri(c, m?.materi, false));
+    this.onMessage("classPresent", (c, m: C2S["classPresent"]) => this.onClassPresent(c, m));
+    this.onMessage("classSlide", (c, m: C2S["classSlide"]) => this.onClassSlide(c, m));
     this.onMessage("classEnd", (c) => {
       const s = this.mine.get(c.sessionId);
       if (s?.role === "dosen" && this.kelas.active) this.endClass();
@@ -224,13 +226,50 @@ export class GameRoom extends Room {
     const materi = this.validMateri(raw);
     if (!materi) return send(c, "notice", { text: "Materi tidak ditemukan di bahan ajar." });
     if (!start && !this.kelas.active) return;
-    if (this.kelas.active && this.kelas.dosenUid !== s.uid && start) {
+    // Hanya dosen yang memimpin yang boleh mengganti materi kelas yang sedang berjalan.
+    if (this.kelas.active && this.kelas.dosenUid !== s.uid) {
       return send(c, "notice", { text: `Kelas sedang dipimpin ${this.kelas.dosenName}.` });
     }
     const wasActive = this.kelas.active;
-    this.kelas = { active: true, dosenUid: s.uid, dosenName: s.name, materi, startedAt: wasActive ? this.kelas.startedAt : Date.now(), files: [] };
+    // Ganti materi saat presentasi: presentasi berlanjut dari slide pertama materi baru.
+    const presenting = wasActive && this.kelas.presenting;
+    this.kelas = {
+      active: true,
+      dosenUid: s.uid,
+      dosenName: s.name,
+      materi,
+      startedAt: wasActive ? this.kelas.startedAt : Date.now(),
+      files: [],
+      ...(presenting ? { presenting: true, slide: 1 } : {}),
+    };
     if (!wasActive) this.classChat = [];
     this.broadcast("classState", { ...this.classState(), event: wasActive ? "materi" : "start" });
+  }
+
+  /** Presentasi slide: hanya dosen yang memimpin kelas yang berjalan. */
+  private leader(c: Client): Session | undefined {
+    const s = this.mine.get(c.sessionId);
+    return s && this.kelas.active && this.kelas.dosenUid === s.uid ? s : undefined;
+  }
+
+  private onClassPresent(c: Client, m: C2S["classPresent"]): void {
+    if (!this.leader(c)) return;
+    if (m?.on) {
+      const n = Number(m.slide);
+      this.kelas = { ...this.kelas, presenting: true, slide: Number.isInteger(n) && n >= 1 && n <= 999 ? n : 1 };
+    } else {
+      const { presenting: _p, slide: _s, ...rest } = this.kelas;
+      this.kelas = rest;
+    }
+    this.broadcast("classState", { ...this.classState(), event: m?.on ? "present" : "presentEnd" });
+  }
+
+  private onClassSlide(c: Client, m: C2S["classSlide"]): void {
+    if (!this.leader(c) || !this.kelas.presenting) return;
+    const n = Number(m?.n);
+    if (!Number.isInteger(n) || n < 1 || n > 999 || n === this.kelas.slide) return;
+    this.kelas.slide = n;
+    this.broadcast("classSlide", { n }, { except: c });
   }
 
   private validMateri(m: Materi | undefined): Materi | undefined {

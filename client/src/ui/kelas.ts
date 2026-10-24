@@ -9,8 +9,22 @@ import { net, serverUrl } from "../net/net";
 import { openMaterial, type MateriCatalog } from "./content";
 import { esc, isPanelOpen, openPanel } from "./panel";
 
+/** Pembuka slide kelas (diisi WorldScene: memilih mode presentasi/ikut/bebas sesuai keadaan kelas). */
+let slideOpener: ((m: Materi) => void) | null = null;
+export function setSlideOpener(fn: (m: Materi) => void): void {
+  slideOpener = fn;
+}
+
 export function openSlide(m: Materi): void {
-  openMaterial(m.course, { title: m.title, file: m.file });
+  if (slideOpener) slideOpener(m);
+  else openMaterial(m.course, { title: m.title, file: m.file });
+}
+
+/** Aksi presentasi di panel meja dosen. */
+export interface PresentActions {
+  start: () => void;
+  resume: () => void;
+  end: () => void;
 }
 
 /** Unduh lewat fetch (agar token login ikut di header), lalu simpan sebagai berkas. */
@@ -75,7 +89,7 @@ export function openBahanKelas(state: ClassState, title: string): void {
 }
 
 /** Panel dosen di meja dosen. `refresh` dipanggil ulang saat classState berubah. */
-export function openDosenPanel(state: ClassState, myUid: string, catalog: MateriCatalog | undefined, roomTitle: string): void {
+export function openDosenPanel(state: ClassState, myUid: string, catalog: MateriCatalog | undefined, roomTitle: string, present?: PresentActions): void {
   const root = document.createElement("div");
   root.className = "kelas-panel dosen";
   const items: Materi[] = (catalog?.courses ?? []).flatMap((c) => c.items.map((it) => ({ title: it.title, file: it.file, course: c.title })));
@@ -89,8 +103,18 @@ export function openDosenPanel(state: ClassState, myUid: string, catalog: Materi
     <label class="field"><span>Materi dari bahan ajar</span><select class="pilih-materi">${options || "<option disabled>Belum ada materi di bahan_ajar/</option>"}</select></label>
     <div class="actions-row">
       ${mine ? `<button type="button" class="change">Ganti materi</button><button type="button" class="danger end">Akhiri kelas</button>` : `<button type="button" class="primary start">Mulai kelas</button>`}
-      ${state.materi ? `<button type="button" class="open">Buka slide</button>` : ""}
+      ${state.materi && !mine ? `<button type="button" class="open">Buka slide</button>` : ""}
     </div>
+    ${
+      mine
+        ? `<div class="actions-row present">${
+            state.presenting
+              ? `<span class="live">● Presentasi berjalan · slide ${state.slide ?? 1}</span><button type="button" class="primary resume">Lanjutkan presentasi</button><button type="button" class="danger stop">Akhiri presentasi</button>`
+              : `<button type="button" class="primary present">▶ Presentasikan</button><button type="button" class="open">Buka slide sendiri</button>`
+          }</div>
+    <p class="muted small">Presentasikan: slide terbuka otomatis di layar semua mahasiswa di ruangan dan mengikuti slide-mu. Mahasiswa hanya bisa mundur untuk membaca ulang.</p>`
+        : ""
+    }
     <p class="muted small">Saat kelas dimulai, semua orang di ruangan mendapat notifikasi untuk membuka slide, dan mode chat <b>Kelas</b> terbuka.</p>`}
     ${mine ? `
     <h3>Bagikan file ke mahasiswa di kelas ini</h3>
@@ -117,6 +141,9 @@ export function openDosenPanel(state: ClassState, myUid: string, catalog: Materi
     if (confirm("Akhiri kelas? Obrolan Kelas akan ditutup.")) net.send("classEnd", {});
   });
   root.querySelector<HTMLButtonElement>(".open")?.addEventListener("click", () => state.materi && openSlide(state.materi));
+  root.querySelector<HTMLButtonElement>(".present")?.addEventListener("click", () => present?.start());
+  root.querySelector<HTMLButtonElement>(".resume")?.addEventListener("click", () => present?.resume());
+  root.querySelector<HTMLButtonElement>(".stop")?.addEventListener("click", () => present?.end());
   root.querySelector<HTMLButtonElement>(".upload")?.addEventListener("click", () => void upload(root));
   root.addEventListener("keydown", (e) => e.key !== "Escape" && e.stopPropagation());
   bindDownloads(root, state.files);

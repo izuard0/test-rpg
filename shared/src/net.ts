@@ -109,6 +109,10 @@ export interface ClassState {
   materi?: Materi;
   startedAt?: number;
   files: SharedFile[];
+  /** Dosen sedang mempresentasikan: slide mahasiswa terbuka sendiri dan mengikuti dosen. */
+  presenting?: boolean;
+  /** Nomor slide dosen (mulai 1) selama presentasi. */
+  slide?: number;
 }
 
 /** Ekstensi file yang diizinkan (huruf kecil), atau null. */
@@ -134,6 +138,10 @@ export interface C2S {
   classStart: { materi: Materi };
   classMateri: { materi: Materi };
   classEnd: Record<string, never>;
+  /** Dosen pemimpin kelas memulai/mengakhiri presentasi slide. */
+  classPresent: { on: boolean; slide?: number };
+  /** Nomor slide dosen saat presentasi (mulai 1). */
+  classSlide: { n: number };
 }
 
 // ----- pesan server -> klien -----
@@ -156,7 +164,9 @@ export interface S2C {
   directory: { players: { uid: string; name: string; role: Role; place: string }[] };
   notice: { text: string };
   /** Keadaan sesi kelas berubah (mulai, ganti materi, file baru, selesai). */
-  classState: ClassState & { event?: "start" | "materi" | "file" | "end" };
+  classState: ClassState & { event?: "start" | "materi" | "file" | "end" | "present" | "presentEnd" };
+  /** Dosen pindah slide selama presentasi. */
+  classSlide: { n: number };
   /** Gerak ditolak server (terlalu jauh / menembus rintangan): klien kembali ke posisi ini. */
   correct: { x: number; y: number };
 }
