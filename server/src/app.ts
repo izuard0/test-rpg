@@ -9,6 +9,8 @@ import { registerAdminRoutes, type AdminOptions } from "./admin/index.js";
 import { Accounts, registerAuthRoutes } from "./auth/index.js";
 import { MemoryStore, type AccountStore } from "./auth/store.js";
 import { attachGame, type GameOptions } from "./game/index.js";
+import { Praktik } from "./praktik/index.js";
+import { registerPraktikRoutes } from "./praktik/routes.js";
 
 export interface AppOptions {
   /** Folder hasil `vite build` (client/dist). */
@@ -20,6 +22,8 @@ export interface AppOptions {
   /** Penyimpanan akun; bawaan: memori (hilang saat server mulai ulang). */
   store?: AccountStore;
   admin?: AdminOptions;
+  /** Terminal MySQL sungguhan: env PRAKTIK_MYSQL_URL + folder latihan/ (dataset, soal). */
+  praktik?: { url: string; latihanDir: string };
 }
 
 export async function buildApp(opts: AppOptions): Promise<FastifyInstance> {
@@ -47,6 +51,16 @@ export async function buildApp(opts: AppOptions): Promise<FastifyInstance> {
   registerAuthRoutes(app, accounts);
   registerAdminRoutes(app, accounts, opts.admin ?? {}, opts.clientDir);
   app.addHook("onClose", () => store.close());
+
+  // Tanpa PRAKTIK_MYSQL_URL, terminal SQL memakai sql.js di browser (seperti sebelumnya).
+  let praktik: Praktik | undefined;
+  if (opts.praktik?.url) {
+    praktik = new Praktik(opts.praktik.url, opts.praktik.latihanDir, (m) => app.log.info(m));
+    await praktik.init();
+    accounts.onRevoke((id) => void praktik!.end(id).catch(() => undefined));
+    app.addHook("onClose", () => praktik!.close());
+  }
+  registerPraktikRoutes(app, accounts, praktik);
 
   if (opts.game) await attachGame(app, opts.game, accounts);
 

@@ -1,12 +1,13 @@
 // Terminal praktik perpustakaan (docs/RANCANGAN.md bagian 5): daftar latihan bergaya
-// penjelajah file, editor CodeMirror, dan hasil. Mode SQL (sql.js) dan pseudocode
-// (penerjemah sendiri, dengan langkah demi langkah + tabel jejak). Semua kode berjalan
-// di browser, di Web Worker dengan batas waktu.
+// penjelajah file, editor CodeMirror, dan hasil. Mode SQL memakai MySQL sungguhan di server
+// bila tersedia (sesi per akun, kembali ke nol saat sesi berakhir), dengan sql.js di browser
+// sebagai cadangan. Pseudocode (penerjemah sendiri, langkah demi langkah + tabel jejak)
+// berjalan di browser, di Web Worker dengan batas waktu.
 //
 // Kode dan status "selesai" disimpan di memori selama tab terbuka; penyimpanan ke akun
 // menyusul bersama login (tahap 5).
 
-import { sql as sqlLang, SQLite } from "@codemirror/lang-sql";
+import { MySQL, sql as sqlLang, SQLite } from "@codemirror/lang-sql";
 import { Compartment, EditorState, StateEffect, StateField, type Extension } from "@codemirror/state";
 import { Decoration, EditorView, keymap, type DecorationSet } from "@codemirror/view";
 import { basicSetup } from "codemirror";
@@ -22,6 +23,7 @@ import {
 import { esc, openPanel } from "../ui/panel";
 import { GAME_BASE } from "../world/loader";
 import { pseudocode } from "./pseudo-lang";
+import { PraktikFail, praktikAvailable, praktikCall, type PraktikRun } from "./praktik";
 import { pseudoRunner, sqlRunner, TIME_LIMIT_MS } from "./runner";
 import type { SqlResponse, SqlStatementResult } from "./sql.worker";
 
@@ -38,7 +40,7 @@ ALGORITMA:
    endfor
    write('Jumlah 1 sampai ', N, ' = ', jumlah)
 `,
-  sql: `-- Sandbox SQL (SQLite; sintaks MySQL umum seperti AUTO_INCREMENT diterima).
+  sql: `-- Sandbox SQL. Tabel contoh di database akademik: mahasiswa, matakuliah, nilai.
 -- Tabel contoh: mahasiswa, matakuliah, nilai. Tekan Ctrl+Enter untuk menjalankan.
 SHOW TABLES;
 
@@ -98,8 +100,11 @@ export async function openTerminal(): Promise<void> {
   openPanel({ title: "terminal — praktik", body: root, wide: true, onClose: () => saveCurrent() });
 
   let bundle: LatihanBundle;
+  // MySQL di server bila ada; bila gagal di tengah jalan, beralih ke sql.js untuk sisa sesi tab.
+  let mysqlOn = false;
+  let dbNow: string | null = "akademik";
   try {
-    bundle = await loadBundle();
+    [bundle, mysqlOn] = await Promise.all([loadBundle(), praktikAvailable()]);
   } catch (e) {
     root.innerHTML = `<p class="term-error">Gagal memuat daftar latihan: ${esc(String(e))}</p>`;
     return;
@@ -128,6 +133,7 @@ export async function openTerminal(): Promise<void> {
         <button type="button" class="check">✓ Periksa jawaban</button>
         <span class="t-symbols"></span>
         <span class="t-spacer"></span>
+        <span class="t-db" hidden></span>
         <select class="dataset" title="Database sandbox"></select>
         <button type="button" class="reset-data" title="Kembalikan database contoh ke isi awal">↺ Reset data</button>
         <button type="button" class="reset-code" title="Kembalikan kode awal">↺ Kode awal</button>
@@ -160,7 +166,7 @@ export async function openTerminal(): Promise<void> {
     lastItem = item;
   };
 
-  const language = (): Extension => (mode === "sql" ? sqlLang({ dialect: SQLite, upperCaseKeywords: true }) : pseudocode);
+  const language = (): Extension => (mode === "sql" ? sqlLang({ dialect: mysqlOn ? MySQL : SQLite, upperCaseKeywords: true }) : pseudocode);
 
   function mountEditor(doc: string) {
     const state = EditorState.create({
@@ -202,10 +208,12 @@ export async function openTerminal(): Promise<void> {
   function renderHead() {
     const l = current();
     if (!l) {
-      head.innerHTML = `<h3>Sandbox ${mode === "sql" ? "SQL" : "pseudocode"}</h3>
-        <p class="muted">${mode === "sql"
-          ? "Database pribadi di browser ini. Ubah sesuka hati; tekan Reset data untuk mengembalikan isi awal."
-          : "Tulis program bebas. Isi kotak Masukan untuk perintah read()."}</p>`;
+      head.innerHTML = `<h3>Sandbox ${mode === "sql" ? (mysqlOn ? "MySQL" : "SQL") : "pseudocode"}</h3>
+        <p class="muted">${mode !== "sql"
+          ? "Tulis program bebas. Isi kotak Masukan untuk perintah read()."
+          : mysqlOn
+            ? "MySQL 8 sungguhan di server, khusus untukmu. Mulai di database <code>akademik</code>; boleh <code>CREATE DATABASE</code>, <code>USE</code>, view, trigger, dan prosedur (<code>DELIMITER</code>). Semua kembali ke nol saat sesi berakhir: 30 menit tanpa query, keluar, atau tab ditutup."
+            : "Database pribadi di browser ini (SQLite; sintaks MySQL umum diterima). Ubah sesuka hati; tekan Reset data untuk mengembalikan isi awal."}</p>`;
     } else {
       // Deskripsi latihan: teks biasa dengan `kode` dan daftar "- ".
       const html = esc(l.deskripsi)
@@ -220,7 +228,9 @@ export async function openTerminal(): Promise<void> {
     $(".step").hidden = !pseudo;
     $(".check").hidden = !l;
     $(".t-input").hidden = !pseudo;
-    datasetSel.hidden = !(mode === "sql" && !l);
+    datasetSel.hidden = !(mode === "sql" && !l) || mysqlOn;
+    $(".t-db").hidden = !(mode === "sql" && !l && mysqlOn);
+    $(".t-db").innerHTML = `MySQL · <code>${esc(dbNow ?? "(tanpa database)")}</code>`;
     $(".reset-data").hidden = mode !== "sql" || !!l;
     $(".t-symbols").replaceChildren(
       ...(pseudo ? ["←", "≠", "≤", "≥"] : []).map((s) => {
@@ -269,16 +279,47 @@ export async function openTerminal(): Promise<void> {
         if (r.timeout) return void (out.innerHTML = timeoutMsg());
         out.innerHTML = pseudoOutput(r.value.output, r.value);
         mark({ error: r.value.error?.line });
-      } else {
+      } else if (mysqlOn) {
         const l = current() as SqlLatihan | undefined;
-        const ds = datasetOf(l);
-        const r = await sqlRunner.run({ op: "run", datasetName: ds, datasetSql: datasetSql(ds), code, fresh: !!l, persiapan: l?.persiapan });
-        if (r.timeout) return void (out.innerHTML = timeoutMsg());
-        out.innerHTML = sqlOutput(r.value);
-      }
+        const r = await viaMysql(() => (l ? praktikCall("/api/praktik/latihan", { id: l.id, code, periksa: false }) : praktikCall("/api/praktik/run", { code })));
+        if (r) out.innerHTML = (r.notice ? `<p class="term-warn">${esc(r.notice)}</p>` : "") + sqlOutput({ statements: r.statements });
+        else if (r === null) await runSqlJs(code);
+      } else await runSqlJs(code);
     } finally {
       busy(false);
     }
+  }
+
+  /**
+   * Memanggil MySQL server. null = server tidak terjangkau, beralih ke sql.js (cadangan);
+   * undefined = galat lain yang sudah ditampilkan (mis. sesi berakhir, perintah masih berjalan).
+   */
+  async function viaMysql(call: () => Promise<PraktikRun>): Promise<PraktikRun | null | undefined> {
+    try {
+      const r = await call();
+      if (r.db !== undefined) dbNow = r.db;
+      renderHead();
+      return r;
+    } catch (e) {
+      if (e instanceof PraktikFail && (e.status === 0 || e.status === 503 || e.status >= 500)) {
+        mysqlOn = false;
+        renderHead();
+        view?.dispatch({ effects: langConf.reconfigure(language()) });
+        out.insertAdjacentHTML("afterbegin", `<p class="term-warn">Server MySQL tidak terjangkau. Memakai mesin SQL cadangan di browser.</p>`);
+        return null;
+      }
+      out.innerHTML = `<p class="term-error">${esc(e instanceof Error ? e.message : String(e))}</p>`;
+      return undefined;
+    }
+  }
+
+  /** sql.js di browser; peringatan "beralih ke cadangan" (bila ada) tetap ditampilkan di atas. */
+  async function runSqlJs(code: string) {
+    const warn = out.querySelector(".term-warn")?.outerHTML ?? "";
+    const l = current() as SqlLatihan | undefined;
+    const ds = datasetOf(l);
+    const r = await sqlRunner.run({ op: "run", datasetName: ds, datasetSql: datasetSql(ds), code, fresh: !!l, persiapan: l?.persiapan });
+    out.innerHTML = warn + (r.timeout ? timeoutMsg() : sqlOutput(r.value));
   }
 
   async function check() {
@@ -317,6 +358,17 @@ export async function openTerminal(): Promise<void> {
   }
 
   async function checkSql(l: SqlLatihan, code: string) {
+    if (mysqlOn) {
+      const m = await viaMysql(() => praktikCall("/api/praktik/latihan", { id: l.id, code, periksa: true }));
+      if (m === undefined) return { ok: false, html: out.innerHTML };
+      if (m) {
+        const err = m.statements.find((x) => x.error);
+        if (err) return { ok: false, html: `<p class="term-error">${esc(err.error!)}</p>` };
+        const ddl = !!l.periksa;
+        if (!m.ok) return { ok: false, html: `<p>${esc(m.reason ?? "Hasil belum sesuai.")}</p>${ddl ? "" : sqlOutput({ statements: m.statements })}` };
+        return { ok: true, html: ddl ? "<p>Struktur tabel sesuai.</p>" : sqlOutput({ statements: m.statements }) };
+      }
+    }
     const r = await sqlRunner.run({ op: "run", datasetName: l.dataset, datasetSql: datasetSql(l.dataset), code, fresh: true, persiapan: l.persiapan, periksa: l.periksa });
     if (r.timeout) return { ok: false, html: timeoutMsg() };
     const res = r.value;
@@ -455,6 +507,12 @@ export async function openTerminal(): Promise<void> {
     codes.delete(key());
   };
   $(".reset-data").onclick = async () => {
+    if (mysqlOn) {
+      if (!confirm("Hapus semua database praktikmu dan kembalikan akademik ke isi awal?")) return;
+      const r = await viaMysql(() => praktikCall("/api/praktik/reset"));
+      if (r) return void (out.innerHTML = `<p class="ok-line">Semua database praktikmu dihapus; akademik dikembalikan ke isi awal.</p>`);
+      if (r === undefined) return;
+    }
     await sqlRunner.run({ op: "reset", datasetName: sandboxDataset, datasetSql: "" });
     out.innerHTML = `<p class="ok-line">Database ${esc(sandboxDataset)} dikembalikan ke isi awal.</p>`;
   };

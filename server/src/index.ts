@@ -19,6 +19,7 @@ const app = await buildApp({
   // Tanpa DATABASE_URL akun hanya di memori (untuk mencoba lokal).
   store: process.env.DATABASE_URL ? new PrismaStore(process.env.DATABASE_URL) : undefined,
   admin: { username: process.env.ADMIN_USERNAME, password: process.env.ADMIN_PASSWORD },
+  praktik: process.env.PRAKTIK_MYSQL_URL ? { url: process.env.PRAKTIK_MYSQL_URL, latihanDir: resolve(dataRoot, "latihan") } : undefined,
 });
 
 for (const sig of ["SIGTERM", "SIGINT"] as const) {

@@ -12,8 +12,10 @@ disepakati dengan pemilik proyek, jangan diubah diam-diam.
 - **Tidak ada username.** Nama pemain = nama lengkap. Login: **NIM (mahasiswa) /
   NIP (dosen) + kata sandi**. Sistem tetap memakai id internal karena nama bisa kembar.
 - Isi chat **tidak disimpan**. Penyaringan penerima dilakukan di server.
-- Kode latihan mahasiswa dijalankan **di browser** (Web Worker + batas waktu),
-  bukan di server.
+- Kode latihan mahasiswa dijalankan **di browser** (Web Worker + batas waktu), kecuali
+  **SQL**: bila ada `PRAKTIK_MYSQL_URL`, SQL dijalankan di **MySQL praktik terpisah** (user
+  sementara per sesi, kembali ke nol saat sesi habis; `server/src/praktik/`). Keputusan
+  pemilik proyek 24 Okt 2026; sql.js tetap jadi cadangan.
 - Kepala berhijab sementara hanya boleh memakai baju Hoodie dan Flanel; Hijab
   panjang dan Hijab sport disembunyikan dulu.
 - Peta: **hibrida**: satu peta `kampus` terhubung (halaman luar + lobi + perpustakaan, kamera mengikuti pemain,

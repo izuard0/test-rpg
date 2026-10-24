@@ -8,7 +8,7 @@ deskripsi: |
   (bilangan bulat, NOT NULL) yang merujuk `Instruktur(instruktur_id)`.
 persiapan: |
   CREATE TABLE Instruktur (
-    instruktur_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    instruktur_id INT AUTO_INCREMENT PRIMARY KEY,
     nama_instruktur VARCHAR(100) NOT NULL,
     email VARCHAR(100) UNIQUE
   );
@@ -23,3 +23,11 @@ kunci: |
 periksa: |
   SELECT name, "notnull", pk FROM pragma_table_info('Kursus') ORDER BY cid;
   SELECT "table", "from", "to" FROM pragma_foreign_key_list('Kursus');
+periksaMysql: |
+  SELECT LOWER(column_name), is_nullable, column_key, extra LIKE '%auto_increment%'
+  FROM information_schema.columns
+  WHERE table_schema = DATABASE() AND LOWER(table_name) = 'kursus'
+  ORDER BY ordinal_position;
+  SELECT LOWER(column_name), LOWER(referenced_table_name), LOWER(referenced_column_name)
+  FROM information_schema.key_column_usage
+  WHERE table_schema = DATABASE() AND LOWER(table_name) = 'kursus' AND referenced_table_name IS NOT NULL;

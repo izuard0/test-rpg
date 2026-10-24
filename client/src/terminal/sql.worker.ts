@@ -4,7 +4,7 @@
 
 import initSqlJs, { type Database, type SqlJsStatic } from "sql.js";
 import wasmUrl from "sql.js/dist/sql-wasm.wasm?url";
-import { emulateAlter, execScript, explainSqlError, mysqlToSqlite, needsAlterEmulation, splitStatements, type ResultSet } from "@mita/shared";
+import { emulateAlter, execScript, explainSqlError, mysqlToSqlite, needsAlterEmulation, splitStatements, type ResultSet, type SqlStatementResult } from "@mita/shared";
 
 export interface SqlRequest {
   op: "run" | "reset";
@@ -18,14 +18,7 @@ export interface SqlRequest {
   periksa?: string;
 }
 
-export interface SqlStatementResult {
-  sql: string;
-  columns?: string[];
-  rows?: ResultSet["rows"];
-  truncated?: boolean;
-  changes?: number;
-  error?: string;
-}
+export type { SqlStatementResult };
 
 export interface SqlResponse {
   statements: SqlStatementResult[];

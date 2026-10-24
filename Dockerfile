@@ -43,6 +43,9 @@ COPY --from=build /app/client/dist client/dist
 # Data peta dan konfigurasi karakter untuk server game (tabrakan, zona chat, kursi).
 COPY maps/*.tmj maps/
 COPY export/character/config.json export/character/
+# Dataset dan soal SQL (beserta kunci) untuk terminal praktik MySQL; kunci tidak dikirim ke browser.
+COPY latihan/data latihan/data
+COPY latihan/sql latihan/sql
 ARG APP_VERSION=dev
 ENV APP_VERSION=$APP_VERSION
 USER node

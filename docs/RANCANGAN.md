@@ -345,6 +345,20 @@ menyala** dan **tabel jejak variabel**, seperti simulasi di slide Minggu 10.
 - Batas jumlah keluaran (mis. 1.000 baris) agar tab tidak macet.
 - Python dan pseudocode tidak punya akses jaringan atau berkas di luar sandbox.
 
+### Terminal MySQL sungguhan (disetujui pemilik proyek, 24 Okt 2026)
+
+- Mode SQL memakai **MySQL 8 terpisah** (layanan Coolify sendiri, bukan PostgreSQL akun) bila
+  `PRAKTIK_MYSQL_URL` diatur; sql.js di browser jadi cadangan otomatis bila MySQL tidak ada.
+- Per akun ada **sesi**: user MySQL sementara yang hanya berhak atas database berawalan
+  `p_<id>_`. Mahasiswa bebas `CREATE DATABASE`, `USE`, `SHOW DATABASES`, view, trigger, dan
+  prosedur (`DELIMITER`); awalan disembunyikan. Mulai dengan salinan `akademik`.
+- **Kembali ke nol saat sesi berakhir**: 30 menit tanpa query, keluar, tab ditutup, akun
+  dicabut, atau server dimulai ulang. *Reset data* menghapus semua database sesi.
+- Latihan dinilai di MySQL (kunci dan kode mahasiswa di database baru masing-masing).
+- Pengaman: 5 detik per query (dihentikan paksa), 500 baris hasil, 10 database dan 50 MB per
+  sesi, 2 koneksi dan 5.000 query per jam per user, tanpa hak global (FILE/SUPER/GRANT/EVENT),
+  perintah administrasi ditolak. MySQL hanya di jaringan internal.
+
 ### Penyimpanan
 
 - Kode terakhir per latihan disimpan ke **akun** (server), bukan ke

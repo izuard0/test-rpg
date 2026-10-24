@@ -99,7 +99,12 @@ export class AuthService {
   async logout(): Promise<void> {
     const had = this.tokenValue;
     this.setToken(null);
-    if (had) await fetch(`${serverUrl()}/api/auth/logout`, { method: "POST", headers: { authorization: `Bearer ${had}` } }).catch(() => undefined);
+    if (had) {
+      const headers = { authorization: `Bearer ${had}` };
+      // Sesi praktik MySQL ikut diakhiri (database praktik kembali ke nol).
+      await fetch(`${serverUrl()}/api/praktik/end`, { method: "POST", headers }).catch(() => undefined);
+      await fetch(`${serverUrl()}/api/auth/logout`, { method: "POST", headers }).catch(() => undefined);
+    }
   }
 
   private setToken(t: string | null): void {
